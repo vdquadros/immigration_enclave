@@ -1,0 +1,2201 @@
+ Data Dictionary for Census of Population and Housing, 1980 ‚United States„:    
+                                                                                
+ Public Use Microdata Sample (A Sample): 5-Percent Sample                       
+   (ICPSR 8101)                                                                 
+                                                                                
+ Public Use Microdata Sample (B Sample): 1-Percent Sample                       
+   (ICPSR 8170)                                                                 
+                                                                                
+ Public Use Microdata Sample (C Sample): 1-Percent Sample                       
+   (ICPSR 8114)                                                                 
+                                                                                
+ Public Use Microdata Sample (A Sample): 1/1000 Sample                          
+   (ICPSR 8210)                                                                 
+                                                                                
+ Public Use Microdata Sample (B Sample): 1/1000 Sample                          
+   (ICPSR 8211)                                                                 
+                                                                                
+ Public Use Microdata Sample (C Sample): 1/1000 Sample                          
+   (ICPSR 8212)                                                                 
+                                                                                
+ ----------------------------------------------------------------------------   
+                                                                                
+                       PUMSH  DATA DICTIONARY                                   
+                             RECORD  H                                          
+                     SIZE/                                                      
+       NAME          SCALE  BEGIN                                               
+                                                                                
+     RECTYPE           1      1                                                 
+                            Record Type                                         
+                   H        Housing record                                      
+                                                                                
+     SAMPLE            1      2                                                 
+                            Sample Identifier                                   
+                   1        A Sample                                            
+                   2        B Sample                                            
+                   3        C Sample                                            
+                                                                                
+     DIVISION          1      3                                                 
+                            Region/Division                                     
+                   0        Region/division not identi-                         
+                              fiable (selected SMSAs                            
+                              on B Sample, See App. C)                          
+                            Northeast region:                                   
+                   1          New England division                              
+                   2          Middle Atlantic division                          
+                            North Central region:                               
+                   3          East North Central division                       
+                   4          West North Central division                       
+                            South region:                                       
+                   5          South Atlantic division                           
+                   6          East South Central division                       
+                   7          West South Central division                       
+                            West region:                                        
+                   8          Mountain division                                 
+                   9          Pacific division                                  
+                                                                                
+     STATE             2      4                                                 
+                            State                                               
+                 01-56      FIPS state code (See App. A)                        
+                 61-68      State group code (selected                          
+                              states on C Sample-See App. A)                    
+                   99       State not identified (selected                      
+                              county groups on B Sample-See App. C)             
+                                                                                
+     COGRP             3      6                                                 
+                            County Croup (A and B Samples only)                 
+                   000      N/A (C Sample)                                      
+                001-998     County group code (unique within state)             
+                                                                                
+     AREATYPE          1      9                                                 
+                            Type of Area                                        
+                   1        Central city of SMSA (selected central cities       
+                              on A and B Samples )                              
+                   2        SMSA, outside central city (selected areas          
+                              on A and B Samples)                               
+                   3        SMSA, central city/remainder not                    
+                              separately identified (selected SMSAs or SMSA     
+                              parts on A and B Samples for which codes 1        
+                              and 2 cannot be shown)                            
+                   4        Mixed SMSA/non SMSA area                            
+                              (A Samples only)                                  
+                   5        Outside SMSAs                                       
+                              (A and B Samples)                                 
+                   6        Central city of urbanized area                      
+                              (C Sample only)                                   
+                   7        Urban fringe                                        
+                              (C Sample only)                                   
+                   8        Urban, outside urbanized areas                      
+                              (C Sample only)                                   
+                   9        Rural (C Sample only)                               
+                                                                                
+     SMSA              4     10                                                 
+                            SMSA (A and B Samples only)                         
+                0000        N/A (C Sample, area outside SMSAs)                  
+               0040-9340    FIPS SMSA code, selected SMSAs (See App. B)         
+                9999        County group consisting of 2 or more SMSAs or       
+                              mixed SMSA/non SMSA area)                         
+                                                                                
+     UA                4     14                                                 
+                            Urbanized Area (C Sample only)                      
+                0000        N/A (A and B Samples, area outside identified UAs)  
+               0080-9320    Census urbanized area code (selected UAs-           
+                              See App. D)                                       
+                                                                                
+     SUBSAMPL          2     18                                                 
+                            Subsample Number                                    
+                 00-99      See text, pp. 29 and 43                             
+                                                                                
+     SERIALNO          6     20                                                 
+                            Housing Unit/GQ Person Serial Number                
+             000000-999999  Unique identifier assigned within State or          
+                              State group                                       
+                                                                                
+     PERSONS           2     26                                                 
+                            Number of Person Records Following                  
+                              This Housing Unit Record                          
+                  00        Vacant unit                                         
+                  01        One person record (one person in                    
+                              household or any person in group                  
+                              quarters)                                         
+                 02-31      Number of persons in household                      
+                                                                                
+     GQTYPE            1     28                                                 
+                            Type of Group Quarters                              
+                   0        N/A (not in group quarters)                         
+                   1        Inmate of mental hospital                           
+                   2        Inmate of home for the aged                         
+                   3        Inmate of correctional Institution                  
+                   4        Inmate of other institution                         
+                   5        In military quarters                                
+                   6        In college dormitory                                
+                   7        In rooming house                                    
+                   8        Other in group quarters, including                  
+                              noninmate living in institution                   
+                                                                                
+     TENURE            1     29                                                 
+                            Tenure                                              
+                   0        N/A (vacant unit or group quarters)                 
+                   1        Owner occupied                                      
+                            Renter occupied:                                    
+                   2          With cash rent                                    
+                   3          No cash rent                                      
+                                                                                
+     VACANCY1          1     30                                                 
+                            Seasonal and Migratory Vacancy Status               
+                   0        N/A (occupied or group quarters)                    
+                   1        Vacant, year round                                  
+                   2        Vacant, seasonal or migratory                       
+                                                                                
+     VACANCY2          1     31                                                 
+                            Vacancy Type                                        
+                   0        N/A (occupied, group quarters or                    
+                              vacant seasonal or                                
+                              migratory)                                        
+                   1        For rent                                            
+                   2        For sale only                                       
+                   3        Rented or sold, awaiting occupancy                  
+                   4        Held for occasional use                             
+                   5        Other vacant                                        
+                                                                                
+     VACANCY3          1     32                                                 
+                            Boarded Up Status                                   
+                   0        N/A (occupied, group quarters or                    
+                              vacant seasonal or                                
+                              migratory)                                        
+                   1        Boarded up                                          
+                   2        Not boarded up                                      
+                                                                                
+     VACANCY4          1     33                                                 
+                            Duration of Vacancy                                 
+                   0        N/A (occupied, group quarters or                    
+                              vacant seasonal or migratory)                     
+                   1        Less than 1 month                                   
+                   2        1 up to 2 months                                    
+                   3        2 up to 6 months                                    
+                   4        6 up to 12 months                                   
+                   5        1 year up to 2 years                                
+                   6        2 years or more                                     
+                                                                                
+     UHE               1     34                                                 
+                            Usual Home Elsewhere                                
+                   0        Not originally reported as usual home               
+                              elsewhere, or group quarters                      
+                   1        Originally reported as usual home                   
+                              elsewhere                                         
+                                                                                
+     CONDO             1     35                                                 
+                            Condominium Status                                  
+                   0        N/A (group quarters)                                
+                   1        Not a condominium Unit                              
+                   2        Condominium unit                                    
+                                                                                
+     UNITS1            2     36                                                 
+                            Units in Structure                                  
+                  00        N/A (group quarters)                                
+                  01        Mobile home or trailer                              
+                  02        One-family house detached from any                  
+                              other house                                       
+                  03        One-family house attached to one or                 
+                              more houses                                       
+                  04        Building for 2 families                             
+                  05        Building for 3 or 4 families                        
+                  06        Building for 5 to 9 families                        
+                  07        Building for 10 to 19 families                      
+                  08        Building for 20 to 49 families                      
+                  09        Building for 50 or more families                    
+                  10        Boat, tent, van, etc.                               
+                                                                                
+     UNITS2            2     38                                                 
+                            Units at Address                                    
+                  00        N/A (group quarters)                                
+                  01        One                                                 
+                  02        Two                                                 
+                  03        Three                                               
+                  04        Four                                                
+                  05        Five                                                
+                  06        Six                                                 
+                  07        Seven                                               
+                  08        Eight                                               
+                  09        Nine                                                
+                  10        Ten or more                                         
+                  11        Mobile home or trailer                              
+                                                                                
+     ACCESS            1     40                                                 
+                            Access                                              
+                   0        N/A (group quarters)                                
+                   1        Access to unit directly from the                    
+                              outside or through a common or                    
+                              public hall                                       
+                   2        Access to unit through someone else's               
+                              living quarters                                   
+                                                                                
+     YRBUILT           1     41                                                 
+                            Year Structure Built                                
+                   0        N/A (group quarters)                                
+                   1        1979 to March 1980                                  
+                   2        1975 to 1978                                        
+                   3        1970 to 1974                                        
+                   4        1960 to 1969                                        
+                   5        1950 to 1959                                        
+                   6        1940 to 1949                                        
+                   7        1939 or earlier                                     
+                                                                                
+     STORIES           1     42                                                 
+                            Stories in Structure                                
+                   0        N/A (group quarters)                                
+                   1        1 to 3 stories                                      
+                   2        4 to 6 stories                                      
+                   3        7 to 12 stories                                     
+                   4        13 or more stories                                  
+                                                                                
+     ELEVATOR          1     43                                                 
+                            Passenger Elevator                                  
+                   0        N/A (group quarters or structure                    
+                              with less than 4 stories)                         
+                   1        With passenger elevator in                          
+                              structure                                         
+                   2        No passenger elevator in                            
+                              structure                                         
+                                                                                
+     ROOMS             1     44                                                 
+                            Rooms                                               
+                   0        N/A (group quarters)                                
+                   1        One rooms                                           
+                   2        Two rooms                                           
+                   3        Three rooms                                         
+                   4        Four rooms                                          
+                   5        Five rooms                                          
+                   6        Six rooms                                           
+                   7        Seven rooms                                         
+                   8        Eight rooms                                         
+                   9        Nine or more rooms                                  
+                                                                                
+     BEDROOMS          1     45                                                 
+                            Bedrooms                                            
+                   0        N/A (group quarters)                                
+                   1        None                                                
+                   2        One bedroom                                         
+                   3        Two bedrooms                                        
+                   4        Three bedrooms                                      
+                   5        Four bedrooms                                       
+                   6        Five or more bedrooms                               
+                                                                                
+     PLUMBING          1     46                                                 
+                            Plumbing Facilities                                 
+                   0        N/A (group quarters)                                
+                   1        Complete plumbing for                               
+                              exclusive use                                     
+                            Lacking complete plumbing for                       
+                             exclusive use:                                     
+                   2          Complete plumbing but used by                     
+                                another household                               
+                   3          Some but not all plumbing facilities              
+                   4          No plumbing facilities                            
+                                                                                
+     KITCHEN           1     47                                                 
+                            Kitchen Facilities                                  
+                   0        N/A (group quarters)                                
+                   1        Complete kitchen facilities                         
+                   2        No complete kitchen facilities                      
+                                                                                
+     BATHROOM          1     48                                                 
+                            Bathrooms                                           
+                   0        N/A (group quarters)                                
+                   1        No bathroom or only a half bath                     
+                   2        One complete bathroom                               
+                   3        One complete bathroom plus half                     
+                              bath(s)                                           
+                   4        Two or more complete bathrooms                      
+                                                                                
+     WATER             1     49                                                 
+                            Source of Water                                     
+                   0        N/A (group quarters)                                
+                   1        Public system or private company                    
+                   2        Individual drilled well                             
+                   3        Individual dug well                                 
+                   4        Some other source                                   
+                                                                                
+     SEWAGE            1     50                                                 
+                            Sewage Disposal                                     
+                   0        N/A (group quarters)                                
+                   1        Public sewer                                        
+                   2        Septic tank or cesspool                             
+                   3        Other means                                         
+                                                                                
+     AIRCOND           1     51                                                 
+                            Air Conditioning                                    
+                   0        N/A (group quarters)                                
+                   1        Central system                                      
+                   2        One individual room unit                            
+                   3        Two or more individual rooms units                  
+                   4        None                                                
+                                                                                
+     HEATING           1     52                                                 
+                            Heating Equipment                                   
+                   0        N/A (group quarters)                                
+                   1        Steam or hot water systems                          
+                   2        Central warm air furnace                            
+                   3        Electric heat pump                                  
+                   4        Other built-in electric units                       
+                   5        Floor, wall, or pipeless furnace                    
+                   6        Room heaters with flue                              
+                   7        Room heaters without flue                           
+                   8        Fireplaces, stoves, or portable room                
+                              heaters                                           
+                   9        None                                                
+                                                                                
+     FUELHEAT          1     53                                                 
+                            House Heating Fuel                                  
+                   0        N/A (vacant unit or group quarters)                 
+                   1        Utility gas from underground pipes                  
+                              serving the neighborhood                          
+                   2        Bottle, tank or LP gas                              
+                   3        Electricity                                         
+                   4        Fuel oil, kerosene, etc.                            
+                   5        Coal or coke                                        
+                   6        Wood                                                
+                   7        Other fuel                                          
+                   8        No fuel used                                        
+                                                                                
+     FUELWTR           1     54                                                 
+                            Water Heating Fuel                                  
+                   0        N/A (vacant unit or group quarters)                 
+                   1        Utility gas from underground pipes                  
+                              serving the neighborhood                          
+                   2        Bottled, tank or LP gas                             
+                   3        Electricity                                         
+                   4        Fuel oil, kerosene, etc.                            
+                   5        Coal or coke                                        
+                   6        Wood                                                
+                   7        Other fuel                                          
+                   8        No fuel used                                        
+                                                                                
+     FUELCOOK          1     55                                                 
+                            Cooking Fuel                                        
+                   0        N/A (vacant unit or group quarters)                 
+                   1        Utility gas from underground pipes                  
+                              serving the neighborhood                          
+                   2        Bottled, tank or LP gas                             
+                   3        Electricity                                         
+                   4        Fuel oil, kerosene, etc.                            
+                   5        Coal or coke                                        
+                   6        Wood                                                
+                   7        Other fuel                                          
+                   8        No fuel used                                        
+                                                                                
+     AUTOS             1     56                                                 
+                            Automobile Available                                
+                   0        N/A (vacant unit or group quarters)                 
+                   1        None                                                
+                   2        One                                                 
+                   3        Two                                                 
+                   4        Three or more                                       
+                                                                                
+     TRUCKS            1     57                                                 
+                            Trucks and Vans Available                           
+                   0        N/A (vacant unit or group quarters)                 
+                   1        None                                                
+                   2        One                                                 
+                   3        Two                                                 
+                   4        Three or more                                       
+                                                                                
+     TELEPHON          1     58                                                 
+                            Telephone In Housing Unit                           
+                   0        N/A (vacant unit or group quarters)                 
+                   1        With telephone                                      
+                   2        No telephone                                        
+                                                                                
+     YRMOVED           1     59                                                 
+                            Year Householder Moved into Unit                    
+                   0        N/A (group quarters or vacant)                      
+                   1        1979 to March 1980                                  
+                   2        1975 to 1978                                        
+                   3        1970 to 1974                                        
+                   4        1960 to 1969                                        
+                   5        1950 to 1959                                        
+                   6        1949 or earlier                                     
+                                                                                
+     ACREAGE1          1     60                                                 
+                            Acreage of Property (H10a on                        
+                              questionnaire-used in determining                 
+                              universe for value and rent)                      
+                   0        N/A (group quarters, or two or more                 
+                              units at address)                                 
+                   1        House on a property of 10 or more acres             
+                   2        House on a property of less than 10                 
+                              acres                                             
+                                                                                
+     ACREAGE2          1     61                                                 
+                            Acreage of property (H15a on                        
+                              questionnaire-used in determining                 
+                              universe for farm status)                         
+                   0        N/A (group quarters)                                
+                   1        City or suburban lot, or a                          
+                              place of less than 1 acre                         
+                   2        1 to 9 acres                                        
+                   3        10 or more acres                                    
+                                                                                
+     FARM              1     62                                                 
+                            Farm Status and Sales of Farm Products              
+                   0        N/A (urban, city or suburban lot, place             
+                              of less than 1 acre, vacant unit or               
+                              group quarters)                                   
+                            Rural nonfarm (not all rural nonfarm                
+                              is included):                                     
+                   1          $0 to $49                                         
+                   2          $50 to $249                                       
+                   3          $250 to $599                                      
+                   4          $600 to $999                                      
+                            Rural farm:                                         
+                   5          $1000 to $2499                                    
+                   6          $2500 or more                                     
+                                                                                
+     COMMUSE           1     63                                                 
+                            Commercial Establishment or Medical                 
+                              Office on Property                                
+                   0        N/A (group quarters, two or more units              
+                              in structure, mobile home or trailer)             
+                   1        Yes                                                 
+                   2        NO                                                  
+                                                                                
+     VALUE             2     64                                                 
+                            Value                                               
+                  00        N/A (group quarters; vacant unit                    
+                              except vacant for sale; renter-                   
+                              occupied unit; mobile home                        
+                              or trailer; or noncondominium unit                
+                              with two or more units at address                 
+                              on 10 or more acres, or with a                    
+                              commercial establishment or medical               
+                              office on property)                               
+                  01        Less than $10,000                                   
+                  02        $10,000 to $14,999                                  
+                  03        $15,000 to $17,499                                  
+                  04        $17,500 to $19,999                                  
+                  05        $20,000 to $22,499                                  
+                  06        $22,500 to $24,999                                  
+                  07        $25,000 to $27,499                                  
+                  08        $27,500 to $29,999                                  
+                  09        $30,000 to $34,999                                  
+                  10        $35,000 to $39,999                                  
+                  11        $40,000 to $44,999                                  
+                  12        $45,000 to $49,999                                  
+                  13        $50,000 to $54,999                                  
+                  14        $55,000 to $59,999                                  
+                  15        $60,000 to $64,999                                  
+                  16        $65,000 to $69,999                                  
+                  17        $70,000 to $74,999                                  
+                  18        $75,000 to $79,999                                  
+                  19        $80,000 to $89,999                                  
+                  20        $90,000 to $99,999                                  
+                  21        S100,000 to $124,999                                
+                  22        $125,000 to $149,999                                
+                  23        $150,000 to $199,999                                
+                  24        $200,000 or more                                    
+                                                                                
+     ELECPAID          1     66                                                 
+                            Payment of Electricity                              
+                   0        N/A (vacant unit or group quarters)                 
+                   1        Electricity paid, amount shown in                   
+                              ELECCOST                                          
+                   2        Included in rent or no charge                       
+                   3        Electricity not used                                
+                                                                                
+     ELECCOST          3     67                                                 
+                            Monthly Cost of Electricity                         
+                 000        N/A (vacant unit, group quarters, or                
+                              no payment for electricity)                       
+                001-199     Cost in dollars                                     
+                 200        $200 or more                                        
+                                                                                
+     GASPAID           1     70                                                 
+                            Payment of Gas                                      
+                   0        N/A (vacant unit or group quarters)                 
+                   1        Gas paid, amount shown in GASCOST                   
+                   2        Included in rent or no charge                       
+                   3        Gas not used                                        
+                                                                                
+     GASCOST           3     71                                                 
+                            Monthly Cost of Gas                                 
+                 000        N/A (vacant unit, group quarters, or                
+                              no payment for gas)                               
+                001-149     Cost in dollars                                     
+                 150        $150 or more                                        
+                                                                                
+     WTRPAID           1     74                                                 
+                            Payment of Water                                    
+                   0        N/A (vacant unit of group quarters)                 
+                   1        Water paid, amount shown in WTRCOST                 
+                   2        Included in rent or no charge                       
+                                                                                
+     WTRCOST           3     75                                                 
+                            Yearly Cost of Water                                
+                 000        N/A (vacant  unit, group quarters, or               
+                              no payment for water)                             
+                001-499     Cost in dollars                                     
+                 500        $500 or more                                        
+                                                                                
+     FUELPAID          1     78                                                 
+                            Payment of Oil, Coal, Kerosene,                     
+                              Wood, etc.                                        
+                   0        N/A (vacant unit or group quarters)                 
+                   1        Fuels paid, amount shown in FUELCOST                
+                   2        Included in rent or no charge                       
+                   3        These fuels not used                                
+                                                                                
+     FUELCOST          4     79                                                 
+                            Yearly Cost of Oil, Coal,                           
+                              Kerosene, Wood, etc.                              
+                0000        N/A (vacant unit group quarters, or                 
+                              no payment for these fuels)                       
+               0001-1999    Cost in dollars                                     
+                2000        $2000 or more                                       
+                                                                                
+     TAXINSUR          4     83                                                 
+                            Real Estate Taxes Last Year and Yearly              
+                              Property Insurance Premiums,                      
+                              Combined                                          
+                0000        No tax or insurance payments, or                    
+                              N/A (renter-occupied unit, vacant                 
+                              unit, unit on 10 or more acres, unit              
+                              with a commercial establishment or                
+                              medical office on property, two or                
+                              more units in structure, mobile                   
+                              home or trailer, condominium, or                  
+                              group quarters)                                   
+               0001-2999    Taxes plus insurance premiums in dollars            
+                3000        $3000 or more                                       
+                                                                                
+     MORTGAG1          1     87                                                 
+                            Mortgage Status                                     
+                   0        N/A (see TAXINSUR)                                  
+                   1        Yes, mortgage, deed of trust or                     
+                              similar debt                                      
+                   2        Yes, contract to purchase                           
+                   3        No                                                  
+                                                                                
+     MORTGAG2          1     88                                                 
+                            Second or Junior Mortgage                           
+                   0        N/A (no mortgage, deed of trust,                    
+                              contract to purchase or similar                   
+                              debt on this property, and others                 
+                              in TAXINSUR)                                      
+                   1        Yes                                                 
+                   2        No                                                  
+                                                                                
+     MORTGAG3          4     89                                                 
+                            Total Monthly Payment to                            
+                              Lender                                            
+                0000        No regular payment required or                      
+                              N/A (units with no mortgage                       
+                              and others in TAXINSUR)                           
+               0001-1499    Payment in dollars                                  
+                1500        $1500 or more                                       
+                                                                                
+     TAXINCL           1     93                                                 
+                            Inclusion of Real Estate Taxes                      
+                              in Payment to Lender                              
+                   0        N/A (no regular payment required;                   
+                              and others in MORTGAG2)                           
+                   1        Yes, payment includes taxes                         
+                   2        No                                                  
+                                                                                
+     INSINCL           1     94                                                 
+                            Inclusion of Insurance Premiums in                  
+                              Payment to Lender                                 
+                   0        N/A (see TAXINCL)                                   
+                   1        Yes, payment includes insurance premiums            
+                   2        No                                                  
+                                                                                
+     OWNERCST          4     95                                                 
+                            Selected Monthly Owner Costs                        
+                0000        N/A (renter-occupied unit, vacant unit,             
+                              unit on 10 or more acres, unit                    
+                              with a commercial establishment                   
+                              or medical office on property, two                
+                              or more units in structure, mobile                
+                              home or trailer, condominium, or                  
+                              group quarters)                                   
+               0001-1999    Cost in dollars                                     
+                2000        $2000 or more                                       
+                                                                                
+     RENT1             2     99                                                 
+                            Contract Rent                                       
+                  00        N/A (Owner-occupied unit, vacant                    
+                              unit except vacant for rent, unit                 
+                              on 10 or more acres with one                      
+                              unit at address, or group                         
+                              quarters)                                         
+                  01        Less than $50                                       
+                  02        $50 to $59                                          
+                  03        $60 to $69                                          
+                  04        $70 to $79                                          
+                  05        $80 to $89                                          
+                  06        $90 to $99                                          
+                  07        $100 to $109                                        
+                  08        $110 to $119                                        
+                  09        $120 to $129                                        
+                  10        $130 to $139                                        
+                  11        $140 to $149                                        
+                  12        $150 to $159                                        
+                  13        $160 to $169                                        
+                  14        $170 to $179                                        
+                  15        $180 to $189                                        
+                  16        $190 to $199                                        
+                  17        $200 to $224                                        
+                  18        $225 to $249                                        
+                  19        $250 to $274                                        
+                  20        $275 to $299                                        
+                  21        $300 to $349                                        
+                  22        $350 to $399                                        
+                  23        $400 to $499                                        
+                  24        $500 or more                                        
+                  25        No cash rent                                        
+                                                                                
+     RENT2             3    101                                                 
+                            Gross Rent                                          
+                 000        N/A (owner-occupied unit, unit                      
+                              rented without payment of cash                    
+                              rent, vacant unit, unit on 10                     
+                              or more acres with one unit                       
+                              at address, or group quarters)                    
+                001-998     Gross rent in dollars                               
+                 999        $999 or more                                        
+                                                                                
+     HHTYPE            1    104                                                 
+                            Household Type                                      
+                   0        N/A (vacant unit or group quarters)                 
+                   1        Married-couple family household                     
+                   2        Family household with male householder,             
+                              no wife present                                   
+                   3        Family household with female house-                 
+                              holder, no husband present                        
+                   4        Nonfamily household                                 
+                                                                                
+     CHILDREN          1    105                                                 
+                            Presence and Age of Own Children                    
+                   0        N/A (nonfamily household, vacant                    
+                              unit or group quarters)                           
+                   1        Family with own children under 6                    
+                              years only                                        
+                   2        Family with own children 6 to 17                    
+                              years only                                        
+                   3        Family with own children, some                      
+                              6 to 17 years, and some under 6                   
+                              years                                             
+                   4        Family without own children                         
+                                                                                
+     NSUBFAM           1    106                                                 
+                            Number of Subfamilies in Family                     
+                   0        None or N/A (vacant unit or group                   
+                              quarters)                                         
+                   1        One subfamily                                       
+                   2        Two subfamilies                                     
+                   3        Three subfamilies                                   
+                   4        Four subfamilies                                    
+                                                                                
+     HHINCOME          5    107                                                 
+                            Household income in 1979                            
+               00000        No income/loss or N/A (vacant unit                  
+                              or group quarters)                                
+               -9995        Loss of $9990 or more                               
+             -9985 to 74995 Income (or loss) in dollars                         
+               75000        Income of $75000 or more                            
+                                                                                
+     FAMINCOM          5    112                                                 
+                            Family Income in 1979                               
+               00000        No income/loss or N/A (nonfamily                    
+                              household, vacant unit or group quarters)         
+               -9995        Loss of $9990 or more                               
+             -9985 to 74995 Income (or loss) in dollars                         
+               75000        Income of $75000 or more                            
+                                                                                
+     AGQTYPE           1    117                                                 
+                            Allocation of Type of Group Quarters                
+                   0        Not allocated or N/A                                
+                   1        Allocated, assigned                                 
+                                                                                
+     ATENURE           1    118                                                 
+                            Allocation of Tenure                                
+                   0        Not allocated or N/A                                
+                   1        Allocated, hot deck                                 
+                   2        Allocated, assigned                                 
+                                                                                
+     AVAC1             1    119                                                 
+                            Allocation of Seasonal and Migratory                
+                              Vacancy Status                                    
+                   0        Not allocated or N/A                                
+                   1        Allocated, assigned                                 
+                                                                                
+     AVAC2             1    120                                                 
+                            Allocation of Vacancy Type                          
+                   0        Not allocated or N/A                                
+                   1        Allocated, assigned                                 
+                                                                                
+     AVAC3             1    121                                                 
+                            Allocation of Boarded Up Status                     
+                   0        Not allocated or N/A                                
+                   1        Allocated, assigned                                 
+                                                                                
+     AVAC4             1    122                                                 
+                            Allocation of Duration of Vacancy                   
+                   0        Not allocated or N/A                                
+                   1        Allocated, hot deck                                 
+                                                                                
+     ACONDO            1    123                                                 
+                            Allocation of Condominium Status                    
+                   0        Not allocated or N/A                                
+                   1        Allocated, hot deck                                 
+                   2        Allocated assigned                                  
+                   3        Allocated, structure edit                           
+                                                                                
+     ALNITS1           1    124                                                 
+                            Allocation of Units in Structure                    
+                   0        Not allocated or N/A                                
+                   1        Allocated, hot deck                                 
+                            Allocated, assigned                                 
+                                                                                
+     ALNITS2           1    125                                                 
+                            Allocation of Units at Address                      
+                   0        Not allocated or N/A                                
+                   1        Allocated, hot deck                                 
+                                                                                
+     AACCESS           1    126                                                 
+                            Allocation of Access                                
+                   0        Not allocated or N/A                                
+                   1        Allocated, assigned                                 
+                                                                                
+     AYRBUILT          1    127                                                 
+                            Allocation of Year Structure Built                  
+                   0        Not allocated or N/A                                
+                   1        Allocated, hot deck                                 
+                   2        Allocated, assigned                                 
+                                                                                
+     ASTORIES          1    128                                                 
+                            Allocation of Stories in Structure                  
+                   0        Not allocated or N/A                                
+                   1        Allocated, hot deck                                 
+                   2        Allocated, assigned                                 
+                                                                                
+     AELEVATO          1    129                                                 
+                            Allocation of Passenger Elevator                    
+                   0        Not allocated or N/A                                
+                   1        Allocated, hot deck                                 
+                   2        Allocated, assigned                                 
+                                                                                
+     AROOMS            1    130                                                 
+                            Allocation of Rooms                                 
+                   0        Not allocated or N/A                                
+                   1        Allocated, hot deck                                 
+                                                                                
+     ABEDROOM          1    131                                                 
+                            Allocation of Bedrooms                              
+                   0        Not allocated or N/A                                
+                   1        Allocated, hot deck                                 
+                   2        Allocated, assigned                                 
+                                                                                
+     APLUMBIN          1    132                                                 
+                            Allocation of Plumbing Facilities                   
+                   0        Not allocated or N/A                                
+                   1        Allocated, hot deck                                 
+                   2        Allocated, assigned                                 
+                                                                                
+     AKITCHEN          1    133                                                 
+                            Allocation of Kitchen Facilities                    
+                   0        Not allocated or N/A                                
+                   1        Allocated, hot deck                                 
+                   2        Allocated, assigned                                 
+                                                                                
+     ABATHROO          1    134                                                 
+                            Allocation of Bathrooms                             
+                   0        Not allocated or N/A                                
+                   1        Allocated, hot deck                                 
+                   2        Allocated, assigned                                 
+                                                                                
+     AWATER            1    135                                                 
+                            Allocation of Source of Water                       
+                   0        Not allocated or N/A                                
+                   1        Allocated, hot deck                                 
+                   2        Allocated, assigned                                 
+                                                                                
+     ASEWAGE           1    136                                                 
+                            Allocation of Sewage Disposal                       
+                   0        Not allocated or N/A                                
+                   1        Allocated, hot deck                                 
+                   2        Allocated, assigned                                 
+                                                                                
+     AAIRCOND          1    137                                                 
+                            Allocation of Air Conditioning                      
+                   0        Not allocated or N/A                                
+                   1        Allocated, hot deck                                 
+                                                                                
+     AHEATING          1    138                                                 
+                            Allocation of Heating Equipment                     
+                   0        Not allocated or N/A                                
+                   1        Allocated, hot deck                                 
+                   2        Allocated, assigned                                 
+                                                                                
+     AFUELHEA          1    139                                                 
+                            Allocation of House Heating Fuel                    
+                   0        Not allocated or N/A                                
+                   1        Allocated, hot deck                                 
+                   2        Allocated, assigned                                 
+                                                                                
+     AFUELWTR          1    140                                                 
+                            Allocation of Water Heating Fuel                    
+                   0        Not allocated or N/A                                
+                   1        Allocated, hot deck                                 
+                   2        Allocated, assigned                                 
+                                                                                
+     AFUELCOO          1    141                                                 
+                            Allocation of Cooking Fuel                          
+                   0        Not allocated or N/A                                
+                   1        Allocated, hot deck                                 
+                                                                                
+     AAUTOS            1    142                                                 
+                            Allocation of Automobiles Available                 
+                   0        Not allocated or N/A                                
+                   1        Allocated, hot deck                                 
+                                                                                
+     ATRUCKS           1    143                                                 
+                            Allocation of Trucks and Vans                       
+                              Available                                         
+                   0        Not allocated or N/A                                
+                   1        Allocated, hot deck                                 
+                                                                                
+     ATELEPHO          1    144                                                 
+                            Allocation of Telephone in Housing                  
+                              Unit                                              
+                   0        Not allocated or N/A                                
+                   1        Allocated, hot deck                                 
+                                                                                
+     AYRMOVED          1    145                                                 
+                            Allocation of Year Householder                      
+                              Moved into Unit                                   
+                   0        Not allocated or N/A                                
+                   1        Allocated, hot deck                                 
+                   2        Allocated, assigned                                 
+                                                                                
+     AACRE1            1    146                                                 
+                            Allocation of Acreage of Property (H10A             
+                              on questionnaire)                                 
+                   0        Not allocated or N/A                                
+                   1        Allocated, hot deck                                 
+                                                                                
+     AACRE2            1    147                                                 
+                            Allocation of Acreage of Property (H15a             
+                              on questionnaire)                                 
+                   0        Not allocated or N/A                                
+                   1        Allocated, hot deck                                 
+                   2        Allocated, assigned                                 
+                                                                                
+     AFARM             1    148                                                 
+                            Allocation of Farm Status and Sales of              
+                              Farm Products                                     
+                   0        Not allocated or N/A                                
+                   1        Allocated, hot deck                                 
+                                                                                
+     ACOMMERC          1    149                                                 
+                            Allocation of Commercial Establishment              
+                              or Medical Office                                 
+                   0        Not allocated or N/A                                
+                   1        Allocated, hot deck                                 
+                                                                                
+     AVALUE            1    150                                                 
+                            Allocation of Value                                 
+                   0        Not allocated or N/A                                
+                   1        Allocated, hot deck                                 
+                                                                                
+     AELECCOS          1    151                                                 
+                            Allocation of Monthly Cost                          
+                              of Electricity                                    
+                   0        Not allocated or N/A                                
+                   1        Allocated, hot deck                                 
+                                                                                
+     AGASCOST          1    152                                                 
+                            Allocation of Monthly Cost                          
+                              of Gas                                            
+                   0        Not allocated or N/A                                
+                   1        Allocated, hot deck                                 
+                                                                                
+     AWTRCOST          1    153                                                 
+                            Allocation of Yearly Cost of Water                  
+                   0        Not allocated or N/A                                
+                   1        Allocated, hot deck                                 
+                                                                                
+     AFUELCOS          1    154                                                 
+                            Allocation of Yearly Cost of Oil,                   
+                              Coal, Kerosene, Wood, etc.                        
+                   0        Not allocated or N/A                                
+                   1        Allocated, hot deck                                 
+                                                                                
+     ATAX              1    155                                                 
+                            Allocation of Real Estate Taxes                     
+                   0        Not allocated or N/A                                
+                 1 or 3     Allocated, hot deck                                 
+                                                                                
+     AINSUR            1    156                                                 
+                            Allocation of Yearly Insurance                      
+                              Premium                                           
+                   0        Not allocated or N/A                                
+                 1 or 3     Allocated, hot deck                                 
+                                                                                
+     AMORTG1           1    157                                                 
+                            Allocation of Mortgage Status                       
+                   0        Not allocated or N/A                                
+                 1 or 3     Allocated, hot deck                                 
+                   2        Allocated, assigned                                 
+                                                                                
+     AMORTG2           1    158                                                 
+                            Allocation of Second or junior                      
+                              Mortgage                                          
+                   0        Not allocated or N/A                                
+                 1 or 3     Allocated, hot deck                                 
+                                                                                
+     AMORTG3           1    159                                                 
+                            Allocation of Total Monthly                         
+                              Payment to Lender                                 
+                   0        Not allocated or N/A                                
+                 1 or 3     Allocated, hot deck                                 
+                                                                                
+     ATAXINCL          1    160                                                 
+                            Allocation of Inclusion of Taxes                    
+                              in Payment to Lender                              
+                   0        Not allocated or N/A                                
+                 1 or 3     Allocated, hot deck                                 
+                   2        Allocated, assigned                                 
+                                                                                
+     AINSINCL          1    161                                                 
+                            Allocation of Inclusion of Insurance                
+                              Premiums in Payment to Lender                     
+                   0        Not allocated or N/A                                
+                 1 or 3     Allocated, hot deck                                 
+                   2        Allocated, assigned                                 
+                                                                                
+     ARENT1            1    162                                                 
+                            Allocation of Contract Rent                         
+                   0        Not allocated or N/A                                
+                   1        Al located, hot deck                                
+                                                                                
+     FILLER           31    163                                                 
+                            Zero fill                                           
+                                                                                
+                                                                                
+                                                                                
+                       PUMSP    DATA DICTIONARY                                 
+                               RECORD  P                                        
+                     SIZE/                                                      
+       NAME          SCALE  BEGIN                                               
+                                                                                
+     RECTYP            1      1                                                 
+                            Record Type                                         
+                   P        Person record                                       
+                                                                                
+     RELAT1            2      2                                                 
+                            Relationship                                        
+                  00        Householder                                         
+                            Family other than householder:                      
+                  01          Spouse                                            
+                  02          Child                                             
+                  03          Brother or sister                                 
+                  04          Parent                                            
+                  05          Other relative (See RELAT2)                       
+                            Person not related to householder:                  
+                  06          Roomer or boarder                                 
+                  07          Partner or roommate                               
+                  08          Paid employee                                     
+                  09          Other nonrelative                                 
+                            In group quarters:                                  
+                  10          Inmate                                            
+                  11          Noninmate                                         
+                                                                                
+     RELAT2            1      4                                                 
+                   0        Detailed Relationship                               
+                            N/A (person not listed as other                     
+                              relative of householder)                          
+                   1        Son-in-law or daughter-in-law                       
+                   2        Grandchild                                          
+                   3        Father-in-law or mother-in-law                      
+                   4        Brother-in-law or sister-in-law                     
+                   5        Nephew or niece                                     
+                   6        Grandparent                                         
+                   7        Uncle or aunt                                       
+                   8        Cousin                                              
+                   9        Other person related by blood or                    
+                              marriage                                          
+                                                                                
+     SUBFAM1           1      5                                                 
+                            Subfamily Relationship                              
+                   0        N/A (group quarters or not in a                     
+                              subfamily)                                        
+                   1        Husband/wife in married-couple subfamily            
+                   2        Parent in parent-child subfamily                    
+                   3        Child in subfamily                                  
+                                                                                
+     SUBFAM2           1      6                                                 
+                            Subfamily Number                                    
+                   0        N/A (group quarters or not in a subfamily)          
+                   1        In subfamily #1                                     
+                   2        In subfamily #2                                     
+                   3        In subfamily #3                                     
+                   4        In subfamily #4                                     
+                                                                                
+     SEX               1      7                                                 
+                            Sex                                                 
+                   0        Male                                                
+                   1        Female                                              
+                                                                                
+     AGE               2      8                                                 
+                            Age                                                 
+                 00-89      Age in years                                        
+                  90        90 years or more                                    
+                                                                                
+     QTRBIRTH          1     10                                                 
+                            Quarter of Birth                                    
+                   0        January-March                                       
+                   1        April-June                                          
+                   2        July-September                                      
+                   3        October-December                                    
+                                                                                
+     MARITAL           1     11                                                 
+                            Marital Status                                      
+                   0        Now married, except separated                       
+                   1        Widowed                                             
+                   2        Divorced                                            
+                   3        Separated                                           
+                   4        Single or N/A (under 15 years of age)               
+                                                                                
+     RACE              2     12                                                 
+                            Race                                                
+                  01        White                                               
+                  02        Black                                               
+                  03        American Indian, Eskimo, Aleut                      
+                            Asian and Pacific Islander:                         
+                  04          Japanese                                          
+                  05          Chinese                                           
+                  06          Filipino                                          
+                  07          Korean                                            
+                  08          Asian Indian                                      
+                  09          Vietnamese                                        
+                  10          Hawaiian                                          
+                  11          Other Asian and Pacific Islander,                 
+                                including Guamanian and Samoan                  
+                            Other (Race n.e.c.):                                
+                  12          Spanish write-in entry                            
+                  13          Other                                             
+                                                                                
+     SPANISH           1     14                                                 
+                            Spanish Origin                                      
+                   0        N/A (not of Spanish origin)                         
+                   1        Mexican                                             
+                   2        Puerto Rican                                        
+                   3        Cuban                                               
+                   4        Other Spanish                                       
+                                                                                
+     SURNAME           1     15                                                 
+                            Spanish Surname                                     
+                   0        N/A (not in Arizona, California,                    
+                            Colorado, New Mexico or Texas;                      
+                              in Bowie County, Texas on B sample)               
+                   1        Spanish surname                                     
+                   2        Not Spanish surname                                 
+                   3        Not reported                                        
+                                                                                
+     ANCSTRY1          3     16                                                 
+                            Ancestry-First Entry                                
+                001-999     See App. E                                          
+                                                                                
+     ANCSTRY2          3     19                                                 
+                            Ancestry-Second Entry                               
+                001-999     See App. E                                          
+                                                                                
+     BIRTHPL           3     22                                                 
+                            Place of Birth                                      
+                001-056     FIPS state code (See App. A)                        
+                060-997     Foreign country or outlying area                    
+                              of the U.S. (See App. F)                          
+                                                                                
+     CITIZEN           1     25                                                 
+                            Citizenship                                         
+                   0        Born in the United States or                        
+                              outlying areas                                    
+                   1        Naturalized citizen                                 
+                   2        Not a citizen                                       
+                   3        Born abroad of American parents                     
+                                                                                
+     IMMIGR            1     26                                                 
+                            Year of Immigration                                 
+                   0        N/A (born in the United States or                   
+                              outlying areas or born abroad of                  
+                              American parents)                                 
+                   1        1975 to 1980                                        
+                   2        1970 to 1974                                        
+                   3        1965 to 1969                                        
+                   4        1960 to 1964                                        
+                   5        1950 to 1959                                        
+                   6        Before 1950                                         
+                                                                                
+     AGEMAR            2     35                                                 
+                            Age at First Marriage                               
+                  00        N/A (under 15 years of age or                       
+                              never married)                                    
+                 12-89      Age at first marriage in years                      
+                  90        90 years or over at first marriage                  
+                                                                                
+     QTRMAR            1     37                                                 
+                            Quarter of First Marriage                           
+                   0        N/A (under 15 years of age or                       
+                              never married)                                    
+                   1        January-March                                       
+                   2        April-June                                          
+                   3        July-September                                      
+                   4        October-December                                    
+                                                                                
+     WIDOWED           1     38                                                 
+                            Widowed                                             
+                   0        N/A (under 15 years of age, never                   
+                              married, or not married more                      
+                              than once)                                        
+                   1        First marriage ended because of                     
+                              death of spouse                                   
+                   2        Not widowed                                         
+                                                                                
+     SCHOOL            1     39                                                 
+                            School Enrollment and Type of School                
+                   0        Not enrolled in school or N/A (under 3              
+                              years of age)                                     
+                            Enrolled in school:                                 
+                   1          Public                                            
+                   2          Church-related                                    
+                   3          Other private                                     
+                                                                                
+     LANG1             1     27                                                 
+                            Language Usage                                      
+                   0        N/A (under 3 years of age)                          
+                   1        Speak a language other than English                 
+                              at home                                           
+                   2        Speak only English at home                          
+                                                                                
+     LANG2             3     28                                                 
+                            Language Spoken at Home                             
+                 000        N/A (under 3 years of age or                        
+                              speaks only English)                              
+                011-997     Language code (See App. G)                          
+                 998        Language not reported                               
+                                                                                
+     ENGLISH           1     31                                                 
+                            Ability to Speak English                            
+                   0        N/A (speaks only English or under                   
+                              3 years of age)                                   
+                   1        Very well                                           
+                   2        Well                                                
+                   3        Not well                                            
+                   4        Not at all                                          
+                                                                                
+     FERTILTY          2     32                                                 
+                            Children Ever Born                                  
+                  00        N/A (under 15 years of age or male)                 
+                  01        None                                                
+                  02        One                                                 
+                  03        Two                                                 
+                  04        Three                                               
+                  05        Four                                                
+                  06        Five                                                
+                  07        Six                                                 
+                  08        Seven                                               
+                  09        Eight                                               
+                  10        Nine                                                
+                  11        Ten                                                 
+                  12        Eleven                                              
+                  13        Twelve or more                                      
+                                                                                
+     TIMESMAR          1     34                                                 
+                            Times Married                                       
+                   0        N/A (under 15 years of age or                       
+                              never married)                                    
+                   1        Once                                                
+                   2        More than once                                      
+                                                                                
+     GRADE             2     40                                                 
+                            Highest Year of School                              
+                              Attended                                          
+                  00        Never attended school or N/A (under 3               
+                              years of age)                                     
+                  01        Nursery school                                      
+                  02        Kindergarten                                        
+                            Elementary:                                         
+                  03          First grade                                       
+                  04          Second grade                                      
+                  05          Third grade                                       
+                  06          Fourth grade                                      
+                  07          Fifth grade                                       
+                  08          Sixth grade                                       
+                  09          Seventh grade                                     
+                  10          Eighth grade                                      
+                            High school:                                        
+                  11          Ninth grade                                       
+                  12          Tenth grade                                       
+                  13          Eleventh grade                                    
+                  14          Twelfth grade                                     
+                            College:                                            
+                  15          First year                                        
+                  16          Second year                                       
+                  17          Third year                                        
+                  18          Fourth year                                       
+                  19          Fifth year                                        
+                  20          Sixth year                                        
+                  21          Seventh year                                      
+                  22          Eighth year or more                               
+                                                                                
+     FINGRADE          1     42                                                 
+                            Finished Highest Grade                              
+                   0        Never attended school or N/A (under                 
+                              3 years of age))                                  
+                   1        Now attending this grade                            
+                   2        Finished this grade                                 
+                   3        Did not finish this grade                           
+                                                                                
+     AF75              1     43                                                 
+                            Activity in 1975: in Armed Forces                   
+                   0        N/A (under 16 years of age)                         
+                   1        Yes                                                 
+                   2        No (includes all persons 16-20)                     
+                                                                                
+     COLL75            1     44                                                 
+                            Activity in 1975: Attending College                 
+                   0        N/A (under 16 years of age)                         
+                   1        Yes                                                 
+                   2        No (includes all persons 16-20)                     
+                                                                                
+     WORK75            1     45                                                 
+                            Activity in 1975: Working at a job                  
+                              or Business                                       
+                   0        N/A (under 16 years of age)                         
+                   1        Yes, full time                                      
+                   2        Yes, part time                                      
+                   3        No (includes all persons 16-20)                     
+                                                                                
+     MIGWGT            1     46                                                 
+                            Migration/Place of Work/Travel                      
+                              Time Weight                                       
+                   0        N/A (not included in migration/place of             
+                              work/travel time sample, i.e., no date            
+                              for following 10 items)                           
+                   2        In migration/place of work/travel                   
+                              time sample                                       
+                                                                                
+     STATE75           2     47                                                 
+                            Residence in 1975: State                            
+                  00        N/A (not included in migration/place of             
+                              work/travel time sample, or born April            
+                              1975 or later)                                    
+                 01-56      FIPS state code (See App. A)                        
+                 61-68      State group code (selected states                   
+                              on C Sample-See App. A)                           
+                  72        Puerto Rico                                         
+                  73        U.S. outlying area                                  
+                  97        Abroad                                              
+                  98        Same house                                          
+                  99        State not identified (selected county               
+                              groups on B Sample-See App. C)                    
+                                                                                
+     COGRP75           3     49                                                 
+                            Residence in 1975: County Group                     
+                              (A and B Samples)                                 
+                 000        N/A (C Sample, not included in                      
+                              migration/place of work/travel                    
+                              time sample, born April 1975                      
+                              or later, or living abroad in 1975)               
+                001-998     County group code                                   
+                 999        Same house                                          
+                                                                                
+     MIG75             1     52                                                 
+                            Residence in 1975: State-County Recode              
+                   0        N/A (not included in migration/place of             
+                              work/travel time sample, born April               
+                              1975 or later)                                    
+                   1        Same house                                          
+                            Different house:                                    
+                   2          Same county                                       
+                            Different county:                                   
+                   3          Same state                                        
+                            Different state:                                    
+                   4          Region not specified (B                           
+                              Sample only)                                      
+                   5        Northeast (A, C Samples only)                       
+                   6        North Central (A, C Samples only)                   
+                   7        South (A, C Samples only)                           
+                   8        West (A, C Samples only)                            
+                   9        Abroad                                              
+                                                                                
+     METRO75           2     53                                                 
+                            Residence in 1975: SMSA Recode                      
+                  00        N/A (C Sample, not included                         
+                              in migration/place of work/                       
+                              travel time sample, born                          
+                              April 1975 or later)                              
+                  01        Living in same house in 1975                        
+                            Living in SMSA in  1980  (not                       
+                                applicable if AREATYPE=4, mixed                 
+                                metro/nonmetro areas on                         
+                                A Sample):                                      
+                              Different house in same SMSA:                     
+                  02            In central city(s)                              
+                  03            Outside central city(s)                         
+                              Different house in different SMSA:                
+                  04            In central city(s)                              
+                  05            Outside central city(s)                         
+                  06          Outside any SMSA, or abroad                       
+                            Living outside SMSA in 1980                         
+                                (not applicable if AREATYPE=4,                  
+                                mixed metro/nonmetro                            
+                                areas an A Sample):                             
+                  07          Different house in central                        
+                                city of an SMSA                                 
+                  08          Different house in SMSA,                          
+                                outside central city                            
+                  09          Outside an SMSA, or abroad                        
+                  10        Living in a mixed metro/nonmetro                    
+                              area in 1980, different house                     
+                              (A Sample only)                                   
+                                                                                
+     POWSTATE          2     55                                                 
+                            Place of Work:  State                               
+                  00        N/A (not in migration/place of                      
+                              work/travel time sample, under                    
+                              16 years of age, not at work)                     
+                  1-56      FIPS state code (See App. A)                        
+                 61-68      State group code (selected states                   
+                              on C Sample-See App. A)                           
+                  72        Puerto Rico                                         
+                  73        U.S. outlying area                                  
+                  97        Abroad                                              
+                  98        State and/or county not reported                    
+                  99        State not identified (selected county               
+                              groups on B Sample-See App. C)                    
+                                                                                
+     POWCOGRP          3     57                                                 
+                            Place of Work: County Group                         
+                              (A and B samples)                                 
+                 000        N/A (C Sample; not in a migration/place             
+                              of work/travel time sample; under 16              
+                              years of age; not at work; place of               
+                              work in outlying area or foreign                  
+                              country, abroad, at sea, or state and/            
+                              or county not reported)                           
+                001-998     County group code                                   
+                                                                                
+                            Note: In New York (state code = 36)                 
+                                  county group code 099 indicates               
+                                  "New York City, county not                    
+                                  specified" on both A and 3                    
+                                  samples.  This applies only                   
+                                  to place of work.                             
+                                                                                
+     POWMETRO          1     60                                                 
+                            Place of Work: SMSA Recode (A and                   
+                              B sample)                                         
+                   0        N/A (C Sample; not included                         
+                              in migration/place of work/                       
+                              travel time sample; under                         
+                              16 years of age; not at                           
+                              work; place of work in out-                       
+                              lying area or foreign                             
+                              country, abroad, at sea, or                       
+                              state and/or county not                           
+                              reported)                                         
+                            Living in SMSA (not applicable                      
+                                 if AREATYPE=4, mixed metro/                    
+                                 nonmetro area on A                             
+                                 Sample):                                       
+                              Working in same SMSA:                             
+                   1            In CBD                                          
+                   2            In remainder of central city                    
+                   3            Outside central city                            
+                              Working in different SMSA:                        
+                   4            In central city                                 
+                   5            Outside central city                            
+                   6            Working outside any SMSA                        
+                            Living outside SMSA or in a                         
+                              mixed metro/nonmetro area                         
+                              (AREATYPE=4, A Sample only):                      
+                   7          Working in central city of                        
+                                an SMSA                                         
+                   8          Working in an SMSA, outside                       
+                                central city                                    
+                   9          Working outside any SMSA                          
+                                                                                
+     POWCC             1     61                                                 
+                            Place of Work: Central City Recode                  
+                              (C Sample only)                                   
+                   0        N/A (A and B Samples; not in                        
+                              migration/place of work/                          
+                              travel time sample; under                         
+                              16 years of age; not at                           
+                              work; place of work in out-                       
+                              lying area or foreign coun-                       
+                              try, abroad, at sea, or                           
+                              state and/or county not                           
+                              reported)                                         
+                   1        Working in the CBD of a UA                          
+                              central city                                      
+                   2        Working in the remainder of a                       
+                              central city of a UA (or                          
+                              anywhere in a central city                        
+                              with no CBD)                                      
+                   3        Working elsewhere                                   
+                                                                                
+     POWPLSIZ          1     62                                                 
+                            Place of Work: Place Size                           
+                              (C Sample only)                                   
+                   0        N/A (A or B sample not in migration/                
+                              place of work/travel time sample; under           
+                              16 years of age; not at work; place of            
+                              work in outlying area or foreign                  
+                              country, abroad, at sea, or state                 
+                              and/or county not reported)                       
+                   1        2,500 to 9,999                                      
+                   2        10,000 to 24,999                                    
+                   3        25,000 to 49,999                                    
+                   4        50,000 or more                                      
+                   5        Not in an identified place of 2,500 or              
+                              more, or not reported at the place level          
+                                                                                
+     TIME              2     63                                                 
+                            Travel Time to Work                                 
+                  00        N/A (not included in migration/place                
+                              of work/travel time sample, under                 
+                              16 years of age, not at work, or                  
+                              worked at home)                                   
+                  1-98      Time in minutes                                     
+                  99        99 minutes or more                                  
+                                                                                
+     MEANS             2     65                                                 
+                            Means of Transportation to Work                     
+                  00          N/A (under 16 years of age or not                 
+                              at work)                                          
+                            Private vehicle:                                    
+                  01          Car                                               
+                  02          Truck                                             
+                  03          Van                                               
+                            Public transportation:                              
+                  04          Bus or streetcar                                  
+                  05          Railroad                                          
+                  06          Subway or elevated                                
+                  07          Taxicab                                           
+                  08        Motorcycle                                          
+                  09        Bicycle                                             
+                  10        Walked only                                         
+                  11        Worked at home                                      
+                  12        Other means                                         
+                                                                                
+     CARPOOL           1     67                                                 
+                            Carpooling                                          
+                   0        N/A (under 16 years of age, not                     
+                              at work, means of transportation to               
+                              work other than car, truck, or van)               
+                   1        Drive alone                                         
+                            Carpool:                                            
+                   2          Share driving                                     
+                   3          Drive others only                                 
+                   4          Ride as passenger only                            
+                                                                                
+     RIDERS            1     68                                                 
+                            Carpool Occupancy                                   
+                   0        N/A (under 16 years of age, not                     
+                              at work, drives alone to work,                    
+                              means of transportation to work                   
+                              other than car, truck or van)                     
+                   1        Two                                                 
+                   2        Three                                               
+                   3        Four                                                
+                   4        Five                                                
+                   5        Six                                                 
+                   6        Seven or more                                       
+                                                                                
+     DISABIL1          1     69                                                 
+                            Work Disability Status: Limited                     
+                   0        N/A (under 16 years of age)                         
+                   1        With a work disability                              
+                   2        No work disability                                  
+                                                                                
+     DISABIL2          1     70                                                 
+                            Work Disability Status: Prevented                   
+                              from Working                                      
+                   0        N/A (under 16 years of age)                         
+                   1        Prevented from working                              
+                   2        Not prevented from working                          
+                                                                                
+     DISABIL3          1     71                                                 
+                            Public Transportation Disability                    
+                              Status                                            
+                   0        N/A (under 16 years of age)                         
+                   1        With a public transportation disability             
+                   2        No public transportation disability                 
+                                                                                
+     VETERAN1          1     72                                                 
+                            Veteran Status                                      
+                   0        Veteran of active-duty military service             
+                   1        Not a veteran or N/A (under 16 years of             
+                              age)                                              
+                                                                                
+     VETERAN2          1     73                                                 
+                            Period of Service May 1975 or Later                 
+                   0        No or N/A (under 16 years of age)                   
+                   1        Yes                                                 
+                                                                                
+     VETERAN3          1     74                                                 
+                            Period of Service During Vietnam Era                
+                              (August 1964-April 1975)                          
+                   0        No or N/A (under 16 years of age)                   
+                   1        Yes                                                 
+                                                                                
+     VETERAN4          1     75                                                 
+                            Period of Service Between February                  
+                              1955 and July 1964                                
+                   0        No or N/A (under 16 years of age)                   
+                   1        Yes                                                 
+                                                                                
+     VETERAN5          1     76                                                 
+                            Period of Service During Korean Conflict            
+                             (June 1950-January 1955)                           
+                   0        No or N/A (under 16 years of age)                   
+                   1        Yes                                                 
+                                                                                
+     VETERAN6          1     77                                                 
+                            Period of Service During World War II               
+                              (September 1940-July 1947)                        
+                   0        No or N/A  (under 16 years of age)                  
+                   1        Yes                                                 
+                                                                                
+     VETERAN7          1     78                                                 
+                            Period of Service During World War I                
+                              (April 1917-November 1918)                        
+                   0        No or N/A (under 16 years of age)                   
+                   1        Yes                                                 
+                                                                                
+     VETERAN8          1     79                                                 
+                            Period of Service During Any Other                  
+                              Time                                              
+                   0        No or N/A (under 16 years of age)                   
+                   1        Yes                                                 
+                                                                                
+     YEARWORK          1     80                                                 
+                            Year Last Worked                                    
+                   0        N/A (under 16 years of age)                         
+                   1        1980                                                
+                   2        1979                                                
+                   3        1978                                                
+                   4        1975-1977                                           
+                   5        1970-1974                                           
+                   6        1969 or earlier                                     
+                   7        Never worked                                        
+                                                                                
+     LABOR             1     81                                                 
+                            Labor Force Status                                  
+                   0        N/A (under 16 years of age)                         
+                            In labor force:                                     
+                              Civilian labor force:                             
+                                Employed:                                       
+                   1              At work                                       
+                   2              With a job but not at work                    
+                   3            Unemployed                                      
+                              Armed Forces:                                     
+                   4            At work                                         
+                   5            With a job but not at work                      
+                   6        Not in labor force                                  
+                                                                                
+     HOURS             2     82                                                 
+                            Hours Worked Last Week                              
+                  00        N/A (under 16 years of age or not                   
+                              at work)                                          
+                  1-98      Hours worked last week                              
+                  99        99 or more hours worked last week                   
+                                                                                
+     ABSENT            1     84                                                 
+                            Absent From Work Last Week                          
+                   0        N/A (under 16 years of age or                       
+                              at work)                                          
+                   1        Yes, on layoff                                      
+                   2        Yes, on vacation, temporary illness,                
+                              labor dispute, etc.                               
+                   3        No                                                  
+                   4        Not reported                                        
+                                                                                
+     LOOKING           1     85                                                 
+                            Looking For Work                                    
+                   0        N/A (under 16 years of age or at work               
+                   1        Yes                                                 
+                   2        No                                                  
+                   3        Not reported                                        
+                                                                                
+     ABLE              1     86                                                 
+                            Able to Take job Last Week                          
+                   0        N/A (under 16 years of age, at work                 
+                              or not looking for work)                          
+                   1        No, already had a job                               
+                   2        No, temporarily ill                                 
+                   3        No, other reasons (in school, etc.)                 
+                   4        Yes, could have taken a job                         
+                   5        Not reported                                        
+                                                                                
+     INDUSTRY          3     87                                                 
+                            Industry                                            
+                 000        N/A (under 16 years of age, in Armed                
+                              Forces, last worked before 1975 and               
+                              not in labor force, or never                      
+                              worked)                                           
+                010-992     Industry code (See App. G)                          
+                                                                                
+     OCCUP             3     90                                                 
+                            Occupation                                          
+                 000        N/A (under 16 years of age, in Armed                
+                              Forces, last worked before 1975 and               
+                              not in labor force, or never worked)              
+                003-909     Occupation code (See App. H)                        
+                                                                                
+     CLASS             1     93                                                 
+                            Class of Worker                                     
+                   0        N/A (under 16 years of age, last worked             
+                              before 1975, or never worked)                     
+                   1        Private wage and salary worker:                     
+                              Employee of private company                       
+                   2        Federal government worker                           
+                   3        State government worker                             
+                   4        Local government worker                             
+                   5        Self-employed worker--business                      
+                              incorporated                                      
+                   6        Employee of own corporation                         
+                   7        Unpaid family worker                                
+                                                                                
+     WORK79            1     94                                                 
+                            Work Last Year                                      
+                   0        N/A (under 16 years of age)                         
+                   1        Worked in 1979                                      
+                   2        Did not work in 1979                                
+                                                                                
+     WEEKSW79          2     95                                                 
+                            Weeks Worked in 1979                                
+                  00        N/A (under 16 years of age or                       
+                              did not work in 1979)                             
+                 01-52      Weeks worked                                        
+                                                                                
+     HOURS79           2     97                                                 
+                            Usual Hours Worked Per Week in 1979                 
+                  00        N/A (under 16 years of age                          
+                              or did not work in 1979)                          
+                 01-98      Usual number of hours                               
+                  99        99 or more hours per week                           
+                                                                                
+     WEEKSU79          2     99                                                 
+                            Weeks Unemployed in 1979                            
+                  00        N/A (under 16 years of age                          
+                              or with no unemployment                           
+                              in 1979)                                          
+                 01-52      Weeks looking for work or on layoff                 
+                                                                                
+     INCOME1           5    101                                                 
+                            Wage or Salary Income in 1979                       
+               00000        N/A (under 16 years of age or no                    
+                              income from this source)                          
+              00005-74995   Income in dollars                                   
+                              (midpoint of $10 interval)                        
+               75000        Income of $75000 or more                            
+                                                                                
+     INCOME2           5    106                                                 
+                            Nonfarm Self-Employment Income in 1979              
+               00000        N/A (under 16 years of age or no                    
+                              income/loss from this source)                     
+               -9995        Loss of $9990 or more                               
+             -9985 to 74995 Income (or loss) in dollars (midpoint               
+                              of $10 interval)                                  
+               75000        Income of $75000 or more                            
+                                                                                
+     INCOME3           5    111                                                 
+                            Farm Self-Employment Income in 1979                 
+               00000        N/A (under 16 years of age or no                    
+                              income/loss from this source)                     
+               -9995        Loss of $9990 or more                               
+             -9985 to 74995 Income (or loss) in dollars (midpoint               
+                              of $10 interval)                                  
+               75000        Income of $75000 or more                            
+                                                                                
+     INCOME4           5    116                                                 
+                            Interest, Divided or Net                            
+                              Rental Income in 1979                             
+               00000        N/A (under 15 years of age or no                    
+                              income/loss from this source)                     
+               -9995        Loss of $9990 or more                               
+             -9985 to 74995 Income (or loss) in dollars (midpoint               
+                              of $10 interval)                                  
+               75000        Income of $75000 or more                            
+                                                                                
+     INCOME5           4    121                                                 
+                            Social Security Income in 1979                      
+                0000        N/A (under 15 years of age or no                    
+                              income from this source)                          
+               0005-9995    Income in dollars (midpoint of                      
+                              $10 interval)                                     
+                                                                                
+     INCOME6           4    125                                                 
+                            Public Assistance Income in 1979                    
+                0000        N/A (under 15 years of age or no                    
+                              income from this source)                          
+               0005-9995    Income in dollars (midpoint of                      
+                              $10 interval)                                     
+                                                                                
+     INCOME7           5    129                                                 
+                            All Other Income in 1979                            
+               00000        N/A (under 15 years of age or no                    
+                              income from sources other than                    
+                              those  separately identified)                     
+              00005-74995   Income in dollars (midpoint of                      
+                              $10 interval)                                     
+               75000        Income of $75000 or more                            
+                                                                                
+     INCOME8           5    134                                                 
+                            Income From All Sources in 1979                     
+               00000        N/A (under 15 years of age or no                    
+                              income/loss from any source)                      
+               -9995        Loss of $9990 or more                               
+             -9985 to 74995 Income (or loss) in dollars                         
+               75000        Income of $75000 or more                            
+                                                                                
+     POVERTY           1    139                                                 
+                            Poverty Status In 1979 (Ratio of Family             
+                              or Unrelated Individual Income in 1979            
+                              to Poverty Cutoff)                                
+                   0        N/A (inmate of institution, person in               
+                              military group quarters or in college             
+                              dormitory, or unrelated individual                
+                              under 15 years of age)                            
+                            Below poverty level:                                
+                   1          Below .75 of poverty cutoff (including            
+                                no income or net loss)                          
+                   2          .75 to .99                                        
+                            Above poverty level:                                
+                   3          1.00 to 1.24                                      
+                   4          1.25 to 1.49                                      
+                   5          1.50 to 1.74                                      
+                   6          1.75 to 1.99                                      
+                   7          2.00 or more                                      
+                                                                                
+     ARELAT1           1    140                                                 
+                            Allocation of Household Relationship                
+                   0        Not allocated                                       
+                   1        Allocated, consistency edit (in CQ:                 
+                              cold deck)                                        
+                   2        Allocated, hot deck (in households                  
+                              only)                                             
+                                                                                
+     ARELAT2           1    141                                                 
+                            Allocation of Detailed Relationship                 
+                   0        Not allocated                                       
+                   1        Allocated                                           
+                                                                                
+     ASEX              1    142                                                 
+                            Allocation of Sex                                   
+                   0        Not allocated                                       
+                   1        Allocated, consistency edit (in GQ:                 
+                              allocated)                                        
+                   2        Allocated, hot deck (in households                  
+                              only)                                             
+                                                                                
+     AAGE              1    143                                                 
+                            Allocation of Age                                   
+                   0        Not allocated                                       
+                   1        Allocated, hot deck (in GQ:                         
+                              cold deck)                                        
+                   2        Allocated, hot deck (in GQ only)                    
+                                                                                
+     AQTRBRTH          1    144                                                 
+                            Allocation of Quarter of Birth                      
+                   0        Not allocated                                       
+                   1        Allocated, cold deck                                
+                                                                                
+     AMARITAL          1    145                                                 
+                            Allocation of Marital Status                        
+                   0        Not allocated or N/A                                
+                   1        Yes, consistency edit                               
+                   2        Yes, hot deck                                       
+                                                                                
+     ARACE1            1    146                                                 
+                            Allocation of Race                                  
+                   0        Not allocated                                       
+                   1        Allocated from relative, this household             
+                              (in GQ: cold deck)                                
+                   2        Allocated from nonrelative, this house-             
+                              hold (in GQ: hot deck)                            
+                   3        Allocated, hot deck (in households only)            
+                                                                                
+     ARACE2            1    147                                                 
+                            Pre-edit of Detailed Race and American              
+                              Indian                                            
+                   0        Not allocated                                       
+                   1        Allocated: pre-edit                                 
+                                                                                
+     ASPANISH          1    148                                                 
+                            Allocation of Spanish Origin                        
+                   0        Not allocated                                       
+                   1        Allocated from information for this person or from  
+                              relative, this household (in GQ: allocation)      
+                   2        Allocated from nonrelative, this house-             
+                              hold (in household only)                          
+                   3        Allocated from information for this person or from  
+                              hot deck, different household (in household only) 
+                                                                                
+     AANCSTRY          1    149                                                 
+                            Pre-edit of Ancestry (both                          
+                              1st and 2nd entry)                                
+                   0        Not allocated                                       
+                   1        Allocated: pre-edit                                 
+                                                                                
+     ABIRTHPL          1    150                                                 
+                            Allocation of Place of Birth                        
+                   0        Not allocated                                       
+                   1        Allocated, pre-edit                                 
+                   2        Allocated, consistency edit                         
+                   3        Allocated, hot deck                                 
+                                                                                
+     ACITIZEN          1    151                                                 
+                            Allocation of Citizenship                           
+                   0        Not  allocated                                      
+                   2        Yes, consistency edit                               
+                   3        Yes, hot deck                                       
+                                                                                
+     AIMMIGR           1    152                                                 
+                            Allocation of Year of Immigration                   
+                   0        Not allocated or N/A                                
+                   2        Yes, consistency edit                               
+                   3        Yes, hot deck                                       
+                                                                                
+     ALANG1            1    153                                                 
+                            Allocation of Language Usage                        
+                   0        Not allocated or N/A                                
+                   2        Yes, consistency edit*                              
+                   3        Yes, hot deck                                       
+                                                                                
+     ALANG2            1    154                                                 
+                            Allocation of Language Spoken                       
+                              at Home                                           
+                   0        Not allocated or N/A                                
+                   1        Allocated, pre-edit                                 
+                   2        Allocated, consistency edit                         
+                   3        Allocated, hot deck                                 
+                                                                                
+     ALANG3            1    155                                                 
+                            Allocation of Ability to Speak                      
+                              English                                           
+                   0        Not allocated or N/A                                
+                   2        Yes, consistency edit                               
+                   3        Yes, hot deck                                       
+                                                                                
+     AFERTIL           1    156                                                 
+                            Allocation of Children Ever Born                    
+                   0        Not allocated or N/A                                
+                   2        Yes, consistency edit                               
+                   3        Yes, hot deck                                       
+                                                                                
+     ATIMESMA          1    157                                                 
+                            Allocation of Times Married                         
+                   0        Not allocated or N/A                                
+                   2        Yes, consistency edit                               
+                   3        Yes, hot deck                                       
+                                                                                
+     AAGEMR            1    158                                                 
+                            Allocation of Age at First                          
+                              Marriage and Quarter of                           
+                              First Marriage                                    
+                   0        Not allocated or N/A                                
+                   2        Yes, consistency edit                               
+                   3        Yes, hot deck                                       
+                                                                                
+     AWIDOWED          1    159                                                 
+                            Allocation of Widowed                               
+                   0        Not allocated or N/A                                
+                   2        Allocated, consistency edit                         
+                   3        Allocated, hot deck                                 
+                                                                                
+     ASCHOOL           1    160                                                 
+                            Allocation of School Enrollment                     
+                              and Type of School                                
+                   0        Not allocated or N/A                                
+                   2        Yes, consistency edit                               
+                   3        Yes, hot deck                                       
+                                                                                
+     AYEARSCH          1    161                                                 
+                            Allocation of Highest Year of                       
+                              School Attended                                   
+                   0        Not allocated or N/A                                
+                   2        Yes, consistency edit                               
+                   3        Yes, hot deck                                       
+                                                                                
+     AFINGRAD          1    162                                                 
+                            Allocation of Finished Grade                        
+                   0        Not allocated or N/A                                
+                   2        Yes, consistency edit                               
+                   3        Yes, hot deck                                       
+                                                                                
+     AAF75             1    163                                                 
+                            Allocation of Activity in 1975:                     
+                              in Armed Forces                                   
+                   0        Not allocated or N/A                                
+                   2        Yes, consistency edit                               
+                   3        Yes, hot deck                                       
+                                                                                
+     ACOLL75           1    164                                                 
+                            Allocation of Activity in 1975:                     
+                              Attending College                                 
+                   0        Not allocated or N/A                                
+                   2        Yes, consistency edit                               
+                   3        Yes, hot deck                                       
+                                                                                
+     AWORK75           1    165                                                 
+                            Allocation of Activity in 1975:                     
+                              Working at a job or Business                      
+                   0        Not allocated or N/A                                
+                   2        Yes, consistency edit                               
+                   3        Yes, hot deck                                       
+                                                                                
+     AMIG751           1    166                                                 
+                            Allocation of Residence in 1975:                    
+                              Same House/Different House                        
+                   0        Not allocated or N/A                                
+                   2        Yes, consistency edit                               
+                   3        Yes, hot deck                                       
+                                                                                
+     AMIG752           1    167                                                 
+                            Allocation of Residence in 1975:                    
+                              Specific Area                                     
+                   0        Not allocated or N/A                                
+                   1        Allocated, pre-edit                                 
+                   2        Allocated, consistency edit                         
+                   3        Allocated, hot deck                                 
+                                                                                
+     ATIME             1    168                                                 
+                            Allocation of Travel Time to Work                   
+                   0        Not allocated or N/A                                
+                   3        Allocated, hot deck                                 
+                                                                                
+     AMEANS            1    169                                                 
+                            Allocation of Means of Transportation to Work       
+                   0        Not allocated or N/A                                
+                   3        Allocated, hot deck                                 
+                                                                                
+     ACARPOOL          1    170                                                 
+                            Allocation of Carpooling                            
+                   0        Not allocated or N/A                                
+                   2        Yes, consistency edit                               
+                   3        Yes, hot deck                                       
+                                                                                
+     ARIDERS           1    171                                                 
+                            Allocation of Carpool                               
+                              Occupancy                                         
+                   0        Not allocated or N/A                                
+                   2        Allocated, consistency edit                         
+                   3        Allocated, hot deck                                 
+                                                                                
+     ADISABL1          1    172                                                 
+                            Allocation of Work Disability Status:               
+                              Limited                                           
+                   0        Not allocated or N/A                                
+                   2        Yes, consistency edit*                              
+                   3        Yes, hot deck                                       
+                                                                                
+     ADISABL2          1    173                                                 
+                            Allocation of Work Disability Status:               
+                              Prevented from Working                            
+                   0        Not allocated or N/A                                
+                   2        Yes, consistency edit*                              
+                   3        Yes, hot deck                                       
+                                                                                
+     ADISABL3          1    174                                                 
+                            Allocation of Public Transportation                 
+                              Disability Status                                 
+                   0        Not allocated or N/A                                
+                   3        Yes, hot deck                                       
+                                                                                
+     AVET1             1    175                                                 
+                            Allocation of Veteran Status                        
+                   0        Not allocated or N/A                                
+                   2        Yes, consistency edit*                              
+                   3        Yes, hot deck                                       
+                                                                                
+     AVET2             1    176                                                 
+                            Allocation of Veterans Period                       
+                              of Service                                        
+                   0        Not allocated or N/A                                
+                   3        Allocated, hot deck                                 
+                                                                                
+     AYEARWRK          1    177                                                 
+                            Allocation of Year Last Worked                      
+                   0        Not allocated or N/A                                
+                   2        Yes, consistency edit*                              
+                   3        Yes, hot deck                                       
+                                                                                
+     ALABOR            1    178                                                 
+                            Allocation of Labor Force Status                    
+                   0        Not allocated or N/A                                
+                   3        Allocated, hot deck                                 
+                                                                                
+     AHOURS            1    179                                                 
+                            Allocation of Hours Worked Last                     
+                              Week                                              
+                   0        Not allocated or N/A                                
+                   2        Allocated, consistency edit*                        
+                   3        Allocated, hot deck                                 
+                                                                                
+     AINDUSTR          1    180                                                 
+                            Allocation of Industry                              
+                   0        Not allocated or N/A                                
+                   1        Allocated, pre-edit                                 
+                   2        Allocated, consistency edit*                        
+                   3        Allocated, hot deck                                 
+                                                                                
+     AOCCUP            1    181                                                 
+                            Allocation of Occupation                            
+                   0        Not allocated or  N/A                               
+                   1        Allocated, pre-edit                                 
+                   2        Allocated, consistency edit*                        
+                   3        Allocated, hot deck                                 
+                                                                                
+     ACLASS            1    182                                                 
+                            Allocation of Class of Worker                       
+                   0        Not allocated or N/A                                
+                   2        Yes, consistency edit*                              
+                   3        Yes, hot deck                                       
+                                                                                
+     AWORK79           1    183                                                 
+                            Allocation of Work Last Year                        
+                   0        Not allocated or N/A                                
+                   2        Yes, consistency edit                               
+                   3        Yes, hot deck                                       
+                                                                                
+     AWEEKW79          1    184                                                 
+                            Allocation of Weeks Worked in 1979                  
+                   0        Not allocated or N/A                                
+                   1        Yes, pre-edit                                       
+                   3        Yes, hot deck                                       
+                                                                                
+     AHOUR79           1    185                                                 
+                            Allocation of Usual Hours Worked                    
+                              Per Week in 1979                                  
+                   0        Not allocated or N/A                                
+                   3        Allocated, hot deck                                 
+                                                                                
+     AWEEKU79          1    186                                                 
+                            Allocation of Weeks Unemployed in 1979              
+                   0        Not allocated or  N/A                               
+                   1        Allocated, pre-edit*                                
+                   2        Allocated, consistency edit*                        
+                   3        Allocated, hot deck                                 
+                                                                                
+     AINCOME1          1    187                                                 
+                            Allocation of Wage or Salary                        
+                              Income in 1979                                    
+                   0        Not allocated or N/A                                
+                   1        Allocated, pre-edit*                                
+                   2        Allocated, consistency edit*                        
+                   3        Allocated, hot deck                                 
+                                                                                
+     AINCOME2          1    188                                                 
+                            Allocation of Nonfarm Self-                         
+                              Employment Income in 1979                         
+                   0        Not allocated or N/A                                
+                   1        Allocated, pre-edit*                                
+                   2        Allocated, consistency edit*                        
+                   3        Allocated, hot deck                                 
+                                                                                
+     AINCOME3          1    189                                                 
+                            Allocation of Farm Self-Employment                  
+                              Income in 1979                                    
+                   0        Not allocated or N/A                                
+                   1        Allocated, pre-edit*                                
+                   2        Allocated, consistency edit*                        
+                   3        Allocated, hot deck                                 
+                                                                                
+     AINCOME4          1    190                                                 
+                            Allocation of Interest, Dividend or                 
+                              Net Rental Income in 1979                         
+                   0        Not allocated or N/A                                
+                   1        Allocated, pre-edit*                                
+                   2        Allocated, consistency edit*                        
+                   3        Allocated, hot deck                                 
+                                                                                
+     AINCOME5          1    191                                                 
+                            Allocation of Social Security Income                
+                              in 1979                                           
+                   0        Not allocated or N/A                                
+                   1        Allocated, pre-edit*                                
+                   2        Allocated, consistency edit*                        
+                   3        Allocated, hot deck                                 
+                                                                                
+     AINCOME6          1    192                                                 
+                            Allocation of Public Assistance                     
+                              Income in 1979                                    
+                   0        Not allocated or N/A                                
+                   1        Allocated, pre-edit*                                
+                   2        Allocated, consistency edit*                        
+                   3        Allocated, hot deck                                 
+                                                                                
+     AINCOME7          1    193                                                 
+                            Allocation of All Other Income                      
+                              in 1979                                           
+                   0        Not allocated or N/A                                
+                   1        Allocated, pre-edit*                                
+                   2        Allocated, consistency edit*                        
+                   3        Allocated, hot deck                                 
+                                                                                
+ _________________________________________________________________________      
+     *Not counted as an allocation in census publications (PC80-1-C)            
+                                                                                
+ --------------------------------------------------------------------------     
+                                                                                
+     APPENDIX A: State and State Group Codes                                    
+                                                                                
+                                                                                
+     FIPS STATE CODE                      FIPS STATE CODE                       
+                                                                                
+     01  Alabama+                         29  Missouri*                         
+     02  Alaska*                          30  Montana*+                         
+     04  Arizona*                         31  Nebraska*+                        
+     05  Arkansas+                        32  Nevada*                           
+     06  California                       33  New Hampshire*+                   
+     08  Colorado                         34  New Jersey+                       
+     09  Connecticut                      35  New Mexico*+                      
+     10  Delaware*                        36  New York+                         
+     11  District of Columbia             37  North Carolina+                   
+     12  Florida                          38  North Dakota*+                    
+     13  Georgia+                         39  Ohio+                             
+     15  Hawaii*                          40  Oklahoma+                         
+     16  Idaho*                           41  Oregon                            
+     17  Illinois+                        42  Pennsylvania+                     
+     18  Indiana+                         44  Rhode Island*+                    
+     19  Iowa*+                           45  South Carolina                    
+     20  Kansas*                          46  South Dakota*                     
+     21  Kentucky+                        47  Tennessee+                        
+     22  Louisiana                        48  Texas+                            
+     23  Maine*+                          49  Utah*                             
+     24  Maryland*+                       50  Vermont*                          
+     25  Massachusetts*+                  51  Virginia+                         
+     26  Michigan                         53  Washington                        
+     27  Minnesota*+                      54  West Virginia+                    
+     28  Mississippi+                     55  Wisconsin+                        
+                                          56  Wyoming*+                         
+                                                                                
+               STATE GROUP CODES APPLICABLE TO THE C SAMPLE ONLY                
+                                                                                
+     61  Maine-New Hampshire-Vermont                                            
+     62  Massachusetts-Rhode Island                                             
+     63  Minnesota-Iowa-Missouri-Kansas-Nebraska-South Dakota-North Dakota      
+     64  Maryland-Delaware                                                      
+     65  Montana-Idaho-Wyoming                                                  
+     66  Utah-Nevada                                                            
+     67  Arizona-New Mexico                                                     
+     68  Alaska-Hawaii                                                          
+                                                                                
+ ___________________________________________________________________________    
+     +State identified only in part on the B sample. For areas with suppressed  
+        State code, see Appendix C.                                             
+     *Not separately identified on the C Sample.                                
