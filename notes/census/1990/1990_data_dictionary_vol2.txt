@@ -1,0 +1,2044 @@
+D RECTYPE    1    1                                                             
+    Record Type                                                                 
+V                           H .Housing Record                                   
+                                                                                
+D SERIALNO   7    2                                                             
+    Housing unit/GQ person serial number                                        
+V            0000000..9999999 .Serial number of persons within                  
+V                             .household                                        
+                                                                                
+D SAMPLE     1    9                                                             
+    Sample Identifier                                                           
+V                           1 .5% sample                                        
+V                           2 .1% sample                                        
+                                                                                
+D STATE      2    10                                                            
+    FIPS commonwealth code                                                      
+V                          72 .Puerto Rico                                      
+                                                                                
+D PUMA       5    12                                                            
+    Public use microdata area                                                   
+V                00100..02500 .PUMA code (includes tract groups)                
+V                             .1st 3 = main PUMA                                
+V                             .Last 2 digits = groups of tracts,                
+V                             .BNA                                              
+                                                                                
+D AREATYPE   2    17                                                            
+    Area types for 1% PUMS                                                      
+V                          10 .Central city                                     
+V                          11 .Central city (part)                              
+V                          20 .MSA/PMSA - Outside central city                  
+V                          21 .MSA/PMSA - Outside central city                  
+V                             .(part)                                           
+V                          22 .Central City (part) & outside                    
+V                             .central city (part)                              
+V                          30 .Entire MSA                                       
+V                          31 .2 or more MSAs/PMSAs                             
+V                          40 .Mixed MSA/PMSA/NON-MSA/PMSA area                 
+                                                                                
+    Area types for 5% PUMS                                                      
+V                          50 .Outside MSA/PMSA                                 
+V                          60 .Place                                            
+V                          61 .Place (part)                                     
+V                          71 .Two or more MSAs/PMSAs                           
+V                          73 .Mixed MSA/PMSA/Non-MSA/PMSA area                 
+V                          80 .Municipios (2 or more)                           
+V                          81 .Municipio (part)                                 
+V                          82 .Municipio                                        
+                                                                                
+                                                                                
+                                                                                
+D MSAPMSA    4    19                                                            
+    MSA/PMSA                                                                    
+V                  0060..7440 .FIPS MSA/PMSA codes                              
+V                        9997 .Mixed MSA/PMSA NONMSA/PMSA area                  
+V                        9998 .2 or more MSAs                                   
+V                        9999 .Not in MA                                        
+                                                                                
+D SUBSAMPL   2    23                                                            
+    Subsample number (Use to pull extracts - 1/1000/etc.)                       
+V                      00..99 .See text. pp 4-4.                                
+                                                                                
+D HOUSWGT    4    25                                                            
+    Housing Weight                                                              
+V                  0000..1584 .Integer weight of housing unit                   
+                                                                                
+D PERSONS    2    29                                                            
+    Number of person records following this housing record                      
+V                          00 .Vacant unit                                      
+V                          01 .One person record (one person in                 
+V                             .household or any person in group                 
+V                             .quarters)                                        
+V                      02..29 .Number of persons in household                   
+                                                                                
+D GQINST     1    31                                                            
+    Group quarters institution                                                  
+V                           0 .N/A (housing unit)                               
+V                           1 .Institutionalized                                
+V                           2 .Not institutionalized                            
+                                                                                
+D HUSFLAG    1    32                                                            
+    All 100% housing unit data substituted                                      
+V                           0 .No                                               
+V                           1 .Yes                                              
+                                                                                
+D PDSFLAG    1    33                                                            
+    All 100% person data substituted                                            
+V                           0 .No                                               
+V                           1 .Yes                                              
+                                                                                
+D UNITS1     2    34                                                            
+    Units in structure                                                          
+V                          00 .N/A (GQ)                                         
+V                          01 .Mobile home or trailer                           
+V                          02 .One-family house detached                        
+V                          03 .One-family house attached                        
+V                          04 .2 Apartments                                     
+V                          05 .3-4 Apartments                                   
+V                          06 .5-9 Apartments                                   
+V                          07 .10-19 Apartments                                 
+V                          08 .20-49 Apartments                                 
+V                          09 .50 or more apartments                            
+V                          10 .Other                                            
+                                                                                
+D ROOMS      1    36                                                            
+    Rooms                                                                       
+V                           0 .N/A (GQ)                                         
+V                           1 .1 Room                                           
+V                           2 .2 Rooms                                          
+V                           3 .3 Rooms                                          
+V                           4 .4 Rooms                                          
+V                           5 .5 Rooms                                          
+V                           6 .6 Rooms                                          
+V                           7 .7 Rooms                                          
+V                           8 .8 Rooms                                          
+V                           9 .9 or more rooms                                  
+                                                                                
+D PIPEWATR   1    37                                                            
+    Piped water in house/apartment                                              
+V                           0 .N/A (GQ)                                         
+V                           1 .Yes, hot and cold piped water                    
+V                           2 .No, only cold piped water                        
+V                           3 .No, piped water                                  
+                                                                                
+D BATHTUB    1    38                                                            
+    Bathtub of shower                                                           
+V                           0 .N/A (GQ)                                         
+V                           1 .Yes                                              
+V                           2 .No bathtub of shower                             
+                                                                                
+D TOILET     1    39                                                            
+    Flush toilet                                                                
+V                           0 .N/A (GQ)                                         
+V                           1 .Yes                                              
+V                           2 .No                                               
+                                                                                
+D TOILETYP   1    40                                                            
+    Type of toilet facilities                                                   
+V                           0 .N/A (GQ)                                         
+V                           1 .Privy                                            
+V                           2 .Other or none                                    
+                                                                                
+D CONDO      1    41                                                            
+    Condominium                                                                 
+V                           0 .N/A (GQ)                                         
+V                           1 .Yes                                              
+V                           2 .No                                               
+                                                                                
+D TENURE     1    42                                                            
+    Tenure                                                                      
+V                           0 .N/A (GQ/vacant)                                  
+V                           1 .Owned with mortgage or loan                      
+V                           2 .Owned free and clear                             
+V                           3 .Rented for cash rent                             
+V                           4 .No cash rent                                     
+                                                                                
+D CUERDAS3   1    43                                                            
+    On three cuerdas or more (1 cuerda = 0.93 acre)                             
+V                           0 .N/A (GQ/not a one-family house or                
+V                             .mobile home)                                     
+V                           1 .Yes                                              
+V                           2 .No                                               
+                                                                                
+D COMMUSE    1    44                                                            
+    Commercial establishment on property                                        
+V                           0 .N/A (GQ/not a one-family house or                
+                              .mobile home)                                     
+V                           1 .Yes                                              
+V                           2 .No                                               
+                                                                                
+D MEDUSE     1    45                                                            
+    Medical office on property                                                  
+V                           0 .N/A (GQ/not a one-family house or                
+                              .mobile home)                                     
+V                           1 .Yes                                              
+V                           2 .No                                               
+                                                                                
+D PROFUSE    1    46                                                            
+    Other professional office on property                                       
+V                           0 .N/A (GQ/not a one-family house or                
+                              .mobile home)                                     
+V                           1 .Yes                                              
+V                           2 .No                                               
+                                                                                
+D VALUE      2    47                                                            
+    Property value                                                              
+V                          00 .N/A (GQ/rental unit/occupied                     
+V                             .without cash rent/vacant/not                     
+V                             .for sale only)                                   
+V                          01 .Less than $ 10000                                
+V                          02 .$ 10000 - $ 14999                                
+V                          03 .$ 15000 - $ 19999                                
+V                          04 .$ 20000 - $ 24999                                
+V                          05 .$ 25000 - $ 29999                                
+V                          06 .$ 30000 - $ 34999                                
+V                          07 .$ 35000 - $ 39999                                
+V                          08 .$ 40000 - $ 44999                                
+V                          09 .$ 45000 - $ 49999                                
+V                          10 .$ 50000 - $ 54999                                
+V                          11 .$ 55000 - $ 59999                                
+V                          12 .$ 60000 - $ 64999                                
+V                          13 .$ 65000 - $ 69999                                
+V                          14 .$ 70000 - $ 74999                                
+V                          15 .$ 75000 - $ 79999                                
+V                          16 .$ 80000 - $ 89999                                
+V                          17 .$ 90000 - $ 99999                                
+V                          18 .$100000 - $124999                                
+V                          19 .$125000 - $149999                                
+V                          20 .$150000 - $174999                                
+V                          21 .$175000 - $199999                                
+V                          22 .$200000 - $249999                                
+V                          23 .$250000 - $299999                                
+V                          24 .$300000 - $399999                                
+V                          25 .$400000 or more                                  
+                                                                                
+D RENT1      2    49                                                            
+    Monthly rent                                                                
+V                          00 .N/A (GQ/not a rental unit)                       
+V                          01 .Less than $ 60                                   
+V                          02 .$  60 - $ 79                                     
+V                          03 .$  80 - $ 99                                     
+V                          04 .$ 100 - $124                                     
+V                          05 .$ 125 - $149                                     
+V                          06 .$ 150 - $174                                     
+V                          07 .$ 175 - $199                                     
+V                          08 .$ 200 - $224                                     
+V                          09 .$ 225 - $249                                     
+V                          10 .$ 250 - $274                                     
+V                          11 .$ 275 - $299                                     
+V                          12 .$ 300 - $324                                     
+V                          13 .$ 325 - $349                                     
+V                          14 .$ 350 - $374                                     
+V                          15 .$ 375 - $399                                     
+V                          16 .$ 400 - $424                                     
+V                          17 .$ 425 - $449                                     
+V                          18 .$ 450 - $474                                     
+V                          19 .$ 475 - $499                                     
+V                          20 .$ 500 - $549                                     
+V                          21 .$ 550 - $599                                     
+V                          22 .$ 600 - $649                                     
+V                          23 .$ 650 - $699                                     
+V                          24 .$ 700 - $749                                     
+V                          25 .$ 750 - $999                                     
+V                          26 .$1000 or more                                    
+V                          27 .No cash rent (NCR)                               
+                                                                                
+D VACANCY1   1    51                                                            
+    Vacant usual home elsewhere (UHE)                                           
+V                           0 .N/A (GQ/occupied housing unit or                 
+                              .regular vacant)                                  
+V                           1 .Vacant UHE-owner                                 
+V                           2 .Vacant UHE-renter                                
+V                           3 .Vacant UHE-undetermined                          
+                                                                                
+D VACANCY2   1    52                                                            
+    Vacancy status                                                              
+V                           0 .N/A (GQ/occupied housing unit)                   
+V                           1 .For rent                                         
+V                           2 .For sale only                                    
+V                           3 .Rented or sold, not occupied                     
+V                           4 .For seasonal/recreational/                       
+v                             .occasional use                                   
+V                           5 .For migratory workers                            
+V                           6 .Other vacant                                     
+                                                                                
+D VACANCY3   1    53                                                            
+    Boarded up status                                                           
+V                           0 .N/A (GQ/occupied housing unit)                   
+V                           1 .Yes                                              
+V                           2 .No                                               
+                                                                                
+D VACANCY4   1    54                                                            
+    Months vacant                                                               
+V                           0 .N/A (GQ/occupied housing unit)                   
+V                           1 .Less than 1 month                                
+V                           2 .1 up to 2 months                                 
+V                           3 .2 up to 6 months                                 
+V                           4 .6 up to 12 months                                
+V                           5 .1 up to 2 years                                  
+V                           6 .2 or more years                                  
+                                                                                
+D LOTSIZE    1    55                                                            
+    Housing lot size                                                            
+V                           0 .N/A (GQ/not in a 1-family house)                 
+V                           1 .Less than 3 cuerdas                              
+V                           2 .3 to 9 cuerdas                                   
+V                           3 .10 or more cuerdas                               
+                                                                                
+D AGSALES    1    56                                                            
+    1989 sales of agricultural products                                         
+V                           0 .N/A (GQ/vacant/2 or more units in                
+                              .structure)                                       
+V                           1 .None                                             
+V                           2 .$1 to $99                                        
+V                           3 .$100 to $499                                     
+V                           4 .$500 to $999                                     
+V                           5 .$1000 to $2499                                   
+V                           6 .$2500 or more                                    
+                                                                                
+                                                                                
+                                                                                
+D YRMOVED    1    57                                                            
+    When moved into this house or apartment                                     
+V                           0 .N/A (GQ/vacant)                                  
+V                           1 .1989 or 1990                                     
+V                           2 .1985 to 1988                                     
+V                           3 .1980 to 1984                                     
+V                           4 .1970 to 1979                                     
+V                           5 .1960 to 1969                                     
+V                           6 .1959 or earlier                                  
+                                                                                
+D YRBUILT    1    58                                                            
+    When structure first built                                                  
+V                           0 .N/A (GQ)                                         
+V                           1 .1989 or 1990                                     
+V                           2 .1985 to 1988                                     
+V                           3 .1980 to 1984                                     
+V                           4 .1970 to 1979                                     
+V                           5 .1960 to 1969                                     
+V                           6 .1950 to 1959                                     
+V                           7 .1940 to 1949                                     
+V                           8 .1939 or earlier                                  
+                                                                                
+D BLDMAT     1    59                                                            
+    Building construction material                                              
+V                           0 .N/A (GQ)                                         
+V                           1 .Concrete walls/concrete slab roof                
+V                           2 .Concrete walls/wood frame roof                   
+V                           3 .Wood frame walls/concrete                        
+v                             .foundation                                       
+V                           4 .Wood frame walls/wood stilt                      
+V                             .foundation                                       
+V                           5 .Mixed concrete and wood walls                    
+V                           6 .Other type of construction                       
+V                             .materials                                        
+                                                                                
+D WATER      1    60                                                            
+    Source of water                                                             
+V                           0 .N/A (GQ)                                         
+V                           1 .Public system                                    
+V                           2 .Individual well                                  
+V                           3 .Cistern, tanks, or drums                         
+V                           4 .Spring or some other source                      
+                                                                                
+D SEWAGE     1    61                                                            
+    Sewage disposal                                                             
+V                           0 .N/A (GQ)                                         
+V                           1 .Public sewer                                     
+V                           2 .Septic tank or cesspool                          
+V                           3 .Other means                                      
+                                                                                
+D BEDROOMS   1    62                                                            
+    Bedrooms                                                                    
+V                           0 .N/A (GQ)                                         
+V                           1 .No bedroom                                       
+V                           2 .1 bedroom                                        
+V                           3 .2 bedrooms                                       
+V                           4 .3 bedrooms                                       
+V                           5 .4 bedrooms                                       
+V                           6 .5 or more bedrooms                               
+                                                                                
+D BATHRMS    1    63                                                            
+    Number of bathrooms                                                         
+V                           0 .N/A (GQ)                                         
+V                           1 .None                                             
+V                           2 .Only half bathrooms                              
+V                           3 .1 complete bathroom                              
+V                           4 .1 complete plus half bath(s)                     
+V                           5 .2 or more complete bathrooms                     
+                                                                                
+D WTRHTR     1    64                                                            
+    Type of water heater                                                        
+V                           0 .N/A (GQ/vacant)                                  
+V                           1 .Electric - tank type                             
+V                           2 .Shower                                           
+V                           3 .Solar                                            
+V                           4 .Other                                            
+V                           5 .None                                             
+                                                                                
+D COOKFUEL   1    65                                                            
+    Cooking fuel                                                                
+V                           0 .N/A (GQ/vacant)                                  
+V                           1 .Electricity                                      
+V                           2 .Gas                                              
+V                           3 .Other                                            
+                                                                                
+D KITCHEN    1    66                                                            
+    Complete kitchen facilities                                                 
+V                           0 .N/A (GQ)                                         
+V                           1 .Yes                                              
+V                           2 .No                                               
+                                                                                
+D AIRCOND    1    67                                                            
+    Air conditioning                                                            
+V                           0 .N/A (GQ)                                         
+V                           1 .Yes, central air conditioning                    
+V                           2 .Yes, individual room unit                        
+V                           3 .Yes, 2 or more individual room                   
+V                             .units                                            
+V                           4 .No air conditioning                              
+                                                                                
+D TELEPHON   1    68                                                            
+    Telephone in Unit                                                           
+V                           0 .N/A (GQ/vacant)                                  
+V                           1 .Yes                                              
+V                           2 .No                                               
+                                                                                
+D AUTOS      1    69                                                            
+    Number of vehicles available                                                
+V                           0 .N/A (GQ/vacant)                                  
+V                           1 .No vehicles                                      
+V                           2 .1 vehicle                                        
+V                           3 .2 vehicles                                       
+V                           4 .3 vehicles                                       
+V                           5 .4 or more vehicles                               
+                                                                                
+D ELECCOST   3    70                                                            
+    Monthly cost for electricity (dollars)                                      
+V                         000 .N/A (GQ/vacant)                                  
+V                         001 .Included in rent or in condo fee                 
+V                         002 .No charge or electricity not used                
+V                    003..199 .$3 to $199                                       
+V                         200 .Topcode                                          
+V                        201+ .$201 or more (median of topcoded                 
+                              .values for Puerto Rico)                          
+                                                                                
+D GASCOST    3    73                                                            
+    Monthly cost for gas (dollars)                                              
+V                         000 .N/A (GQ/vacant)                                  
+V                         001 .Included in rent or in condo fee                 
+V                         002 .No charge or gas not used                        
+V                    003..079 .$3 to $79                                        
+V                         080 .Topcode                                          
+V                        081+ .$81 or more (median of topcoded                  
+                              .values for Puerto Rico                           
+                                                                                
+D WATRCOST   3    76                                                            
+    Monthly cost for water (dollars)                                            
+V                         000 .N/A (GQ/vacant)                                  
+V                         001 .Included in rent or in condo fee                 
+V                         002 .No charge                                        
+V                    003..099 .$3 to $99                                        
+V                         100 .Topcode                                          
+V                        101+ .$101 or more (median of                          
+V                             .topcoded values for                              
+V                             .Puerto Rico)                                     
+                                                                                
+D FUELCOST   4    79                                                            
+    Yearly cost for fuel (oil, charcoal, Kerosene, wood,                        
+    etc.) in dollars                                                            
+V                        0000 .N/A (GQ/vacant)                                  
+V                        0001 .Included in rent or in condo fee                 
+V                        0002 .No charge or these fuels not used                
+V                  0003..0999 .$3 to $999                                       
+V                        1000 .Topcode                                          
+V                       1001+ .$1,001 or more (median of topcoded               
+                              .values for Puerto Rico)                          
+                                                                                
+D RTAXAMT    2    83                                                            
+    Taxes on property (yearly amount)                                           
+V                          00 .N/A (GQ/vacant/not owned or being                
+                              .bought/not a one-family house)                   
+V                          01 .None                                             
+V                          02 .$   2 - $  49                                    
+V                          03 .$  50 - $  99                                    
+V                          04 .$ 100 - $ 149                                    
+V                          05 .$ 150 - $ 199                                    
+V                          06 .$ 200 - $ 249                                    
+V                          07 .$ 250 - $ 299                                    
+V                          08 .$ 300 - $ 349                                    
+V                          09 .$ 350 - $ 399                                    
+V                          10 .$ 400 - $ 449                                    
+V                          11 .$ 450 - $ 499                                    
+V                          12 .$ 500 - $ 549                                    
+V                          13 .$ 550 - $ 599                                    
+V                          14 .$ 600 - $ 649                                    
+V                          15 .$ 650 - $ 699                                    
+V                          16 .$ 700 - $ 749                                    
+V                          17 .$ 750 - $ 799                                    
+V                          18 .$ 800 - $ 849                                    
+V                          19 .$ 850 - $ 899                                    
+V                          20 .$ 900 - $ 949                                    
+V                          21 .$ 950 - $ 999                                    
+V                          22 .$1000 - $1099                                    
+V                          23 .$1100 - $1199                                    
+V                          24 .$1200 - $1299                                    
+V                          25 .$1300 - $1399                                    
+V                          26 .$1400 - $1499                                    
+V                          27 .$1500 - $1599                                    
+V                          28 .$1600 - $1699                                    
+V                          29 .$1700 - $1799                                    
+V                          30 .$1800 - $1899                                    
+V                          31 .$1900 - $1999                                    
+V                          32 .$2000 = Topcode                                  
+V                          33 .$2001 - $2499                                    
+V                          34 .$2500 - $2999                                    
+V                          35 .$3000 or more                                    
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+D INSAMT     4    85                                                            
+    Fire/hazard/flood insurance (yearly amount)                                 
+V                        0000 .N/A (not owned or being bought/not               
+                              .a one family house)                              
+V                        0001 .None                                             
+V                  0002..1099 .$2 to $1,099                                     
+V                        1100 .Topcode                                          
+V                       1101+ .$1,101 or more (median of                        
+V                             .topcoded values for                              
+V                             .Puerto Rico)                                     
+                                                                                
+D MORTGAG    1    89                                                            
+    Mortgage status                                                             
+V                           O .N/A (not owned or being bought/not               
+                              .a one family house                               
+V                           1 .Yes, mortgage, deed of trust, or                 
+                              .similar debt                                     
+V                           2 .Yes, contract to purchase                        
+V                           3 .None                                             
+                                                                                
+D MORTGAG3   5    90                                                            
+    Mortgage payment (monthly amount)                                           
+V                       00000 .N/A (vacant/GQ/not owned or being                
+                              .bought/not a one family house/not                
+                              .mortgaged)                                       
+V                       00001 .None                                             
+V                00002..00899 .$2 to $899                                       
+V                       00900 .Topcode                                          
+V                      00901+ .$901 or more (median of topcoded                 
+                              .values for Puerto Rico)                          
+                                                                                
+D TAXINCL    1    95                                                            
+    Payment include real estate taxes                                           
+V                           0 .N/A (GQ/vacant/not owned or being                
+                              .bought/not a one family house or                 
+                              .condo/not mortgaged/no regular                   
+                              .mortgage payment)                                
+V                           1 .Yes, taxes included in payment                   
+V                           2 .No, taxes paid separately or taxes               
+                              .not required                                     
+                                                                                
+D INSINCL    1    96                                                            
+    Payment include fire/hazard/flood insurance                                 
+V                           0 .N/A (vacant/GQ/not owned or being                
+                              .bought/not a one family house                    
+                              .or condo/not mortgaged/no regular                
+                              .mortgage payment)                                
+V                           1 .Yes, insurance included in payment               
+V                           2 .No, insurance paid separately or                 
+V                             .no insurance                                     
+D MORTGAG2   1    97                                                            
+    Second mortgage or home equity loan                                         
+V                           0 .N/A (vacant/GQ/not owned or being                
+                              .bought/not a one family house/                   
+                              .not mortgaged                                    
+V                           1 .Yes                                              
+V                           2 .No                                               
+                                                                                
+D MORTAMT2   5    98                                                            
+    Second mortgage payment (monthly amount)                                    
+V                       00000 .N/A (vacant/GQ/condo/not owned or                
+                              .being bought/not a one family                    
+                              .house/not mortgaged/no second                    
+                              .mortgage)                                        
+V                       00001 .No regular payment required                      
+V                00002..01099 .$2 to $1099                                      
+V                       01100 .Topcode                                          
+V                      01101+ .$1101 or more (median of topcoded                
+                              .values for Puerto Rico)                          
+D CONDOFEE   4    103                                                           
+    Condo fee (monthly amount)                                                  
+V                        0000 .N/A (vacant/GQ/not owned or being                
+                              .bought/not a condo/no condo fee)                 
+V                  0001..0499 .$1 to $499                                       
+V                        0500 .Topcode                                          
+V                       0501+ .501 or more (median of topcoded                  
+                              .values for Puerto Rico)                          
+                                                                                
+D HUCOND1    1    107                                                           
+    Original condition of unit                                                  
+V                           0 .N/A (GQ)                                         
+V                           1 .Adequate                                         
+                            2 .Inadequate                                       
+D HUCOND2    1    108                                                           
+    Condition of housing unit                                                   
+                            0 .N/A (GQ/inadequate)                              
+                            1 .Sound                                            
+                            2 .Deteriorating                                    
+                            3 .Dilapidated                                      
+                                                                                
+D RNONREL    1    109                                                           
+    Presence of nonrelative in household                                        
+                            0 .N/A (GQ/vacant/none)                             
+                            1 .One or more nonrelatives                         
+D R18UNDR   1     110                                                           
+    Presence of nonrelatives under 18 in household                              
+                            0 .N/A (GQ/vacant/none)                             
+                            1 .One or more persons under 18 in                  
+                              .household                                        
+                                                                                
+D R60OVER   1     111                                                           
+    Presence of persons 60 years and over in household                          
+                            0 .N/A (GQ/vacant/none)                             
+                            1 .One person 60 or over                            
+                            2 .2 or more persons 60 years or over               
+                                                                                
+D R65OVER   1     112                                                           
+    Presence of persons 65 years and over in household                          
+                            0 .N/A (GQ/vacant/none)                             
+                            1 .One person 65 years or over                      
+                            2 .2 or more persons 65 years or over               
+                                                                                
+D RSUBFAM    1    113                                                           
+    Presence of subfamilies in household                                        
+V                           0 .N/A (GQ/vacant/none)                             
+V                           1 .One or more subfamilies                          
+                                                                                
+D RNAPADPT   2    114                                                           
+    Number of own/adopted children in household                                 
+V                          00 .N/A (GQ/vacant/none)                             
+V                      01..28 .Number of own children                           
+V                             .in household                                     
+                                                                                
+D RSTPCHLD   2   116                                                            
+    Number of stepchildren in household                                         
+V                          00 .N/A (GQ/vacant/none)                             
+V                      01..28 .Number of own stepchildren in                    
+                              .household                                        
+                                                                                
+D RRELCHLD   2   118                                                            
+    Number of related children in household                                     
+V                          00 .N/A (GQ/vacant/none)                             
+V                      01..28 .Number of related children in                    
+                              .household                                        
+                                                                                
+D RFAMPERS   2   120                                                            
+    Number of persons in family                                                 
+V                          00 .N/A (GQ/vacant/nonfamily household)              
+V                      01..29 .Number of persons in family                      
+                                                                                
+                                                                                
+D RHHFAMTP   2    122                                                           
+    Household/family type                                                       
+V                          00 .N/A (GQ/vacant)                                  
+V                          01 .Married couple family household                  
+V                             .Other family household:                          
+V                          02 .Male householder                                 
+V                          03 .Female householder                               
+V                             .Non-family household:                            
+V                             .Male householder:                                
+V                          11 .Living alone                                     
+V                          12 .Not living alone                                 
+V                             .Female householder:                              
+V                          21 .Living alone                                     
+V                          22 .Not living alone                                 
+                                                                                
+D RFARM      1    124                                                           
+    Farm/nonfarm status                                                         
+V                           0 .N/A (urban/GQ/vacant)                            
+V                           1 .Rural-farm                                       
+V                           2 .Rural-non-farm                                   
+                                                                                
+D RWRKR89    1    125                                                           
+    Workers in family in 1989                                                   
+V                           0 .N/A (GQ/vacant/nonfamily                         
+V                             .household)                                       
+V                           1 .No workers in family                             
+V                           2 .One worker in family                             
+V                           3 .2 workers in family                              
+V                           4 .3 or more workers in family                      
+                                                                                
+D RHHINC     7    126                                                           
+    Household income (signed)                                                   
+V            0000000..-176813 .Loss of $176813 or more                          
+V            -176812..6235000 .Total household income in dollars                
+                                                                                
+D RFAMINC    7    133                                                           
+    Family income (signed)                                                      
+V                     0000000 .N/A GQ/vacant/nonfamily/no income)               
+V                     -176813 .Loss of $176813 or more                          
+V            -176812..6235000 .Total family income in dollars                   
+V            -176812..6235000 .Total household income in dollars                
+                                                                                
+D ROWNRCST   5    140                                                           
+    Selected monthly owner costs                                                
+V                       00000 .NA GQ/no costs/not owned or                      
+V                             .being bought)                                    
+V                00001..27875 .Monthly owner costs in dollars                   
+                                                                                
+D RNSMOCPI   3    145                                                           
+    Selected monthly owner costs as a percentage of household                   
+    income                                                                      
+V                         000 .N/A (GQ/vacant/no household                      
+V                             .income/not owned or being                        
+V                             .bought)                                          
+V                    001..100 .1% to 100%                                       
+V                         101 .101% or more                                     
+                                                                                
+                                                                                
+                                                                                
+D RGRENT     4    148                                                           
+    Gross rent                                                                  
+V                        0000 .N/A (GQ/vacant/not rented/not                    
+V                             .rented                                           
+V                             .for cash rent)                                   
+V                  0001..3542 .Gross rent (dollars)                             
+                                                                                
+D RGRAPI     3    152                                                           
+    Gross rent as a percentage of household income in 1989                      
+V                         000 .N/A (GQ/vacant/not rented for                    
+V                             .cash rent)                                       
+V                    001..100 .1% to 100%                                       
+V                        101% .101% or more                                     
+                                                                                
+D RVALUNT    1    155                                                           
+    Specified value indicator                                                   
+V                           0 .Not specified                                    
+V                           1 .Specified                                        
+                                                                                
+D RRENTUNT   1    156                                                           
+    Specified rent indicator                                                    
+V                           0 .Not specified                                    
+V                           1 .Specified                                        
+                                                                                
+D AUNITS1    1    157                                                           
+    Units in structure allocation                                               
+V                           0 .No                                               
+V                           1 .Yes                                              
+                                                                                
+D AROOMS     1    158                                                           
+    Rooms allocation                                                            
+V                           0 .No                                               
+V                           1 .Yes                                              
+                                                                                
+                                                                                
+D APIPEWTR   1    159                                                           
+    Piped water allocation                                                      
+                            0 .No                                               
+                            1 .Yes                                              
+                                                                                
+D ABATHTUB   1    160                                                           
+    Bathtub/shower allocation                                                   
+                            0 .No                                               
+                            1 .Yes                                              
+                                                                                
+D ATOILET    1    161                                                           
+    Flush toilet allocation                                                     
+                            0 .No                                               
+                            1 .Yes                                              
+                                                                                
+D ATOILTYP   1    162                                                           
+    Type of toilet facilities allocation                                        
+V                           0 .No                                               
+V                           1 .Yes                                              
+                                                                                
+D ACONDO     1    163                                                           
+    Condominium status allocation                                               
+V                           0 .No                                               
+V                           1 .Yes                                              
+                                                                                
+D ATENURE    1    164                                                           
+    Tenure allocation                                                           
+V                           0 .No                                               
+V                           1 .Yes                                              
+                                                                                
+D ACUERDA3   1    165                                                           
+    On 3 cuerdas or more allocation                                             
+V                           0 .No                                               
+V                           1 .Yes                                              
+                                                                                
+D ACOMMUSE   1    166                                                           
+    Commercial establishment allocation                                         
+V                           0 .No                                               
+V                           1 .Yes                                              
+                                                                                
+D AMEDUSE    1    167                                                           
+    Medical office allocation                                                   
+V                           0 .No                                               
+V                           1 .Yes                                              
+                                                                                
+D APROFUSE   1    168                                                           
+    Other professional office allocation                                        
+V                           0 .No                                               
+V                           1 .Yes                                              
+                                                                                
+D AVALUE     1    169                                                           
+    Property value allocation                                                   
+V                           0 .No                                               
+V                           1 .Yes                                              
+                                                                                
+D ARENT1     1    170                                                           
+    Monthly rent allocation                                                     
+V                           0 .No                                               
+V                           1 .Yes                                              
+                                                                                
+D AVACNCY1   1    171                                                           
+    Vacancy status allocation                                                   
+V                           0 .No                                               
+V                           1 .Yes                                              
+                                                                                
+D AVACNCY3   1    172                                                           
+    Boarded up status allocation                                                
+V                           0 .No                                               
+V                           1 .Yes                                              
+                                                                                
+D AVACNCY4   1    173                                                           
+    Months vacant allocation                                                    
+V                           0 .No                                               
+V                           1 .Yes                                              
+                                                                                
+D ALOTSIZE   1    174                                                           
+    House lot size allocation                                                   
+V                           0 .No                                               
+V                           1 .Yes                                              
+                                                                                
+D AAGSALES   1    175                                                           
+    Agricultural sales allocation                                               
+V                           0 .No                                               
+V                           1 .Yes                                              
+                                                                                
+D AYRMOVED   1    176                                                           
+    Year moved in allocation                                                    
+V                           0 .No                                               
+V                           1 .Yes                                              
+                                                                                
+D AYRBUILT   1    177                                                           
+    Year structure built allocation                                             
+V                           0 .No                                               
+V                           1 .Yes, not answered                                
+V                           2 .Yes, don't know                                  
+                                                                                
+D ABLDMAT    1    178                                                           
+    Building material allocation                                                
+V                           0 .No                                               
+V                           1 .Yes                                              
+                                                                                
+D AWATER     1    179                                                           
+    Source of water allocation                                                  
+V                           0 .No                                               
+V                           1 .Yes                                              
+                                                                                
+D ASEWAGE    1    180                                                           
+    Sewage disposal allocation                                                  
+V                           0 .No                                               
+V                           1 .Yes                                              
+                                                                                
+D ABEDROOM   1    181                                                           
+    Bedroom allocation                                                          
+V                           0 .No                                               
+V                           1 .Yes                                              
+D ABATHRMS   1    182                                                           
+    Bathrooms allocation                                                        
+V                           0 .No                                               
+V                           1 .Yes                                              
+                                                                                
+D AWTRHTR    1    183                                                           
+    Type of water heater allocation                                             
+V                           0 .No                                               
+V                           1 .Yes                                              
+                                                                                
+D ACOOKFUL   1    184                                                           
+    Cooking facilities allocation                                               
+V                           0 .No                                               
+V                           1 .Yes                                              
+                                                                                
+D AKITCHEN   1    185                                                           
+    Complete kitchen allocation                                                 
+V                           0 .No                                               
+V                           1 .Yes                                              
+                                                                                
+D AAIRCOND   1    186                                                           
+    Air conditioning allocation                                                 
+V                           0 .No                                               
+V                           1 .Yes                                              
+                                                                                
+D ATELEPHON  1    187                                                           
+    Telephones allocation                                                       
+V                           0 .No                                               
+V                           1 .Yes                                              
+                                                                                
+D AAUTOS     1    188                                                           
+    Vehicles allocatio                                                          
+V                           0 .No                                               
+V                           1 .Yes                                              
+                                                                                
+D AELECCST   1    189                                                           
+    Cost of electricity allocation                                              
+V                           0 .No                                               
+V                           1 .Yes                                              
+                                                                                
+D AGASCST    1    190                                                           
+    Cost of gas allocation                                                      
+V                           0 .No                                               
+V                           1 .Yes                                              
+                                                                                
+D AWATRCST   1    191                                                           
+    Cost of water allocation                                                    
+V                           0 .No                                               
+V                           1 .Yes                                              
+                                                                                
+D AFUELCST   1    192                                                           
+    Cost of fuel allocation                                                     
+V                           0 .No                                               
+V                           1 .Yes                                              
+                                                                                
+D ATAXAMT    1    193                                                           
+    Property tax allocation                                                     
+V                           0 .No                                               
+V                           1 .Yes                                              
+                                                                                
+D AINSAMT    1    194                                                           
+    Fire/hazard/flood insurance allocation                                      
+V                           0 .No                                               
+V                           1 .Yes                                              
+                                                                                
+D AMORTG1    1    195                                                           
+    Mortgage status allocation                                                  
+V                           0 .No                                               
+V                           1 .Yes, no answer                                   
+V                           2 .Yes, from junior mortgage                        
+                                                                                
+D AMRTAMT1   1    196                                                           
+    Mortgage payment allocation                                                 
+V                           0 .No                                               
+V                           1 .Yes                                              
+                                                                                
+D ATAXINCL   1    197                                                           
+    Real estate taxes included allocation                                       
+V                           0 .No                                               
+V                           1 .Yes                                              
+                                                                                
+D AINSINCL   1    198                                                           
+    Fire/hazard/flood insurance allocation                                      
+V                           0 .No                                               
+V                           1 .Yes                                              
+                                                                                
+D AMORTG2    1    199                                                           
+    Second mortgage status allocation                                           
+V                           0 .No                                               
+V                           1 .Yes                                              
+                                                                                
+D AMRTAMT2   1    200                                                           
+    Second mortgage payment allocation                                          
+V                           0 .No                                               
+V                           1 .Yes                                              
+                                                                                
+D ACNDOFEE   1    201                                                           
+    Condominium fee allocation                                                  
+V                           0 .No                                               
+V                           1 .Yes                                              
+D AHUCOND1   1    202                                                           
+    Original condition of unit allocation                                       
+                            0 .No                                               
+                            1 .Yes                                              
+                                                                                
+D AHUCOND2   1    203                                                           
+    Present condition of unit allocation                                        
+                            0 .No                                               
+                            1 .YesD RECTYPE    1    1                          
+    Record Type                                                                 
+V                           P .Person Record                                    
+                                                                                
+D SERIALNO   7    2                                                             
+V            0000000..9999999 .Housing unit/GQ person                           
+V                             .serial number                                    
+                                                                                
+D PSEQNO     2    9                                                             
+V                      01..29 .Sequence number of persons within                
+V                             .household                                        
+                                                                                
+D RELAT1     2    11                                                            
+    Relationship                                                                
+V                          00 .Householder                                      
+                              .Relative:                                        
+V                          01 .Husband/wife                                     
+V                          02 .Son/daughter                                     
+V                          03 .Stepson/stepdaughter                             
+V                          04 .Brother/sister                                   
+V                          05 .Father/mother                                    
+V                          06 .Grandchild                                       
+V                          07 .Other relative                                   
+V                             .Non relative:                                    
+V                          08 .Roomer/boarder/foster child                      
+V                          09 .Housemate/roommate                               
+V                          10 .Unmarried partner                                
+V                          11 .Other nonrelative                                
+V                             .In group quarters:                               
+V                          12 .Institutionalized person                         
+V                          13 .Other persons in group quarters                  
+                                                                                
+D SEX        1    13                                                            
+    Sex                                                                         
+V                           0 .Male                                             
+V                           1 .Female                                           
+                                                                                
+D AGE        2    14                                                            
+    Age                                                                         
+V                          00 .Less than 1 year old                             
+V                      01..89 .Age in years                                     
+V                          90 .90 or more years old (topcode)                   
+                                                                                
+D MARITAL    1    16                                                            
+    Marital status                                                              
+V                           0 .Now married                                      
+V                           1 .Consensually married                             
+V                           2 .Widowed                                          
+V                           3 .Divorced                                         
+V                           4 .Separated                                        
+V                           5 .Never married (include all persons               
+V                             .under 15 years)                                  
+                                                                                
+D PWGT1      4    17                                                            
+    Person's weight                                                             
+V                  0000..1584 .Person's weight                                  
+                                                                                
+D REMPLPAR   3    21                                                            
+    Employment status of parents                                                
+V                         000 .N/A (not own child in family                     
+V                             .and no child in subfamily)                       
+V                         1XX .Living with two own parents:                     
+V                         11X .Both in the labor force:                         
+V                         111 .Both parents at work 35 or more                  
+V                             .hours                                            
+V                         112 .Father only at work 35 or more                   
+V                             .hours                                            
+V                         113 .Mother only at work 35 or more                   
+V                             .hours                                            
+V                         114 .Neither parent at work 35 or more                
+V                             .hours                                            
+V                         12X .Father only in labor force:                      
+V                         121 .At work 35 or more hours                         
+V                         122 .Not at work 35 or more hours                     
+V                         13X .Mother only in labor force:                      
+V                         131 .At work 35 or more hours                         
+V                         132 .Not at work 35 or more hours                     
+V                         141 .Neither parent in labor force                    
+V                         2XX .Living with one parent:                          
+V                         21X .Living with father:                              
+V                             .Father in labor force                            
+V                         211 .At work 35 or more hours                         
+V                         212 .Not at work 35 or more hours                     
+V                         213 .Not in the labor force                           
+V                         22X .Living with mother:                              
+V                             .Mother in labor force                            
+V                         221 .At work 35 or more hours                         
+V                         222 .Not at work 35 or more hours                     
+V                         223 .Not in the labor force                           
+                                                                                
+D RPARPOB       1    24                                                         
+    Place of birth and parent's place of birth - recode                         
+V                             .Persons born in Puerto Rico:                     
+V                           0 .Both parents born in Puerto Rico                 
+V                           1 .Only on parent born in Puerto Rico               
+V                           2 .Neither parent born in Puerto Rico               
+V                             .Person born in the U.S.:                         
+V                           3 .Both parents born in Puerto Rico                 
+V                           4 .Only one parent born in                          
+V                             .Puerto Rico                                      
+V                           5 .Neither parent born in Puerto Rico               
+V                             .Person born elsewhere:                           
+V                           6 .Person born elsewhere                            
+                                                                                
+D RSPOUSE    1    25                                                            
+    Married - spouse present/spouse absent                                      
+V                           0 .N/A (less than 15 years old)                     
+V                           1 .Now married, spouse present                      
+V                           2 .Now married, spouse absent                       
+V                           3 .Widowed                                          
+V                           4 .Divorced                                         
+V                           5 .Separated                                        
+V                           6 .Never married                                    
+                                                                                
+D ROWNCHLD   1    26                                                            
+    Own Child                                                                   
+V                           0 .Not own child                                    
+V                           1 .Own child                                        
+                                                                                
+D RAGECHLD   1    27                                                            
+    Presence and age of own children                                            
+V                           0 .NA (male/female under 15 years                   
+V                             .old)                                             
+V                             .With own children:                               
+V                           1 .Less than 6 years old only                       
+V                           2 .6 to 17 years old only                           
+V                           3 .Under 6 years and 6 to 17 years                  
+V                             .old                                              
+V                           4 .No own children                                  
+                                                                                
+D RRELCHLD   1    28                                                            
+    Related child                                                               
+V                           0 .Not related child                                
+V                           1 .Related child                                    
+                                                                                
+D RELAT2     1    29                                                            
+    Detailed relationship (other relative)                                      
+V                           0 .N/A (GQ/not an other relative)                   
+V                           1 .Son-in-law/daughter-in-law                       
+V                           2 .Father-in-law/mother-in-law                      
+V                           3 .Brother-in-law/sister-in-law                     
+V                           4 .Nephew/niece                                     
+V                           5 .Grandparent                                      
+V                           6 .Uncle/aunt                                       
+V                           7 .Cousin                                           
+V                           8 .Other related by blood or marriage               
+V                           9 .Other relative                                   
+                                                                                
+                                                                                
+                                                                                
+D SUBFAM2    1    30                                                            
+    Subfamily number                                                            
+V                           0 .N/A (GQ/not in a subfamily)                      
+V                           1 .In subfamily 1                                   
+V                           2 .In subfamily 2                                   
+V                           3 .In subfamily 3                                   
+                                                                                
+D SUBFAM1    1    31                                                            
+    Subfamily relationship                                                      
+V                           0 .N/A (GQ/not in a subfamily)                      
+V                           1 .Husband/wife                                     
+V                           2 .Single parent                                    
+V                           3 .Child in subfamily                               
+                                                                                
+D POVERTY    3    32                                                            
+    Poverty status                                                              
+V                         000 .N/A                                              
+V                    001..500 .% Below or above poverty status                  
+V                             .value                                            
+V                         501 .501% or more of poverty value                    
+                                                                                
+D RPOB        2    35                                                           
+    Place of birth - Recode                                                     
+V                          1X .Born in Puerto Rico                              
+V                          10 .Same municipio                                   
+V                          11 .Different municipio                              
+V                          2X .Born in the U.S./outlying areas:                 
+V                          22 .Born in the U.S.                                 
+V                          23 .Born in a U.S. outlying area                     
+V                          24 .Born abroad of American parents                  
+V                          3X .Born elsewhere                                   
+V                          31 .Naturalized citizen                              
+V                          32 .Not a citizen                                    
+                                                                                
+D POB        3    37                                                            
+    Place of birth                                                              
+V                    001..059 .U.S. State or D.C.                               
+V                         072 .Puerto Rico                                      
+V          060..071, 073..099 .U.S. outlying areas                              
+V                    100..553 .Foreign country                                  
+V                         554 .Born at sea                                      
+V                         555 .Born abroad, country not specified               
+                                                                                
+D CITIZEN    1    40                                                            
+    Citizenship                                                                 
+V                           0 .Born in Puerto Rico                              
+V                           1 .Born in a U.S. State/outlying area               
+V                           2 .Born abroad of American parents                  
+V                           3 .Naturalized                                      
+V                           4 .Not a citizen                                    
+D IMMIGR     2    41                                                            
+    Year of entry                                                               
+V                          00 .Born in Puerto Rico                              
+V                          01 .1987 to 1990                                     
+V                          02 .1985 to 1986                                     
+V                          03 .1982 to 1984                                     
+V                          04 .1980 or 1981                                     
+V                          05 .1975 to 1979                                     
+V                          06 .1970 to 1974                                     
+V                          07 .1965 to 1969                                     
+V                          08 .1960 to 1964                                     
+V                          09 .1950 to 1959                                     
+V                          10 .Before 1950                                      
+                                                                                
+D SCHOOL     1    43                                                            
+    School enrollment                                                           
+V                           0 .N/A (less than 3 years old)                      
+V                           1 .No, has not attended since                       
+V                             .February 1, 1990                                 
+V                           2 .Public school/public college                     
+V                           3 .Private school/private college                   
+                                                                                
+D YEARSCH    2    44                                                            
+    Educational attainment                                                      
+V                          00 .N/A (less than 3 years old)                      
+V                          01 .No school completed                              
+V                          02 .Pre-kindergarten                                 
+V                          03 .Kindergarten                                     
+V                          04 .1st grade                                        
+V                          05 .2nd grade                                        
+V                          06 .3rd grade                                        
+V                          07 .4th grade                                        
+V                          08 .5th grade                                        
+V                          09 .6th grade                                        
+V                          10 .7th grade                                        
+V                          11 .8th grade                                        
+V                          12 .9th grade                                        
+V                          13 .10th grade                                       
+V                          14 .11th grade                                       
+V                          15 .12th grade, no diploma                           
+V                          16 .High school graduate, diploma                    
+V                             .or GED                                           
+V                          17 .Some college, no degree                          
+V                          18 .Associate degree, occupational                   
+V                             .program                                          
+V                          19 .Associate degree, academic program               
+V                          20 .Bachelor's degree                                
+V                          21 .Master's degree                                  
+V                          22 .Professional school degree                       
+V                          23 .Doctorate degree                                 
+D FPOB       3    46                                                            
+    Father's place of birth                                                     
+V                    001..059 .U.S State or D.C.                                
+V                         072 .Puerto Rico                                      
+V          060..071, 073..099 .U.S. outlying area                               
+V                    100..553 .Foreign country                                  
+V                         554 .At sea                                           
+V                         555 .Abroad                                           
+                                                                                
+D MPOB       3    49                                                            
+    Mother's place of birth                                                     
+V                    001..059 .U.S State or D.C.                                
+V                         072 .Puerto Rico                                      
+V          060..071, 073..099 .U.S. outlying area                               
+V                    100..553 .Foreign country                                  
+V                         554 .At sea                                           
+V                         555 .Abroad                                           
+                                                                                
+D MOBILITY   1    52                                                            
+    Mobility status (lived here on April 1, 1985                                
+V                           0 .NA (Less than 5 years old)                       
+V                           1 .Yes, same house (nonmovers)                      
+V                           2 .No, different house (movers)                     
+                                                                                
+D MIGSTATE   3    53                                                            
+    Migration - state or foreign country                                        
+V                         000 .N/A (Person less than 5 years                    
+V                             .old/lived in same house in 1985)                 
+V                    001..059 .U.S. States or D.C.                              
+V                         072 .Puerto Rico                                      
+V          060..071, 073..099 .U.S. outlying area                               
+V                    100..553 .Foreign country                                  
+V                         554 .At sea                                           
+V                         555 .Abroad, country not specified                    
+                                                                                
+D MIGPUMA    5    56                                                            
+    Migration - PUMA                                                            
+V                       00000 .N/A (person less than 5 years                    
+V                             .old/lived in same house in 1985)                 
+V                00100..99800 .Migration PUMA                                   
+V                       99900 .Outside Puerto Rico or the                       
+V                             .United States                                    
+                                                                                
+D USRES      1    61                                                            
+    Residence in the U.S. Between 1980 and 1990                                 
+V                             0 .NA (person less than 5 years                   
+V                               .old)                                           
+V                             1 .Yes                                            
+V                             2 .No                                             
+                                                                                
+D LASTSTAY   1    62                                                            
+    Length of last stay in U.S.                                                 
+V                           0 .N/A (less than 5 years old/no                    
+V                             .residence in U.S. between                        
+V                             .1980 and 1990)                                   
+V                           1 .6 month to 1 year                                
+V                           2 .1 to 2 years                                     
+V                           3 .3 to 4 years                                     
+V                           4 .5 years                                          
+V                           5 .6 to 9 years                                     
+V                           6 .10 or more years                                 
+D RETURN     1    63                                                            
+    Year of return to Puerto Rico from U.S.                                     
+V                           0 .N/A (person less than 5 years                    
+V                             .old/no residence in U.S.                         
+V                             .between 1980 and 1990)                           
+V                           1 .1990                                             
+V                           2 .1989                                             
+V                           3 .1988                                             
+V                           4 .1987                                             
+V                           5 .1986                                             
+V                           6 .1985                                             
+V                           7 .1984                                             
+V                           8 .1983                                             
+V                           9 .1980 to 1982                                     
+                                                                                
+D USACTIV    1    64                                                            
+    Main actiity in US during that time                                         
+V                           0 .N/A (less than 5 years old/no                    
+V                             .residence in U.S. between                        
+V                             .1980 and 1990                                    
+V                           1 .In U.S. Armed Forces                             
+V                           2 .Working at a job or business                     
+V                           3 .Attending school or college                      
+V                           4 .Other                                            
+                                                                                
+D LITERACY   1    65                                                            
+    Literacy (in any language)                                                  
+V                           0 .N/A (less than 5 years old)                      
+V                           1 .Yes                                              
+V                           2 .No                                               
+                                                                                
+D SPANISH    1    66                                                            
+    Speaks spanish                                                              
+V                           0 .NA (less than 5 years old)                       
+V                           1 .Yes                                              
+V                           2 .No                                               
+                                                                                
+                                                                                
+                                                                                
+D ENGLISH    1    67                                                            
+    English ability                                                             
+V                           0 .NA (less than 5 years old)                       
+V                           1 .Yes, easily                                      
+V                           2 .Yes, with difficulty                             
+V                           3 .No                                               
+                                                                                
+D FERTIL     2    68                                                            
+    Number of children ever born                                                
+V                          00 .NA (less than 15 years old/male)                 
+V                          01 .No child                                         
+V                          02 .1 child                                          
+V                          03 .2 children                                       
+V                          04 .3 children                                       
+V                          05 .4 children                                       
+V                          06 .5 children                                       
+V                          07 .6 children                                       
+V                          08 .7 children                                       
+V                          09 .8 children                                       
+V                          10 .9 children                                       
+V                          11 .10 children                                      
+V                          12 .11 children                                      
+V                          13 .12 or more children                              
+                                                                                
+D MILITARY   1    70                                                            
+    Military service status                                                     
+V                           0 .N/A (less than 16 years old)                     
+V                           1 .Yes, now on active duty                          
+V                           2 .Yes, active duty in past, but not                
+V                             .now                                              
+V                           3 .Yes, service in the reserves or                  
+V                             .national guard only                              
+V                           4 .No service                                       
+                                                                                
+D RVETSERV   2    71                                                            
+    Veteran's period of service                                                 
+V                          00 .N/A (less than 16 years old, no                  
+V                             .active duty)                                     
+V                          01 .September 1980 or later only                     
+V                          02 .May 1975 to August 1980 only                     
+V                          03 .May 1975 to August 1980 and                      
+V                             . September 1980 or later only                    
+V                          04 .Vietnam era, no Korean conflict,                 
+V                             .nor WWII                                         
+V                          05 .Vietnam era and Korean conflict,                 
+V                             .no WWII                                          
+V                          06 .Vietnam era and Korean conflict                  
+V                             .and WWII                                         
+V                          07 .February 1955 to July 1964 only                  
+                                                                                
+V                          08 .Korean conflict, no Vietnam era,                 
+V                             .nor WWII                                         
+V                          09 .Korean conflict and WWII, no                     
+V                             .Vietnam era                                      
+V                          10 .WWII, no Korean conflict, nor                    
+V                             .Vietnam era                                      
+V                          11 .Other service                                    
+                                                                                
+D SEPT80     1    73                                                            
+    Served September 1980 or later                                              
+V                           0 .(Did not serve this period/less                  
+V                             .than                                             
+V                             .16 years old)                                    
+V                           1 .Served this period                               
+                                                                                
+D MAY75880   1    74                                                            
+    Served May 1975 to August 1980                                              
+V                           0 .(Did not serve this period/less than             
+V                             .16 years old)                                    
+V                           1 .Served this period                               
+                                                                                
+D VIETNAM    1    75                                                            
+    Served Vietnam era (August 1964 - April 1975)                               
+V                           0 .(Did not serve this period/less                  
+V                             .than 16 years  old)                              
+V                           1 .Served this period                               
+                                                                                
+D FEB55      1    76                                                            
+    Served February 1955 - July 1964                                            
+V                           0 .(Did not serve this period/less                  
+V                             .than 16 years old)                               
+V                           1 .Served this period                               
+                                                                                
+D KOREAN     1    77                                                            
+    Served Korean conflict (June 1950 - January 1955)                           
+V                           0 .(Did not serve this period/less                  
+V                             .than 16 years old)                               
+V                           1 .Served this period                               
+                                                                                
+D WWII       1    78                                                            
+    Served World War II (September 1940 - July 1947)                            
+V                           0 .(Did not serve this period/less                  
+V                             .than 16 years old)                               
+V                           1 .Served this period                               
+                                                                                
+D OTHRSERV   1    79                                                            
+    Served any other time                                                       
+V                           0 .(Did not serve this period/less                  
+V                             .than 16 years old)                               
+V                           1 .Served this period                               
+D YRSSERV    2    80                                                            
+    Years of active duty military service                                       
+V                          00 .N/A (less than 16 years/no active                
+V                             .duty military service)                           
+V                          01 .1 Year or less of service                        
+V                      02..49 .2 to 49 years of service                         
+V                          50 .50 or more years of service                      
+                                                                                
+D DISABL1    1    82                                                            
+    Work limitation status                                                      
+V                           0 .N/A (less than 16 years                          
+V                             .old/institutionalized persons                    
+                            1 .Yes                                              
+V                           2 .No limitation                                    
+                                                                                
+D DISABL2    1    83                                                            
+    Work prevented status                                                       
+V                           0 .N/A(less than 16 years                           
+V                             .old/institutionalized person                     
+V                           1 .Yes, prevented from working                      
+V                           2 .No, not prevented from working                   
+                                                                                
+D MOBILLIM   1    84                                                            
+    Mobility limitation                                                         
+V                           0 .N/A (less than                                   
+V                             .15 years old/institutionalized                   
+V                             .person)                                          
+V                           1 .Yes                                              
+V                           2 .No                                               
+                                                                                
+D PERSCARE   1    85                                                            
+    Personal care limitation                                                    
+V                           0 .N/A (less than 15                                
+V                             .years old/institutionalized                      
+V                             .person)                                          
+V                           1 .Yes, has a personal care                         
+V                             .limitation                                       
+V                           2 .No, does not have a personal                     
+V                             .care limitation                                  
+                                                                                
+D VOCTRNG    1    86                                                            
+    Completed vocational training                                               
+V                          00 .N/A (less than 15 years old)                     
+V                          01 .Yes                                              
+V                          02 .No                                               
+                                                                                
+D VOCSCHOL   1    87                                                            
+    Kind of school for vocational training                                      
+V                           0 .NA (less than 15 years old/no                    
+V                             .Vocational training)                             
+V                           1 .Business/trade school/junior                     
+V                             .college                                          
+V                           2 .High school vocational program                   
+V                           3 .Training program at place of work                
+V                           4 .Other school                                     
+                                                                                
+D RLABOR     1    88                                                            
+    Employment status                                                           
+V                           0 .N/A (less than 16 years old)                     
+V                           1 .Civilian employed, at work                       
+V                           2 .Civilian employed, with a job but                
+V                             .not at work                                      
+V                           3 .Civilian unemployed                              
+V                           4 .Armed forces, at work                            
+V                           5 .Armed forces, with a job but not                 
+V                             .at work                                          
+V                           6 .Not in the labor force                           
+                                                                                
+D WORKLWK    1    89                                                            
+    Worked last week (unallocated)                                              
+V                           0 .N/A (less than 16 years old/not at               
+V                             .work/unemployed/not in the labor                 
+V                             .force/Q22 not reported)                          
+V                           1 .Worked                                           
+V                           2 .Did not work                                     
+                                                                                
+D HOURS      2    90                                                            
+    Hours worked last week                                                      
+V                          00 .N/A (less than 16 years old/not at               
+V                             .work/unemployed/not in labor                     
+V                             .force)                                           
+V                      01..98 .1 to 98 hours worked last week                   
+V                          99 .99 or more hours worked last week                
+                                                                                
+D POWSTATE   3    92                                                            
+    Place of work - state or foreign country                                    
+V                         000 .N/A (Less than 16 years                          
+V                             .old/employed or Armed Forces                     
+V                             .but not at work/not in labor                     
+V                             .force/unemployed)                                
+V                     001-059 .U.S. state or D.C.                               
+V                         072 .Puerto Rico                                      
+V          060..071, 073..099 .U.S. outlying area                               
+V                    100..553 .Foreign country                                  
+V                         554 .At sea                                           
+V                         555 .Abroad, country not specified                    
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+D POWPUMA    5    95                                                            
+    Place of work PUMA                                                          
+V                       00000 .N/A (not a worker/not in the labor               
+V                             .force/less than 16 years                         
+V                             .old/unemployed/employed but not at               
+V                             .work/armed forces, with a job but                
+V                             .not at work)                                     
+V                00100..02500 .Place of work PUMA in Puerto Rico                
+V                       99900 .Place of work outside Puerto Rico                
+                                                                                
+D MEANS      2    100                                                           
+    Principal Means of transportation to work                                   
+V                          00 .N/A (Less than 16 years                          
+V                             .old/employed or armed forces,                    
+V                             .but not at work/not in labor                     
+V                             .force/unemployed)                                
+V                          01 .Car, truck, or van                               
+V                          02 .Bus                                              
+V                          03 .Publico                                          
+V                          04 .Ferryboat                                        
+V                          05 .Taxicab                                          
+V                          06 .Motorcycle                                       
+V                          07 .Bicycle                                          
+V                          08 .Walked                                           
+V                          09 .Worked at home                                   
+V                          10 .Other means                                      
+                                                                                
+D RIDERS     1    102                                                           
+    Vehicle occupancy                                                           
+V                           0 .N/A (Less than 16 years/employed                 
+V                             .or armed forces but not at                       
+V                             .work/not in labor                                
+V                             .force/unemployed/not by car,                     
+V                             .truck, or van)                                   
+V                           1 .Drove alone                                      
+V                           2 .2 People                                         
+V                           3 .3 People                                         
+V                           4 .4 People                                         
+V                           5 .5 People                                         
+V                           6 .6 People                                         
+V                           7 .7 to 9 people                                    
+V                           8 .10 or more people                                
+                                                                                
+D DEPART     4    103                                                           
+    Time of departure for work - hour and minute                                
+V                        0000 .N/A (less than 16 years                          
+V                             .old/employed or in armed                         
+V                             .forces but not at work/worked                    
+V                             .at home/unemployed/not in labor                  
+V                             .force)                                           
+V                 0001.. 2400 .Time of departure for work (hour                 
+V                             .and minute, 2400= midnight)                      
+                                                                                
+D TRAVTIME   2    107                                                           
+    Travel time to work                                                         
+V                          00 .N/A (Less than 16 years                          
+V                             .old/employed or in armed forces                  
+V                             .but not at work/worked at                        
+V                             .home/unemployed/not in labor                     
+V                             .force)not a worker or worker                     
+V                             .who worked at home)                              
+V                      01..98 .1 to 98 minutes to get to work                   
+                                                                                
+D TMPABSNT   1    109                                                           
+    Temporary absence from work                                                 
+V                           0 .N/A (less than 16 years old/at                   
+V                             .work/did not report Q26)                         
+V                           1 .Yes, on layoff                                   
+V                           2 .Yes, on vacation, temporary                      
+V                             .illness, labor force dispute                     
+V                           3 .No                                               
+                                                                                
+D LOOKING    1    110                                                           
+    Looking for work                                                            
+V                           0 .NA (less than 16 years old/at                    
+V                             .work/did not report Q27A)                        
+V                           1 .Yes                                              
+V                           2 .No                                               
+                                                                                
+D AVAIL      1    111                                                           
+    Available for work                                                          
+V                           0 .N/A (less than 16 years/at work/                 
+V                             .did not report Q27A/not looking                  
+V                             .for work/did not report Q27B)                    
+V                           1 .No, already has a job                            
+V                           2 .No, temporarily ill                              
+V                           3 .No, other reasons (in school,etc.)               
+V                           4 .Yes, could have taken a job                      
+                                                                                
+D YEARWRK    1    112                                                           
+    Year last worked                                                            
+V                           0 .N/A (less than 16 years old)                     
+V                           1 .1990                                             
+V                           2 .1989                                             
+V                           3 .1988                                             
+V                           4 .1985 to 1987                                     
+V                           5 .1980 to 1984                                     
+V                           6 .1979 or earlier                                  
+V                           7 .Never worked                                     
+                                                                                
+D INDUSTRY   3    113                                                           
+    Industry                                                                    
+V                         000 .N/A (less than 16 years                          
+V                             .old/unemployed who never worked/                 
+V                             .not in labor force who last                      
+V                             .worked before 1985)                              
+V                    010..960 .Specific industry codes                          
+V                             .(see appendix I)                                 
+V                         992 .Unemployed, last worked before                   
+V                             .1985                                             
+                                                                                
+D OCCUP      3    116                                                           
+    Occupation                                                                  
+V                         000 .N/A (less than 16 years                          
+V                             .old/unemployed who never worked/                 
+V                             .not in labor force who last                      
+V                             .worked before 1985)                              
+V                    003..905 .Specific occupation codes                        
+V                             .(see appendix I)                                 
+V                         909 .Unemployed, last worked prior to                 
+V                             .1985                                             
+                                                                                
+D CLASS      1    119                                                           
+    Class of worker                                                             
+V                           0 .N/A (less than 16 years                          
+V                             .old/unemployed who never worked/                 
+V                             .not in labor force who last                      
+V                             .worked before 1985)                              
+V                           1 .Employee of a private for profit                 
+V                             .company or business or of an                     
+V                             .individual, for wages, salary, or                
+V                             .commissions                                      
+V                           2 .Employee of a private                            
+V                             .not-for-profit, tax-exempt, or                   
+V                             .charitable organization                          
+V                           3 .Municipal government employee                    
+V                             .(city, municipio, etc.)                          
+V                           4 .Commonwealth government employee                 
+V                           5 .Federal government employee                      
+V                           6 .Self-employed in own not                         
+V                             .incorporated business,                           
+V                             .professional practice, or farm                   
+V                           7 .Self-employed in own incorporated                
+V                             .business, professional practice of               
+V                             .farm                                             
+V                           8 .Working without pay in family                    
+V                             .business or farm                                 
+V                           9 .Unemployed, last worked before                   
+V                             .1985                                             
+                                                                                
+D WORK89     1    120                                                           
+    Worked last year (1989)                                                     
+V                           0 .N/A (less than 16 years old)                     
+V                           1 .Worked last year                                 
+V                           2 .Did not work last year                           
+                                                                                
+D WEEK89     2    121                                                           
+    Weeks worked last year (1989)                                               
+V                          00 .N/A (less than 16 years old/did                  
+V                             .not work in 1989)                                
+V                      01..52 .Worked 1 to 52 weeks last year                   
+                                                                                
+D HOUR89     2    123                                                           
+    Usual hours worked per week last year (1989)                                
+V                          00 .N/A (less than 16 years old/did                  
+V                             .not work in 1989)                                
+V                      01..98 .1 to 98 usual hours                              
+V                          99 .99 or more usual hours                           
+D RPINCOME   6    125                                                           
+    Total person's income (signed)                                              
+V                      000000 .N/A (less than 15 years old/no                   
+V                             .income)                                          
+V                      -06097 .Loss of $6097 or more                            
+V              -06096..214999 .Total person's income in dollars                 
+V                      215000 .Topcode of total person's income                 
+V                     215001+ .Medians of topcoded values for                   
+V                             .Puerto Rico included                             
+                                                                                
+D REARNING   6    131                                                           
+    Total person's earnings (signed)                                            
+V                      000000 .N/A (less than 16 years old/no                   
+V                             .income)                                          
+V                      -05998 .Loss of $5998 or more                            
+V              -05997..129999 .Total person's earnings in dollars               
+V                      130000 .Topcode of total person's earnings               
+V                     130001+ .Medians of topcoded values for                   
+V                             .Puerto Rico included                             
+                                                                                
+D INCOME1    6    137                                                           
+    Wages or salary income in 1989                                              
+V                      000000 .N/A (less than 16 years old/none)                
+V              000001..059999 .$1 - $59,999                                     
+V                      060000 .Topcode                                          
+V                     060001+ .$60001 or more (median of topcoded               
+V                             .values for Puerto Rico)                          
+                                                                                
+D INCOME2    6    143                                                           
+    Nonfarm self-employment income in 1989 (signed)                             
+V                      000000 .N/A (less than 16 years/none)                    
+V                      -04999 .Loss of $4,999 or more                           
+V              -00001..-04998 .Loss $1 to $4,998                                
+V                      000001 .Break even or $1                                 
+V              000002..049999 .$2 To $49999                                     
+V                      050000 .Topcode                                          
+V                     050001+ .$50,001 or more (median of                       
+V                             .topcoded values for                              
+V                             .Puerto Rico)                                     
+                                                                                
+D INCOME3    6    149                                                           
+    Farm self-employment income in 1989 (signed)                                
+V                      000000 .N/A (less than 16 years/none)                    
+V                      -00999 .Loss of $999 or more                             
+V            -00001 to -00998 .Loss $1 to $998                                  
+V                      000001 .Break even or $1                                 
+V             000002..019999  .$2 To $19999                                     
+V                      020000 .Topcode                                          
+V                      20001+ .$20001 or more (median of topcoded               
+V                             .values for Puerto Rico)                          
+D INCOME4    6    155                                                           
+    Interest, dividends, and net rental income in 1989                          
+     (signed)                                                                   
+V                      000000 .N/A (less than 15 years/none)                    
+V                      -00099 .Loss of $99 or more                              
+V            -00001 to -00098 .Loss $1 to $98                                   
+V                      000001 .Break even or $1                                 
+V              000002..029999 .$2 To $29999                                     
+V                      030000 .Topcode                                          
+V                     030001+ .$30001 or more (median of topcoded               
+V                             .values for Puerto Rico)                          
+                                                                                
+D INCOME5    5    161                                                           
+    Social security income (amount)                                             
+V                       00000 .N/A (less than 15 years/none)                    
+V                00001..14999 .$1 to $14999                                     
+V                       15000 .Topcode                                          
+V                      15001+ .$15001 or more (median of topcoded               
+V                             .values for Puerto Rico)                          
+                                                                                
+D INCOME6    5    166                                                           
+    Public assistance income (signed)                                           
+V                       00000 .N/A (less than 15 years/none)                    
+V                00001..09999 .$1 To $9999                                      
+V                       10000 .Topcode                                          
+V                      10001+ .$10001 or more (median of topcoded               
+V                             .values Puerto Rico)                              
+                                                                                
+D INCOME7    5    171                                                           
+    Retirement income (amount)                                                  
+V                       00000 .N/A (less than 15 years/none)                    
+V                00001..14999 .$1 to $14999                                     
+V                       15000 .Topcode                                          
+V                      15001+ .$15001 or more (median of topcoded               
+V                             .values for Puerto Rico)                          
+                                                                                
+D INCOME8    5    176                                                           
+    All other income in 1989                                                    
+V                       00000 .N/A (less than 15 years/none)                    
+V                00001..14999 .$1 to $14999                                     
+V                       15000 .Topcode                                          
+V                      15001+ .$15,001 or more (median of                       
+V                             .topcoded values for                              
+V                             .Puerto Rico)                                     
+                                                                                
+D AAUGMENT   1    181                                                           
+    Augmented person                                                            
+V                           0 .No                                               
+V                           1 .Yes                                              
+                                                                                
+                                                                                
+D ARELAT1    1    182                                                           
+    Relationship allocation                                                     
+V                           0 .No                                               
+V                           1 .Yes                                              
+                                                                                
+D ASEX       1    183                                                           
+    Sex allocation                                                              
+V                           0 .No                                               
+V                           1 .Yes                                              
+                                                                                
+D AAGE       1    184                                                           
+    Age allocation                                                              
+V                           0 .No                                               
+V                           1 .Yes                                              
+                                                                                
+D AMARITAL   1    185                                                           
+    Marital status allocation                                                   
+V                           0 .No                                               
+V                           1 .Yes                                              
+                                                                                
+ABIRTHPL   1    186                                                             
+    Place of birth allocation                                                   
+V                           0 .No                                               
+V                           1 .Yes                                              
+                                                                                
+D ACITIZEN   1    187                                                           
+    Citizenship allocation                                                      
+V                           0 .No                                               
+V                           1 .Yes                                              
+                                                                                
+                                                                                
+D AIMMIGR    1    188                                                           
+    Year of entry allocation                                                    
+V                           0 .No                                               
+V                           1 .Yes                                              
+                                                                                
+D ASCHOOL    1    189                                                           
+    School enrollment allocation                                                
+V                           0 .No                                               
+V                           1 .Yes                                              
+                                                                                
+D AYEARSCH   1    190                                                           
+    Highest degree allocation                                                   
+V                           0 .No                                               
+V                           1 .Yes                                              
+                                                                                
+D AFPOB      1    191                                                           
+    Father's place of birth allocation                                          
+V                           0 .No                                               
+V                           1 .Yes                                              
+                                                                                
+D AMPOB      1    192                                                           
+    Mother's place of birth allocation                                          
+V                           0 .No                                               
+V                           1 .Yes                                              
+                                                                                
+D AMOBIL     1    193                                                           
+    Mobility status allocation                                                  
+V                           0 .No                                               
+V                           1 .Yes                                              
+                                                                                
+D AMIGSTAT   1    194                                                           
+    Migration - State allocation                                                
+V                           0 .No                                               
+V                           1 .Yes                                              
+                                                                                
+D AUSRES     1    195                                                           
+    Residence in U.S. allocation                                                
+V                           0 .No                                               
+V                           1 .Yes                                              
+                                                                                
+D ALSTSTAY   1    196                                                           
+    Length of stay in U.S. allocation                                           
+V                           0 .No                                               
+V                           1 .Yes                                              
+                                                                                
+D ARETURN    1    197                                                           
+    Year of return to Puerto Rico allocation                                    
+V                           0 .No                                               
+V                           1 .Yes                                              
+                                                                                
+D AUSACTIV   1    198                                                           
+    Activity in the U.S. allocation                                             
+V                           0 .No                                               
+V                           1 .Yes                                              
+                                                                                
+D ALITERCY   1    199                                                           
+    Literacy in any language allocation                                         
+V                           0 .No                                               
+V                           1 .Yes                                              
+                                                                                
+D ASPANISH   1    200                                                           
+    Speaks spanish allocation                                                   
+V                           0 .No                                               
+V                           1 .Yes                                              
+                                                                                
+D AENGLISH   1    201                                                           
+    Ability to speak English allocation                                         
+V                           0 .No                                               
+V                           1 .Yes                                              
+                                                                                
+D AFERTIL    1    202                                                           
+    Children ever born allocation                                               
+V                           0 .No                                               
+V                           1 .Yes                                              
+                                                                                
+D AMILTRY    1    203                                                           
+    Military service allocation                                                 
+V                           0 .No                                               
+V                           1 .Yes                                              
+                                                                                
+D AVETS      1    204                                                           
+    Military periods of service allocation                                      
+V                           0 .No                                               
+V                           1 .Yes                                              
+                                                                                
+D AYRSSERV   1    205                                                           
+    Years of military service allocation                                        
+V                           0 .No                                               
+V                           1 .Yes                                              
+                                                                                
+D ADISABL1   1    206                                                           
+    Work limitation status allocation                                           
+V                           0 .No                                               
+V                           1 .Yes                                              
+                                                                                
+D ADISABL2   1    207                                                           
+    Work prevention status allocation                                           
+V                           0 .No                                               
+V                           1 .Yes                                              
+                                                                                
+D AMOBLIM   1    208                                                            
+    Mobility limitation status allocation flag                                  
+V                           0 .No                                               
+V                           1 .Yes                                              
+                                                                                
+D APERCARE   1    209                                                           
+    Personal care limitation status allocation                                  
+V                           0 .No                                               
+V                           1 .Yes                                              
+                                                                                
+D AVOCTRNG   1    210                                                           
+    Completed vocational training allocation                                    
+V                           0 .No                                               
+V                           1 .Yes                                              
+                                                                                
+D AVOCSCHL   1    211                                                           
+    School for vocational training allocation                                   
+V                           0 .No                                               
+V                           1 .Yes                                              
+                                                                                
+D ALABOR     1    212                                                           
+    Employment status recode allocation                                         
+V                           0 .No                                               
+V                           1 .Yes                                              
+                                                                                
+D AHOURS     1    213                                                           
+    Hours worked last week allocation                                           
+V                           0 .No                                               
+V                           1 .Yes                                              
+                                                                                
+D APOWST     1    214                                                           
+    Place of work state allocation                                              
+                            0 .No                                               
+V                           1 .Yes                                              
+                                                                                
+D AMEANS     1    215                                                           
+    Means of transportation to work allocation                                  
+V                           0 .No                                               
+V                           1 .Yes                                              
+                                                                                
+D ARIDERS    1    216                                                           
+    Vehicle occupancy allocation                                                
+V                           0 .No                                               
+V                           1 .Yes                                              
+                                                                                
+D ADEPART    1    217                                                           
+    Time of departure to work allocation                                        
+V                           0 .No                                               
+V                           1 .Yes                                              
+                                                                                
+D ATRAVTME   1    218                                                           
+    Travel time to work allocation                                              
+V                           0 .No                                               
+V                           1 .Yes                                              
+                                                                                
+D ALSTWRK    1    219                                                           
+    Year last worked allocation                                                 
+V                           0 .No                                               
+V                           1 .Yes                                              
+                                                                                
+D AINDUSTR   1    220                                                           
+    Industry allocation                                                         
+V                           0 .No                                               
+V                           1 .Yes                                              
+                                                                                
+D AOCCUP     1    221                                                           
+    Occupation allocation                                                       
+V                           0 .No                                               
+V                           1 .Yes                                              
+                                                                                
+D ACLASS     1    222                                                           
+    Class of worker allocation                                                  
+V                           0 .No                                               
+V                           1 .Yes                                              
+                                                                                
+D AWORK89    1    223                                                           
+    Worked last year allocation                                                 
+V                           0 .No                                               
+V                           1 .Yes                                              
+                                                                                
+D AWEEK89    1    224                                                           
+    Weeks worked in 1989 allocation                                             
+V                           0 .No                                               
+V                           1 .Yes                                              
+                                                                                
+D AHOUR89    1    225                                                           
+    Usual hours worked in 1989 allocation                                       
+V                           0 .No                                               
+V                           1 .Yes                                              
+D AINCOME1   1    226                                                           
+    Wages and salary income allocation                                          
+V                           0 .No                                               
+V                           1 .No (derived)                                     
+V                           2 .Yes                                              
+                                                                                
+D AINCOME2   1    227                                                           
+    Nonfarm self-employment income allocation                                   
+V                           0 .No                                               
+V                           1 .No (derived)                                     
+V                           2 .Yes                                              
+D AINCOME3   1    228                                                           
+    Farm self-employment income allocation                                      
+V                           0 .No                                               
+V                           1 .No (derived)                                     
+V                           2 .Yes                                              
+                                                                                
+D AINCOME4   1    229                                                           
+    Interest, dividend, and net rental income allocation                        
+V                           0 .No                                               
+V                           1 .No (derived)                                     
+V                           2 .Yes                                              
+                                                                                
+D AINCOME5   1    230                                                           
+    Social security income allocation                                           
+V                           0 .No                                               
+V                           1 .No (derived)                                     
+V                           2 .Yes                                              
+                                                                                
+                                                                                
+D AINCOME6   1    231                                                           
+    Public assistance allocation                                                
+V                           0 .No                                               
+V                           1 .No (derived)                                     
+V                           2 .Yes                                              
+                                                                                
+D AINCOME7   1    232                                                           
+    Retirement income allocation                                                
+V                           0 .No                                               
+V                           1 .No (derived)                                     
+V                           2 .Yes                                              
+                                                                                
+D AINCOME8   1    233                                                           
+    All other income allocation                                                 
+V                           0 .No                                               
+V                           1 .No (derived)                                     
+V                           2 .Yes                                              

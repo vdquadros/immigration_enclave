@@ -1,0 +1,43 @@
+These are the 1980 programs (in order)
+
+1. read80.sas - reads the state-specific files
+of the 1980 5% extracts, available from icpsr
+
+2. np2.sas - takes the sas extract created by read80
+and creates a working data set of wage-earners
+age 18+, with recodes, etc. This is np80.sas7bdat
+These data are used to build wage outcomes
+
+*reads the code in smsarecode80.sas to re-code msa's
+
+3. allnp2.sas - takes the sas extract created by read80
+and creates a working data set of EVERYONE
+age 18+, with recodes, etc. This is supp80.sas7bdat
+These data are used to build supply variables
+
+*reads the code in smsarecode80.sas to re-code msa's
+
+
+Each of the following creates a set of tables by city
+that are merged together in the final regression analysis
+-------------------------------------------------------
+ 
+4. cell1.sas - reads the data in np80 and
+creates a big summary of data by cell==>  bigcells.sas7bdat
+
+5. t1.sas - reads the data in supp80 and
+creates a big summary of data by cell==>  allcells.sas7bdat
+
+6. supply1.sas - reads the data in np80 and
+gets supply measures  ==> cellsupply.sas7bdat
+
+7. imm1.sas  - reads the data in supp80 and
+gets counts of immigrants by sending country in
+each city  ==> ic_city.sas7bdat
+
+(IC is my classification of sending countries)
+
+8. indist.sas - reads the data in np80 and 
+  gets fraction of workers in MFG by city
+
+
