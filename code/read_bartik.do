@@ -139,3 +139,9 @@ keep if year == 1990
 save data/1990/all90, replace
 restore
 
+preserve
+keep if year == 2000
+save data/2000/all2000, replace
+restore
+
+

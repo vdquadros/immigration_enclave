@@ -10,7 +10,6 @@ use data/1990/all90.dta
 
 /* Sample restrictions*/
 keep if age >= 18 
-keep if incwage > 0
 
 /* Weight */
 gen pweight = perwt 
@@ -37,6 +36,13 @@ gen somecoll = (eclass == 3)
 gen collplus = (eclass == 4)
 gen advanced = (114 <= educd & educd <= 116)
 
+/*
+SCHOOL:
+           0 n/a
+           1 no, not in school
+           2 yes, in school
+           9 missing */
+gen inschool = (school == 2) 
 
 /* EXPERIENCE */
 gen exp = . 
@@ -44,8 +50,11 @@ replace exp = age-16 if eclass == 1
 replace exp = age-19 if eclass == 2
 replace exp = age-21 if eclass == 3
 replace exp = age-23 if eclass == 4
+gen exp2 = exp*exp/100
+gen exp3 = exp*exp*exp/1000
 
-keep if (1<=exp & exp<=45)   /*sample cut for exp*/
+/* Sample cut for exp. */
+keep if (1<=exp & exp<=45)   
 
 /* More experience variable */
 gen xclass = . 
@@ -90,8 +99,14 @@ gen logwage2 = log(wage2)
 /* Keep obs that are not self employed */
 keep if logwage2 != . 
 
+/*
+SEX:
+           1 male
+           2 female
+*/
 gen workly = (annhrs > 0)
-gen female = (sex == 1)
+gen female = (sex == 2)
+
 
 /* Create variables before loop */
 gen ic = . /* immigration country */
@@ -124,6 +139,7 @@ gen mex_yrs2 = . /* mex imm yrs in us squared */
 
 /* STATEMENTS FOR IMMIGRATS */
 /*note: bpl stands for birth place*/
+replace ic = 38 if imm == 1 /* Base case */
 replace ic=1 if bpld == 20000  & imm == 1 /*mexico*/
 replace ic=2 if bpld == 51500 & imm == 1 /*phillip*/
 replace ic=3 if bpld == 52100 & imm == 1/*india*/
@@ -160,7 +176,7 @@ replace ic = 33 if (bpld == 54700 | bpld == 54200 | bpld == 45100  | bpld == 520
 replace ic = 34 if (bpld == 50900 | bpld == 51900 | bpld == 54800 | bpld ==  54900 | bpld == 55000 | bpld == 59900) & imm == 1 /*asia*/
 replace ic = 35 if (bpld == 26092 | bpld == 30000 | bpld == 30090 | bpld == 19900 ) & imm == 1/*s america + north am nec */
 replace ic = 36 if bpld ==  60000 & imm == 1 /*africa*/
-replace ic = 36 if (bpld == 21000 | bpld == 21090) & imm == 1 /* central am*/
+replace ic = 37 if (bpld == 21000 | bpld == 21090) & imm == 1 /* central am*/
 
 /* YRSUSA2:
 		   0 n/a
@@ -246,17 +262,6 @@ replace mex_yrs2=0 if imm == 0
 gen imm_ed = imm * educ_yrs 
 gen imm_coll = imm * collplus
 
-/*
-SCHOOL:
-           0 n/a
-           1 no, not in school
-           2 yes, in school
-           9 missing */
-gen inschool = (school == 2) 
-gen exp2 = exp*exp/100
-gen exp3 = exp*exp*exp/1000
-
-
 /* 
 RACE:
            1 white
@@ -332,7 +337,7 @@ replace c8 = 2.3764 if female == 0
 replace c9 = 2.9685 if female == 0
 
 replace xb1 = imm      *   -0.0277  + ///
-		educ_yrs           *   -0.0620  + ///
+		educ_yrs       *   -0.0620  + ///
 		exp            *   -0.1255  + ///
 		exp2           *    0.3353  + ///
 		exp3           *   -0.0282  + ///
@@ -398,7 +403,7 @@ replace c8 = 2.6625 if female == 1
 replace c9 = 3.0059 if female == 1
 
 replace xb1 = imm      *   -0.2706  + ///
-		educ_yrs           *   -0.0462  + ///
+		educ_yrs       *   -0.0462  + ///
 		exp            *   -0.0744  + ///
 		exp2           *    0.2760  + ///
 		exp3           *   -0.0338  + ///

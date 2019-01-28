@@ -23,7 +23,7 @@ replace xclass2 = 4 if xclass2 != 1 | xclass2 != 2 | xclass2 != 3
 
 replace c = 1
 
-gen havewage2 = 1 if logwage != .
+gen havewage2 = 1 if logwage2 != .
 gen cwagesal = incwage
 replace cwagesal = . if incwage <= 0
 
@@ -84,10 +84,10 @@ forvalues i=1/38{
 
 preserve
 # delim ;
-collapse (sum) dropout hs somecoll college advanced collplus educ_yrs exp age 
-				x2-x4 ex11 ex12 ex13 ex14 ex21 ex22 ex23 ex24 ex31 ex32 ex33 ex34 
+collapse (mean) dropout hs somecoll college advanced collplus educ_yrs exp age 
+				x1-x4 ex11 ex12 ex13 ex14 ex21 ex22 ex23 ex24 ex31 ex32 ex33 ex34 
 				ex41 ex42 ex43 ex44 rczone0 rczone1 female wage2 logwage2 annhrs 
-		 (count) c [fweight = wt], by(rczone native male eclass xclass2);
+		 (sum) count=c [fweight = wt], by(rczone native male eclass xclass2);
 save data/1980/byic.dta, replace;
 #delimit cr
 restore 

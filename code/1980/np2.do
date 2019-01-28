@@ -8,10 +8,11 @@ cd "/Users/victoriadequadros/projects/immigration_enclave/"
 clear
 use data/1980/all80.dta
 
-/* Sample restrictions and weights */
+/* Sample restrictions. There's a further cut below for experience 1-45.*/
 keep if age >= 18 
 keep if incwage > 0
 
+/* Weight */
 gen wt = 1 if imm == 1
 replace wt = 2 if imm != 1
 
@@ -91,10 +92,15 @@ gen logwage2 = log(wage2)
 /* Keep obs that are not self employed */
 keep if logwage2 != . 
 
+/*
+SEX:
+           1 male
+           2 female
+*/
 gen workly = (annhrs > 0)
-gen female = (sex == 1)
+gen female = (sex == 2)
 
-/* Create variables before loop */
+/* Create variables */
 gen ic = . /* immigration country */
 gen yrsinus = . /* years in the us */
 gen recimm = . /* recent immigrant */
@@ -125,6 +131,7 @@ gen mex_yrs2 = . /* mex imm yrs in us squared */
 
 /* STATEMENTS FOR IMMIGRATS */
 /*note: bpl stands for birth place*/
+replace ic = 38 if imm == 1 /* Base case */
 replace ic=1 if bpld == 20000  & imm == 1 /*mexico*/
 replace ic=2 if bpld == 51500 & imm == 1 /*phillip*/
 replace ic=3 if bpld == 52100 & imm == 1/*india*/
@@ -161,7 +168,7 @@ replace ic = 33 if (bpld == 54700 | bpld == 54200 | bpld == 45100  | bpld == 520
 replace ic = 34 if (bpld == 50900 | bpld == 51900 | bpld == 54800 | bpld ==  54900 | bpld == 55000 | bpld == 59900) & imm == 1 /*asia*/
 replace ic = 35 if (bpld == 26092 | bpld == 30000 | bpld == 30090 | bpld == 19900 ) & imm == 1/*s america + north am nec */
 replace ic = 36 if bpld ==  60000 & imm == 1 /*africa*/
-replace ic = 36 if (bpld == 21000 | bpld == 21090) & imm == 1 /* central am*/
+replace ic = 37 if (bpld == 21000 | bpld == 21090) & imm == 1 /* central am*/
 
 /* YRSUSA2:
 		   0 n/a
@@ -258,6 +265,7 @@ gen exp2 = exp*exp/100
 gen exp3 = exp*exp*exp/1000
 
 
+/* Assign ethnicity/race. */
 /* 
 RACE:
            1 white
