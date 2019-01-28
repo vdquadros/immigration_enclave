@@ -27,7 +27,7 @@ libname c80 '/tmp/' ;
 	/* Length statement */
 
 	length race age citizen educ imm famrel
-        state pob weeks hrswkly al_pob al_sal
+        state pob weeks hrswkly al_pob al_sal`
          3 ;
 
 	infile "/tmp/c80&y.";

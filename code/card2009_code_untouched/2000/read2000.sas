@@ -134,7 +134,7 @@ if state=56   and puma=400  then msa=1580 ;
 
  length famrel ownchild paoc sex age age_alloc dhisp 
        numrace white black race1
-       marstat enroll grade educ educ_alloc english 
+       marstat enroll grade educ x_alloc english 
        pob citizen immyr mob5 esr 
        class workly weeks hrswkly hrswk_alloc 
        ws_alloc self_alloc 3;
