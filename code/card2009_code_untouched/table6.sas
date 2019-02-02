@@ -139,7 +139,7 @@ count80=20*count/1000;
 imm80=imm;
 mex80=mex;
 black80=black;
-hisp80=hispanic;
+hisp80=hispanic80 
 educ80=educ;
 drop80=dropout;
 hs80=hs;
@@ -407,17 +407,17 @@ c2=1.2;
 c3=.8;
 
 
-nshs=c1*ncountw1+ncountw2+.5*c2*ncountw3;
-ishs=c1*icountw1+icountw2+.5*c2*icountw3;
+nshs=c1*ncountw1+ncountw2+.5*c2*ncountw3; %native high school equivalent hours
+ishs=c1*icountw1+icountw2+.5*c2*icountw3; %imm high school equivalent hours
 relshs=log(ishs/nshs);
 
-nshs90=c1*ncountw901+ncountw902+.5*c2*ncountw903;
+nshs90=c1*ncountw901+ncountw902+.5*c2*ncountw903; 
 ishs90=c1*icountw901+icountw902+.5*c2*icountw903;
 relshs90=log(ishs90/nshs90);
 
 
-nscoll=ncountw4+.5*c3*ncountw3;
-iscoll=icountw4+.5*c3*icountw3;
+nscoll=ncountw4+.5*c3*ncountw3; %native college equivalent hours
+iscoll=icountw4+.5*c3*icountw3; %imm college equivalent hours
 relscoll=log(iscoll/nscoll);
 
 nscoll90=ncountw904+.5*c3*ncountw903;

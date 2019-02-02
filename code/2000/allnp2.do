@@ -26,16 +26,16 @@ replace top125 =  1 if rank_czone <= 125
 
 /* EDUCATION */
 gen eclass = .
-replace eclass = 1 if educd <= 59 
-replace eclass = 2 if educd == 60 | educd == 61 | educd == 62 | educd == 63 | educd == 64
-replace eclass = 3 if 65 <= educd & educd <= 100
-replace eclass = 4 if 101 <= educd & educd <= 113
+replace eclass = 1 if educ_yrs < 12 
+replace eclass = 2 if educ_yrs == 12
+replace eclass = 3 if 12 < educ_yrs & educ_yrs < 16
+replace eclass = 4 if eclass != 1 & eclass != 2 & eclass != 3
 
 gen dropout = (eclass == 1)
 gen hsgrad = (eclass == 2)
 gen somecoll = (eclass == 3)
 gen collplus = (eclass == 4)
-gen advanced = (114 <= educd & educd <= 116)
+gen advanced = educ_yrs > 16
 
 /*
 SCHOOL:
@@ -50,7 +50,7 @@ gen exp = .
 replace exp = age-16 if eclass == 1
 replace exp = age-19 if eclass == 2
 replace exp = age-21 if eclass == 3
-replace exp = age-23 if eclass == 4
+replace exp = age-23 if (eclass != 1) & (eclass != 2) & (eclass != 3) 
 gen exp2 = exp*exp/100
 gen exp3 = exp*exp*exp/1000
 
@@ -459,7 +459,7 @@ replace p8=normal(c8-xb)-normal(c7-xb) if female == 1
 replace p9=normal(c9-xb)-normal(c8-xb) if female == 1
 replace p10=1-normal(c9-xb) if female == 1
 
-* Statements for females */
+/* Statements for females */
 replace c0 = 0.0063 if female == 1
 replace c1 = 0 if female == 1
 replace c2 = 0.5888 if female == 1

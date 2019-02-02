@@ -17,7 +17,7 @@ gen lw2sq = logwage2^2
 gen xclass2 = 1 if exp <= 10
 replace xclass2 = 2 if 10 <= exp & exp <= 20
 replace xclass2 = 3 if 20 <= exp & exp <= 30
-replace xclass2 = 4 if xclass2 != 1 | xclass2 != 2 | xclass2 != 3
+replace xclass2 = 4 if 30 < exp
 
 replace c = 1
 
@@ -66,7 +66,7 @@ collapse (mean) emp havewage2 incwage cwagesal annhrs cannhrs wkswork1
     black hispanic asian euro hi_asian mid_asian mex rczone0 rczone1 q1-q5 q1c 
 	q2c q3c q4c q5c imm female wage2 logwage2 
 	(count) c [fweight = wt], by(rczone native male eclass xclass2);
-save data/1980/allcells.dta, replace;
+save data/1990/allcells.dta, replace;
 #delimit cr
 restore 
 

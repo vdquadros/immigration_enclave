@@ -19,7 +19,7 @@ gen native = 1 - imm
 gen xclass2 = 1 if exp <= 10
 replace xclass2 = 2 if 10 <= exp & exp <= 20
 replace xclass2 = 3 if 20 <= exp & exp <= 30
-replace xclass2 = 4 if xclass2 != 1 | xclass2 != 2 | xclass2 != 3
+replace xclass2 = 4 if 30 < exp
 
 replace c = 1
 

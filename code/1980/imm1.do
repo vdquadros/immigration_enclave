@@ -19,7 +19,7 @@ gen lw2sq = logwage2^2
 gen xclass2 = 1 if exp <= 10
 replace xclass2 = 2 if 10 <= exp & exp <= 20
 replace xclass2 = 3 if 20 <= exp & exp <= 30
-replace xclass2 = 4 if xclass2 != 1 | xclass2 != 2 | xclass2 != 3
+replace xclass2 = 4 if 30 < exp
 
 replace c = 1
 
@@ -87,7 +87,7 @@ preserve
 collapse (mean) dropout hs somecoll college advanced collplus educ_yrs exp age 
 				x1-x4 ex11 ex12 ex13 ex14 ex21 ex22 ex23 ex24 ex31 ex32 ex33 ex34 
 				ex41 ex42 ex43 ex44 rczone0 rczone1 female wage2 logwage2 annhrs 
-		 (sum) count=c [fweight = wt], by(rczone native male eclass xclass2);
+		 (sum) count=c [fweight = wt], by(ic male);
 save data/1980/byic.dta, replace;
 #delimit cr
 restore 
@@ -99,47 +99,19 @@ save data/1980/czdist, replace;
 #delim cr 
 restore
 
-/* We dont have any rczone missing, so I dont know what we are supposed to be doing here. */
-preserve
 clear
-use data/1980/czdist
-keep if rczone == .
-forvalues i=1/38{
-	gen sumic`i'= ic`i'
-}
-gen d = 1
-keep d sumic1-sumic38
-sort d
-save data/1980/c1.dta, replace
-restore
+use data/1980/czdist 
 
-preserve 
-clear
-use data/1980/czdist
-keep if rczone != .
-gen d = 1
-sort d 
-save data/1980/c2.dta, replace
-restore
-
-clear
-use data/1980/c1.dta
-merge d using data/1980/c2.dta
-
-forvalues i=1/38{
-	gen shric`i' = ic`i'/sumic`i'
+forv i=1/38{
+	egen total_ic`i' = sum(ic`i')
+	gen shric`i' = ic`i' / total_ic`i'
 }
 
-drop d sumic1-sumic38 ic1-ic38
+keep rczone shric1-shric38
 
-summ shric1-shric7 shric37 shric38
-/*
-proc print data=here.ic_city;
-var rmsa shric1-shric7 shric37 shric38;
-format shric1-shric7 shric37 shric38 6.4;
+save data/1980/ic_city_test.dta, replace
 
-proc means n mean sum min max data=here.ic_city;
-var shric1-shric38;
+
 
 
 

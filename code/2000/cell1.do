@@ -42,102 +42,78 @@ save data/2000/if.dta, replace
 summ imm female logwage2 educ_yrs exp rczone0 rczone1 nonmover [fweight = wt]
 restore
 
-/*
-proc means data=nm;
-var imm female logwage2 educ exp rmsa0 rmsa1;
-weight wt;
-proc means data=nf;
-var imm female logwage2 educ exp rmsa0 rmsa1;
-weight wt;
-proc means data=im;
-var imm female logwage2 educ exp rmsa0 rmsa1;
-weight wt;
-proc means data=if;
-var imm female logwage2 educ exp rmsa0 rmsa1;
-weight wt;
-
 ***models DO NOT include msa effects but include dummies for rmsa=0,1 ;
+/* Card uses homey instead of nonmover, but we dont have homey */
+preserve
+use data/2000/nm.dta, clear
+reg logwage2 exp exp2 exp3 educ eclass##xclass inschool advanced ft lowhrs hisp_ed hisp_coll black_ed black_coll asian_ed asian_coll nonmover##eclass rczone0 [fweight=wt]
+predict pred if e(sample)
+predict res, residuals
+save data/2000/nm2.dta, replace
+restore
+
+preserve
+use data/2000/nf.dta, clear
+reg logwage2 exp exp2 exp3 educ eclass##xclass inschool advanced ft lowhrs hisp_ed hisp_coll black_ed black_coll asian_ed asian_coll nonmover##eclass rczone0 [fweight=wt]
+predict pred if e(sample)
+predict res, residuals
+save data/2000/nf2.dta, replace
+restore
+
+preserve
+use data/2000/im.dta, clear
+reg logwage2 exp exp2 exp3 educ eclass##xclass inschool advanced ft lowhrs hisp_ed hisp_coll black_ed black_coll asian_ed asian_coll nonmover##eclass rczone0 [fweight=wt]
+predict pred if e(sample)
+predict res, residuals
+save data/2000/im2.dta, replace
+restore
+
+preserve
+use data/2000/if.dta, clear
+reg logwage2 exp exp2 exp3 educ eclass##xclass inschool advanced ft lowhrs hisp_ed hisp_coll black_ed black_coll asian_ed asian_coll nonmover##eclass rczone0 [fweight=wt]
+predict pred if e(sample)
+predict res, residuals
+save data/2000/if2.dta, replace
+restore
+
+local files nf2 im2 if2
+use data/2000/nm2.dta, clear
+forv i=1/3{
+	local f : word `i' of `files'
+	append using data/2000/`f'.dta
+}
+
+gen male=1-female
+gen native=1-imm
+
+gen lw2sq=logwage2^2
+gen ressq=res^2
+gen predsq=pred^2
+gen respred=res*pred
+
+gen xclass2 = 4
+replace xclass2 = 1 if exp <= 10
+replace xclass2 = 2 if 10 < exp & exp <= 20
+replace xclass2 = 3 if 20 < exp & exp <=30
+
+gen hs=1-dropout-somecoll-collplus
+
+replace college = 1 if collplus == 1 & advanced == 0
+
+corr logwage2 pred res educ exp imm female 
+
+summ dropout hs somecoll college collplus advanced [fweight = wt]
+
+tab xclass2 eclass
+
+collapse (sum) count = c (mean) logwage2 lw2sq res ressq pred predsq respred imm ///
+		female educ exp c dropout hs somecoll collplus college advanced [fweight = wt], ///
+		by(rczone native male eclass xclass2) 
+save data/2000/bigcells.dta, replace
 
 
-proc glm data=nm;
-class eclass xclass homey;
-model logwage2=exp exp2 exp3 educ eclass*xclass inschool advanced 
-      ft lowhrs 
-   hisp_ed hisp_coll black_ed black_coll  asian_ed asian_coll 
-   homey*eclass rmsa0 rmsa1 / solution;
-output out=nm2 predicted=pred residual=res;
-weight wt;
 
-proc glm data=nf;
-class eclass xclass homey;
-model logwage2=exp exp2 exp3 educ eclass*xclass inschool advanced 
-      ft lowhrs 
-   hisp_ed hisp_coll black_ed black_coll  asian_ed asian_coll 
-   homey*eclass rmsa0 rmsa1 / solution;
-output out=nf2 predicted=pred residual=res;
-weight wt;
-
-proc glm data=im;
-class ic eclass xclass ;
-model logwage2=exp exp2 exp3 educ eclass*xclass inschool advanced
-    ft lowhrs mex_ed mex_coll euro_ed euro_coll hisp_ed hisp_coll 
-    hi_asian_ed hi_asian_coll mid_asian_ed mid_asian_coll
-    ic ic*yrsinus ic*yrsinus2 rmsa0 rmsa1 / solution;
-output out=im2 predicted=pred residual=res;
-weight wt;
-
-proc glm data=if;
-class ic eclass xclass ;
-model logwage2=exp exp2 exp3 educ eclass*xclass inschool advanced
-    ft lowhrs mex_ed mex_coll euro_ed euro_coll hisp_ed hisp_coll 
-    hi_asian_ed hi_asian_coll mid_asian_ed mid_asian_coll
-    ic ic*yrsinus ic*yrsinus2 rmsa0 rmsa1 / solution;
-output out=if2 predicted=pred residual=res;
-weight wt;
-
-
-data two;
-set nm2 nf2 im2 if2;
-
-male=1-female;
-native=1-imm;
-
-lw2sq=logwage2**2;
-ressq=res**2;
-predsq=pred**2;
-respred=res*pred;
-
-
-
-if exp<=10 then xclass2=1;
-else if exp<=20 then xclass2=2;
-else if exp<=30 then xclass2=3;
-else xclass2=4;
-c=1;
-
-hs=1-dropout-somecoll-collplus;
-if collplus=1 and advanced=0 then college=1;
-else college=0;
-
-
-
-
-proc corr;
-var logwage2 pred res educ exp imm female;
-weight wt;
-
-proc freq;
-tables xclass2*eclass ;
-
-proc summary;
-class rmsa native male eclass xclass2;
-var logwage2 lw2sq res ressq pred predsq respred imm female educ exp c
-         dropout hs somecoll collplus college advanced    ;
-output out=here.bigcells
-mean=
-sum(c)=count;
-weight wt;
-
+/*
 data check1;
 set here.bigcells;
 if native=. and male=. and eclass=. and xclass2=.;

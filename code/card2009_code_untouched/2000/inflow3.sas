@@ -169,6 +169,7 @@ proc print;
 proc sort; by d;
 
 data inflow&rex;
+
 merge temp in; 
 by d;
 array shric (*) shric1-shric38;
@@ -286,7 +287,7 @@ proc corr;
 var inall sindrop sinhs sinsome sincoll smex;
 
 proc corr;
-var indrop innmdrop inhs innmhs insome innmsome incoll innmcoll;
+var indrop innmdrop inhs innmhs insome innmsome incoll innmcoll;f
 
 
 proc means n mean sum;

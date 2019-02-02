@@ -26,23 +26,34 @@ replace top125 =  1 if rank_czone <= 125
 
 /* EDUCATION */
 gen eclass = .
-replace eclass = 1 if educd <= 59 
-replace eclass = 2 if educd == 60 | educd == 61 | educd == 62 | educd == 63 | educd == 64
-replace eclass = 3 if 65 <= educd & educd <= 100
-replace eclass = 4 if 101 <= educd & educd <= 113
+replace eclass = 1 if educ < 12 
+replace eclass = 2 if educ == 12
+replace eclass = 3 if eclass != 1 & eclass != 2 & educ < 10
+replace eclass = 4 if eclass != 1 & eclass != 2 & eclass != 3
 
 gen dropout = (eclass == 1)
 gen hsgrad = (eclass == 2)
 gen somecoll = (eclass == 3)
 gen collplus = (eclass == 4)
-gen advanced = (114 <= educd & educd <= 116)
+gen advanced = educ > 10
+
+/*
+SCHOOL:
+           0 n/a
+           1 no, not in school
+           2 yes, in school
+           9 missing */
+gen inschool = (school == 2) 
 
 /* EXPERIENCE */
 gen exp = . 
 replace exp = age-16 if eclass == 1
 replace exp = age-19 if eclass == 2
 replace exp = age-21 if eclass == 3
-replace exp = age-23 if eclass == 4
+replace exp = age-23 if (eclass != 1) & (eclass != 2) & (eclass != 3) 
+
+gen exp2 = (exp^2)/100
+gen exp3 = (exp^3)/1000
 
 keep if (1<=exp & exp<=45)   /*sample cut for exp*/
 
@@ -253,16 +264,6 @@ replace mex_yrs2=0 if imm == 0
 /* BACK TO STATEMENTS FOR EVERYBODY */
 gen imm_ed = imm * educ_yrs 
 gen imm_coll = imm * collplus
-
-/*
-SCHOOL:
-           0 n/a
-           1 no, not in school
-           2 yes, in school
-           9 missing */
-gen inschool = (school == 2) 
-gen exp2 = exp*exp/100
-gen exp3 = exp*exp*exp/1000
 
 
 /* Assign ethnicity/race. */
