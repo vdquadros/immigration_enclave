@@ -20,7 +20,7 @@ gen rczone1 = (rczone==1)
 
 preserve
 keep if imm == 0 & female == 0
-save data/1990/nm.dta, replace
+save data/2000/nm.dta, replace
 summ imm female logwage2 educ_yrs exp rczone0 rczone1 nonmover [fweight = wt]
 restore
 
@@ -110,8 +110,6 @@ collapse (sum) count = c (mean) logwage2 lw2sq res ressq pred predsq respred imm
 		female educ exp c dropout hs somecoll collplus college advanced [fweight = wt], ///
 		by(rczone native male eclass xclass2) 
 save data/2000/bigcells.dta, replace
-
-
 
 /*
 data check1;

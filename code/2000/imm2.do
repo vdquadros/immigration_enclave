@@ -66,7 +66,6 @@ forvalues i=1/38{
 
 preserve
 # delim ;
-keep if new == 1;
 collapse (mean) dropout hs somecoll college advanced collplus educ_yrs exp age 
 				x1-x4 ex11 ex12 ex13 ex14 ex21 ex22 ex23 ex24 ex31 ex32 ex33 ex34 
 				ex41 ex42 ex43 ex44 rczone0 rczone1 female wage2 logwage2 annhrs 

@@ -96,7 +96,7 @@ preserve
 # delim ; 
 collapse (sum) ic1-ic38 [fweight = wt], by(rczone);
 save data/1980/czdist, replace;
-#delim cr 
+#delim cr w
 restore
 
 clear

@@ -419,51 +419,142 @@ merge rczone using data/2000/m1.dta ///
 				   data/1990/mfg90.dta ///
 				   data/1980/mfg80.dta
 
+/* Difference between the mean wage residuals of immigrants and native in 2000*/
+gen resgap=ires-nres
+gen resgap1=ires1-nres1 /* eclass == 1. dropout workers */
+gen resgap2=ires2-nres2 /* eclass == 2. hs workers*/
+gen resgap3=ires3-nres3 /* eclass == 3. somecoll workers*/
+gen resgap4=ires4-nres4 /* eclass == 4. collplus workers*/
+
+/* Difference between the mean wage residuals of immigrants and native in 1990*/
+gen resgap901=ires901-nres901
+gen resgap902=ires902-nres902
+gen resgap903=ires903-nres903
+gen resgap904=ires904-nres904
+
+/* Difference between log wage of male immigrants and natives in 2000*/
+gen wagegap1=iwage1-nwage1 /* dropout */
+gen wagegap2=iwage2-nwage2 /* hs */
+gen wagegap3=iwage3-nwage3 /* somecoll */
+gen wagegap4=iwage4-nwage4 /* collplus */
+gen wagegap=iwage-nwage /* all male */
+
+/* Log relative suplly of immigrants and natives. */
 gen rels1 = log(icountw1/ncountw1)
 gen rels2 = log(icountw2/ncountw2)
 gen rels3 = log(icountw3/ncountw3)
 gen rels4 = log(icountw4/ncountw4)
-
 gen rels = log(icountw/ncountw)
 
 gen c1 = .7
 gen c2 = 1.2
 gen c3 = .8
 
-gen nshs = c1*ncountw1+ncountw2+.5*c2*ncountw3 /* native high school equivalent hours */
-gen ishs = c1*icountw1+icountw2+.5*c2*icountw3 /* imm high school equivalent hours */
-gen relshs = log(ishs/nshs)
+/* Calculate supply of high school and college equivalent workers. */
+gen nshs = c1*ncountw1+ncountw2+.5*c2*ncountw3 
+gen ishs = c1*icountw1+icountw2+.5*c2*icountw3 
+gen relshs = log(ishs/nshs) /* log relative supply of high school equivalent workers*/
 
 gen nshs90 = c1*ncountw901+ncountw902+.5*c2*ncountw903
 gen ishs90 = c1*icountw901+icountw902+.5*c2*icountw903
 gen relshs90 = log(ishs90/nshs90)
 
-gen nscoll = ncountw4+.5*c3*ncountw3  /* native college equivalent hours */
-gen iscoll = icountw4+.5*c3*icountw3 /* imm college equivalent hours */
-gen relscoll = log(iscoll/nscoll)
+gen nscoll = ncountw4+.5*c3*ncountw3  
+gen iscoll = icountw4+.5*c3*icountw3 
+gen relscoll = log(iscoll/nscoll)  /* log relative supply of college equivalent workers*/
 
 gen nscoll90 = ncountw904+.5*c3*ncountw903
 gen iscoll90 = icountw904+.5*c3*icountw903
 gen relscoll90 = log(iscoll90/nscoll90)
 
+/* Inflow of immigrants between 1980-2000 by education class. */
 gen infl1 = .001*indrop/count
 gen infl2 = .001*inhs/count
 gen infl3 = .001*insome/count
 gen infl4 = .001*incoll/count
 gen inflall = infl1+infl2+infl3+infl4
 
+/* Inflow of high school and college equivalent imm between 1980-2000. */
 gen hsiv = c1*infl1+infl2+.5*c2*infl3
 gen colliv = .5*c3*infl3+infl4
 
-gen hsiv2 = c1*innmfl1+innmfl2+.5*c2*innmfl3
-gen colliv2 = .5*c3*innmfl3+innmfl4
-
+/* Log city sizes in 1980 and 1990. */
 gen logsize80 = log(count80)
 gen logsize90 = log(count90)
 
-gen check1 = ncountw-ncountw1-ncountw2-ncountw3-ncountw4
-gen check2 = icountw-icountw1-icountw2-icountw3-icountw4
-gen check3 = countw-ncountw-icountw
+gen check1 = ncountw - ncountw1 - ncountw2 - ncountw3 - ncountw4
+gen check2 = icountw - icountw1 - icountw2 - icountw3 - icountw4
+gen check3 = count - ncountw - icountw
+
+/**************************************/
+/* Regressions */
+/**************************************/
+reg resgap4 colliv [fweight = round(count90)]
+
+reg resgap rels [fweight = round(count90)]
+reg rels inflall [fweight = round(count90)]
+reg resgap inflall [fweight = round(count90)]
+
+/************/
+/* OLS without instrument variable */
+* Dependent variable is the difference in mean wage residual between native and immigrant.
+/************/
+/* High school equivalent regression. Without the lagged dependent variable resgap902 */
+reg resgap2 relshs [fweight = round(count90)]
+reg resgap2 relshs logsize80 logsize90 coll80 coll90 nres80 ires80 mfg80 mfg90 [fweight = round(count90)]
+
+/* High school equivalent regression. With the lagged dependent variable resgap902 */
+reg resgap2 relshs resgap902 [fweight = round(count90)]
+reg resgap2 relshs resgap902 logsize80 logsize90 coll80 coll90 nres80 ires80 mfg80 mfg90 [fweight = round(count90)]
+
+/* College equivalent regression. Without the lagged dependent variable resgap902 */
+reg resgap4 relscoll [fweight = round(count90)]
+reg resgap4 relscoll logsize80 logsize90 coll80 coll90 nres80 ires80 mfg80  mfg90 [fweight = round(count90)]
+
+/* College equivalent regression. With the lagged dependent variable resgap902 */
+reg resgap4 relscoll resgap904 [fweight = round(count90)]
+reg resgap4 relscoll resgap904 logsize80 logsize90 coll80 coll90 nres80 ires80 mfg80 mfg90 [fweight = round(count90)]
+
+/*
+/************/
+/* OLS with instrument variable */
+* Dependent variable is the difference in mean wage residual between native and immigrant.
+/************/
+reg relshs  hsiv [fweight = count90]
+reg resgap2 hsiv [fweight = count90]
+reg relshs  hsiv logsize80 logsize90 coll80 coll90 nres80 ires80 mfg80 mfg90 [fweight = count90]
+reg resgap2 hsiv logsize80 logsize90 coll80 coll90 nres80 ires80 mfg80 mfg90 [fweight = count90]
+
+reg relshs  hsiv resgap902 logsize80 logsize90 coll80 coll90 nres80 ires80 mfg80 mfg90 [fweight = count90]
+reg resgap2 hsiv resgap902 logsize80 logsize90 coll80 coll90 nres80 ires80 mfg80 mfg90 [fweight = count90]
+
+
+reg relscoll colliv [fweight = count90]
+reg resgap4 colliv [fweight = count90]
+reg relscoll colliv logsize80 logsize90 coll80 coll90 nres80 ires80 mfg80  mfg90 [fweight = count90]
+reg resgap4 colliv logsize80 logsize90 coll80 coll90 nres80 ires80 mfg80 mfg90 [fweight = count90]
+
+reg relscoll colliv resgap904 logsize80 logsize90 coll80 coll90 nres80 ires80 mfg80 mfg90 [fweight = count90]
+reg resgap4 colliv resgap904 logsize80 logsize90 coll80 coll90 nres80 ires80 mfg80 mfg90 [fweight = count90]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

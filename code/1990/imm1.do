@@ -99,52 +99,15 @@ save data/1990/czdist, replace;
 #delim cr 
 restore
 
-/* We dont have any rczone missing, so I dont know what we are supposed to be doing here. */
-preserve
 clear
-use data/1990/czdist
-keep if rczone == .
-forvalues i=1/38{
-	gen sumic`i'= ic`i'
-}
-gen d = 1
-keep d sumic1-sumic38
-sort d
-save data/1990/c1.dta, replace
-restore
+use data/1990/czdist 
 
-preserve 
-clear
-use data/1990/czdist
-keep if rczone != .
-gen d = 1
-sort d 
-save data/1990/c2.dta, replace
-restore
-
-clear
-use data/1990/c1.dta
-merge d using data/1990/c2.dta
-
-forvalues i=1/38{
-	gen shric`i' = ic`i'/sumic`i'
+forv i=1/38{
+	egen total_ic`i' = sum(ic`i')
+	gen shric`i' = ic`i' / total_ic`i'
 }
 
-drop d sumic1-sumic38 ic1-ic38
+keep rczone shric1-shric38
 
-summ shric1-shric7 shric37 shric38
-
-/*
-proc print data=here.ic_city;
-var rmsa shric1-shric7 shric37 shric38;
-format shric1-shric7 shric37 shric38 6.4;
-
-proc means n mean sum min max data=here.ic_city;
-var shric1-shric38;
-
-
-
-
-
-
+save data/1990/ic_city_test.dta, replace
 

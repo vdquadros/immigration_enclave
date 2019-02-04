@@ -193,7 +193,7 @@ gen sinhs = inhs/inall
 gen sinsome = insome/inall
 gen sincoll = incoll/inall
 
-save data/2000/newflows.dta
+save data/2000/newflows.dta, replace
 
 
 

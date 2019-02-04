@@ -20,21 +20,20 @@ drop _merge
 sort czone
 merge m:1 czone using data/czone_rank.dta
 
-gen top125 = 0
-replace top125 =  1 if rank_czone <= 125
+gen top100 = 0
+replace top100 =  1 if rank_czone <= 100
 
 /* EDUCATION */
-gen eclass = .
-replace eclass = 1 if educ_yrs < 12 
-replace eclass = 2 if educ_yrs == 12
-replace eclass = 3 if 12 < educ_yrs & educ_yrs < 16
-replace eclass = 4 if eclass != 1 & eclass != 2 & eclass != 3
+gen eclass = 4
+replace eclass = 3 if educ < 10
+replace eclass = 2 if educ == 6
+replace eclass = 1 if educ < 6
 
 gen dropout = (eclass == 1)
 gen hsgrad = (eclass == 2)
 gen somecoll = (eclass == 3)
 gen collplus = (eclass == 4)
-gen advanced = educ_yrs > 16
+gen advanced = educ > 10
 
 /*
 SCHOOL:
@@ -462,8 +461,8 @@ gen native = 1 - imm
 gen male = 1 - female
 
 gen rczone = 0
-replace rczone = czone if top125 == 1
-replace rczone = 1 if (top125 == 0 & czone != .)
+replace rczone = czone if top100 == 1
+replace rczone = 1 if (top100 == 0 & czone != .)
 
 replace recimm = 0 if imm == 0
 gen wt = pweight 

@@ -49,7 +49,7 @@ save data/half_natives_bartik, replace
 erase temp1980.dta
 
 use data/half_natives_bartik, clear
-merge m:1 year datanum serial pernum using data/ipums/usa_00002.dta
+merge m:1 year datanum serial pernum using data/ipums_redownload/usa_00002.dta
 save data/ipums_merged_bartik, replace
 
 use data/ipums_merged_bartik, clear
@@ -117,7 +117,7 @@ replace educ_yrs = 8 if educd == 26
 replace educ_yrs = 9 if educd == 30
 replace educ_yrs = 10 if educd == 40
 replace educ_yrs = 11 if inlist(educd, 50, 61)
-replace educ_yrs = 12 if inlist(educd, 62, 63, 64)
+replace educ_yrs = 12 if inlist(educd, 60, 62, 63, 64)
 replace educ_yrs = 13 if inlist(educd, 65, 70, 71)
 replace educ_yrs = 14 if educd == 80
 replace educ_yrs = 15 if inlist(educd, 90, 81, 82, 83) /*adding associate's degree to this category -- 3rd year of college -- is an arbitrary decision*/
