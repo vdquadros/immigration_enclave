@@ -5,7 +5,12 @@ set mem 2g
 set more off
 cd "/Users/victoriadequadros/projects/immigration_enclave/"
 
-/* Need to run read_bartik before doing this. Read_bartik takes time, so I am not including it here.*/
+/* Need to run read_bartik before doing this. Read_bartik takes time, so I am commenting it out. */
+
+/* run code/read_bartik.do */
+
+run code/czone_rank.do
+
 run code/1980/np2.do
 run code/1980/allnp2.do
 run code/1980/cell1.do
