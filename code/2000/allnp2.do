@@ -551,7 +551,7 @@ replace nonmover = 1 if imm == 0 & state == bpl
 gen emp = (annhrs  > 0)
 
 keep rczone imm female logwage2 wt p1-p10 dev devsq c age ///
-	educ_yrs exp exp2 exp3 inschool dropout somecoll collplus advanced ///
+	educ educ_yrs exp exp2 exp3 inschool dropout somecoll collplus advanced ///
 	asian black hispanic black_ed black_coll asian_ed asian_coll ///
 	hisp_ed hisp_coll imm_ed imm_coll yrsinus yrsinus2 ///
 	euro_ed hi_asian_ed mid_asian_ed mex_ed ///

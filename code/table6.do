@@ -486,6 +486,25 @@ gen check1 = ncountw - ncountw1 - ncountw2 - ncountw3 - ncountw4
 gen check2 = icountw - icountw1 - icountw2 - icountw3 - icountw4
 gen check3 = count - ncountw - icountw
 
+/**************/
+/* Label variables */
+/************/
+label variable resgap2 "Diff between avg wage res of HS imm and native"
+label variable relshs "Log rel supply of HS equiv workers"
+label variable relscoll "Log rel supply of Coll equiv workers"
+label variable logsize80 "Log czone size in 1980"
+label variable logsize90 "Log czone size in 1990"
+label variable coll80 "Share of people with college or more in 1980"
+label variable coll90 "Share of people with college or more in 1990"
+label variable nres80 "Res wage native men 1980"
+label variable ires80 "Res wage imm men 1980"
+label variable ires80 "Res wage imm men 1980"
+label variable resgap902 "Diff between avg wage res of HS imm and native 1990"
+label variable resgap4 "Diff between avg wage res of Coll imm and native"
+label variable resgap904 "Diff between avg wage res of Coll imm and native 1990"
+label variable mfg80 "Mfg share in 1980"
+label variable mfg90 "Mfg share in 1990"
+
 /**************************************/
 /* Regressions */
 /**************************************/
@@ -496,48 +515,92 @@ reg rels inflall [fweight = round(count90)]
 reg resgap inflall [fweight = round(count90)]
 
 /************/
-/* OLS without instrument variable */
+/* OLS */
 * Dependent variable is the difference in mean wage residual between native and immigrant.
 /************/
 /* High school equivalent regression. Without the lagged dependent variable resgap902 */
 reg resgap2 relshs [fweight = round(count90)]
+
 reg resgap2 relshs logsize80 logsize90 coll80 coll90 nres80 ires80 mfg80 mfg90 [fweight = round(count90)]
+estimates store m1, title(1)
+
 
 /* High school equivalent regression. With the lagged dependent variable resgap902 */
 reg resgap2 relshs resgap902 [fweight = round(count90)]
+
 reg resgap2 relshs resgap902 logsize80 logsize90 coll80 coll90 nres80 ires80 mfg80 mfg90 [fweight = round(count90)]
+estimates store m2, title(2)
 
-/* College equivalent regression. Without the lagged dependent variable resgap902 */
+
+/* College equivalent regression. Without the lagged dependent variable resgap904 */
 reg resgap4 relscoll [fweight = round(count90)]
-reg resgap4 relscoll logsize80 logsize90 coll80 coll90 nres80 ires80 mfg80  mfg90 [fweight = round(count90)]
 
-/* College equivalent regression. With the lagged dependent variable resgap902 */
+reg resgap4 relscoll logsize80 logsize90 coll80 coll90 nres80 ires80 mfg80  mfg90 [fweight = round(count90)]
+estimates store m3, title(5)
+
+
+/* College equivalent regression. With the lagged dependent variable resgap904 */
 reg resgap4 relscoll resgap904 [fweight = round(count90)]
 reg resgap4 relscoll resgap904 logsize80 logsize90 coll80 coll90 nres80 ires80 mfg80 mfg90 [fweight = round(count90)]
+estimates store m4, title(6)
 
-/*
+
+estout m1 m2 m3 m4, cells(b(star fmt(3)) se(par fmt(2)))  ///
+   legend label varlabels(_cons constant)              ///
+   stats(r2)
+
 /************/
-/* OLS with instrument variable */
+/* OLS with iv */
 * Dependent variable is the difference in mean wage residual between native and immigrant.
 /************/
-reg relshs  hsiv [fweight = count90]
-reg resgap2 hsiv [fweight = count90]
-reg relshs  hsiv logsize80 logsize90 coll80 coll90 nres80 ires80 mfg80 mfg90 [fweight = count90]
-reg resgap2 hsiv logsize80 logsize90 coll80 coll90 nres80 ires80 mfg80 mfg90 [fweight = count90]
+reg relshs  hsiv [fweight = round(count90)]
+reg resgap2 hsiv [fweight = round(count90)]
 
-reg relshs  hsiv resgap902 logsize80 logsize90 coll80 coll90 nres80 ires80 mfg80 mfg90 [fweight = count90]
-reg resgap2 hsiv resgap902 logsize80 logsize90 coll80 coll90 nres80 ires80 mfg80 mfg90 [fweight = count90]
+reg relshs  hsiv logsize80 logsize90 coll80 coll90 nres80 ires80 mfg80 mfg90 [fweight = round(count90)]
+reg resgap2 hsiv logsize80 logsize90 coll80 coll90 nres80 ires80 mfg80 mfg90 [fweight = round(count90)]
 
-
-reg relscoll colliv [fweight = count90]
-reg resgap4 colliv [fweight = count90]
-reg relscoll colliv logsize80 logsize90 coll80 coll90 nres80 ires80 mfg80  mfg90 [fweight = count90]
-reg resgap4 colliv logsize80 logsize90 coll80 coll90 nres80 ires80 mfg80 mfg90 [fweight = count90]
-
-reg relscoll colliv resgap904 logsize80 logsize90 coll80 coll90 nres80 ires80 mfg80 mfg90 [fweight = count90]
-reg resgap4 colliv resgap904 logsize80 logsize90 coll80 coll90 nres80 ires80 mfg80 mfg90 [fweight = count90]
+reg relshs  hsiv resgap902 logsize80 logsize90 coll80 coll90 nres80 ires80 mfg80 ///
+	mfg90 [fweight = round(count90)]
+reg resgap2 hsiv resgap902 logsize80 logsize90 coll80 coll90 nres80 ires80 mfg80 ///
+	mfg90 [fweight = round(count90)]
 
 
+reg relscoll colliv [fweight = round(count90)]
+reg resgap4 colliv [fweight = round(count90)]
+
+reg relscoll colliv logsize80 logsize90 coll80 coll90 nres80 ires80 mfg80  mfg90 [fweight = round(count90)]
+reg resgap4 colliv logsize80 logsize90 coll80 coll90 nres80 ires80 mfg80 mfg90 [fweight = round(count90)]
+
+reg relscoll colliv resgap904 logsize80 logsize90 coll80 coll90 nres80 ires80 mfg80 ///
+	mfg90 [fweight = round(count90)]
+reg resgap4 colliv resgap904 logsize80 logsize90 coll80 coll90 nres80 ires80 mfg80 ///
+	mfg90 [fweight = round(count90)]
+
+/* 2SLS */
+
+/* HS regs */
+ivregress 2sls resgap2 logsize80 logsize90 coll80 coll90 nres80 ires80 mfg80 ///
+			    (relshs = hsiv) [fweight = round(count90)]
+estimates store m5, title(3)
+
+/* with lagged dep var */
+ivregress 2sls resgap2 resgap902 logsize80 logsize90 coll80 coll90 nres80 ires80 ///
+                mfg80 (relshs = hsiv) [fweight = round(count90)] 
+estimates store m6, title(4)
+
+/* Coll regs */
+ivregress 2sls resgap4 logsize80 logsize90 coll80 coll90 nres80 ires80 mfg80 ///
+               (relshs = hsiv) [fweight = round(count90)]
+estimates store m7, title(7)
+
+/* with lagged dep var */
+ivregress 2sls resgap4 resgap904 logsize80 logsize90 coll80 coll90 nres80 ires80 ///
+               mfg80 (relshs = hsiv) [fweight = round(count90)] 
+estimates store m8, title(8)
+
+estout m5 m6 m7 m8, cells(b(star fmt(3)) se(par fmt(2)))  ///
+   legend label varlabels(_cons constant)              ///
+   stats(r2)
 
 
 

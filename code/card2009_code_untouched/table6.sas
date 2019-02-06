@@ -560,7 +560,7 @@ instruments colliv;
 model resgap4=relscoll;
 weight count90;
 
-proc syslin 2sls;
+proc syslin 2sls;`
 where (rmsa > 3);
 endogenous relscoll;
 instruments colliv logsize80 logsize90 coll80 coll90 nres80 ires80 mfg80 mfg90;
