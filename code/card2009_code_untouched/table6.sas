@@ -524,8 +524,6 @@ mfg80 mfg90;
 weight count90;
 
 
-
-
 proc syslin 2sls;
 where (rmsa > 3);
 endogenous relshs;

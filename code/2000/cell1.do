@@ -92,9 +92,9 @@ gen predsq=pred^2
 gen respred=res*pred
 
 gen xclass2 = 4
+replace xclass2 = 3 if exp <= 30
+replace xclass2 = 2 if exp <= 20
 replace xclass2 = 1 if exp <= 10
-replace xclass2 = 2 if 10 < exp & exp <= 20
-replace xclass2 = 3 if 20 < exp & exp <=30
 
 gen hs=1-dropout-somecoll-collplus
 
@@ -106,10 +106,30 @@ summ dropout hs somecoll college collplus advanced [fweight = wt]
 
 tab xclass2 eclass
 
+
+preserve
 collapse (sum) count = c (mean) logwage2 lw2sq res ressq pred predsq respred imm ///
 		female educ exp c dropout hs somecoll collplus college advanced [fweight = wt], ///
-		by(rczone native male eclass xclass2) 
+		by(rczone native male eclass xclass2)
 save data/2000/bigcells.dta, replace
+restore
+
+
+preserve
+collapse (sum) count = c (mean) logwage2 lw2sq res ressq pred predsq respred imm ///
+		female educ exp c dropout hs somecoll collplus college advanced [fweight = wt], ///
+		by(rczone native male eclass)
+save data/2000/bigcells_new1.dta, replace
+restore
+
+
+preserve
+collapse (sum) count = c (mean) logwage2 lw2sq res ressq pred predsq respred imm ///
+		female educ exp c dropout hs somecoll collplus college advanced [fweight = wt], ///
+		by(rczone native male)
+save data/2000/bigcells_new2.dta, replace
+restore
+
 
 /*
 data check1;

@@ -105,11 +105,29 @@ corr logwage2 pred res educ exp imm female
 summ dropout hs somecoll college collplus advanced [fweight = wt]
 
 tab xclass2 eclass
-
+/*
+preserve
 collapse (sum) count = c (mean) logwage2 lw2sq res ressq pred predsq respred imm ///
 		female educ exp c dropout hs somecoll collplus college advanced [fweight = wt], ///
 		by(rczone native male eclass xclass2) 
 save data/1990/bigcells.dta, replace
+restore
+*/
+
+preserve
+collapse (sum) count = c (mean) logwage2 lw2sq res ressq pred predsq respred imm ///
+		female educ exp c dropout hs somecoll collplus college advanced [fweight = wt], ///
+		by(rczone native male eclass)
+save data/1990/bigcells_new1.dta, replace
+restore
+
+
+preserve
+collapse (sum) count = c (mean) logwage2 lw2sq res ressq pred predsq respred imm ///
+		female educ exp c dropout hs somecoll collplus college advanced [fweight = wt], ///
+		by(rczone native male)
+save data/1990/bigcells_new2.dta, replace
+restore
 
 /*
 data check1;

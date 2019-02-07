@@ -59,6 +59,7 @@ replace q3c = q3 if logwage2 != .
 replace q4c = q4 if logwage2 != .
 replace q5c = q5 if logwage2 != .
 
+
 preserve
 # delim ;
 collapse (mean) emp havewage2 incwage cwagesal annhrs cannhrs wkswork1 
@@ -67,6 +68,18 @@ collapse (mean) emp havewage2 incwage cwagesal annhrs cannhrs wkswork1
 	q2c q3c q4c q5c imm female wage2 logwage2 
 	(sum) count=c [fweight = wt], by(rczone native male eclass xclass2);
 save data/1990/allcells.dta, replace;
+#delimit cr
+restore 
+
+
+preserve
+# delim ;
+collapse (mean) emp havewage2 incwage cwagesal annhrs cannhrs wkswork1 
+	hrswkly ft dropout hs somecoll college advanced collplus educ_yrs exp age x1-x4 
+    black hispanic asian euro hi_asian mid_asian mex rczone0 rczone1 q1-q5 q1c 
+	q2c q3c q4c q5c imm female wage2 logwage2 
+	(sum) count=c [fweight = wt], by(rczone);
+save data/1990/allcells_new2.dta, replace;
 #delimit cr
 restore 
 
@@ -83,13 +96,7 @@ proc transpose data=t1 out=here.t1t;
 
 proc print data=here.t1t;
 
-preserve
-clear
-use data/1980/allcells.dta
-keep if rczone == . & native == . & male == . & xclass2 == . 
-keep imm female educ age x1 x2 x3 x4 black hispanic ///
-     rczone0 rczone1 emp annhrs cannhrs ft  q1-q5 ///
-     q1c q2c q3c q4c q5c wage2 logwage2
+
 	 
 
 

@@ -59,6 +59,7 @@ replace q3c = q3 if logwage2 != .
 replace q4c = q4 if logwage2 != .
 replace q5c = q5 if logwage2 != .
 
+
 preserve
 # delim ;
 collapse (mean) emp havewage2 incwage cwagesal annhrs cannhrs wkswork1 
@@ -67,6 +68,30 @@ collapse (mean) emp havewage2 incwage cwagesal annhrs cannhrs wkswork1
 	q2c q3c q4c q5c imm female wage2 logwage2 
 	(sum) count=c [fweight = wt], by(rczone native male eclass xclass2);
 save data/2000/allcells.dta, replace;
+#delimit cr
+restore 
+
+
+preserve
+# delim ;
+collapse (mean) emp havewage2 incwage cwagesal annhrs cannhrs wkswork1 
+	hrswkly ft dropout hs somecoll college advanced collplus educ_yrs exp age x1-x4 
+    black hispanic asian euro hi_asian mid_asian mex rczone0 rczone1 q1-q5 q1c 
+	q2c q3c q4c q5c imm female wage2 logwage2 
+	(sum) count=c [fweight = wt], by(rczone eclass);
+save data/2000/allcells_new1.dta, replace;
+#delimit cr
+restore 
+
+
+preserve
+# delim ;
+collapse (mean) emp havewage2 incwage cwagesal annhrs cannhrs wkswork1 
+	hrswkly ft dropout hs somecoll college advanced collplus educ_yrs exp age x1-x4 
+    black hispanic asian euro hi_asian mid_asian mex rczone0 rczone1 q1-q5 q1c 
+	q2c q3c q4c q5c imm female wage2 logwage2 
+	(sum) count=c [fweight = wt], by(rczone);
+save data/2000/allcells_new2.dta, replace;
 #delimit cr
 restore 
 

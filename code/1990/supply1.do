@@ -30,6 +30,7 @@ gen hwt = annhrs * wt
 /* Note that supply4 is a variable for collplus, while supply5 is a variable 
 for college. It would make more sense the other way around, but that's how Card
 defined it, so I'm just following. */
+/*
 preserve
 # delim ;
 collapse (sum) supply=c supply1=dropout supply2=hs supply3=somecoll ///
@@ -39,7 +40,17 @@ collapse (sum) supply=c supply1=dropout supply2=hs supply3=somecoll ///
 save data/1990/cellsupply.dta, replace;
 #delimit cr
 restore 
+*/
 
+preserve
+# delim ;
+collapse (sum) supply=c supply1=dropout supply2=hs supply3=somecoll ///
+			    supply4=collplus supply5=college supply6=advanced supplyimm=imm ///
+				supplyfem=female [fweight = hwt], ///
+				by(rczone);
+save data/1990/cellsupply_new1.dta, replace;
+#delimit cr
+restore 
 /* Didnt do this in Stata. */
 /* 
 data t1;
@@ -58,21 +69,3 @@ scoll1=.5*rsupply3+rsupply4;
 scoll2=.5*rsupply3+rsupply5+1.2*rsupply6;
 logrels1=log(scoll1/shs);
 logrels2=log(scoll2/shs);
-
-
-proc means;
-where (rmsa ne .);
-var rsupply1-rsupply6 shs scoll1 scoll2 logrels1 logrels2;
-
-proc corr;
-where (rmsa>3);
-var rsupply1-rsupply6 shs scoll1 scoll2 logrels1 logrels2;
-
-
-
-proc sort; by descending supply;
-
-proc print;
-var rmsa supply rsupply1-rsupply6;
-
-
