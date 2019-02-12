@@ -1,0 +1,12 @@
+This is an archive of the programs to produce
+tables 1-6 of Card's Ely Lecture, March 2009 AER
+
+The "tablex.sas" programs read summary files created for
+each year from underlying data. 
+
+To actually run these programs you would have
+to set up new directories, re-run the 1980, 1990, 2000
+and 2005/2006 read programs, and then re-run
+all the programs in each year-specific archive
+
+
