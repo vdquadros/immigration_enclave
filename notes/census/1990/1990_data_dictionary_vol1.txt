@@ -67,7 +67,7 @@ V         80  .Counties/independent Cities (2 or more)
 V         81  .County/independent city - part                                   
 V         82  .County/independent city                                          
                                                                                 
-D  MSAPMSA         4                 20                                         
+D  MSAPMSA         4                                                          
          MSA/PMSA                                                               
 V     0040..                                                                    
 V       9340  .FIPS/MSA/PMSA code, selected MSA/PMSA                            
