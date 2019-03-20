@@ -1,0 +1,85 @@
+options ls=120 nocenter;
+libname c2000 '/folders/myfolders/data/2000';
+
+data c2000.one;
+set c2000.supp2000;
+
+rmsa0=(rmsa=0);
+rmsa1=(rmsa=1);
+male=1-female;
+native=1-imm;
+
+if annhrs=. then annhrs=0;
+if annhrs>0 then cannhrs=annhrs;
+else cannhrs=.;
+
+hs=1-dropout-somecoll-collplus;
+if collplus=1 and advanced=0 then college=1;
+else college=0;
+x1=(xclass2=1);
+x2=(xclass2=2);
+x3=(xclass2=3);
+x4=(xclass2=4);
+
+if annhrs>0 then hrswkly=annhrs/weeks;
+else hrswkly=.;
+ft=(hrswkly>=35);
+
+big3=(rmsa in (1600,4480,5600));
+
+
+if imm=0 then ric=0;
+else ric=ic;
+
+if imm=1 and yrsinus<=20 then post80=1;
+else if imm=1 then post80=0;
+else post80=.;
+
+if imm=1 and yrsinus<=10 then post90=1;
+else if imm=1 then post90=0;
+else post90=.;
+
+mided=hs+somecoll;
+
+proc summary data=c2000.one;
+class imm;
+var c post80 post90 educ dropout mided collplus wage2 logwage2;
+output out=c2000.p1
+mean=
+sum(c)=count;
+weight wt;
+
+proc summary data=c2000.one;
+where (imm=1);
+class ic;
+var c post80 post90 educ dropout mided collplus wage2 logwage2;
+output out=c2000.p2
+mean=
+sum(c)=count;
+weight wt;
+
+
+data c2000.p1b;
+set c2000.p1;
+if imm=. then ic=-2;
+else if imm=0 then ic=-1;
+else if imm=1 then ic=0;
+keep ic count post80 post90 educ dropout mided collplus wage2 logwage2;
+
+data c2000.p2b;
+set c2000.p2;
+if ic ne .;
+keep ic count post80 post90 educ dropout mided collplus wage2 logwage2;
+
+
+data c2000.table2;
+set c2000.p1b c2000.p2b;
+
+array pct (*) post80 post90 dropout mided collplus;
+do j=1 to 5;
+pct(j)=pct(j)*100;
+end;
+
+proc print;
+var ic count post80 post90 educ dropout mided collplus wage2 logwage2;
+format post80 post90 educ dropout mided collplus 4.1 wage2 5.2;
