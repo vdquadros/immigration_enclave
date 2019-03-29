@@ -17,8 +17,8 @@ gen native = 1 - imm
 gen lw2sq = logwage2^2
 
 gen xclass2 = 1 if exp <= 10
-replace xclass2 = 2 if 10 <= exp & exp <= 20
-replace xclass2 = 3 if 20 <= exp & exp <= 30
+replace xclass2 = 2 if 10 < exp & exp <= 20
+replace xclass2 = 3 if 20 < exp & exp <= 30
 replace xclass2 = 4 if 30 < exp & !missing(exp)
 
 replace c = 1
@@ -78,9 +78,12 @@ gen ex42 = (eclass==4)*(xclass2==2)
 gen ex43 = (eclass==4)*(xclass2==3)
 gen ex44 = (eclass==4)*(xclass2==4)
 
+
 forvalues i=1/38{
-	gen ic`i' = 1 if ic == `i'
+	gen ic`i' = 0
+	replace ic`i' = 1 if ic == `i'
 }
+
 
 preserve
 # delim ;

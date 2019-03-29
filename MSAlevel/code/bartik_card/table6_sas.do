@@ -26,7 +26,7 @@ forv i=1/4{
 /***************************************/
 /* Gets 2000 native wages by eclass */
 /**************************************/
-use data/2000/bigcells_new1.dta, clear
+use data/from_sas/2000_bigcells_new1.dta, clear
 local education_groups 1 2 3 4 
 forv i=1/4{
     local edg : word `i' of `education_groups'
@@ -45,7 +45,7 @@ forv i=1/4{
 /***************************************/
 /* Gets 2000 immigrant wages by eclass */
 /**************************************/
-use data/2000/bigcells_new1.dta, clear
+use data/from_sas/2000_bigcells_new1.dta, clear
 local education_groups 1 2 3 4 
 forv i=1/4{
     local edg : word `i' of `education_groups'
@@ -64,7 +64,7 @@ forv i=1/4{
 /***************************************/
 /* Gets 1990 native wages by eclass */
 /**************************************/
-use data/1990/bigcells_new1.dta, clear
+use data/from_sas/1990_bigcells_new1.dta, clear
 local education_groups 1 2 3 4 
 forv i=1/4{
     local edg : word `i' of `education_groups'
@@ -84,7 +84,7 @@ forv i=1/4{
 /***************************************/
 /* Gets 1990 immigrant wages by eclass */
 /**************************************/
-use data/1990/bigcells_new1.dta, clear
+use data/from_sas/1990_bigcells_new1.dta, clear
 local education_groups 1 2 3 4 
 forv i=1/4{
     local edg : word `i' of `education_groups'
@@ -104,7 +104,7 @@ forv i=1/4{
 /***************************************/
 /* Gets 1980 native wages by eclass */
 /**************************************/
-use data/1980/bigcells_new1.dta, clear
+use data/from_sas/1980_bigcells_new1.dta, clear
 local education_groups 1 2 3 4 
 forv i=1/4{
     local edg : word `i' of `education_groups'
@@ -124,7 +124,7 @@ forv i=1/4{
 /***************************************/
 /* Gets 1980 immigrant wages by eclass */
 /**************************************/
-use data/1980/bigcells_new1.dta, clear
+use data/from_sas/1980_bigcells_new1.dta, clear
 local education_groups 1 2 3 4 
 forv i=1/4{
     local edg : word `i' of `education_groups'
@@ -187,9 +187,9 @@ sort rmsa
 save data/1980/m80.dta, replace
 
 /**************************************/
-/* Nw data for 2000 */a
+/* Nw data for 2000 */
 /**************************************/
-use data/2000/bigcells_new2.dta, clear
+use data/from_sas/2000_bigcells_new2.dta, clear
 keep if native == 1 & male == 1
 gen nwage = logwage2 
 gen nres = res
@@ -202,7 +202,7 @@ save data/2000/nw.dta, replace
 /**************************************/
 /* Nw data for 1990 */
 /**************************************/
-use data/1990/bigcells_new2.dta, clear
+use data/from_sas/1990_bigcells_new2.dta, clear
 keep if native == 1 & male == 1
 gen nres90 = res
 label variable nres90 "residual wage native men 1990"
@@ -213,7 +213,7 @@ save data/1990/nw90.dta, replace
 /**************************************/
 /* Nw data for 1980 */
 /**************************************/
-use data/1980/bigcells_new2.dta, clear
+use data/from_sas/1980_bigcells_new2.dta, clear
 keep if native == 1 & male == 1
 gen nres80 = res
 label variable nres80 "residual wage native men 1980"
@@ -224,7 +224,7 @@ save data/1980/nw80.dta, replace
 /**************************************/
 /* Iw data for 2000 */
 /**************************************/
-use data/2000/bigcells_new2.dta, clear
+use data/from_sas/2000_bigcells_new2.dta, clear
 keep if native == 0 & male == 1
 gen iwage = logwage2 
 gen ires = res
@@ -237,7 +237,7 @@ save data/2000/iw.dta, replace
 /**************************************/
 /* Iw data for 1990 */
 /**************************************/
-use data/1990/bigcells_new2.dta, clear
+use data/from_sas/1990_bigcells_new2.dta, clear
 keep if native == 0 & male == 1
 gen ires90 = res
 label variable ires90 "residual wage imm men 1990"
@@ -248,7 +248,7 @@ save data/1990/iw90.dta, replace
 /**************************************/
 /* Iw data for 1980 */
 /**************************************/
-use data/1980/bigcells_new2.dta, clear
+use data/from_sas/1980_bigcells_new2.dta, clear
 keep if native == 0 & male == 1
 gen ires80 = res
 label variable ires80 "residual wage imm men 1980"
@@ -519,6 +519,9 @@ label variable mfg90 "Mfg share in 1990"
 /**************************************/
 keep if rmsa > 3 & !missing(rmsa)
 
+reg relscoll colliv resgap904 logsize80 logsize90 coll80 coll90 nres80 ires80 mfg80 ///
+            mfg90 [fweight = round(count90)]
+
 qui reg resgap4 colliv [fweight = round(count90)]
 
 qui reg resgap rels [fweight = round(count90)]
@@ -589,11 +592,10 @@ ivregress 2sls resgap4 resgap904 logsize80 logsize90 coll80 coll90 nres80 ires80
                mfg80 mfg90 (relscoll = colliv) [fweight = round(count90)] 
 estimates store m8, title(8)
 
-/*
+
 estout m1 m2 m5 m6, cells(b(star fmt(3)) se(par fmt(2)))  ///
    legend label varlabels(_cons constant)              ///
    stats(r2)
-   
    
 estout m3 m4 m7 m8, cells(b(star fmt(3)) se(par fmt(2)))  ///
    legend label varlabels(_cons constant)              ///

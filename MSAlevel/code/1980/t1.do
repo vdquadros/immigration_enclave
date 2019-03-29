@@ -15,13 +15,14 @@ gen native = 1 - imm
 gen lw2sq = logwage2^2
 
 gen xclass2 = 1 if exp <= 10
-replace xclass2 = 2 if 10 <= exp & exp <= 20
-replace xclass2 = 3 if 20 <= exp & exp <= 30
+replace xclass2 = 2 if 10 < exp & exp <= 20
+replace xclass2 = 3 if 20 < exp & exp <= 30
 replace xclass2 = 4 if 30 < exp & !missing(exp)
 
 replace c = 1
 
-gen havewage2 = 1 if logwage2 != .
+gen havewage2 = 0
+replace havewage2 = 1 if logwage2 != .
 gen cwagesal = wagesal
 replace cwagesal = . if wagesal <= 0
 
@@ -58,6 +59,16 @@ replace q2c = q2 if logwage2 != .
 replace q3c = q3 if logwage2 != .
 replace q4c = q4 if logwage2 != .
 replace q5c = q5 if logwage2 != .
+
+* Data check (Card did this check. Looks the same as Card's)
+preserve
+# delim ;
+collapse (mean) imm female educ age x1 x2 x3 x4 black hispanic 
+     rmsa0 rmsa1 emp annhrs cannhrs ft  q1-q5 
+     q1c q2c q3c q4c q5c wage2 logwage2
+	(sum) count=c [fweight = wt], by(eclass);
+#delimit cr
+restore
 
 /* The following datasets are used in Table 6.*/
 preserve

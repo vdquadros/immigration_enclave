@@ -51,3 +51,28 @@ collapse (sum) supply=c supply1=dropout supply2=hs supply3=somecoll ///
 save data/1980/cellsupply_new1.dta, replace;
 #delimit cr
 restore 
+
+
+/* Data checks that Card does. The results match Card's */
+use data/1980/cellsupply_new1.dta, clear
+
+gen rsupply1=supply1/supply
+gen rsupply2=supply2/supply
+gen rsupply3=supply3/supply
+gen rsupply4=supply4/supply
+gen rsupply5=supply5/supply
+gen rsupply6=supply6/supply
+
+gen shs=.7*rsupply1+rsupply2+.5*rsupply3
+gen scoll1=.5*rsupply3+rsupply4
+gen scoll2=.5*rsupply3+rsupply5+1.2*rsupply6
+gen logrels1=log(scoll1/shs)
+gen logrels2=log(scoll2/shs)
+
+summ rsupply1-rsupply6 shs scoll1 scoll2 logrels1 logrels2 if rmsa >=3
+
+corr rsupply1-rsupply6 shs scoll1 scoll2 logrels1 logrels2 if rmsa >=3
+
+gsort -supply
+
+keep rmsa supply rsupply1-rsupply6
