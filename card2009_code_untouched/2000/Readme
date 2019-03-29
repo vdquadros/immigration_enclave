@@ -44,7 +44,7 @@ gets a count of immigrants present in 2000
 by IC  - this is used to construct the instrumental
 variable  ==> byicnew.sas7bdat
 
-9. inflow3.sas - uses results from imm1.sas (1980)
+9. inflow3.sas - uses results from imm1.sas (1980)	
    and imm2 (2000) to construct the supply push instrument
    by "education and experience cell" and city, 
    with and without mexicans

@@ -1,0 +1,268 @@
+1                                                          The SAS System                          17:57 Saturday, December 27, 2008
+
+NOTE: Copyright (c) 2002-2003 by SAS Institute Inc., Cary, NC, USA. 
+NOTE: SAS (r) 9.1 (TS1M3)
+      Licensed to UNIVERSITY OF CALIFORNIA SYSTEM-T/R, Site 0029107917.
+NOTE: This session is executing on the Linux 2.6.24-19-server platform.
+
+
+
+NOTE: SAS 9.1.3 Service Pack 3
+
+You are running SAS 9. Some SAS 8 files will be automatically converted 
+by the V9 engine; others are incompatible.  Please see 
+http://support.sas.com/rnd/migration/planning/platform/64bit.html
+
+PROC MIGRATE will preserve current SAS file attributes and is 
+recommended for converting all your SAS libraries from any 
+SAS 8 release to SAS 9.  For details and examples, please see
+http://support.sas.com/rnd/migration/index.html
+
+
+This message is contained in the SAS news file, and is presented upon
+initialization.  Edit the file "news" in the "misc/base" directory to
+display site-specific news and information in the program log.
+The command line option "-nonews" will prevent this display.
+
+
+
+
+NOTE: SAS initialization used:
+      real time           0.05 seconds
+      cpu time            0.01 seconds
+      
+1          *imm3 follows allnp2.sas ;
+2          
+3          options ls=120 nocenter;
+4          libname c90 '/var/tmp/card/';
+NOTE: Libref C90 was successfully assigned as follows: 
+      Engine:        V9 
+      Physical Name: /var/tmp/card
+4        !                              
+5          libname here '.';
+NOTE: Libref HERE was successfully assigned as follows: 
+      Engine:        V9 
+      Physical Name: /accounts/fac/card/ely/data/c00/cells
+5        !                   
+6          
+7          
+8            /*
+9          
+10         keep rmsa imm female logwage2 wt p1-p10 dev devsq c age 
+11                       educ exp exp2 exp3 inschool dropout somecoll collplus advanced 
+12                       asian black hispanic black_ed black_coll asian_ed asian_coll
+13                       hisp_ed hisp_coll imm_ed imm_coll yrsinus yrsinus2
+14                       euro_ed hi_asian_ed mid_asian_ed mex_ed 
+15                       euro_coll hi_asian_coll mid_asian_coll mex_coll
+16                       euro_yrs hi_asian_yrs mid_asian_yrs mex_yrs
+17                       euro_yrs2 hi_asian_yrs2 mid_asian_yrs2 mex_yrs2 
+18                       pre_exp pre_exp1 english pob state msa nonmover 
+19                       ic euro hi_asian mid_asian mex owage annhrs xclass 
+2 The SAS System                                                                       17:57 Saturday, December 27, 2008
+
+20                       eclass wagesal weeks selfinc wage wage2 emp;
+21         
+22           */
+23         
+24         
+25         data one;
+26         set c90.supp2000;
+27         if imm=1;
+28         new=(yrsinus<20);
+29         
+30         
+31         rmsa0=(rmsa=0);
+32         rmsa1=(rmsa=1);
+33         male=1-female;
+34         native=1-imm;
+35         
+36         
+37         if exp<=10 then xclass2=1;
+38         else if exp<=20 then xclass2=2;
+39         else if exp<=30 then xclass2=3;
+40         else xclass2=4;
+41         c=1;
+42         
+43         havewage2=(logwage2 ne .);
+44         if wagesal<=0 then cwagesal=.;
+45         else cwagesal=wagesal;
+46         
+47         if annhrs>0 then cannhrs=annhrs;
+48         else cannhrs=.;
+49         
+50         hs=1-dropout-somecoll-collplus;
+51         if collplus=1 and advanced=0 then college=1;
+52         else college=0;
+53         
+54         x1=(xclass2=1);
+55         x2=(xclass2=2);
+56         x3=(xclass2=3);
+57         x4=(xclass2=4);
+58         
+59         if annhrs>0 then hrswkly=annhrs/weeks;
+60         else hrswkly=.;
+61         ft=(hrswkly>=35);
+62         
+63         
+64         ex11=(eclass=1)*(xclass2=1);
+65         ex12=(eclass=1)*(xclass2=2);
+66         ex13=(eclass=1)*(xclass2=3);
+67         ex14=(eclass=1)*(xclass2=4);
+68         ex21=(eclass=2)*(xclass2=1);
+69         ex22=(eclass=2)*(xclass2=2);
+70         ex23=(eclass=2)*(xclass2=3);
+71         ex24=(eclass=2)*(xclass2=4);
+72         ex31=(eclass=3)*(xclass2=1);
+73         ex32=(eclass=3)*(xclass2=2);
+74         ex33=(eclass=3)*(xclass2=3);
+75         ex34=(eclass=3)*(xclass2=4);
+76         ex41=(eclass=4)*(xclass2=1);
+77         ex42=(eclass=4)*(xclass2=2);
+3 The SAS System                                                                       17:57 Saturday, December 27, 2008
+
+78         ex43=(eclass=4)*(xclass2=3);
+79         ex44=(eclass=4)*(xclass2=4);
+80         
+81         length ic1-ic38 3;
+82         array icc (*) ic1-ic38;
+83         do j=1 to 38;
+84         icc(j)=(ic=j);
+85         end;
+86         
+87         
+88         
+89         
+
+NOTE: There were 4607709 observations read from the data set C90.SUPP2000.
+NOTE: The data set WORK.ONE has 1088454 observations and 152 variables.
+NOTE: DATA statement used (Total process time):
+      real time           6.67 seconds
+      cpu time            6.67 seconds
+      
+
+90         proc freq;
+91         tables ic*new;
+92         weight wt;
+93         
+
+NOTE: There were 1088454 observations read from the data set WORK.ONE.
+NOTE: The PROCEDURE FREQ printed pages 1-5.
+NOTE: PROCEDURE FREQ used (Total process time):
+      real time           1.04 seconds
+      cpu time            1.03 seconds
+      
+
+94         proc summary data=one;
+95         where (new=1);
+96         class rmsa;
+97         var ic1-ic38;
+98         weight wt;
+99         output out=citydist
+100        sum=;
+101        
+
+NOTE: There were 710546 observations read from the data set WORK.ONE.
+      WHERE new=1;
+NOTE: The data set WORK.CITYDIST has 127 observations and 41 variables.
+NOTE: PROCEDURE SUMMARY used (Total process time):
+      real time           0.97 seconds
+      cpu time            3.45 seconds
+      
+
+102        data c1;
+103        set citydist;
+104        if rmsa=.;
+105        
+106        array sumic (*) sumic1-sumic38;
+107        array icc (*) ic1-ic38;
+108        do j=1 to 38;
+109        sumic(j)=icc(j);
+110        end;
+4 The SAS System                                                                       17:57 Saturday, December 27, 2008
+
+111        d=1;
+112        
+113        keep d sumic1-sumic38;
+114        
+
+NOTE: There were 127 observations read from the data set WORK.CITYDIST.
+NOTE: The data set WORK.C1 has 1 observations and 39 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+115        data c2;
+116        set citydist;
+117        if rmsa ne .;
+118        d=1;
+119        
+
+NOTE: There were 127 observations read from the data set WORK.CITYDIST.
+NOTE: The data set WORK.C2 has 126 observations and 42 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+120        proc sort data=c1; by d;
+
+NOTE: There were 1 observations read from the data set WORK.C1.
+NOTE: The data set WORK.C1 has 1 observations and 39 variables.
+NOTE: PROCEDURE SORT used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.01 seconds
+      
+
+121        proc sort data=c2; by d;
+122        
+
+NOTE: There were 126 observations read from the data set WORK.C2.
+NOTE: The data set WORK.C2 has 126 observations and 42 variables.
+NOTE: PROCEDURE SORT used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+123        data here.ic_citynew;
+124        merge c2 c1; by d;
+125        
+126        array sumic (*) sumic1-sumic38;
+127        array icc (*) ic1-ic38;
+128        array shric (*) shric1-shric38;
+129        
+130        do j=1 to 38;
+131        shric(j)=icc(j)/sumic(j);
+132        end;
+133        
+134        drop d sumic1-sumic38 ic1-ic38;
+135        
+136        
+5 The SAS System                                                                       17:57 Saturday, December 27, 2008
+
+
+NOTE: There were 126 observations read from the data set WORK.C2.
+NOTE: There were 1 observations read from the data set WORK.C1.
+NOTE: The data set HERE.IC_CITYNEW has 126 observations and 42 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.02 seconds
+      cpu time            0.00 seconds
+      
+
+137        proc print data=here.ic_citynew;
+138        var rmsa shric1-shric7 shric37 shric38;
+139        
+140        
+141        
+NOTE: There were 126 observations read from the data set HERE.IC_CITYNEW.
+NOTE: The PROCEDURE PRINT printed pages 6-8.
+NOTE: PROCEDURE PRINT used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.01 seconds
+      
+
+NOTE: SAS Institute Inc., SAS Campus Drive, Cary, NC USA 27513-2414
+NOTE: The SAS System used:
+      real time           8.80 seconds
+      cpu time            11.19 seconds
+      

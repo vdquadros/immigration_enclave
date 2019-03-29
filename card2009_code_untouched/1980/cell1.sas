@@ -183,7 +183,7 @@ model logwage2=exp exp2 exp3 educ eclass*xclass inschool advanced
 output out=nm2 predicted=pred residual=res;
 weight wt;
 
-proc glm data=n
+proc glm data=nf;
 class eclass xclass homey;
 model logwage2=exp exp2 exp3 educ eclass*xclass inschool advanced 
       ft lowhrs 

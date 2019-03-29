@@ -1,0 +1,1448 @@
+The SAS System                                                                      20:14 Wednesday, January 7, 2009   1
+
+The MEANS Procedure
+
+Variable      N            Mean         Std Dev         Minimum         Maximum
+-------------------------------------------------------------------------------
+check1      127    -2.12603E-15    2.861297E-14    -1.42109E-13    2.273737E-13
+check2      127    -5.11096E-15    6.150707E-14    -6.82121E-13    7.105427E-14
+check3        0               .               .               .               .
+-------------------------------------------------------------------------------
+The SAS System                                                                      20:14 Wednesday, January 7, 2009   2
+
+                                Plot of relshs*hsiv.  Legend: A = 1 obs, B = 2 obs, etc.
+
+relshs |
+       |
+     1 +
+       |
+       |
+       |                                                  A
+       |
+       |
+       |                                                                                         A
+     0 +                                                  A A
+       |                                       A            A
+       |                                   A
+       |                                                                         A
+       |                          A     A
+       |         A            A   A                A                                                                  A
+       |                    A A   A A
+    -1 +      A       A A           A A  A
+       |       A    B  A
+       |         A    A            A
+       |  A   A     AA A
+       |        A A
+       |  AAA  AA          A      A
+       |    A A    A
+    -2 +  A AA      A
+       |      A
+       |  A A AAA
+       |     CAB A
+       |  AABB AAA
+       |    A A         AA
+       |   C A A
+    -3 +  BBA A  A
+       |  ABBB
+       |    A AB
+       | AB B A
+       |   AA
+       |  BAAA
+       |  A  A
+    -4 +  AB
+       |  A A
+       |    A
+       | A
+       |
+       |
+       |
+    -5 +
+       |
+       -+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+-
+      0.00      0.02      0.04      0.06      0.08      0.10      0.12      0.14      0.16      0.18      0.20      0.22
+
+                                                              hsiv
+The SAS System                                                                      20:14 Wednesday, January 7, 2009   3
+
+                               Plot of relshs*hsiv2.  Legend: A = 1 obs, B = 2 obs, etc.
+
+relshs |
+       |
+     1 +
+       |
+       |
+       |                                                                                                  A
+       |
+       |
+       |                                                                 A
+     0 +                                                                                                  A    A
+       |                              A                                                   A
+       |                                     A
+       |  A
+       |          A                                        A
+       |        A       AAA        A
+       |        A  A  A                        A
+    -1 +       A A A      A A       A
+       |        B              A     A
+       |     A                      A                       A
+       |  A  A        A          A   A
+       |          A         A
+       |    AA BA  A   A
+       |      A   A            A
+    -2 +   A  A A A
+       |           A
+       |   A A      A A A
+       |     A ACA   A
+       |   A  AC A A  A  A
+       |        A  A  A                 A
+       |     AB   A  A
+    -3 +   B BA    A     A
+       |    AAAAAAA
+       |       A   AA A
+       |   C   AA A
+       |     AA
+       |    AB  A A
+       |    A   A
+    -4 +   A  AA
+       |    A  A
+       |      A
+       |  A
+       |
+       |
+       |
+    -5 +
+       |
+       -+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+-
+      0.00      0.01      0.02      0.03      0.04      0.05      0.06      0.07      0.08      0.09      0.10      0.11
+
+                                                             hsiv2
+The SAS System                                                                      20:14 Wednesday, January 7, 2009   4
+
+                              Plot of relscoll*colliv.  Legend: A = 1 obs, B = 2 obs, etc.
+
+relscoll |
+         |
+     0.5 +
+         |
+         |
+         |                                                              A
+         |
+     0.0 +
+         |                                                                                       A
+         |
+         |
+         |                                                    A
+    -0.5 +
+         |                                                                     A              A
+         |
+         |                                   A
+         |                                            A               A                                     A
+    -1.0 +                   A                   A
+         |
+         |                   A
+         |                                              A
+         |                           A     A A
+    -1.5 +                 A             A  A
+         |              A            A   AA          A                                          A
+         |                     A   A     A
+         |           A    A      A             A
+         |          A          A
+    -2.0 +        A A A   A AA   A    A
+         |         A  A      A      A
+         |    A     A     B A   A
+         |         A     A A  A      A
+         |         AA A  A   A
+    -2.5 +           AAAA  A   A A  A
+         |       AA  A  AB A B  A
+         |          AA   A A  A
+         |       CC AAAA    A    A
+         |       B A CBA
+    -3.0 +       A B    A
+         |      A A AA A
+         |        A A   A
+         |      A
+         |        A   A
+    -3.5 +
+         |        A
+         |
+         |     A
+         |        A
+    -4.0 +
+         |
+         ---+------------+------------+------------+------------+------------+------------+------------+------------+--
+          0.00         0.01         0.02         0.03         0.04         0.05         0.06         0.07         0.08
+
+                                                             colliv
+The SAS System                                                                      20:14 Wednesday, January 7, 2009   5
+
+                             Plot of relscoll*colliv2.  Legend: A = 1 obs, B = 2 obs, etc.
+
+relscoll |
+         |
+     0.5 +
+         |
+         |
+         |                                                              A
+         |
+     0.0 +
+         |                                                                                       A
+         |
+         |
+         |                                                 A
+    -0.5 +
+         |                                                        A                           A
+         |
+         |                                   A
+         |                                          A                 A                                   A
+    -1.0 +                   A              A
+         |
+         |    A
+         |                                              A
+         |            A          A    A
+    -1.5 +             A               A   A
+         |             A         B        A      A                                              A
+         |                 A       A     A
+         |           A A   A                   A
+         |          A         A
+    -2.0 +        AA  A A   AA   A   A
+         |         A  A      A      A
+         |    A    A   B  A     A
+         |         AA      A  A      A
+         |         AA A A    A
+    -2.5 +           AAAA  A   A A  A
+         |       AA  A A B A B  A
+         |          AA   AA A
+         |       DB BAA     A    A
+         |       B A CBA
+    -3.0 +       A B    A
+         |      A A AA A
+         |        AA    A
+         |      A
+         |        A   A
+    -3.5 +
+         |        A
+         |
+         |     A
+         |        A
+    -4.0 +
+         |
+         ---+------------+------------+------------+------------+------------+------------+------------+------------+--
+          0.00         0.01         0.02         0.03         0.04         0.05         0.06         0.07         0.08
+
+                                                             colliv2
+The SAS System                                                                      20:14 Wednesday, January 7, 2009   6
+
+The CORR Procedure
+
+   8        Variables:    relshs   hsiv     hsiv2    relscoll colliv   colliv2  imm80    mex80    
+     Weight Variable:     count90                                                                 
+
+
+                                                  Simple Statistics
+ 
+Variable         N        Mean     Std Dev         Sum     Minimum     Maximum  Label
+
+relshs         124    -1.72886    33.57560     -165223    -4.46375     0.61776                                       
+hsiv           124     0.03938     1.27660        3763     0.00205     0.21952                                       
+hsiv2          124     0.02377     0.72941        2272     0.00160     0.10331                                       
+relscoll       124    -1.89948    22.69444     -181528    -3.86390     0.24078                                       
+colliv         124     0.02090     0.49229        1998     0.00178     0.07396                                       
+colliv2        124     0.01960     0.46836        1873     0.00136     0.07209                                       
+imm80          124     0.09534     2.25395        9111     0.01002     0.38797  1980imm share among adult pop in city
+mex80          124     0.01687     0.91450        1612           0     0.23271                                       
+
+
+                                     Pearson Correlation Coefficients, N = 124 
+                                             Prob > |r| under H0: Rho=0
+ 
+                                         relshs      hsiv     hsiv2  relscoll    colliv   colliv2     imm80     mex80
+
+relshs                                  1.00000   0.76166   0.70518   0.92543   0.73961   0.69588   0.83778   0.52635
+                                                   <.0001    <.0001    <.0001    <.0001    <.0001    <.0001    <.0001
+
+hsiv                                    0.76166   1.00000   0.76151   0.76787   0.81287   0.72603   0.90373   0.80103
+                                         <.0001              <.0001    <.0001    <.0001    <.0001    <.0001    <.0001
+
+hsiv2                                   0.70518   0.76151   1.00000   0.79859   0.95241   0.95786   0.90535   0.23437
+                                         <.0001    <.0001              <.0001    <.0001    <.0001    <.0001    0.0088
+
+relscoll                                0.92543   0.76787   0.79859   1.00000   0.82790   0.79940   0.89087   0.44548
+                                         <.0001    <.0001    <.0001              <.0001    <.0001    <.0001    <.0001
+
+colliv                                  0.73961   0.81287   0.95241   0.82790   1.00000   0.99003   0.90364   0.34940
+                                         <.0001    <.0001    <.0001    <.0001              <.0001    <.0001    <.0001
+
+colliv2                                 0.69588   0.72603   0.95786   0.79940   0.99003   1.00000   0.86199   0.21566
+                                         <.0001    <.0001    <.0001    <.0001    <.0001              <.0001    0.0161
+
+imm80                                   0.83778   0.90373   0.90535   0.89087   0.90364   0.86199   1.00000   0.54906
+1980imm share among adult pop in city    <.0001    <.0001    <.0001    <.0001    <.0001    <.0001              <.0001
+
+mex80                                   0.52635   0.80103   0.23437   0.44548   0.34940   0.21566   0.54906   1.00000
+                                         <.0001    <.0001    0.0088    <.0001    <.0001    0.0161    <.0001          
+The SAS System                                                                      20:14 Wednesday, January 7, 2009   7
+
+The CORR Procedure
+
+   5        Variables:    resgap2  relshs   resgap4  relscoll imm      
+     Weight Variable:     count90                                      
+
+
+                                                   Simple Statistics
+ 
+Variable          N         Mean      Std Dev          Sum      Minimum      Maximum   Label
+
+resgap2         124     -0.01711      1.89691        -1635     -0.18489      0.32365                                    
+relshs          124     -1.72886     33.57560      -165223     -4.46375      0.61776                                    
+resgap4         124     -0.04834      2.49891        -4620     -0.24938      0.26922                                    
+relscoll        124     -1.89948     22.69444      -181528     -3.86390      0.24078                                    
+imm             124      0.18797      3.99492        17964      0.01375      0.61880   imm share among adult pop in city
+
+
+                              Pearson Correlation Coefficients, N = 124 
+                                      Prob > |r| under H0: Rho=0
+ 
+                                        resgap2        relshs       resgap4      relscoll           imm
+
+resgap2                                 1.00000      -0.31300       0.26813      -0.41512      -0.37071
+                                                       0.0004        0.0026        <.0001        <.0001
+
+relshs                                 -0.31300       1.00000      -0.55800       0.92543       0.93323
+                                         0.0004                      <.0001        <.0001        <.0001
+
+resgap4                                 0.26813      -0.55800       1.00000      -0.55172      -0.55293
+                                         0.0026        <.0001                      <.0001        <.0001
+
+relscoll                               -0.41512       0.92543      -0.55172       1.00000       0.94931
+                                         <.0001        <.0001        <.0001                      <.0001
+
+imm                                    -0.37071       0.93323      -0.55293       0.94931       1.00000
+imm share among adult pop in city        <.0001        <.0001        <.0001        <.0001              
+The SAS System                                                                      20:14 Wednesday, January 7, 2009   8
+
+The SYSLIN Procedure
+Ordinary Least Squares Estimation
+
+Model                  resgap4
+Dependent Variable     resgap4
+Label                         
+
+
+                         Analysis of Variance
+ 
+                               Sum of        Mean
+Source                 DF     Squares      Square    F Value    Pr > F
+
+Model                   1    280.1609    280.1609      70.05    <.0001
+Error                 122    487.9185    3.999332                     
+Corrected Total       123    768.0794                                 
+
+
+Root MSE             1.99983    R-Square       0.36476
+Dependent Mean      -0.04834    Adj R-Sq       0.35955
+Coeff Var         -4137.1328                          
+
+
+                                    Parameter Estimates
+ 
+                       Parameter    Standard                           Variable
+Variable         DF     Estimate       Error    t Value    Pr > |t|    Label
+
+Intercept         1     0.015746    0.010024       1.57      0.1188    Intercept           
+colliv            1     -3.06568    0.366284      -8.37      <.0001                        
+The SAS System                                                                      20:14 Wednesday, January 7, 2009   9
+
+The SYSLIN Procedure
+Ordinary Least Squares Estimation
+
+Model                   resgap
+Dependent Variable      resgap
+Label                         
+
+
+                         Analysis of Variance
+ 
+                               Sum of        Mean
+Source                 DF     Squares      Square    F Value    Pr > F
+
+Model                   1    134.4144    134.4144      71.41    <.0001
+Error                 122    229.6238    1.882163                     
+Corrected Total       123    364.0383                                 
+
+
+Root MSE             1.37192    R-Square       0.36923
+Dependent Mean      -0.02628    Adj R-Sq       0.36406
+Coeff Var         -5219.4919                          
+
+
+                                    Parameter Estimates
+ 
+                       Parameter    Standard                           Variable
+Variable         DF     Estimate       Error    t Value    Pr > |t|    Label
+
+Intercept         1     -0.08841    0.008587     -10.30      <.0001    Intercept           
+rels              1     -0.03628    0.004293      -8.45      <.0001                        
+The SAS System                                                                      20:14 Wednesday, January 7, 2009  10
+
+The SYSLIN Procedure
+Ordinary Least Squares Estimation
+
+Model                     rels
+Dependent Variable        rels
+Label                         
+
+
+                         Analysis of Variance
+ 
+                               Sum of        Mean
+Source                 DF     Squares      Square    F Value    Pr > F
+
+Model                   1    65236.60    65236.60     215.71    <.0001
+Error                 122    36896.76    302.4325                     
+Corrected Total       123    102133.4                                 
+
+
+Root MSE            17.39059    R-Square       0.63874
+Dependent Mean      -1.71250    Adj R-Sq       0.63578
+Coeff Var         -1015.5063                          
+
+
+                                    Parameter Estimates
+ 
+                       Parameter    Standard                           Variable
+Variable         DF     Estimate       Error    t Value    Pr > |t|    Label
+
+Intercept         1     -2.49878    0.077657     -32.18      <.0001    Intercept           
+inflall           1     11.44426    0.779213      14.69      <.0001                        
+The SAS System                                                                      20:14 Wednesday, January 7, 2009  11
+
+The SYSLIN Procedure
+Ordinary Least Squares Estimation
+
+Model                   resgap
+Dependent Variable      resgap
+Label                         
+
+
+                         Analysis of Variance
+ 
+                               Sum of        Mean
+Source                 DF     Squares      Square    F Value    Pr > F
+
+Model                   1    142.5230    142.5230      78.49    <.0001
+Error                 122    221.5153    1.815699                     
+Corrected Total       123    364.0383                                 
+
+
+Root MSE             1.34748    R-Square       0.39151
+Dependent Mean      -0.02628    Adj R-Sq       0.38652
+Coeff Var         -5126.5076                          
+
+
+                                    Parameter Estimates
+ 
+                       Parameter    Standard                           Variable
+Variable         DF     Estimate       Error    t Value    Pr > |t|    Label
+
+Intercept         1     0.010467    0.006017       1.74      0.0845    Intercept           
+inflall           1     -0.53491    0.060376      -8.86      <.0001                        
+The SAS System                                                                      20:14 Wednesday, January 7, 2009  12
+
+The SYSLIN Procedure
+Ordinary Least Squares Estimation
+
+Model                  resgap2
+Dependent Variable     resgap2
+Label                         
+
+
+                         Analysis of Variance
+ 
+                               Sum of        Mean
+Source                 DF     Squares      Square    F Value    Pr > F
+
+Model                   1    43.36064    43.36064      13.25    0.0004
+Error                 122    399.2273    3.272355                     
+Corrected Total       123    442.5879                                 
+
+
+Root MSE             1.80897    R-Square       0.09797
+Dependent Mean      -0.01711    Adj R-Sq       0.09058
+Coeff Var         -10570.696                          
+
+
+                                    Parameter Estimates
+ 
+                       Parameter    Standard                           Variable
+Variable         DF     Estimate       Error    t Value    Pr > |t|    Label
+
+Intercept         1     -0.04769    0.010236      -4.66      <.0001    Intercept           
+relshs            1     -0.01768    0.004858      -3.64      0.0004                        
+The SAS System                                                                      20:14 Wednesday, January 7, 2009  13
+
+The SYSLIN Procedure
+Ordinary Least Squares Estimation
+
+Model                  resgap2
+Dependent Variable     resgap2
+Label                         
+
+
+                         Analysis of Variance
+ 
+                               Sum of        Mean
+Source                 DF     Squares      Square    F Value    Pr > F
+
+Model                   9    136.4823    15.16470       5.65    <.0001
+Error                 114    306.1056    2.685137                     
+Corrected Total       123    442.5879                                 
+
+
+Root MSE             1.63864    R-Square       0.30837
+Dependent Mean      -0.01711    Adj R-Sq       0.25377
+Coeff Var         -9575.3932                          
+
+
+                                    Parameter Estimates
+ 
+                       Parameter    Standard                           Variable
+Variable         DF     Estimate       Error    t Value    Pr > |t|    Label
+
+Intercept         1     0.078611    0.076612       1.03      0.3070    Intercept           
+relshs            1     -0.01875    0.006077      -3.09      0.0025                        
+logsize80         1     -0.08678    0.039432      -2.20      0.0298                        
+logsize90         1     0.075786    0.040017       1.89      0.0608                        
+coll80            1     -0.03817    0.531241      -0.07      0.9428                        
+coll90            1     -0.10057    0.408586      -0.25      0.8060                        
+nres80            1     -0.07533    0.157412      -0.48      0.6332    residual wage native
+                                                                       men 1980            
+ires80            1     0.130979    0.146903       0.89      0.3745    residual wage       
+                                                                       imm men 1980        
+mfg80             1     -0.62302    0.316913      -1.97      0.0517                        
+mfg90             1     0.614123    0.382911       1.60      0.1115                        
+The SAS System                                                                      20:14 Wednesday, January 7, 2009  14
+
+The SYSLIN Procedure
+Ordinary Least Squares Estimation
+
+Model                  resgap2
+Dependent Variable     resgap2
+Label                         
+
+
+                         Analysis of Variance
+ 
+                               Sum of        Mean
+Source                 DF     Squares      Square    F Value    Pr > F
+
+Model                   2    82.13577    41.06789      13.79    <.0001
+Error                 121    360.4522    2.978943                     
+Corrected Total       123    442.5879                                 
+
+
+Root MSE             1.72596    R-Square       0.18558
+Dependent Mean      -0.01711    Adj R-Sq       0.17212
+Coeff Var         -10085.665                          
+
+
+                                    Parameter Estimates
+ 
+                       Parameter    Standard                           Variable
+Variable         DF     Estimate       Error    t Value    Pr > |t|    Label
+
+Intercept         1     -0.03794    0.010133      -3.74      0.0003    Intercept           
+relshs            1     -0.01756    0.004635      -3.79      0.0002                        
+resgap902         1     0.217963    0.060414       3.61      0.0005                        
+The SAS System                                                                      20:14 Wednesday, January 7, 2009  15
+
+The SYSLIN Procedure
+Ordinary Least Squares Estimation
+
+Model                  resgap2
+Dependent Variable     resgap2
+Label                         
+
+
+                         Analysis of Variance
+ 
+                               Sum of        Mean
+Source                 DF     Squares      Square    F Value    Pr > F
+
+Model                  10    154.4119    15.44119       6.05    <.0001
+Error                 113    288.1760    2.550230                     
+Corrected Total       123    442.5879                                 
+
+
+Root MSE             1.59694    R-Square       0.34888
+Dependent Mean      -0.01711    Adj R-Sq       0.29126
+Coeff Var         -9331.7499                          
+
+
+                                    Parameter Estimates
+ 
+                       Parameter    Standard                           Variable
+Variable         DF     Estimate       Error    t Value    Pr > |t|    Label
+
+Intercept         1     0.078239    0.074663       1.05      0.2969    Intercept           
+relshs            1     -0.01874    0.005922      -3.16      0.0020                        
+resgap902         1     0.159076    0.059994       2.65      0.0092                        
+logsize80         1     -0.06263    0.039493      -1.59      0.1156                        
+logsize90         1     0.052902    0.039943       1.32      0.1880                        
+coll80            1     -0.09982    0.518246      -0.19      0.8476                        
+coll90            1     -0.05186    0.398613      -0.13      0.8967                        
+nres80            1     0.009049    0.156673       0.06      0.9540    residual wage native
+                                                                       men 1980            
+ires80            1     0.033294    0.147830       0.23      0.8222    residual wage       
+                                                                       imm men 1980        
+mfg80             1     -0.65005    0.309017      -2.10      0.0376                        
+mfg90             1     0.660830    0.373583       1.77      0.0796                        
+The SAS System                                                                      20:14 Wednesday, January 7, 2009  16
+
+The SYSLIN Procedure
+Ordinary Least Squares Estimation
+
+Model                  resgap4
+Dependent Variable     resgap4
+Label                         
+
+
+                         Analysis of Variance
+ 
+                               Sum of        Mean
+Source                 DF     Squares      Square    F Value    Pr > F
+
+Model                   1    233.8011    233.8011      53.39    <.0001
+Error                 122    534.2783    4.379330                     
+Corrected Total       123    768.0794                                 
+
+
+Root MSE             2.09268    R-Square       0.30440
+Dependent Mean      -0.04834    Adj R-Sq       0.29870
+Coeff Var         -4329.2192                          
+
+
+                                    Parameter Estimates
+ 
+                       Parameter    Standard                           Variable
+Variable         DF     Estimate       Error    t Value    Pr > |t|    Label
+
+Intercept         1     -0.16373    0.017183      -9.53      <.0001    Intercept           
+relscoll          1     -0.06075    0.008314      -7.31      <.0001                        
+The SAS System                                                                      20:14 Wednesday, January 7, 2009  17
+
+The SYSLIN Procedure
+Ordinary Least Squares Estimation
+
+Model                  resgap4
+Dependent Variable     resgap4
+Label                         
+
+
+                         Analysis of Variance
+ 
+                               Sum of        Mean
+Source                 DF     Squares      Square    F Value    Pr > F
+
+Model                   9    341.1734    37.90816      10.12    <.0001
+Error                 114    426.9060    3.744789                     
+Corrected Total       123    768.0794                                 
+
+
+Root MSE             1.93515    R-Square       0.44419
+Dependent Mean      -0.04834    Adj R-Sq       0.40031
+Coeff Var         -4003.3117                          
+
+
+                                    Parameter Estimates
+ 
+                       Parameter    Standard                           Variable
+Variable         DF     Estimate       Error    t Value    Pr > |t|    Label
+
+Intercept         1     0.213732    0.095321       2.24      0.0269    Intercept           
+relscoll          1     -0.03564    0.010597      -3.36      0.0010                        
+logsize80         1     -0.00650    0.045782      -0.14      0.8873                        
+logsize90         1     -0.03614    0.046096      -0.78      0.4347                        
+coll80            1     0.244967    0.628937       0.39      0.6976                        
+coll90            1     -0.24585    0.482764      -0.51      0.6116                        
+nres80            1     -0.05063    0.186634      -0.27      0.7867    residual wage native
+                                                                       men 1980            
+ires80            1     0.231440    0.173664       1.33      0.1853    residual wage       
+                                                                       imm men 1980        
+mfg80             1     -0.25966    0.374508      -0.69      0.4895                        
+mfg90             1     0.254012    0.452552       0.56      0.5757                        
+The SAS System                                                                      20:14 Wednesday, January 7, 2009  18
+
+The SYSLIN Procedure
+Ordinary Least Squares Estimation
+
+Model                  resgap4
+Dependent Variable     resgap4
+Label                         
+
+
+                         Analysis of Variance
+ 
+                               Sum of        Mean
+Source                 DF     Squares      Square    F Value    Pr > F
+
+Model                   2    285.7898    142.8949      35.85    <.0001
+Error                 121    482.2895    3.985864                     
+Corrected Total       123    768.0794                                 
+
+
+Root MSE             1.99646    R-Square       0.37208
+Dependent Mean      -0.04834    Adj R-Sq       0.36170
+Coeff Var         -4130.1609                          
+
+
+                                    Parameter Estimates
+ 
+                       Parameter    Standard                           Variable
+Variable         DF     Estimate       Error    t Value    Pr > |t|    Label
+
+Intercept         1     -0.11219    0.021735      -5.16      <.0001    Intercept           
+relscoll          1     -0.04113    0.009615      -4.28      <.0001                        
+resgap904         1     0.333242    0.092271       3.61      0.0004                        
+The SAS System                                                                      20:14 Wednesday, January 7, 2009  19
+
+The SYSLIN Procedure
+Ordinary Least Squares Estimation
+
+Model                  resgap4
+Dependent Variable     resgap4
+Label                         
+
+
+                         Analysis of Variance
+ 
+                               Sum of        Mean
+Source                 DF     Squares      Square    F Value    Pr > F
+
+Model                  10    355.7342    35.57342       9.75    <.0001
+Error                 113    412.3451    3.649072                     
+Corrected Total       123    768.0794                                 
+
+
+Root MSE             1.91025    R-Square       0.46315
+Dependent Mean      -0.04834    Adj R-Sq       0.41564
+Coeff Var         -3951.8181                          
+
+
+                                    Parameter Estimates
+ 
+                       Parameter    Standard                           Variable
+Variable         DF     Estimate       Error    t Value    Pr > |t|    Label
+
+Intercept         1     0.198646    0.094397       2.10      0.0376    Intercept           
+relscoll          1     -0.02895    0.010983      -2.64      0.0096                        
+resgap904         1     0.199862    0.100053       2.00      0.0482                        
+logsize80         1     -0.00218    0.045245      -0.05      0.9616                        
+logsize90         1     -0.03431    0.045512      -0.75      0.4525                        
+coll80            1     0.117738    0.624106       0.19      0.8507                        
+coll90            1     -0.14244    0.479358      -0.30      0.7669                        
+nres80            1     0.021752    0.187763       0.12      0.9080    residual wage native
+                                                                       men 1980            
+ires80            1     0.144235    0.176901       0.82      0.4166    residual wage       
+                                                                       imm men 1980        
+mfg80             1     -0.30362    0.370346      -0.82      0.4140                        
+mfg90             1     0.266927    0.446777       0.60      0.5514                        
+The SAS System                                                                      20:14 Wednesday, January 7, 2009  20
+
+The SYSLIN Procedure
+Ordinary Least Squares Estimation
+
+Model                   relshs
+Dependent Variable      relshs
+Label                         
+
+
+                         Analysis of Variance
+ 
+                               Sum of        Mean
+Source                 DF     Squares      Square    F Value    Pr > F
+
+Model                   1    80441.38    80441.38     168.57    <.0001
+Error                 122    58219.11    477.2058                     
+Corrected Total       123    138660.5                                 
+
+
+Root MSE            21.84504    R-Square       0.58013
+Dependent Mean      -1.72886    Adj R-Sq       0.57669
+Coeff Var         -1263.5492                          
+
+
+                                    Parameter Estimates
+ 
+                       Parameter    Standard                           Variable
+Variable         DF     Estimate       Error    t Value    Pr > |t|    Label
+
+Intercept         1     -2.51767    0.093191     -27.02      <.0001    Intercept           
+hsiv              1     20.03233    1.542924      12.98      <.0001                        
+The SAS System                                                                      20:14 Wednesday, January 7, 2009  21
+
+The SYSLIN Procedure
+Ordinary Least Squares Estimation
+
+Model                  resgap2
+Dependent Variable     resgap2
+Label                         
+
+
+                         Analysis of Variance
+ 
+                               Sum of        Mean
+Source                 DF     Squares      Square    F Value    Pr > F
+
+Model                   1    58.06164    58.06164      18.42    <.0001
+Error                 122    384.5263    3.151855                     
+Corrected Total       123    442.5879                                 
+
+
+Root MSE             1.77535    R-Square       0.13119
+Dependent Mean      -0.01711    Adj R-Sq       0.12407
+Coeff Var         -10374.245                          
+
+
+                                    Parameter Estimates
+ 
+                       Parameter    Standard                           Variable
+Variable         DF     Estimate       Error    t Value    Pr > |t|    Label
+
+Intercept         1     0.004079    0.007574       0.54      0.5911    Intercept           
+hsiv              1     -0.53819    0.125393      -4.29      <.0001                        
+The SAS System                                                                      20:14 Wednesday, January 7, 2009  22
+
+The SYSLIN Procedure
+Ordinary Least Squares Estimation
+
+Model                   relshs
+Dependent Variable      relshs
+Label                         
+
+
+                         Analysis of Variance
+ 
+                               Sum of        Mean
+Source                 DF     Squares      Square    F Value    Pr > F
+
+Model                   9    105516.4    11724.05      40.33    <.0001
+Error                 114    33144.07    290.7374                     
+Corrected Total       123    138660.5                                 
+
+
+Root MSE            17.05102    R-Square       0.76097
+Dependent Mean      -1.72886    Adj R-Sq       0.74210
+Coeff Var         -986.25623                          
+
+
+                                    Parameter Estimates
+ 
+                       Parameter    Standard                           Variable
+Variable         DF     Estimate       Error    t Value    Pr > |t|    Label
+
+Intercept         1     -4.25937    0.698575      -6.10      <.0001    Intercept           
+hsiv              1     18.74594    1.606939      11.67      <.0001                        
+logsize80         1     -1.99316    0.398343      -5.00      <.0001                        
+logsize90         1     2.079570    0.390989       5.32      <.0001                        
+coll80            1     -1.68670    5.648544      -0.30      0.7658                        
+coll90            1     6.480633    4.424169       1.46      0.1457                        
+nres80            1     0.052560    1.641183       0.03      0.9745    residual wage native
+                                                                       men 1980            
+ires80            1     1.044761    1.544959       0.68      0.5003    residual wage       
+                                                                       imm men 1980        
+mfg80             1     -1.72746    3.295707      -0.52      0.6012                        
+mfg90             1     -0.10455    3.986957      -0.03      0.9791                        
+The SAS System                                                                      20:14 Wednesday, January 7, 2009  23
+
+The SYSLIN Procedure
+Ordinary Least Squares Estimation
+
+Model                  resgap2
+Dependent Variable     resgap2
+Label                         
+
+
+                         Analysis of Variance
+ 
+                               Sum of        Mean
+Source                 DF     Squares      Square    F Value    Pr > F
+
+Model                   9    132.4382    14.71536       5.41    <.0001
+Error                 114    310.1497    2.720611                     
+Corrected Total       123    442.5879                                 
+
+
+Root MSE             1.64943    R-Square       0.29924
+Dependent Mean      -0.01711    Adj R-Sq       0.24391
+Coeff Var         -9638.4376                          
+
+
+                                    Parameter Estimates
+ 
+                       Parameter    Standard                           Variable
+Variable         DF     Estimate       Error    t Value    Pr > |t|    Label
+
+Intercept         1     0.143760    0.067577       2.13      0.0355    Intercept           
+hsiv              1     -0.43729    0.155447      -2.81      0.0058                        
+logsize80         1     -0.04774    0.038534      -1.24      0.2179                        
+logsize90         1     0.037710    0.037822       1.00      0.3209                        
+coll80            1     0.076847    0.546411       0.14      0.8884                        
+coll90            1     -0.29466    0.427971      -0.69      0.4925                        
+nres80            1     -0.06791    0.158759      -0.43      0.6697    residual wage native
+                                                                       men 1980            
+ires80            1     0.097767    0.149451       0.65      0.5143    residual wage       
+                                                                       imm men 1980        
+mfg80             1     -0.59096    0.318810      -1.85      0.0664                        
+mfg90             1     0.626780    0.385677       1.63      0.1069                        
+The SAS System                                                                      20:14 Wednesday, January 7, 2009  24
+
+The SYSLIN Procedure
+Ordinary Least Squares Estimation
+
+Model                   relshs
+Dependent Variable      relshs
+Label                         
+
+
+                         Analysis of Variance
+ 
+                               Sum of        Mean
+Source                 DF     Squares      Square    F Value    Pr > F
+
+Model                  10    105713.4    10571.34      36.26    <.0001
+Error                 113    32947.11    291.5673                     
+Corrected Total       123    138660.5                                 
+
+
+Root MSE            17.07534    R-Square       0.76239
+Dependent Mean      -1.72886    Adj R-Sq       0.74136
+Coeff Var         -987.66281                          
+
+
+                                    Parameter Estimates
+ 
+                       Parameter    Standard                           Variable
+Variable         DF     Estimate       Error    t Value    Pr > |t|    Label
+
+Intercept         1     -4.24464    0.699801      -6.07      <.0001    Intercept           
+hsiv              1     18.84097    1.613378      11.68      <.0001                        
+resgap902         1     0.528601    0.643143       0.82      0.4129                        
+logsize80         1     -1.91483    0.410137      -4.67      <.0001                        
+logsize90         1     2.002616    0.402586       4.97      <.0001                        
+coll80            1     -1.98316    5.668088      -0.35      0.7271                        
+coll90            1     6.722464    4.440238       1.51      0.1328                        
+nres80            1     0.323709    1.676307       0.19      0.8472    residual wage native
+                                                                       men 1980            
+ires80            1     0.735161    1.592358       0.46      0.6452    residual wage       
+                                                                       imm men 1980        
+mfg80             1     -1.81701    3.302205      -0.55      0.5832                        
+mfg90             1     0.038905    3.996456       0.01      0.9922                        
+The SAS System                                                                      20:14 Wednesday, January 7, 2009  25
+
+The SYSLIN Procedure
+Ordinary Least Squares Estimation
+
+Model                  resgap2
+Dependent Variable     resgap2
+Label                         
+
+
+                         Analysis of Variance
+ 
+                               Sum of        Mean
+Source                 DF     Squares      Square    F Value    Pr > F
+
+Model                  10    147.7787    14.77787       5.66    <.0001
+Error                 113    294.8092    2.608931                     
+Corrected Total       123    442.5879                                 
+
+
+Root MSE             1.61522    R-Square       0.33390
+Dependent Mean      -0.01711    Adj R-Sq       0.27495
+Coeff Var         -9438.5371                          
+
+
+                                    Parameter Estimates
+ 
+                       Parameter    Standard                           Variable
+Variable         DF     Estimate       Error    t Value    Pr > |t|    Label
+
+Intercept         1     0.147870    0.066197       2.23      0.0275    Intercept           
+hsiv              1     -0.41077    0.152615      -2.69      0.0082                        
+resgap902         1     0.147522    0.060837       2.42      0.0169                        
+logsize80         1     -0.02588    0.038796      -0.67      0.5060                        
+logsize90         1     0.016234    0.038082       0.43      0.6707                        
+coll80            1     -0.00589    0.536165      -0.01      0.9913                        
+coll90            1     -0.22717    0.420018      -0.54      0.5897                        
+nres80            1     0.007765    0.158568       0.05      0.9610    residual wage native
+                                                                       men 1980            
+ires80            1     0.011364    0.150627       0.08      0.9400    residual wage       
+                                                                       imm men 1980        
+mfg80             1     -0.61595    0.312368      -1.97      0.0511                        
+mfg90             1     0.666816    0.378039       1.76      0.0805                        
+The SAS System                                                                      20:14 Wednesday, January 7, 2009  26
+
+The SYSLIN Procedure
+Ordinary Least Squares Estimation
+
+Model                 relscoll
+Dependent Variable    relscoll
+Label                         
+
+
+                         Analysis of Variance
+ 
+                               Sum of        Mean
+Source                 DF     Squares      Square    F Value    Pr > F
+
+Model                   1    43421.47    43421.47     265.83    <.0001
+Error                 122    19928.14    163.3454                     
+Corrected Total       123    63349.62                                 
+
+
+Root MSE            12.78067    R-Square       0.68543
+Dependent Mean      -1.89948    Adj R-Sq       0.68285
+Coeff Var         -672.85208                          
+
+
+                                    Parameter Estimates
+ 
+                       Parameter    Standard                           Variable
+Variable         DF     Estimate       Error    t Value    Pr > |t|    Label
+
+Intercept         1     -2.69729    0.064060     -42.11      <.0001    Intercept           
+colliv            1     38.16594    2.340870      16.30      <.0001                        
+The SAS System                                                                      20:14 Wednesday, January 7, 2009  27
+
+The SYSLIN Procedure
+Ordinary Least Squares Estimation
+
+Model                  resgap4
+Dependent Variable     resgap4
+Label                         
+
+
+                         Analysis of Variance
+ 
+                               Sum of        Mean
+Source                 DF     Squares      Square    F Value    Pr > F
+
+Model                   1    280.1609    280.1609      70.05    <.0001
+Error                 122    487.9185    3.999332                     
+Corrected Total       123    768.0794                                 
+
+
+Root MSE             1.99983    R-Square       0.36476
+Dependent Mean      -0.04834    Adj R-Sq       0.35955
+Coeff Var         -4137.1328                          
+
+
+                                    Parameter Estimates
+ 
+                       Parameter    Standard                           Variable
+Variable         DF     Estimate       Error    t Value    Pr > |t|    Label
+
+Intercept         1     0.015746    0.010024       1.57      0.1188    Intercept           
+colliv            1     -3.06568    0.366284      -8.37      <.0001                        
+The SAS System                                                                      20:14 Wednesday, January 7, 2009  28
+
+The SYSLIN Procedure
+Ordinary Least Squares Estimation
+
+Model                 relscoll
+Dependent Variable    relscoll
+Label                         
+
+
+                         Analysis of Variance
+ 
+                               Sum of        Mean
+Source                 DF     Squares      Square    F Value    Pr > F
+
+Model                   9    50811.97    5645.775      51.33    <.0001
+Error                 114    12537.64    109.9793                     
+Corrected Total       123    63349.62                                 
+
+
+Root MSE            10.48710    R-Square       0.80209
+Dependent Mean      -1.89948    Adj R-Sq       0.78646
+Coeff Var         -552.10494                          
+
+
+                                    Parameter Estimates
+ 
+                       Parameter    Standard                           Variable
+Variable         DF     Estimate       Error    t Value    Pr > |t|    Label
+
+Intercept         1     -3.63138    0.425082      -8.54      <.0001    Intercept           
+colliv            1     35.23837    2.561755      13.76      <.0001                        
+logsize80         1     -1.41725    0.248906      -5.69      <.0001                        
+logsize90         1     1.492310    0.241226       6.19      <.0001                        
+coll80            1     2.755970    3.404875       0.81      0.4200                        
+coll90            1     -1.23672    2.617634      -0.47      0.6375                        
+nres80            1     1.105889    1.006939       1.10      0.2744    residual wage native
+                                                                       men 1980            
+ires80            1     -0.32592    0.941069      -0.35      0.7297    residual wage       
+                                                                       imm men 1980        
+mfg80             1     -0.11796    2.031678      -0.06      0.9538                        
+mfg90             1     0.003823    2.454608       0.00      0.9988                        
+The SAS System                                                                      20:14 Wednesday, January 7, 2009  29
+
+The SYSLIN Procedure
+Ordinary Least Squares Estimation
+
+Model                  resgap4
+Dependent Variable     resgap4
+Label                         
+
+
+                         Analysis of Variance
+ 
+                               Sum of        Mean
+Source                 DF     Squares      Square    F Value    Pr > F
+
+Model                   9    373.3457    41.48285      11.98    <.0001
+Error                 114    394.7337    3.462576                     
+Corrected Total       123    768.0794                                 
+
+
+Root MSE             1.86080    R-Square       0.48608
+Dependent Mean      -0.04834    Adj R-Sq       0.44550
+Coeff Var         -3849.5096                          
+
+
+                                    Parameter Estimates
+ 
+                       Parameter    Standard                           Variable
+Variable         DF     Estimate       Error    t Value    Pr > |t|    Label
+
+Intercept         1     0.290577    0.075425       3.85      0.0002    Intercept           
+colliv            1     -2.10895    0.454550      -4.64      <.0001                        
+logsize80         1     0.059963    0.044165       1.36      0.1772                        
+logsize90         1     -0.09659    0.042802      -2.26      0.0259                        
+coll80            1     0.369648    0.604151       0.61      0.5419                        
+coll90            1     -0.32965    0.464465      -0.71      0.4793                        
+nres80            1     -0.06788    0.178668      -0.38      0.7047    residual wage native
+                                                                       men 1980            
+ires80            1     0.214504    0.166980       1.28      0.2015    residual wage       
+                                                                       imm men 1980        
+mfg80             1     -0.20955    0.360495      -0.58      0.5622                        
+mfg90             1     0.198880    0.435538       0.46      0.6488                        
+The SAS System                                                                      20:14 Wednesday, January 7, 2009  30
+
+The SYSLIN Procedure
+Ordinary Least Squares Estimation
+
+Model                 relscoll
+Dependent Variable    relscoll
+Label                         
+
+
+                         Analysis of Variance
+ 
+                               Sum of        Mean
+Source                 DF     Squares      Square    F Value    Pr > F
+
+Model                  10    51065.21    5106.521      46.97    <.0001
+Error                 113    12284.41    108.7116                     
+Corrected Total       123    63349.62                                 
+
+
+Root MSE            10.42648    R-Square       0.80609
+Dependent Mean      -1.89948    Adj R-Sq       0.78892
+Coeff Var         -548.91353                          
+
+
+                                    Parameter Estimates
+ 
+                       Parameter    Standard                           Variable
+Variable         DF     Estimate       Error    t Value    Pr > |t|    Label
+
+Intercept         1     -3.47826    0.434370      -8.01      <.0001    Intercept           
+colliv            1     34.10456    2.653073      12.85      <.0001                        
+resgap904         1     -0.82690    0.541782      -1.53      0.1297                        
+logsize80         1     -1.39293    0.247979      -5.62      <.0001                        
+logsize90         1     1.442117    0.242076       5.96      <.0001                        
+coll80            1     3.247564    3.400482       0.96      0.3416                        
+coll90            1     -1.65414    2.616834      -0.63      0.5286                        
+nres80            1     0.779937    1.023644       0.76      0.4477    residual wage native
+                                                                       men 1980            
+ires80            1     0.038583    0.965629       0.04      0.9682    residual wage       
+                                                                       imm men 1980        
+mfg80             1     0.075749    2.023918       0.04      0.9702                        
+mfg90             1     -0.05995    2.440777      -0.02      0.9804                        
+The SAS System                                                                      20:14 Wednesday, January 7, 2009  31
+
+The SYSLIN Procedure
+Ordinary Least Squares Estimation
+
+Model                  resgap4
+Dependent Variable     resgap4
+Label                         
+
+
+                         Analysis of Variance
+ 
+                               Sum of        Mean
+Source                 DF     Squares      Square    F Value    Pr > F
+
+Model                  10    384.4639    38.44639      11.32    <.0001
+Error                 113    383.6155    3.394827                     
+Corrected Total       123    768.0794                                 
+
+
+Root MSE             1.84251    R-Square       0.50055
+Dependent Mean      -0.04834    Adj R-Sq       0.45635
+Coeff Var         -3811.6636                          
+
+
+                                    Parameter Estimates
+ 
+                       Parameter    Standard                           Variable
+Variable         DF     Estimate       Error    t Value    Pr > |t|    Label
+
+Intercept         1     0.258493    0.076759       3.37      0.0010    Intercept           
+colliv            1     -1.87138    0.468835      -3.99      0.0001                        
+resgap904         1     0.173263    0.095741       1.81      0.0730                        
+logsize80         1     0.054867    0.043821       1.25      0.2131                        
+logsize90         1     -0.08607    0.042778      -2.01      0.0466                        
+coll80            1     0.266643    0.600913       0.44      0.6581                        
+coll90            1     -0.24218    0.462431      -0.52      0.6015                        
+nres80            1     0.000419    0.180892       0.00      0.9982    residual wage native
+                                                                       men 1980            
+ires80            1     0.138129    0.170640       0.81      0.4199    residual wage       
+                                                                       imm men 1980        
+mfg80             1     -0.25014    0.357655      -0.70      0.4857                        
+mfg90             1     0.212242    0.431319       0.49      0.6236                        
+The SAS System                                                                      20:14 Wednesday, January 7, 2009  32
+
+The SYSLIN Procedure
+Two-Stage Least Squares Estimation
+
+Model                  resgap2
+Dependent Variable     resgap2
+
+
+                         Analysis of Variance
+ 
+                               Sum of        Mean
+Source                 DF     Squares      Square    F Value    Pr > F
+
+Model                   1    58.06164    58.06164      17.24    <.0001
+Error                 122    410.9189    3.368187                     
+Corrected Total       123    442.5879                                 
+
+
+Root MSE             1.83526    R-Square       0.12380
+Dependent Mean      -0.01711    Adj R-Sq       0.11662
+Coeff Var         -10724.363                          
+
+
+                        Parameter Estimates
+ 
+                       Parameter    Standard
+Variable         DF     Estimate       Error    t Value    Pr > |t|
+
+Intercept         1     -0.06356    0.012665      -5.02      <.0001
+relshs            1     -0.02687    0.006471      -4.15      <.0001
+The SAS System                                                                      20:14 Wednesday, January 7, 2009  33
+
+The SYSLIN Procedure
+Two-Stage Least Squares Estimation
+
+Model                  resgap2
+Dependent Variable     resgap2
+Label                         
+
+
+                         Analysis of Variance
+ 
+                               Sum of        Mean
+Source                 DF     Squares      Square    F Value    Pr > F
+
+Model                   9    132.4382    14.71536       5.45    <.0001
+Error                 114    307.6260    2.698474                     
+Corrected Total       123    442.5879                                 
+
+
+Root MSE             1.64270    R-Square       0.30095
+Dependent Mean      -0.01711    Adj R-Sq       0.24576
+Coeff Var         -9599.1437                          
+
+
+                                    Parameter Estimates
+ 
+                       Parameter    Standard                           Variable
+Variable         DF     Estimate       Error    t Value    Pr > |t|    Label
+
+Intercept         1     0.044401    0.087399       0.51      0.6124    Intercept           
+relshs            1     -0.02333    0.008258      -2.82      0.0056                        
+logsize80         1     -0.09424    0.040562      -2.32      0.0219                        
+logsize90         1     0.086221    0.042086       2.05      0.0428                        
+coll80            1     0.037501    0.540494       0.07      0.9448                        
+coll90            1     -0.14349    0.412927      -0.35      0.7289                        
+nres80            1     -0.06668    0.158155      -0.42      0.6741    residual wage native
+                                                                       men 1980            
+ires80            1     0.122139    0.147662       0.83      0.4099    residual wage       
+                                                                       imm men 1980        
+mfg80             1     -0.63126    0.317858      -1.99      0.0494                        
+mfg90             1     0.624341    0.384063       1.63      0.1068                        
+The SAS System                                                                      20:14 Wednesday, January 7, 2009  34
+
+The SYSLIN Procedure
+Two-Stage Least Squares Estimation
+
+Model                  resgap2
+Dependent Variable     resgap2
+Label                         
+
+
+                         Analysis of Variance
+ 
+                               Sum of        Mean
+Source                 DF     Squares      Square    F Value    Pr > F
+
+Model                  10    147.7787    14.77787       5.78    <.0001
+Error                 113    288.8579    2.556265                     
+Corrected Total       123    442.5879                                 
+
+
+Root MSE             1.59883    R-Square       0.33845
+Dependent Mean      -0.01711    Adj R-Sq       0.27990
+Coeff Var         -9342.7845                          
+
+
+                                    Parameter Estimates
+ 
+                       Parameter    Standard                           Variable
+Variable         DF     Estimate       Error    t Value    Pr > |t|    Label
+
+Intercept         1     0.055328    0.084960       0.65      0.5162    Intercept           
+relshs            1     -0.02180    0.008018      -2.72      0.0076                        
+resgap902         1     0.159047    0.060065       2.65      0.0093                        
+logsize80         1     -0.06763    0.040509      -1.67      0.0978                        
+logsize90         1     0.059895    0.041846       1.43      0.1551                        
+coll80            1     -0.04913    0.526494      -0.09      0.9258                        
+coll90            1     -0.08061    0.402287      -0.20      0.8415                        
+nres80            1     0.014823    0.157188       0.09      0.9250    residual wage native
+                                                                       men 1980            
+ires80            1     0.027392    0.148370       0.18      0.8539    residual wage       
+                                                                       imm men 1980        
+mfg80             1     -0.65557    0.309535      -2.12      0.0364                        
+mfg90             1     0.667665    0.374219       1.78      0.0771                        
+The SAS System                                                                      20:14 Wednesday, January 7, 2009  35
+
+The SYSLIN Procedure
+Two-Stage Least Squares Estimation
+
+Model                  resgap4
+Dependent Variable     resgap4
+
+
+                         Analysis of Variance
+ 
+                               Sum of        Mean
+Source                 DF     Squares      Square    F Value    Pr > F
+
+Model                   1    280.1609    280.1609      61.19    <.0001
+Error                 122    558.5512    4.578289                     
+Corrected Total       123    768.0794                                 
+
+
+Root MSE             2.13969    R-Square       0.33404
+Dependent Mean      -0.04834    Adj R-Sq       0.32858
+Coeff Var         -4426.4679                          
+
+
+                        Parameter Estimates
+ 
+                       Parameter    Standard
+Variable         DF     Estimate       Error    t Value    Pr > |t|
+
+Intercept         1     -0.20091    0.020696      -9.71      <.0001
+relscoll          1     -0.08033    0.010268      -7.82      <.0001
+The SAS System                                                                      20:14 Wednesday, January 7, 2009  36
+
+The SYSLIN Procedure
+Two-Stage Least Squares Estimation
+
+Model                  resgap4
+Dependent Variable     resgap4
+Label                         
+
+
+                         Analysis of Variance
+ 
+                               Sum of        Mean
+Source                 DF     Squares      Square    F Value    Pr > F
+
+Model                   9    373.3457    41.48285      10.59    <.0001
+Error                 114    446.4446    3.916181                     
+Corrected Total       123    768.0794                                 
+
+
+Root MSE             1.97893    R-Square       0.45542
+Dependent Mean      -0.04834    Adj R-Sq       0.41242
+Coeff Var         -4093.8987                          
+
+
+                                    Parameter Estimates
+ 
+                       Parameter    Standard                           Variable
+Variable         DF     Estimate       Error    t Value    Pr > |t|    Label
+
+Intercept         1     0.073245    0.109019       0.67      0.5030    Intercept           
+relscoll          1     -0.05985    0.013718      -4.36      <.0001                        
+logsize80         1     -0.02486    0.047251      -0.53      0.5999                        
+logsize90         1     -0.00728    0.048194      -0.15      0.8803                        
+coll80            1     0.534588    0.650996       0.82      0.4133                        
+coll90            1     -0.40366    0.496725      -0.81      0.4181                        
+nres80            1     -0.00169    0.191613      -0.01      0.9930    residual wage native
+                                                                       men 1980            
+ires80            1     0.194998    0.178044       1.10      0.2757    residual wage       
+                                                                       imm men 1980        
+mfg80             1     -0.21661    0.383275      -0.57      0.5731                        
+mfg90             1     0.199109    0.463185       0.43      0.6681                        
+The SAS System                                                                      20:14 Wednesday, January 7, 2009  37
+
+The SYSLIN Procedure
+Two-Stage Least Squares Estimation
+
+Model                  resgap4
+Dependent Variable     resgap4
+Label                         
+
+
+                         Analysis of Variance
+ 
+                               Sum of        Mean
+Source                 DF     Squares      Square    F Value    Pr > F
+
+Model                  10    384.4639    38.44639      10.04    <.0001
+Error                 113    432.6639    3.828884                     
+Corrected Total       123    768.0794                                 
+
+
+Root MSE             1.95675    R-Square       0.47051
+Dependent Mean      -0.04834    Adj R-Sq       0.42365
+Coeff Var         -4048.0124                          
+
+
+                                    Parameter Estimates
+ 
+                       Parameter    Standard                           Variable
+Variable         DF     Estimate       Error    t Value    Pr > |t|    Label
+
+Intercept         1     0.067634    0.107525       0.63      0.5306    Intercept           
+relscoll          1     -0.05487    0.014599      -3.76      0.0003                        
+resgap904         1     0.127889    0.105695       1.21      0.2288                        
+logsize80         1     -0.02157    0.046866      -0.46      0.6463                        
+logsize90         1     -0.00694    0.047644      -0.15      0.8845                        
+coll80            1     0.444843    0.649992       0.68      0.4951                        
+coll90            1     -0.33295    0.495766      -0.67      0.5032                        
+nres80            1     0.043216    0.192488       0.22      0.8228    residual wage native
+                                                                       men 1980            
+ires80            1     0.140246    0.181213       0.77      0.4406    residual wage       
+                                                                       imm men 1980        
+mfg80             1     -0.24598    0.379925      -0.65      0.5187                        
+mfg90             1     0.208953    0.458126       0.46      0.6492                        

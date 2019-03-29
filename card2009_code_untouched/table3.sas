@@ -1,4 +1,4 @@
-*table3 - follows t1.sas run separately for 1980, 1990, 2000, and 2005/6;
+com*table3 - follows t1.sas run separately for 1980, 1990, 2000, and 2005/6;
 
 *creates some summary stats by city;
 
