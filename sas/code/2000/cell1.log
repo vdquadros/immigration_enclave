@@ -1,0 +1,467 @@
+1                                                          The SAS System                            22:08 Wednesday, March 27, 2019
+
+NOTE: Copyright (c) 2016 by SAS Institute Inc., Cary, NC, USA. 
+NOTE: SAS (r) Proprietary Software 9.4 (TS1M5) 
+      Licensed to STANFORD UNIVERSITY - SFA -  T&R, Site 70081389.
+NOTE: This session is executing on the Linux 3.10.0-957.10.1.el7.x86_64 (LIN X64) platform.
+
+
+
+NOTE: Updated analytical products:
+      
+      SAS/STAT 14.3
+      SAS/ETS 14.3
+      SAS/OR 14.3
+      SAS/IML 14.3
+      SAS/QC 14.3
+
+NOTE: Additional host information:
+
+ Linux LIN X64 3.10.0-957.10.1.el7.x86_64 #1 SMP Mon Mar 18 15:06:45 UTC 2019 x86_64 CentOS Linux release 7.6.1810 (Core)  
+
+You are running SAS 9. Some SAS 8 files will be automatically converted 
+by the V9 engine; others are incompatible.  Please see 
+http://support.sas.com/rnd/migration/planning/platform/64bit.html
+
+PROC MIGRATE will preserve current SAS file attributes and is 
+recommended for converting all your SAS libraries from any 
+SAS 8 release to SAS 9.  For details and examples, please see
+http://support.sas.com/rnd/migration/index.html
+
+
+This message is contained in the SAS news file, and is presented upon
+initialization.  Edit the file "news" in the "misc/base" directory to
+display site-specific news and information in the program log.
+The command line option "-nonews" will prevent this display.
+
+
+
+
+NOTE: SAS initialization used:
+      real time           0.20 seconds
+      cpu time            0.07 seconds
+      
+1          *cell1 - follows np2;
+2          *creates some summary stats by city;
+3          
+4          options ls=120 nocenter;
+5          libname c2000 '/home/groups/sorkin/quadros/data/2000';
+NOTE: Libref C2000 was successfully assigned as follows: 
+      Engine:        V9 
+      Physical Name: /home/groups/sorkin/quadros/data/2000
+6          
+7          data nm nf im if;
+8          set c2000.np2000;
+9          ft=(annhrs>1600);
+10         lowhrs=(annhrs<1000);
+11         
+12         if collplus=1 and advanced=0 then college=1;
+13         else college=0;
+14         
+2 The SAS System                                                                         22:08 Wednesday, March 27, 2019
+
+15         homey=0;
+16         
+17         if imm=0 then do;
+18         *code based on quantiles of pob for people born in their current SOB;
+19         *code from home.sas;
+20         if rmsa= 80  and pob in (39 ,39 ,39 ,39 ,39 ) then homey=1;
+21         if rmsa= 160  and pob in (36 ,36 ,36 ,36 ,36 ) then homey=1;
+22         if rmsa= 200  and pob in (35 ,35 ,35 ,35 ,35 ) then homey=1;
+23         if rmsa= 240  and pob in (42 ,42 ,42 ,42 ,42 ) then homey=1;
+24         if rmsa= 440  and pob in (26 ,26 ,26 ,26 ,26 ) then homey=1;
+25         if rmsa= 520  and pob in (13 ,13 ,13 ,13 ,13 ) then homey=1;
+26         if rmsa= 600  and pob in (13 ,13 ,13 ,45 ,45 ) then homey=1;
+27         if rmsa= 640  and pob in (48 ,48 ,48 ,48 ,48 ) then homey=1;
+28         if rmsa= 680  and pob in (6 ,6 ,6 ,6 ,6 ) then homey=1;
+29         if rmsa= 720  and pob in (24 ,24 ,24 ,24 ,24 ) then homey=1;
+30         if rmsa= 760  and pob in (22 ,22 ,22 ,22 ,22 ) then homey=1;
+31         if rmsa= 875  and pob in (34 ,34 ,34 ,34 ,34 ) then homey=1;
+32         if rmsa= 1000  and pob in (1 ,1 ,1 ,1 ,1 ) then homey=1;
+33         if rmsa= 1080  and pob in (16 ,16 ,16 ,16 ,16 ) then homey=1;
+34         if rmsa= 1120  and pob in (25 ,25 ,25 ,25 ,25 ) then homey=1;
+35         if rmsa= 1160  and pob in (9 ,9 ,9 ,9 ,9 ) then homey=1;
+36         if rmsa= 1280  and pob in (36 ,36 ,36 ,36 ,36 ) then homey=1;
+37         if rmsa= 1440  and pob in (45 ,45 ,45 ,45 ,45 ) then homey=1;
+38         if rmsa= 1520  and pob in (37 ,37 ,37 ,37 ,45 ) then homey=1;
+39         if rmsa= 1560  and pob in (13 ,47 ,47 ,47 ,47 ) then homey=1;
+40         if rmsa= 1600  and pob in (17 ,17 ,17 ,17 ,17 ) then homey=1;
+41         if rmsa= 1640  and pob in (21 ,39 ,39 ,39 ,39 ) then homey=1;
+42         if rmsa= 1680  and pob in (39 ,39 ,39 ,39 ,39 ) then homey=1;
+43         if rmsa= 1720  and pob in (8 ,8 ,8 ,8 ,8 ) then homey=1;
+44         if rmsa= 1760  and pob in (45 ,45 ,45 ,45 ,45 ) then homey=1;
+45         if rmsa= 1840  and pob in (39 ,39 ,39 ,39 ,39 ) then homey=1;
+46         if rmsa= 1920  and pob in (48 ,48 ,48 ,48 ,48 ) then homey=1;
+47         if rmsa= 2000  and pob in (39 ,39 ,39 ,39 ,39 ) then homey=1;
+48         if rmsa= 2020  and pob in (12 ,12 ,12 ,12 ,12 ) then homey=1;
+49         if rmsa= 2080  and pob in (8 ,8 ,8 ,8 ,8 ) then homey=1;
+50         if rmsa= 2120  and pob in (19 ,19 ,19 ,19 ,19 ) then homey=1;
+51         if rmsa= 2160  and pob in (26 ,26 ,26 ,26 ,26 ) then homey=1;
+52         if rmsa= 2320  and pob in (48 ,48 ,48 ,48 ,48 ) then homey=1;
+53         if rmsa= 2640  and pob in (26 ,26 ,26 ,26 ,26 ) then homey=1;
+54         if rmsa= 2680  and pob in (12 ,12 ,12 ,12 ,12 ) then homey=1;
+55         if rmsa= 2700  and pob in (12 ,12 ,12 ,12 ,12 ) then homey=1;
+56         if rmsa= 2760  and pob in (18 ,18 ,18 ,18 ,18 ) then homey=1;
+57         if rmsa= 2800  and pob in (48 ,48 ,48 ,48 ,48 ) then homey=1;
+58         if rmsa= 2840  and pob in (6 ,6 ,6 ,6 ,6 ) then homey=1;
+59         if rmsa= 2960  and pob in (18 ,18 ,18 ,18 ,18 ) then homey=1;
+60         if rmsa= 3000  and pob in (26 ,26 ,26 ,26 ,26 ) then homey=1;
+61         if rmsa= 3120  and pob in (37 ,37 ,37 ,37 ,37 ) then homey=1;
+62         if rmsa= 3160  and pob in (45 ,45 ,45 ,45 ,45 ) then homey=1;
+63         if rmsa= 3240  and pob in (42 ,42 ,42 ,42 ,42 ) then homey=1;
+64         if rmsa= 3280  and pob in (9 ,9 ,9 ,9 ,9 ) then homey=1;
+65         if rmsa= 3320  and pob in (15 ,15 ,15 ,15 ,15 ) then homey=1;
+66         if rmsa= 3360  and pob in (48 ,48 ,48 ,48 ,48 ) then homey=1;
+67         if rmsa= 3480  and pob in (18 ,18 ,18 ,18 ,18 ) then homey=1;
+68         if rmsa= 3560  and pob in (28 ,28 ,28 ,28 ,28 ) then homey=1;
+69         if rmsa= 3600  and pob in (12 ,12 ,12 ,12 ,12 ) then homey=1;
+70         if rmsa= 3640  and pob in (34 ,34 ,34 ,34 ,34 ) then homey=1;
+71         if rmsa= 3660  and pob in (47 ,47 ,47 ,51 ,51 ) then homey=1;
+72         if rmsa= 3720  and pob in (26 ,26 ,26 ,26 ,26 ) then homey=1;
+3 The SAS System                                                                         22:08 Wednesday, March 27, 2019
+
+73         if rmsa= 3760  and pob in (20 ,29 ,29 ,29 ,29 ) then homey=1;
+74         if rmsa= 3840  and pob in (47 ,47 ,47 ,47 ,47 ) then homey=1;
+75         if rmsa= 3980  and pob in (12 ,12 ,12 ,12 ,12 ) then homey=1;
+76         if rmsa= 4000  and pob in (42 ,42 ,42 ,42 ,42 ) then homey=1;
+77         if rmsa= 4040  and pob in (26 ,26 ,26 ,26 ,26 ) then homey=1;
+78         if rmsa= 4120  and pob in (4 ,32 ,32 ,32 ,32 ) then homey=1;
+79         if rmsa= 4280  and pob in (21 ,21 ,21 ,21 ,21 ) then homey=1;
+80         if rmsa= 4400  and pob in (5 ,5 ,5 ,5 ,5 ) then homey=1;
+81         if rmsa= 4480  and pob in (6 ,6 ,6 ,6 ,6 ) then homey=1;
+82         if rmsa= 4520  and pob in (18 ,21 ,21 ,21 ,21 ) then homey=1;
+83         if rmsa= 4720  and pob in (55 ,55 ,55 ,55 ,55 ) then homey=1;
+84         if rmsa= 4880  and pob in (48 ,48 ,48 ,48 ,48 ) then homey=1;
+85         if rmsa= 4900  and pob in (12 ,12 ,12 ,12 ,12 ) then homey=1;
+86         if rmsa= 4920  and pob in (28 ,47 ,47 ,47 ,47 ) then homey=1;
+87         if rmsa= 5000  and pob in (12 ,12 ,12 ,12 ,12 ) then homey=1;
+88         if rmsa= 5015  and pob in (34 ,34 ,34 ,34 ,34 ) then homey=1;
+89         if rmsa= 5080  and pob in (55 ,55 ,55 ,55 ,55 ) then homey=1;
+90         if rmsa= 5120  and pob in (27 ,27 ,27 ,27 ,27 ) then homey=1;
+91         if rmsa= 5160  and pob in (1 ,1 ,1 ,1 ,1 ) then homey=1;
+92         if rmsa= 5170  and pob in (6 ,6 ,6 ,6 ,6 ) then homey=1;
+93         if rmsa= 5190  and pob in (34 ,34 ,34 ,34 ,34 ) then homey=1;
+94         if rmsa= 5360  and pob in (47 ,47 ,47 ,47 ,47 ) then homey=1;
+95         if rmsa= 5380  and pob in (36 ,36 ,36 ,36 ,36 ) then homey=1;
+96         if rmsa= 5480  and pob in (9 ,9 ,9 ,9 ,9 ) then homey=1;
+97         if rmsa= 5560  and pob in (22 ,22 ,22 ,22 ,22 ) then homey=1;
+98         if rmsa= 5600  and pob in (36 ,36 ,36 ,36 ,36 ) then homey=1;
+99         if rmsa= 5640  and pob in (34 ,34 ,34 ,34 ,34 ) then homey=1;
+100        if rmsa= 5720  and pob in (51 ,51 ,51 ,51 ,51 ) then homey=1;
+101        if rmsa= 5775  and pob in (6 ,6 ,6 ,6 ,6 ) then homey=1;
+102        if rmsa= 5880  and pob in (40 ,40 ,40 ,40 ,40 ) then homey=1;
+103        if rmsa= 5920  and pob in (31 ,31 ,31 ,31 ,31 ) then homey=1;
+104        if rmsa= 5945  and pob in (6 ,6 ,6 ,6 ,6 ) then homey=1;
+105        if rmsa= 5960  and pob in (12 ,12 ,12 ,12 ,12 ) then homey=1;
+106        if rmsa= 6080  and pob in (12 ,12 ,12 ,12 ,12 ) then homey=1;
+107        if rmsa= 6160  and pob in (34 ,42 ,42 ,42 ,42 ) then homey=1;
+108        if rmsa= 6200  and pob in (4 ,4 ,4 ,4 ,4 ) then homey=1;
+109        if rmsa= 6280  and pob in (42 ,42 ,42 ,42 ,42 ) then homey=1;
+110        if rmsa= 6440  and pob in (41 ,41 ,41 ,41 ,53 ) then homey=1;
+111        if rmsa= 6480  and pob in (25 ,44 ,44 ,44 ,44 ) then homey=1;
+112        if rmsa= 6640  and pob in (37 ,37 ,37 ,37 ,37 ) then homey=1;
+113        if rmsa= 6760  and pob in (51 ,51 ,51 ,51 ,51 ) then homey=1;
+114        if rmsa= 6780  and pob in (6 ,6 ,6 ,6 ,6 ) then homey=1;
+115        if rmsa= 6840  and pob in (36 ,36 ,36 ,36 ,36 ) then homey=1;
+116        if rmsa= 6920  and pob in (6 ,6 ,6 ,6 ,6 ) then homey=1;
+117        if rmsa= 7040  and pob in (17 ,17 ,29 ,29 ,29 ) then homey=1;
+118        if rmsa= 7160  and pob in (49 ,49 ,49 ,49 ,49 ) then homey=1;
+119        if rmsa= 7240  and pob in (48 ,48 ,48 ,48 ,48 ) then homey=1;
+120        if rmsa= 7320  and pob in (6 ,6 ,6 ,6 ,6 ) then homey=1;
+121        if rmsa= 7360  and pob in (6 ,6 ,6 ,6 ,6 ) then homey=1;
+122        if rmsa= 7400  and pob in (6 ,6 ,6 ,6 ,6 ) then homey=1;
+123        if rmsa= 7500  and pob in (6 ,6 ,6 ,6 ,6 ) then homey=1;
+124        if rmsa= 7510  and pob in (12 ,12 ,12 ,12 ,12 ) then homey=1;
+125        if rmsa= 7560  and pob in (42 ,42 ,42 ,42 ,42 ) then homey=1;
+126        if rmsa= 7600  and pob in (53 ,53 ,53 ,53 ,53 ) then homey=1;
+127        if rmsa= 7840  and pob in (53 ,53 ,53 ,53 ,53 ) then homey=1;
+128        if rmsa= 8000  and pob in (25 ,25 ,25 ,25 ,25 ) then homey=1;
+129        if rmsa= 8120  and pob in (6 ,6 ,6 ,6 ,6 ) then homey=1;
+130        if rmsa= 8160  and pob in (36 ,36 ,36 ,36 ,36 ) then homey=1;
+4 The SAS System                                                                         22:08 Wednesday, March 27, 2019
+
+131        if rmsa= 8200  and pob in (53 ,53 ,53 ,53 ,53 ) then homey=1;
+132        if rmsa= 8280  and pob in (12 ,12 ,12 ,12 ,12 ) then homey=1;
+133        if rmsa= 8400  and pob in (39 ,39 ,39 ,39 ,39 ) then homey=1;
+134        if rmsa= 8520  and pob in (4 ,4 ,4 ,4 ,4 ) then homey=1;
+135        if rmsa= 8560  and pob in (40 ,40 ,40 ,40 ,40 ) then homey=1;
+136        if rmsa= 8720  and pob in (6 ,6 ,6 ,6 ,6 ) then homey=1;
+137        if rmsa= 8735  and pob in (6 ,6 ,6 ,6 ,6 ) then homey=1;
+138        if rmsa= 8840  and pob in (11 ,24 ,24 ,51 ,54 ) then homey=1;
+139        if rmsa= 8960  and pob in (12 ,12 ,12 ,12 ,12 ) then homey=1;
+140        if rmsa= 9040  and pob in (20 ,20 ,20 ,20 ,20 ) then homey=1;
+141        if rmsa= 9160  and pob in (10 ,10 ,10 ,10 ,24 ) then homey=1;
+142        if rmsa= 9240  and pob in (25 ,25 ,25 ,25 ,25 ) then homey=1;
+143        if rmsa= 9320  and pob in (39 ,39 ,39 ,39 ,39 ) then homey=1;
+144        end;
+145        
+146        if rmsa in (0,1) then homey=nonmover;
+147        
+148        rmsa0=(rmsa=0);
+149        rmsa1=(rmsa=1);
+150        homey_0=(rmsa=0 and homey=1);
+151        homey_1=(rmsa=1 and homey=1);
+152        
+153        if imm=0 and female=0 then output nm;
+154        if imm=0 and female=1 then output nf;
+155        if imm=1 and female=0 then output im;
+156        if imm=1 and female=1 then output if;
+157        
+
+NOTE: There were 3328862 observations read from the data set C2000.NP2000.
+NOTE: The data set WORK.NM has 1320732 observations and 82 variables.
+NOTE: The data set WORK.NF has 1256106 observations and 82 variables.
+NOTE: The data set WORK.IM has 434633 observations and 82 variables.
+NOTE: The data set WORK.IF has 317391 observations and 82 variables.
+NOTE: DATA statement used (Total process time):
+      real time           10.80 seconds
+      cpu time            10.78 seconds
+      
+
+158        proc means data=nm;
+159        var imm female logwage2 educ exp rmsa0 rmsa1;
+160        weight wt;
+
+NOTE: There were 1320732 observations read from the data set WORK.NM.
+NOTE: The PROCEDURE MEANS printed page 1.
+NOTE: PROCEDURE MEANS used (Total process time):
+      real time           0.32 seconds
+      cpu time            0.60 seconds
+      
+
+161        proc means data=nf;
+162        var imm female logwage2 educ exp rmsa0 rmsa1;
+163        weight wt;
+
+NOTE: There were 1256106 observations read from the data set WORK.NF.
+NOTE: The PROCEDURE MEANS printed page 2.
+NOTE: PROCEDURE MEANS used (Total process time):
+      real time           0.18 seconds
+      cpu time            0.49 seconds
+5 The SAS System                                                                         22:08 Wednesday, March 27, 2019
+
+      
+
+164        proc means data=im;
+165        var imm female logwage2 educ exp rmsa0 rmsa1;
+166        weight wt;
+
+NOTE: There were 434633 observations read from the data set WORK.IM.
+NOTE: The PROCEDURE MEANS printed page 3.
+NOTE: PROCEDURE MEANS used (Total process time):
+      real time           0.07 seconds
+      cpu time            0.17 seconds
+      
+
+167        proc means data=if;
+168        var imm female logwage2 educ exp rmsa0 rmsa1;
+169        weight wt;
+170        
+171        ***models DO NOT include msa effects but include dummies for rmsa=0,1 ;
+172        
+173        
+
+NOTE: There were 317391 observations read from the data set WORK.IF.
+NOTE: The PROCEDURE MEANS printed page 4.
+NOTE: PROCEDURE MEANS used (Total process time):
+      real time           0.05 seconds
+      cpu time            0.13 seconds
+      
+
+174        proc glm data=nm;
+175        class eclass xclass homey;
+176        model logwage2=exp exp2 exp3 educ eclass*xclass inschool advanced
+177              ft lowhrs
+178           hisp_ed hisp_coll black_ed black_coll  asian_ed asian_coll
+179           homey*eclass rmsa0 rmsa1 / solution;
+180        output out=nm2 predicted=pred residual=res;
+181        weight wt;
+182        
+
+NOTE: The data set WORK.NM2 has 1320732 observations and 84 variables.
+NOTE: The PROCEDURE GLM printed pages 5-8.
+NOTE: PROCEDURE GLM used (Total process time):
+      real time           2.59 seconds
+      cpu time            3.06 seconds
+      
+
+183        proc glm data=nf;
+184        class eclass xclass homey;
+185        model logwage2=exp exp2 exp3 educ eclass*xclass inschool advanced
+186              ft lowhrs
+187           hisp_ed hisp_coll black_ed black_coll asian_ed asian_coll
+188           homey*eclass rmsa0 rmsa1 / solution;
+189        output out=nf2 predicted=pred residual=res;
+190        weight wt;
+191        
+
+NOTE: The data set WORK.NF2 has 1256106 observations and 84 variables.
+NOTE: The PROCEDURE GLM printed pages 9-12.
+NOTE: PROCEDURE GLM used (Total process time):
+6 The SAS System                                                                         22:08 Wednesday, March 27, 2019
+
+      real time           2.41 seconds
+      cpu time            2.94 seconds
+      
+
+192        proc glm data=im;
+193        class ic eclass xclass ;
+194        model logwage2=exp exp2 exp3 educ eclass*xclass inschool advanced
+195            ft lowhrs mex_ed mex_coll euro_ed euro_coll hisp_ed hisp_coll
+196            hi_asian_ed hi_asian_coll mid_asian_ed mid_asian_coll
+197            ic ic*yrsinus ic*yrsinus2 rmsa0 rmsa1 / solution;
+198        output out=im2 predicted=pred residual=res;
+199        weight wt;
+200        
+
+NOTE: The data set WORK.IM2 has 434633 observations and 84 variables.
+NOTE: The PROCEDURE GLM printed pages 13-18.
+NOTE: PROCEDURE GLM used (Total process time):
+      real time           0.96 seconds
+      cpu time            1.27 seconds
+      
+
+201        proc glm data=if;
+202        class ic eclass xclass ;
+203        model logwage2=exp exp2 exp3 educ eclass*xclass inschool advanced
+204            ft lowhrs mex_ed mex_coll euro_ed euro_coll hisp_ed hisp_coll
+205            hi_asian_ed hi_asian_coll mid_asian_ed mid_asian_coll
+206            ic ic*yrsinus ic*yrsinus2 rmsa0 rmsa1 / solution;
+207        output out=if2 predicted=pred residual=res;
+208        weight wt;
+209        
+210        
+
+NOTE: The data set WORK.IF2 has 317391 observations and 84 variables.
+NOTE: The PROCEDURE GLM printed pages 19-24.
+NOTE: PROCEDURE GLM used (Total process time):
+      real time           0.73 seconds
+      cpu time            1.00 seconds
+      
+
+211        data two;
+212        set nm2 nf2 im2 if2;
+213        
+214        male=1-female;
+215        native=1-imm;
+216        
+217        lw2sq=logwage2**2;
+218        ressq=res**2;
+219        predsq=pred**2;
+220        respred=res*pred;
+221        
+222        
+223        
+224        if exp<=10 then xclass2=1;
+225        else if exp<=20 then xclass2=2;
+226        else if exp<=30 then xclass2=3;
+227        else xclass2=4;
+228        c=1;
+229        
+7 The SAS System                                                                         22:08 Wednesday, March 27, 2019
+
+230        hs=1-dropout-somecoll-collplus;
+231        if collplus=1 and advanced=0 then college=1;
+232        else college=0;
+233        
+234        
+235        
+236        
+
+NOTE: There were 1320732 observations read from the data set WORK.NM2.
+NOTE: There were 1256106 observations read from the data set WORK.NF2.
+NOTE: There were 434633 observations read from the data set WORK.IM2.
+NOTE: There were 317391 observations read from the data set WORK.IF2.
+NOTE: The data set WORK.TWO has 3328862 observations and 92 variables.
+NOTE: DATA statement used (Total process time):
+      real time           2.12 seconds
+      cpu time            2.12 seconds
+      
+
+237        proc corr;
+238        var logwage2 pred res educ exp imm female;
+239        weight wt;
+240        
+
+NOTE: The PROCEDURE CORR printed page 25.
+NOTE: PROCEDURE CORR used (Total process time):
+      real time           0.72 seconds
+      cpu time            0.72 seconds
+      
+
+241        proc freq;
+242        tables xclass2*eclass ;
+243        
+
+NOTE: There were 3328862 observations read from the data set WORK.TWO.
+NOTE: The PROCEDURE FREQ printed page 26.
+NOTE: PROCEDURE FREQ used (Total process time):
+      real time           0.53 seconds
+      cpu time            0.53 seconds
+      
+
+244        proc summary;
+245        class rmsa native male eclass xclass2;
+246        var logwage2 lw2sq res ressq pred predsq respred imm female educ exp c
+247                 dropout hs somecoll collplus college advanced    ;
+248        output out=c2000.bigcells
+249        mean=
+250        sum(c)=count;
+251        weight wt;
+252        
+
+NOTE: There were 3328862 observations read from the data set WORK.TWO.
+NOTE: The data set C2000.BIGCELLS has 28568 observations and 26 variables.
+NOTE: PROCEDURE SUMMARY used (Total process time):
+      real time           1.51 seconds
+      cpu time            3.72 seconds
+      
+
+253        data check1;
+8 The SAS System                                                                         22:08 Wednesday, March 27, 2019
+
+254        set c2000.bigcells;
+255        if native=. and male=. and eclass=. and xclass2=.;
+256        v=lw2sq-logwage2**2;
+257        vres=ressq-res*res;
+258        vpred=predsq-pred*pred;
+259        
+260        
+
+NOTE: There were 28568 observations read from the data set C2000.BIGCELLS.
+NOTE: The data set WORK.CHECK1 has 127 observations and 29 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.02 seconds
+      cpu time            0.01 seconds
+      
+
+261        proc print;
+262        var rmsa count imm logwage2 v res vres pred vpred;
+263        
+
+NOTE: There were 127 observations read from the data set WORK.CHECK1.
+NOTE: The PROCEDURE PRINT printed pages 27-29.
+NOTE: PROCEDURE PRINT used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+264        proc corr;
+265        where (rmsa>3);
+266        var v vres imm educ exp;
+267        weight count;
+268        
+269        
+270        
+271        
+NOTE: The PROCEDURE CORR printed page 30.
+NOTE: PROCEDURE CORR used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+NOTE: SAS Institute Inc., SAS Campus Drive, Cary, NC USA 27513-2414
+NOTE: The SAS System used:
+      real time           23.35 seconds
+      cpu time            27.64 seconds
+      

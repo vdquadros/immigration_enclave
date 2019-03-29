@@ -1,0 +1,214 @@
+The SAS System                                                   22:02 Wednesday, March 27, 2019   1
+
+The CONTENTS Procedure
+
+Data Set Name        C00.ALL2000                                       Observations          7765508
+Member Type          DATA                                              Variables             60     
+Engine               V9                                                Indexes               0      
+Created              03/27/2019 22:02:32                               Observation Length    480    
+Last Modified        03/27/2019 22:02:32                               Deleted Observations  0      
+Protection                                                             Compressed            NO     
+Data Set Type                                                          Sorted                NO     
+Label                                                                                               
+Data Representation  SOLARIS_X86_64, LINUX_X86_64,                                                  
+                     ALPHA_TRU64, LINUX_IA64                                                        
+Encoding             latin1  Western (ISO)                                                          
+
+
+                        Engine/Host Dependent Information
+
+Data Set Page Size          65536                                                 
+Number of Data Set Pages    57100                                                 
+First Data Page             1                                                     
+Max Obs per Page            136                                                   
+Obs in First Data Page      116                                                   
+Number of Data Set Repairs  0                                                     
+Filename                    /home/groups/sorkin/quadros/data/2000/all2000.sas7bdat
+Release Created             9.0401M5                                              
+Host Created                Linux                                                 
+Inode Number                8505410597                                            
+Access Permission           rw-r--r--                                             
+Owner Name                  quadros                                               
+File Size                   3GB                                                   
+File Size (bytes)           3742171136                                            
+
+
+             Alphabetic List of Variables and Attributes
+ 
+ #    Variable       Type    Len    Format    Informat    Label
+
+47    _merge         Num       8                          _merge     
+16    age            Num       8                          age        
+17    age_alloc      Num       8                          age_alloc  
+52    annhrs         Num       8                          annhrs     
+21    black          Num       8                          black      
+60    c              Num       8                          c          
+30    citizen        Num       8                          citizen    
+36    class          Num       8                          class      
+57    collplus       Num       8                          collplus   
+18    dhisp          Num       8                          dhisp      
+54    dropout        Num       8                          dropout    
+58    eclass         Num       8                          eclass     
+26    educ           Num       8                          educ       
+27    educ_alloc     Num       8                          educ_alloc 
+28    english        Num       8                          english    
+24    enroll         Num       8                          enroll     
+33    esr            Num       8                          esr        
+51    ethnic         Num       8                          ethnic     
+12    famrel         Num       8                          famrel     
+50    female         Num       8                          female     
+ 8    gq             Num       8                          gq         
+The SAS System                                                   22:02 Wednesday, March 27, 2019   2
+
+The CONTENTS Procedure
+
+             Alphabetic List of Variables and Attributes
+ 
+ #    Variable       Type    Len    Format    Informat    Label
+
+25    grade          Num       8                          grade      
+ 2    hhid           Num       8                          hhid       
+49    hispanic       Num       8                          hispanic   
+40    hrswk_alloc    Num       8                          hrswk_alloc
+39    hrswkly        Num       8                          hrswkly    
+55    hsgrad         Num       8                          hsgrad     
+ 9    id             Num       8                          id         
+46    imm            Num       8                          imm        
+31    immyr          Num       8                          immyr      
+34    ind            Num       8                          ind        
+23    marstat        Num       8                          marstat    
+32    mob5           Num       8                          mob5       
+ 5    msa            Num       8                          msa        
+19    numrace        Num       8                          numrace    
+10    obs            Num       8                          obs        
+35    occ            Num       8                          occ        
+13    ownchild       Num       8                          ownchild   
+ 7    p1             Num       8                          p1         
+14    paoc           Num       8                          paoc       
+29    pob            Num       8                          pob        
+ 4    puma           Num       8                          puma       
+ 6    pumatype       Num       8                          pumatype   
+11    pweight        Num       8                          pweight    
+22    race1          Num       8                          race1      
+44    self_alloc     Num       8                          self_alloc 
+43    selfinc        Num       8                          selfinc    
+15    sex            Num       8                          sex        
+56    somecoll       Num       8                          somecoll   
+ 3    state          Num       8                          state      
+59    top125         Num       8                          top125     
+45    totearn        Num       8                          totearn    
+ 1    type           Char      1    $1.       $1.         type       
+53    wage1          Num       8                          wage1      
+41    wagesal        Num       8                          wagesal    
+38    weeks          Num       8                          weeks      
+20    white          Num       8                          white      
+37    workly         Num       8                          workly     
+42    ws_alloc       Num       8                          ws_alloc   
+48    wt             Num       8                          wt         
+The SAS System                                                   22:02 Wednesday, March 27, 2019   3
+
+The CONTENTS Procedure
+
+Data Set Name        C00.ALL2000                                       Observations          7765508
+Member Type          DATA                                              Variables             60     
+Engine               V9                                                Indexes               0      
+Created              03/27/2019 22:02:32                               Observation Length    480    
+Last Modified        03/27/2019 22:02:51                               Deleted Observations  0      
+Protection                                                             Compressed            NO     
+Data Set Type                                                          Sorted                NO     
+Label                                                                                               
+Data Representation  SOLARIS_X86_64, LINUX_X86_64,                                                  
+                     ALPHA_TRU64, LINUX_IA64                                                        
+Encoding             latin1  Western (ISO)                                                          
+
+
+                        Engine/Host Dependent Information
+
+Data Set Page Size          65536                                                 
+Number of Data Set Pages    57100                                                 
+First Data Page             1                                                     
+Max Obs per Page            136                                                   
+Obs in First Data Page      116                                                   
+Number of Data Set Repairs  0                                                     
+Filename                    /home/groups/sorkin/quadros/data/2000/all2000.sas7bdat
+Release Created             9.0401M5                                              
+Host Created                Linux                                                 
+Inode Number                8505410597                                            
+Access Permission           rw-r--r--                                             
+Owner Name                  quadros                                               
+File Size                   3GB                                                   
+File Size (bytes)           3742171136                                            
+
+
+ Alphabetic List of Variables and Attributes
+ 
+ #    Variable       Type    Len    Informat
+
+47    _merge         Num       8            
+16    age            Num       8            
+17    age_alloc      Num       8            
+52    annhrs         Num       8            
+21    black          Num       8            
+60    c              Num       8            
+30    citizen        Num       8            
+36    class          Num       8            
+57    collplus       Num       8            
+18    dhisp          Num       8            
+54    dropout        Num       8            
+58    eclass         Num       8            
+26    educ           Num       8            
+27    educ_alloc     Num       8            
+28    english        Num       8            
+24    enroll         Num       8            
+33    esr            Num       8            
+51    ethnic         Num       8            
+12    famrel         Num       8            
+50    female         Num       8            
+ 8    gq             Num       8            
+The SAS System                                                   22:02 Wednesday, March 27, 2019   4
+
+The CONTENTS Procedure
+
+ Alphabetic List of Variables and Attributes
+ 
+ #    Variable       Type    Len    Informat
+
+25    grade          Num       8            
+ 2    hhid           Num       8            
+49    hispanic       Num       8            
+40    hrswk_alloc    Num       8            
+39    hrswkly        Num       8            
+55    hsgrad         Num       8            
+ 9    id             Num       8            
+46    imm            Num       8            
+31    immyr          Num       8            
+34    ind            Num       8            
+23    marstat        Num       8            
+32    mob5           Num       8            
+ 5    msa            Num       8            
+19    numrace        Num       8            
+10    obs            Num       8            
+35    occ            Num       8            
+13    ownchild       Num       8            
+ 7    p1             Num       8            
+14    paoc           Num       8            
+29    pob            Num       8            
+ 4    puma           Num       8            
+ 6    pumatype       Num       8            
+11    pweight        Num       8            
+22    race1          Num       8            
+44    self_alloc     Num       8            
+43    selfinc        Num       8            
+15    sex            Num       8            
+56    somecoll       Num       8            
+ 3    state          Num       8            
+59    top125         Num       8            
+45    totearn        Num       8            
+ 1    type           Char      1    $1.     
+53    wage1          Num       8            
+41    wagesal        Num       8            
+38    weeks          Num       8            
+20    white          Num       8            
+37    workly         Num       8            
+42    ws_alloc       Num       8            
+48    wt             Num       8            

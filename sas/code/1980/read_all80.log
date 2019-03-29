@@ -1,0 +1,133 @@
+1                                                          The SAS System                               17:15 Friday, March 22, 2019
+
+NOTE: Copyright (c) 2016 by SAS Institute Inc., Cary, NC, USA. 
+NOTE: SAS (r) Proprietary Software 9.4 (TS1M5) 
+      Licensed to STANFORD UNIVERSITY - SFA -  T&R, Site 70081389.
+NOTE: This session is executing on the Linux 3.10.0-957.5.1.el7.x86_64 (LIN X64) platform.
+
+
+
+NOTE: Updated analytical products:
+      
+      SAS/STAT 14.3
+      SAS/ETS 14.3
+      SAS/OR 14.3
+      SAS/IML 14.3
+      SAS/QC 14.3
+
+NOTE: Additional host information:
+
+ Linux LIN X64 3.10.0-957.5.1.el7.x86_64 #1 SMP Fri Feb 1 14:54:57 UTC 2019 x86_64 CentOS Linux release 7.6.1810 (Core)  
+
+You are running SAS 9. Some SAS 8 files will be automatically converted 
+by the V9 engine; others are incompatible.  Please see 
+http://support.sas.com/rnd/migration/planning/platform/64bit.html
+
+PROC MIGRATE will preserve current SAS file attributes and is 
+recommended for converting all your SAS libraries from any 
+SAS 8 release to SAS 9.  For details and examples, please see
+http://support.sas.com/rnd/migration/index.html
+
+
+This message is contained in the SAS news file, and is presented upon
+initialization.  Edit the file "news" in the "misc/base" directory to
+display site-specific news and information in the program log.
+The command line option "-nonews" will prevent this display.
+
+
+
+
+NOTE: SAS initialization used:
+      real time           0.20 seconds
+      cpu time            0.05 seconds
+      
+1          options ls = 100 nocenter;
+2          libname c80 '/home/groups/sorkin/quadros/data/1980/' ;
+NOTE: Libref C80 was successfully assigned as follows: 
+      Engine:        V9 
+      Physical Name: /home/groups/sorkin/quadros/data/1980
+3          
+4          proc import out= c80.all80
+5                                  datafile = "/home/groups/sorkin/quadros/data/raw/all80.dta"
+6                                  replace;
+7          run;
+
+NOTE: One or more variables were converted because the data type is not supported by the V9 engine. 
+      For more details, run with options MSGLEVEL=I.
+NOTE: The import data set has 6023556 observations and 39 variables.
+NOTE: C80.ALL80 data set was successfully created.
+NOTE: PROCEDURE IMPORT used (Total process time):
+      real time           7.28 seconds
+2 The SAS System                                                        17:15 Friday, March 22, 2019
+
+      cpu time            4.82 seconds
+      
+
+8          proc contents data= c80.all80;
+9          run;
+
+NOTE: PROCEDURE CONTENTS used (Total process time):
+      real time           0.36 seconds
+      cpu time            0.30 seconds
+      
+NOTE: The PROCEDURE CONTENTS printed pages 1-2.
+
+10         
+11         proc datasets lib= c80  memtype=data;
+                       Directory
+
+Libref             C80                                  
+Engine             V9                                   
+Physical Name      /home/groups/sorkin/quadros/data/1980
+Filename           /home/groups/sorkin/quadros/data/1980
+Inode Number       8546397297                           
+Access Permission  rwxr-xr-x                            
+Owner Name         quadros                              
+File Size          0KB                                  
+File Size (bytes)  362                                  
+
+
+            Member
+ #  Name    Type       File Size  Last Modified
+
+ 1  ALL80   DATA             2GB  03/22/2019 17:15:45        
+ 2  IF      DATA           128KB  03/21/2019 19:34:32        
+ 3  IF2     DATA           128KB  03/21/2019 19:34:32        
+ 4  IM      DATA           128KB  03/21/2019 19:34:32        
+ 5  IM2     DATA           128KB  03/21/2019 19:34:32        
+ 6  NF      DATA           128KB  03/21/2019 19:34:32        
+ 7  NF2     DATA           128KB  03/21/2019 19:34:32        
+ 8  NM      DATA           128KB  03/21/2019 19:34:32        
+ 9  NM2     DATA           128KB  03/21/2019 19:34:32        
+10  NP80    DATA           128KB  03/21/2019 19:08:44        
+11  SUPP80  DATA           128KB  03/21/2019 19:31:38        
+12  TWO     DATA           128KB  03/21/2019 19:34:32        
+12            modify all80;
+13              attrib _all_ label=' ';
+14              attrib _all_ format=;
+15         run;
+
+NOTE: MODIFY was successful for C80.ALL80.DATA.
+16         	
+
+NOTE: PROCEDURE DATASETS used (Total process time):
+      real time           0.01 seconds
+      cpu time            0.02 seconds
+      
+
+17         proc contents data= c80.all80;
+18         run;
+
+3 The SAS System                                                        17:15 Friday, March 22, 2019
+
+NOTE: PROCEDURE CONTENTS used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+NOTE: The PROCEDURE CONTENTS printed pages 3-4.
+
+NOTE: SAS Institute Inc., SAS Campus Drive, Cary, NC USA 27513-2414
+NOTE: The SAS System used:
+      real time           7.91 seconds
+      cpu time            5.21 seconds
+      

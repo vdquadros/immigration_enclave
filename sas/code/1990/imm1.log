@@ -1,0 +1,359 @@
+1                                                          The SAS System                             10:28 Thursday, March 28, 2019
+
+NOTE: Copyright (c) 2016 by SAS Institute Inc., Cary, NC, USA. 
+NOTE: SAS (r) Proprietary Software 9.4 (TS1M5) 
+      Licensed to STANFORD UNIVERSITY - SFA -  T&R, Site 70081389.
+NOTE: This session is executing on the Linux 3.10.0-957.5.1.el7.x86_64 (LIN X64) platform.
+
+
+
+NOTE: Updated analytical products:
+      
+      SAS/STAT 14.3
+      SAS/ETS 14.3
+      SAS/OR 14.3
+      SAS/IML 14.3
+      SAS/QC 14.3
+
+NOTE: Additional host information:
+
+ Linux LIN X64 3.10.0-957.5.1.el7.x86_64 #1 SMP Fri Feb 1 14:54:57 UTC 2019 x86_64 CentOS Linux release 7.6.1810 (Core)  
+
+You are running SAS 9. Some SAS 8 files will be automatically converted 
+by the V9 engine; others are incompatible.  Please see 
+http://support.sas.com/rnd/migration/planning/platform/64bit.html
+
+PROC MIGRATE will preserve current SAS file attributes and is 
+recommended for converting all your SAS libraries from any 
+SAS 8 release to SAS 9.  For details and examples, please see
+http://support.sas.com/rnd/migration/index.html
+
+
+This message is contained in the SAS news file, and is presented upon
+initialization.  Edit the file "news" in the "misc/base" directory to
+display site-specific news and information in the program log.
+The command line option "-nonews" will prevent this display.
+
+
+
+
+NOTE: SAS initialization used:
+      real time           0.20 seconds
+      cpu time            0.06 seconds
+      
+1          *imm1 follows allnp2.sas ;
+2          
+3          options ls=120 nocenter;
+4          libname c90 '/home/groups/sorkin/quadros/data/1990';
+NOTE: Libref C90 was successfully assigned as follows: 
+      Engine:        V9 
+      Physical Name: /home/groups/sorkin/quadros/data/1990
+5          libname here '.';
+NOTE: Libref HERE was successfully assigned as follows: 
+      Engine:        V9 
+      Physical Name: /home/groups/sorkin/quadros/code/1990
+6          
+7          
+8            /*
+9          
+10         keep rmsa imm female logwage2 wt p1-p10 dev devsq c age
+11                       educ exp exp2 exp3 inschool dropout somecoll collplus advanced
+2 The SAS System                                                                          10:28 Thursday, March 28, 2019
+
+12                       asian black hispanic black_ed black_coll asian_ed asian_coll
+13                       hisp_ed hisp_coll imm_ed imm_coll yrsinus yrsinus2
+14                       euro_ed hi_asian_ed mid_asian_ed mex_ed
+15                       euro_coll hi_asian_coll mid_asian_coll mex_coll
+16                       euro_yrs hi_asian_yrs mid_asian_yrs mex_yrs
+17                       euro_yrs2 hi_asian_yrs2 mid_asian_yrs2 mex_yrs2
+18                       pre_exp pre_exp1 english pob state msa nonmover
+19                       ic euro hi_asian mid_asian mex owage annhrs xclass
+20                       eclass wagesal weeks selfinc wage wage2 emp;
+21         
+22           */
+23         
+24         
+25         data one;
+26         set c90.supp90;
+27         if imm=1;
+28         
+29         rmsa0=(rmsa=0);
+30         rmsa1=(rmsa=1);
+31         male=1-female;
+32         native=1-imm;
+33         
+34         lw2sq=logwage2**2;
+35         
+36         if exp<=10 then xclass2=1;
+37         else if exp<=20 then xclass2=2;
+38         else if exp<=30 then xclass2=3;
+39         else xclass2=4;
+40         c=1;
+41         
+42         havewage2=(logwage2 ne .);
+43         if wagesal<=0 then cwagesal=.;
+44         else cwagesal=wagesal;
+45         
+46         if annhrs>0 then cannhrs=annhrs;
+47         else cannhrs=.;
+48         
+49         hs=1-dropout-somecoll-collplus;
+50         if collplus=1 and advanced=0 then college=1;
+51         else college=0;
+52         x1=(xclass2=1);
+53         x2=(xclass2=2);
+54         x3=(xclass2=3);
+55         x4=(xclass2=4);
+56         
+57         if annhrs>0 then hrswkly=annhrs/weeks;
+58         else hrswkly=.;
+59         ft=(hrswkly>=35);
+60         
+61         q1=p1+p2;
+62         q2=p3+p4;
+63         q3=p5+p6;
+64         q4=p7+p8;
+65         q5=p9+p10;
+66         
+67         if logwage2 ne . then do;
+68          q1c=q1;
+69          q2c=q2;
+3 The SAS System                                                                          10:28 Thursday, March 28, 2019
+
+70          q3c=q3;
+71          q4c=q4;
+72          q5c=q5;
+73         end;
+74         else do;
+75          q1c=.;
+76          q2c=.;
+77          q3c=.;
+78          q4c=.;
+79          q5c=.;
+80         end;
+81         
+82         
+83         ex11=(eclass=1)*(xclass2=1);
+84         ex12=(eclass=1)*(xclass2=2);
+85         ex13=(eclass=1)*(xclass2=3);
+86         ex14=(eclass=1)*(xclass2=4);
+87         ex21=(eclass=2)*(xclass2=1);
+88         ex22=(eclass=2)*(xclass2=2);
+89         ex23=(eclass=2)*(xclass2=3);
+90         ex24=(eclass=2)*(xclass2=4);
+91         ex31=(eclass=3)*(xclass2=1);
+92         ex32=(eclass=3)*(xclass2=2);
+93         ex33=(eclass=3)*(xclass2=3);
+94         ex34=(eclass=3)*(xclass2=4);
+95         ex41=(eclass=4)*(xclass2=1);
+96         ex42=(eclass=4)*(xclass2=2);
+97         ex43=(eclass=4)*(xclass2=3);
+98         ex44=(eclass=4)*(xclass2=4);
+99         
+100        length ic1-ic38 3;
+101        array icc (*) ic1-ic38;
+102        do j=1 to 38;
+103        icc(j)=(ic=j);
+104        end;
+105        
+106        
+107        
+108        
+
+NOTE: Missing values were generated as a result of performing an operation on missing values.
+      Each place is given by: (Number of times) at (Line):(Column).
+      208651 at 34:15   
+NOTE: There were 3886590 observations read from the data set C90.SUPP90.
+NOTE: The data set WORK.ONE has 661098 observations and 161 variables.
+NOTE: DATA statement used (Total process time):
+      real time           2.96 seconds
+      cpu time            2.40 seconds
+      
+
+109        proc freq;
+110        tables eclass*xclass2;
+111        weight wt;
+
+NOTE: There were 661098 observations read from the data set WORK.ONE.
+NOTE: The PROCEDURE FREQ printed page 1.
+NOTE: PROCEDURE FREQ used (Total process time):
+      real time           0.39 seconds
+4 The SAS System                                                                          10:28 Thursday, March 28, 2019
+
+      cpu time            0.30 seconds
+      
+
+112        proc means;
+113        var ex11 ex12 ex13 ex14 ex21 ex22 ex23 ex24 ex31 ex32 ex33 ex34 ex41 ex42 ex43 ex44
+114            ic1-ic38;
+115        weight wt;
+116        
+117        
+118        
+119        
+120        
+
+NOTE: There were 661098 observations read from the data set WORK.ONE.
+NOTE: The PROCEDURE MEANS printed pages 2-3.
+NOTE: PROCEDURE MEANS used (Total process time):
+      real time           0.29 seconds
+      cpu time            1.36 seconds
+      
+
+121        proc summary data=one;
+122        class ic male;
+123        var dropout hs somecoll college advanced collplus educ exp age x1-x4
+124            ex11 ex12 ex13 ex14 ex21 ex22 ex23 ex24 ex31 ex32 ex33 ex34 ex41 ex42 ex43 ex44
+125            rmsa0 rmsa1 female wage2 logwage2 annhrs c;
+126        output out=here.byic
+127        mean=
+128        sum(c)=count;
+129        weight wt;
+130        
+
+NOTE: There were 661098 observations read from the data set WORK.ONE.
+NOTE: The data set HERE.BYIC has 117 observations and 41 variables.
+NOTE: PROCEDURE SUMMARY used (Total process time):
+      real time           0.41 seconds
+      cpu time            1.55 seconds
+      
+
+131        proc print data=here.byic;
+132        where (male=.);
+133        var ic count female dropout hs somecoll collplus x1-x4;
+134        format female dropout hs somecoll collplus x1-x4 5.3;
+135        
+
+NOTE: There were 39 observations read from the data set HERE.BYIC.
+      WHERE male=.;
+NOTE: The PROCEDURE PRINT printed page 4.
+NOTE: PROCEDURE PRINT used (Total process time):
+      real time           0.01 seconds
+      cpu time            0.00 seconds
+      
+
+136        proc summary data=one;
+137        class rmsa;
+138        var ic1-ic38;
+139        weight wt;
+140        output out=citydist
+141        sum=;
+5 The SAS System                                                                          10:28 Thursday, March 28, 2019
+
+142        
+
+NOTE: There were 661098 observations read from the data set WORK.ONE.
+NOTE: The data set WORK.CITYDIST has 127 observations and 41 variables.
+NOTE: PROCEDURE SUMMARY used (Total process time):
+      real time           0.48 seconds
+      cpu time            1.68 seconds
+      
+
+143        data c1;
+144        set citydist;
+145        if rmsa=.;
+146        
+147        array sumic (*) sumic1-sumic38;
+148        array icc (*) ic1-ic38;
+149        do j=1 to 38;
+150        sumic(j)=icc(j);
+151        end;
+152        d=1;
+153        
+154        keep d sumic1-sumic38;
+155        
+
+NOTE: There were 127 observations read from the data set WORK.CITYDIST.
+NOTE: The data set WORK.C1 has 1 observations and 39 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.01 seconds
+      
+
+156        data c2;
+157        set citydist;
+158        if rmsa ne .;
+159        d=1;
+160        
+
+NOTE: There were 127 observations read from the data set WORK.CITYDIST.
+NOTE: The data set WORK.C2 has 126 observations and 42 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+161        proc sort data=c1; by d;
+
+NOTE: There were 1 observations read from the data set WORK.C1.
+NOTE: The data set WORK.C1 has 1 observations and 39 variables.
+NOTE: PROCEDURE SORT used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+162        proc sort data=c2; by d;
+163        
+
+NOTE: There were 126 observations read from the data set WORK.C2.
+NOTE: The data set WORK.C2 has 126 observations and 42 variables.
+NOTE: PROCEDURE SORT used (Total process time):
+6 The SAS System                                                                          10:28 Thursday, March 28, 2019
+
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+164        data here.ic_city;
+165        merge c2 c1; by d;
+166        
+167        array sumic (*) sumic1-sumic38;
+168        array icc (*) ic1-ic38;
+169        array shric (*) shric1-shric38;
+170        
+171        do j=1 to 38;
+172        shric(j)=icc(j)/sumic(j);
+173        end;
+174        
+175        drop d sumic1-sumic38 ic1-ic38;
+176        
+177        
+
+NOTE: There were 126 observations read from the data set WORK.C2.
+NOTE: There were 1 observations read from the data set WORK.C1.
+NOTE: The data set HERE.IC_CITY has 126 observations and 42 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.02 seconds
+      cpu time            0.00 seconds
+      
+
+178        proc print data=here.ic_city;
+179        var rmsa shric1-shric7 shric37 shric38;
+180        format shric1-shric7 shric37 shric38 6.4;
+181        
+
+NOTE: There were 126 observations read from the data set HERE.IC_CITY.
+NOTE: The PROCEDURE PRINT printed pages 5-7.
+NOTE: PROCEDURE PRINT used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.02 seconds
+      
+
+182        proc means n mean sum min max data=here.ic_city;
+183        var shric1-shric38;
+184        
+185        
+186        
+187        
+NOTE: There were 126 observations read from the data set HERE.IC_CITY.
+NOTE: The PROCEDURE MEANS printed page 8.
+NOTE: PROCEDURE MEANS used (Total process time):
+      real time           0.01 seconds
+      cpu time            0.01 seconds
+      
+
+NOTE: SAS Institute Inc., SAS Campus Drive, Cary, NC USA 27513-2414
+NOTE: The SAS System used:
+      real time           4.87 seconds
+      cpu time            7.41 seconds
+      

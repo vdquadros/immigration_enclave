@@ -1,0 +1,576 @@
+1                                                          The SAS System                               17:23 Friday, March 22, 2019
+
+NOTE: Copyright (c) 2016 by SAS Institute Inc., Cary, NC, USA. 
+NOTE: SAS (r) Proprietary Software 9.4 (TS1M5) 
+      Licensed to STANFORD UNIVERSITY - SFA -  T&R, Site 70081389.
+NOTE: This session is executing on the Linux 3.10.0-957.5.1.el7.x86_64 (LIN X64) platform.
+
+
+
+NOTE: Updated analytical products:
+      
+      SAS/STAT 14.3
+      SAS/ETS 14.3
+      SAS/OR 14.3
+      SAS/IML 14.3
+      SAS/QC 14.3
+
+NOTE: Additional host information:
+
+ Linux LIN X64 3.10.0-957.5.1.el7.x86_64 #1 SMP Fri Feb 1 14:54:57 UTC 2019 x86_64 CentOS Linux release 7.6.1810 (Core)  
+
+You are running SAS 9. Some SAS 8 files will be automatically converted 
+by the V9 engine; others are incompatible.  Please see 
+http://support.sas.com/rnd/migration/planning/platform/64bit.html
+
+PROC MIGRATE will preserve current SAS file attributes and is 
+recommended for converting all your SAS libraries from any 
+SAS 8 release to SAS 9.  For details and examples, please see
+http://support.sas.com/rnd/migration/index.html
+
+
+This message is contained in the SAS news file, and is presented upon
+initialization.  Edit the file "news" in the "misc/base" directory to
+display site-specific news and information in the program log.
+The command line option "-nonews" will prevent this display.
+
+
+
+
+NOTE: SAS initialization used:
+      real time           0.22 seconds
+      cpu time            0.05 seconds
+      
+1          *allnp2 based on np2-90 and built on op3.sas -- follows read80.sas;
+2          
+3          options ls = 120 nocenter;
+4          libname c80 '/home/groups/sorkin/quadros/data/1980' ;
+NOTE: Libref C80 was successfully assigned as follows: 
+      Engine:        V9 
+      Physical Name: /home/groups/sorkin/quadros/data/1980
+5          
+6          
+7          data c80.supp80;
+8          set c80.all80 (drop=hhtype gotkids famrel
+9          state75 esr hourslw ind occ income al_pob al_sal) ;
+10         
+11         
+12         if age>=18;  /*age 18+  */
+13         
+14         
+2 The SAS System                                                                            17:23 Friday, March 22, 2019
+
+15         if imm=1 then wt=1; else wt=2;
+16         
+17         %include '/home/groups/sorkin/quadros/code/1980/smsarecode80.sas';
+293        length top125 3;
+294        
+295        
+296        length eclass dropout hsgrad somecoll collplus advanced
+297         exp xclass 3;
+298        
+299        if educ<12 then eclass=1;
+300        else if educ=12 then eclass=2;
+301        else if educ<16 then eclass=3;
+302        else eclass=4;
+303        
+304        dropout=(eclass=1);
+305        hsgrad=(eclass=2);
+306        somecoll=(eclass=3);
+307        collplus=(eclass=4);
+308        advanced=(educ>16);
+309        
+310        if eclass=1 then exp=age-16;
+311        else if eclass=2 then exp=age-19;
+312        else if eclass=3 then exp=age-21;
+313        else exp=age-23;
+314        
+315        if age>=18;        /*age 18+  */
+316        if (1<=exp<=45);   /*sample cut for exp*/
+317        
+318        if exp<=5 then xclass=1;
+319        else if exp<=10 then xclass=2;
+320        else if exp<=15 then xclass=3;
+321        else if exp<=20 then xclass=4;
+322        else if exp<=25 then xclass=5;
+323        else if exp<=30 then xclass=6;
+324        else if exp<=35 then xclass=7;
+325        else if exp<=40 then xclass=8;
+326        else if exp<=45 then xclass=9;
+327        
+328        if wagesal=75000 then wagesal=75000*1.43;  /*pareto fix*/
+329        
+330        annhrs=weeks*hrswkly;
+331        if annhrs>0 and wagesal>0 then wage=wagesal/annhrs;
+332        else wage=.;
+333        
+334        length annhrs ft chours selfemp workly female 3;
+335        
+336        
+337        ft=(annhrs>1400);
+338        if annhrs=0 then ft=.;
+339        
+340        chours=annhrs;
+341        if annhrs=0 then chours=.;
+342        
+343        owage=wage;
+344        if (0<wage<2.175) then wage=2.175;
+345        if wage>145 then wage=145;
+346        logwage=log(wage);
+347        
+3 The SAS System                                                                            17:23 Friday, March 22, 2019
+
+348        selfinc=selfinc+farminc;
+349        if abs(selfinc) > 0 then selfemp=1;
+350        else selfemp=0;
+351        
+352        wage2=wage;
+353        if selfemp=1 then wage2=.;
+354        logwage2=log(wage2);
+355        
+356        
+357        workly=(annhrs>0);
+358        female=(sex=1);
+359        
+360        
+361        length ic euro hi_asian mid_asian mex 3;
+362        length yrsinus yrsinus2 pre_exp pre_exp1 pre_exp2  3;
+363        length euro_ed hi_asian_ed mid_asian_ed mex_ed
+364              euro_coll hi_asian_coll mid_asian_coll mex_coll
+365              euro_yrs hi_asian_yrs mid_asian_yrs mex_yrs
+366              euro_yrs2 hi_asian_yrs2 mid_asian_yrs2 mex_yrs2 3;
+367        
+368        
+369        
+370        if imm=1 then do;
+371        *coding of immigrants;
+372        
+373        if pob=436 then ic=1;         /*mexico*/
+374        else if pob=628 then ic=2 ;   /*phillip*/
+375        else if pob=614 then ic=3 ;   /*india*/
+376        else if pob=631 then ic=4 ;   /*vietnam*/
+377        else if pob=433 then ic=5 ;   /*el salvador*/
+378        else if pob=501 then ic=6 ;   /*china*/
+379        else if pob=476 then ic=7 ;   /*cuba*/
+380        else if pob=477 then ic=8 ;   /*dr*/
+381        else if pob in (504,505,506) then ic=9 ;  /*korea*/
+382        else if pob=456 then ic=10 ;  /*jamaica*/
+383        else if pob=302 then ic=11;   /*canada*/
+384        else if pob=415 then ic=12;   /*columbia*/
+385        else if pob=434 then ic=13;   /*guatemala*/
+386        else if pob in (719,747) then ic=14;  /*germany*/
+387        else if pob=473 then ic=15;    /*haiti */
+388        else if pob=749 then ic=16;    /*poland*/
+389        else if pob=509 then ic=17;    /*taiwan*/
+390        else if (769<=pob<=775) then ic=18;  /*england*/
+391        else if pob=725 then ic=19;      /*italy*/
+392        else if pob=416 then ic=20;     /*ecuador*/
+393        else if pob=503 then ic=21;     /*japan*/
+394        else if pob=615 then ic=22;    /*iran*/
+395        else if pob=435 then ic=23;     /*honduras*/
+396        else if pob=421 then ic=24;     /*peru*/
+397        else if pob in (900,908) then ic=25;  /*russia*/
+398        else if pob=437 then ic=26;    /*nicaragua*/
+399        else if pob=419 then ic=27;    /*guyana*/
+400        else if pob=618 then ic=28;    /*pakistan*/
+401        else if pob=502 then ic=29;   /*hong kong*/
+402        else if pob=461 then ic=30;   /*trinidad-tobago*/
+403        
+404        else if (700<=pob<=720) or (722<=pob<=732) or
+405          (746<=pob<=748) or (760<=pob<=775) or
+4 The SAS System                                                                            17:23 Friday, March 22, 2019
+
+406          (pob in (645,642,810,820))
+407           then ic=31;  /*west europe+isreal+cyprus+auss+nz*/
+408        
+409        else if (pob=721) or (733<=pob<=745) or (pob in (749,750)) or (pob=911)
+410            then ic=32;  /*east europe incl romania ukraine yugoslav*/
+411        
+412        else if (640<=pob<=690) or (901<=pob<=912)
+413             then ic=33;  /*middle east turkey bulgaria and the stans*/
+414        
+415        else if (500<=pob<=631) or (800<=pob<=858)
+416             then ic=34;   /*asia and oceana*/
+417        
+418        else if (400<=pob<=424) or (200<=pob<=304)
+419             then ic=35;  /*s america + north am nec */
+420        
+421        else if (110<=pob<=185)
+422             then ic=36;  /*africa*/
+423        
+424        else if (430<=pob<=477)
+425             then ic=37;  /*caribbean + central am */
+426        
+427        else ic=38;
+428        
+429        
+430        
+431        if immyr=1 then yrsinus=2.5;
+432        else if immyr=2 then yrsinus=7.5;
+433        else if immyr=3 then yrsinus=12.5;
+434        else if immyr=4 then yrsinus=17.5;
+435        else if immyr=5 then yrsinus=25.5;
+436        else if immyr=6 then yrsinus=40;
+437        else yrsinus=.;
+438        
+439        recimm=(immyr in (1,2));
+440        
+441        pre_exp=exp-yrsinus;  /*rough proxy for experience at arrival = pre-US exp*/
+442        
+443        pre_exp1=(pre_exp<-4);    /*likely to have done some schooling in us */
+444        pre_exp2=(-4<=pre_exp<0);
+445        
+446        yrsinus2=yrsinus*yrsinus;
+447        
+448        
+449        *construct dummies for broad groups;
+450        
+451        length euro hi_asian mid_asian mex
+452               euro_ed euro_coll hi_asian_ed hi_asian_coll
+453               mid_asian_ed mid_asian_coll mex_ed mex_coll 3;
+454        
+455        euro= (ic in (11,14,16,18,19,25,31,32));  /*european pob*/
+456        hi_asian=(ic in (3,9,17,21,22,28,29));    /*india korea taiwan japan iran pakistan hongkong*/
+457        mid_asian=(ic in (2,4,6));                /*philippines, VN, China */
+458        mex=(ic=1);                               /*mexico*/
+459        
+460        length euro_ed hi_asian_ed mid_asian_ed mex_ed
+461              euro_coll hi_asian_coll mid_asian_coll mex_coll 3;
+462        
+463        euro_ed=euro*educ;
+5 The SAS System                                                                            17:23 Friday, March 22, 2019
+
+464        hi_asian_ed=hi_asian*educ;
+465        mid_asian_ed=mid_asian*educ;
+466        mex_ed=mex*educ;
+467        
+468        euro_coll=euro*collplus;
+469        hi_asian_coll=hi_asian*collplus;
+470        mid_asian_coll=mid_asian*collplus;
+471        mex_coll=mex*collplus;
+472        
+473        euro_yrs=euro*yrsinus;
+474        hi_asian_yrs=hi_asian*yrsinus;
+475        mid_asian_yrs=mid_asian*yrsinus;
+476        mex_yrs=mex*yrsinus;
+477        
+478        euro_yrs2=euro*yrsinus2;
+479        hi_asian_yrs2=hi_asian*yrsinus2;
+480        mid_asian_yrs2=mid_asian*yrsinus2;
+481        mex_yrs2=mex*yrsinus2;
+482        
+483        
+484        end;  /*end of loop for imms */
+485        
+486        
+487        else if imm=0 then do;
+488         ic=-1;
+489         pre_exp=0;
+490         pre_exp1=0;
+491         pre_exp2=0;
+492         yrsinus=0;
+493         yrsinus2=0;
+494         euro=0;
+495         hi_asian=0;
+496         mid_asian=0;
+497         mex=0;
+498         euro_ed=0;
+499         hi_asian_ed=0;
+500         mid_asian_ed=0;
+501         mex_ed=0;
+502         euro_coll=0;
+503         hi_asian_coll=0;
+504         mid_asian_coll=0;
+505         mex_coll=0;
+506         euro_yrs=0;
+507         hi_asian_yrs=0;
+508         mid_asian_yrs=0;
+509         mex_yrs=0;
+510         euro_yrs2=0;
+511         hi_asian_yrs2=0;
+512         mid_asian_yrs2=0;
+513         mex_yrs2=0;
+514        end;
+515        
+516        imm_ed=imm*educ;
+517        imm_coll=imm*collplus;
+518        
+519        length inschool 3 exp2 exp2 4;
+520        
+521        inschool=(enroll>0);
+6 The SAS System                                                                            17:23 Friday, March 22, 2019
+
+522        exp2=exp*exp/100;
+523        exp3=exp*exp*exp/1000;
+524        
+525        
+526        length asian black asian_ed black_ed asian_coll black_coll  3;
+527        
+528        if hispanic>=1 then hispanic=1;
+529        
+530        asian=( (4<=race<=11) and hispanic=0);
+531        black=(race=2 and hispanic=0);
+532        
+533        black_ed=black*educ;
+534        black_coll=black*collplus;
+535        
+536        asian_ed=asian*educ;
+537        asian_coll=asian*collplus;
+538        
+539        hisp_ed=hispanic*educ;
+540        hisp_coll=hispanic*collplus;
+541        
+542        
+543        
+544        
+545        
+546        *code from op.code fit by gender;
+547        
+548        if female=0 then do;
+549        c0= 0.0872 ;
+550        c1=0;
+551        c2=  0.4019  ;
+552        c3     =    0.6955  ;
+553        c4     =    0.9980  ;
+554        c5     =    1.2802  ;
+555        c6     =    1.5695  ;
+556        c7     =    1.9450  ;
+557        c8     =    2.3764  ;
+558        c9     =    2.9685  ;
+559        xb1=
+560        imm            *   -0.0277  +
+561        educ           *   -0.0620  +
+562        exp            *   -0.1255  +
+563        exp2           *    0.3353  +
+564        exp3           *   -0.0282  +
+565        inschool       *    0.1624  +
+566        dropout        *    0.2560  +
+567        somecoll       *   -0.1165  +
+568        collplus       *   -0.4050  +
+569        advanced       *    0.0382  +
+570        asian          *    0.3268  +
+571        black          *    0.3026  +
+572        black_ed       *    0.0005  +
+573        black_coll     *   -0.0449  +
+574        asian_ed       *   -0.0230  +
+575        asian_coll     *    0.0896  +
+576        hisp_ed        *    0.0134  +
+577        hisp_coll      *   -0.0261  +
+578        imm_ed         *    0.0238  +
+579        imm_coll       *   -0.0860  +
+7 The SAS System                                                                            17:23 Friday, March 22, 2019
+
+580        yrsinus        *   -0.0256  +
+581        yrsinus2       *    0.0006  +
+582        euro_ed        *   -0.0104  +
+583        hi_asian_ed    *    0.0142  +
+584        mid_asian_ed   *    0.0129  +
+585        mex_ed         *   -0.0062  +
+586        euro_coll      *    0.0675  +
+587        hi_asian_coll  *   -0.1602  +
+588        mid_asian_coll *   -0.1376  +
+589        mex_coll       *    0.1898  +
+590        euro_yrs       *   -0.0047  +
+591        hi_asian_yrs   *   -0.0339  +
+592        mid_asian_yrs  *    0.0046  +
+593        mex_yrs        *    0.0086  +
+594        euro_yrs2      *    0.0000  +
+595        hi_asian_yrs2  *    0.0008  +
+596        mid_asian_yrs2 *   -0.0002  +
+597        mex_yrs2       *   -0.0002  +
+598        pre_exp        *    0.0143  +
+599        pre_exp1       *    0.1777 ;
+600        
+601        xb=-c0-xb1;
+602        
+603        p1=probnorm(c1-xb);
+604        p2=probnorm(c2-xb)-probnorm(c1-xb);
+605        p3=probnorm(c3-xb)-probnorm(c2-xb);
+606        p4=probnorm(c4-xb)-probnorm(c3-xb);
+607        p5=probnorm(c5-xb)-probnorm(c4-xb);
+608        p6=probnorm(c6-xb)-probnorm(c5-xb);
+609        p7=probnorm(c7-xb)-probnorm(c6-xb);
+610        p8=probnorm(c8-xb)-probnorm(c7-xb);
+611        p9=probnorm(c9-xb)-probnorm(c8-xb);
+612        p10=1-probnorm(c9-xb);
+613        
+614        end;
+615        
+616        
+617        
+618        
+619        else if female=1 then do;
+620        
+621        c0     =    0.0063  ;
+622        c1     =    0 ;
+623        c2     =    0.5888  ;
+624        c3     =    0.9905  ;
+625        c4     =    1.3532  ;
+626        c5     =    1.6888  ;
+627        c6     =    1.9951  ;
+628        c7     =    2.3458  ;
+629        c8     =    2.6625  ;
+630        c9     =    3.0059  ;
+631        
+632        xb1=
+633        imm            *   -0.2706  +
+634        educ           *   -0.0462  +
+635        exp            *   -0.0744  +
+636        exp2           *    0.2760  +
+637        exp3           *   -0.0338  +
+8 The SAS System                                                                            17:23 Friday, March 22, 2019
+
+638        inschool       *   -0.0182  +
+639        dropout        *    0.2662  +
+640        somecoll       *   -0.2212  +
+641        collplus       *   -0.5695  +
+642        advanced       *   -0.2379  +
+643        asian          *    0.0149  +
+644        black          *    0.0587  +
+645        black_ed       *   -0.0076  +
+646        black_coll     *   -0.1209  +
+647        asian_ed       *   -0.0154  +
+648        asian_coll     *    0.1206  +
+649        hisp_ed        *   -0.0019  +
+650        hisp_coll      *    0.0752  +
+651        imm_ed         *    0.0337  +
+652        imm_coll       *    0.0863  +
+653        yrsinus        *   -0.0227  +
+654        yrsinus2       *    0.0005  +
+655        euro_ed        *   -0.0046  +
+656        hi_asian_ed    *    0.0113  +
+657        mid_asian_ed   *    0.0136  +
+658        mex_ed         *    0.0062  +
+659        euro_coll      *   -0.0062  +
+660        hi_asian_coll  *   -0.1800  +
+661        mid_asian_coll *   -0.2430  +
+662        mex_coll       *    0.0031  +
+663        euro_yrs       *    0.0035  +
+664        hi_asian_yrs   *    0.0011  +
+665        mid_asian_yrs  *   -0.0143  +
+666        mex_yrs        *    0.0079  +
+667        euro_yrs2      *   -0.0001  +
+668        hi_asian_yrs2  *    0.0000  +
+669        mid_asian_yrs2 *    0.0003  +
+670        mex_yrs2       *   -0.0002  +
+671        pre_exp        *    0.0073  +
+672        pre_exp1       *    0.0316  ;
+673        
+674        xb=-c0-xb1;
+675        
+676        p1=probnorm(c1-xb);
+677        p2=probnorm(c2-xb)-probnorm(c1-xb);
+678        p3=probnorm(c3-xb)-probnorm(c2-xb);
+679        p4=probnorm(c4-xb)-probnorm(c3-xb);
+680        p5=probnorm(c5-xb)-probnorm(c4-xb);
+681        p6=probnorm(c6-xb)-probnorm(c5-xb);
+682        p7=probnorm(c7-xb)-probnorm(c6-xb);
+683        p8=probnorm(c8-xb)-probnorm(c7-xb);
+684        p9=probnorm(c9-xb)-probnorm(c8-xb);
+685        p10=1-probnorm(c9-xb);
+686        
+687        end;
+688        
+689        
+690        length c havewage native male  3 rmsa 4;
+691        
+692        c=1;
+693        havewage=(logwage2 ne .);
+694        native=1-imm;
+695        male=1-female;
+9 The SAS System                                                                            17:23 Friday, March 22, 2019
+
+696        
+697        if top125=1 then rmsa=msa;
+698        else if top125=0 and (msa>0 and msa<9990) then rmsa=1;
+699        else rmsa=0;
+700        
+701        if imm=0 then recimm=0;
+702        
+703        dev=logwage2-1.7724015;
+704        devsq=dev*dev;
+705        
+706        
+707        if imm=0 and (state=pob) then nonmover=1;
+708        else nonmover=0;
+709        
+710        emp=(annhrs>0);
+711        
+712        keep rmsa imm female logwage2 wt p1-p10 dev devsq c age
+713                      educ exp exp2 exp3 inschool dropout somecoll collplus advanced
+714                      asian black hispanic black_ed black_coll asian_ed asian_coll
+715                      hisp_ed hisp_coll imm_ed imm_coll yrsinus yrsinus2
+716                      euro_ed hi_asian_ed mid_asian_ed mex_ed
+717                      euro_coll hi_asian_coll mid_asian_coll mex_coll
+718                      euro_yrs hi_asian_yrs mid_asian_yrs mex_yrs
+719                      euro_yrs2 hi_asian_yrs2 mid_asian_yrs2 mex_yrs2
+720                      pre_exp pre_exp1 english pob state msa nonmover
+721                      ic euro hi_asian mid_asian mex owage annhrs xclass
+722                      eclass wagesal weeks selfinc wage wage2 emp;
+723        
+
+NOTE: Missing values were generated as a result of performing an operation on missing values.
+      Each place is given by: (Number of times) at (Line):(Column).
+      932393 at 346:9     1031194 at 354:10   1031194 at 703:13   1031194 at 704:10   
+NOTE: There were 6023556 observations read from the data set C80.ALL80.
+NOTE: The data set C80.SUPP80 has 3361481 observations and 79 variables.
+NOTE: DATA statement used (Total process time):
+      real time           11.62 seconds
+      cpu time            9.60 seconds
+      
+
+724        proc means;
+725        weight wt;
+726        
+
+NOTE: There were 3361481 observations read from the data set C80.SUPP80.
+NOTE: The PROCEDURE MEANS printed pages 1-2.
+NOTE: PROCEDURE MEANS used (Total process time):
+      real time           1.99 seconds
+      cpu time            8.28 seconds
+      
+
+727        proc means;
+728        where (imm=0);
+729        weight wt;
+730        
+
+NOTE: There were 2918808 observations read from the data set C80.SUPP80.
+      WHERE imm=0;
+NOTE: The PROCEDURE MEANS printed pages 3-4.
+10 The SAS System                                                                           17:23 Friday, March 22, 2019
+
+NOTE: PROCEDURE MEANS used (Total process time):
+      real time           1.78 seconds
+      cpu time            7.51 seconds
+      
+
+731        proc means;
+732        where (imm=1);
+733        weight wt;
+734        
+735        
+
+NOTE: There were 442673 observations read from the data set C80.SUPP80.
+      WHERE imm=1;
+NOTE: The PROCEDURE MEANS printed pages 5-6.
+NOTE: PROCEDURE MEANS used (Total process time):
+      real time           1.46 seconds
+      cpu time            2.60 seconds
+      
+
+736        proc freq;
+737        tables ic*hispanic;
+738        weight wt;
+NOTE: There were 3361481 observations read from the data set C80.SUPP80.
+NOTE: The PROCEDURE FREQ printed pages 7-11.
+NOTE: PROCEDURE FREQ used (Total process time):
+      real time           1.39 seconds
+      cpu time            1.11 seconds
+      
+
+NOTE: SAS Institute Inc., SAS Campus Drive, Cary, NC USA 27513-2414
+NOTE: The SAS System used:
+      real time           18.52 seconds
+      cpu time            29.16 seconds
+      

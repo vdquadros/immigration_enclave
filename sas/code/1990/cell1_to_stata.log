@@ -1,0 +1,560 @@
+1                                                          The SAS System                            21:26 Wednesday, March 27, 2019
+
+NOTE: Copyright (c) 2016 by SAS Institute Inc., Cary, NC, USA. 
+NOTE: SAS (r) Proprietary Software 9.4 (TS1M5) 
+      Licensed to STANFORD UNIVERSITY - SFA -  T&R, Site 70081389.
+NOTE: This session is executing on the Linux 3.10.0-957.10.1.el7.x86_64 (LIN X64) platform.
+
+
+
+NOTE: Updated analytical products:
+      
+      SAS/STAT 14.3
+      SAS/ETS 14.3
+      SAS/OR 14.3
+      SAS/IML 14.3
+      SAS/QC 14.3
+
+NOTE: Additional host information:
+
+ Linux LIN X64 3.10.0-957.10.1.el7.x86_64 #1 SMP Mon Mar 18 15:06:45 UTC 2019 x86_64 CentOS Linux release 7.6.1810 (Core)  
+
+You are running SAS 9. Some SAS 8 files will be automatically converted 
+by the V9 engine; others are incompatible.  Please see 
+http://support.sas.com/rnd/migration/planning/platform/64bit.html
+
+PROC MIGRATE will preserve current SAS file attributes and is 
+recommended for converting all your SAS libraries from any 
+SAS 8 release to SAS 9.  For details and examples, please see
+http://support.sas.com/rnd/migration/index.html
+
+
+This message is contained in the SAS news file, and is presented upon
+initialization.  Edit the file "news" in the "misc/base" directory to
+display site-specific news and information in the program log.
+The command line option "-nonews" will prevent this display.
+
+
+
+
+NOTE: SAS initialization used:
+      real time           0.14 seconds
+      cpu time            0.02 seconds
+      
+1          options ls=120 nocenter;
+2          libname c90 '/home/groups/sorkin/quadros/data/1990';
+NOTE: Libref C90 was successfully assigned as follows: 
+      Engine:        V9 
+      Physical Name: /home/groups/sorkin/quadros/data/1990
+3          libname out '/home/groups/sorkin/quadros/data/out';
+NOTE: Libref OUT was successfully assigned as follows: 
+      Engine:        V9 
+      Physical Name: /home/groups/sorkin/quadros/data/out
+4          
+5          *This is to use convert directly to stata and use in table6;
+6          data bigcells_new1;
+7          set c90.bigcells;
+8          if  xclass2=.;
+9          v=lw2sq-logwage2**2;
+10         vres=ressq-res*res;
+11         vpred=predsq-pred*pred;
+2 The SAS System                                                                         21:26 Wednesday, March 27, 2019
+
+12         if rmsa=. then delete;
+13         if native=. then delete;
+14         if eclass=. then delete;
+15         if male=. then delete;
+16         
+
+NOTE: There were 28501 observations read from the data set C90.BIGCELLS.
+NOTE: The data set WORK.BIGCELLS_NEW1 has 2015 observations and 29 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.03 seconds
+      cpu time            0.01 seconds
+      
+
+17         proc print;
+18         var rmsa native male eclass xclass2 count imm logwage2 v res vres pred vpred;
+19         
+
+NOTE: There were 2015 observations read from the data set WORK.BIGCELLS_NEW1.
+NOTE: The PROCEDURE PRINT printed pages 1-36.
+NOTE: PROCEDURE PRINT used (Total process time):
+      real time           0.07 seconds
+      cpu time            0.04 seconds
+      
+
+20         data bigcells_new2;
+21         set c90.bigcells;
+22         if  xclass2=. and eclass=.;
+23         v=lw2sq-logwage2**2;
+24         vres=ressq-res*res;
+25         vpred=predsq-pred*pred;
+26         if rmsa=. then delete;
+27         if native=. then delete;
+28         if male=. then delete;
+29         
+
+NOTE: There were 28501 observations read from the data set C90.BIGCELLS.
+NOTE: The data set WORK.BIGCELLS_NEW2 has 504 observations and 29 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.01 seconds
+      cpu time            0.00 seconds
+      
+
+30         proc print;
+31         var rmsa native male eclass xclass2 count imm logwage2 v res vres pred vpred;
+32         
+33         * Native wages;
+
+NOTE: There were 504 observations read from the data set WORK.BIGCELLS_NEW2.
+NOTE: The PROCEDURE PRINT printed pages 37-45.
+NOTE: PROCEDURE PRINT used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.01 seconds
+      
+
+34         data nw90;
+35         set c90.bigcells;
+36         if native=1 and male=1 and eclass=. and xclass2=.;
+37         v=lw2sq-logwage2**2;
+3 The SAS System                                                                         21:26 Wednesday, March 27, 2019
+
+38         vres=ressq-res*res;
+39         vpred=predsq-pred*pred;
+40         if rmsa=. then delete;
+41         
+
+NOTE: There were 28501 observations read from the data set C90.BIGCELLS.
+NOTE: The data set WORK.NW90 has 126 observations and 29 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.01 seconds
+      cpu time            0.01 seconds
+      
+
+42         proc print;
+43         var rmsa native male eclass xclass2 count imm logwage2 v res vres pred vpred;
+44         
+45         * Immigrant wages;
+
+NOTE: There were 126 observations read from the data set WORK.NW90.
+NOTE: The PROCEDURE PRINT printed pages 46-48.
+NOTE: PROCEDURE PRINT used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+46         data iw90;
+47         set c90.bigcells;
+48         if native=0 and male=1 and eclass=. and xclass2=.;
+49         v=lw2sq-logwage2**2;
+50         vres=ressq-res*res;
+51         vpred=predsq-pred*pred;
+52         if rmsa=. then delete;
+53         
+
+NOTE: There were 28501 observations read from the data set C90.BIGCELLS.
+NOTE: The data set WORK.IW90 has 126 observations and 29 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.01 seconds
+      cpu time            0.00 seconds
+      
+
+54         proc print;
+55         var rmsa native male eclass xclass2 count imm logwage2 v res vres pred vpred;
+56         
+57         * Native wages by eclass;
+
+NOTE: There were 126 observations read from the data set WORK.IW90.
+NOTE: The PROCEDURE PRINT printed pages 49-51.
+NOTE: PROCEDURE PRINT used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.01 seconds
+      
+
+58         data nw901;
+59         set c90.bigcells;
+60         if native=1 and male=1 and eclass=1 and xclass2=.;
+61         v=lw2sq-logwage2**2;
+62         vres=ressq-res*res;
+63         vpred=predsq-pred*pred;
+4 The SAS System                                                                         21:26 Wednesday, March 27, 2019
+
+64         if rmsa=. then delete;
+65         
+
+NOTE: There were 28501 observations read from the data set C90.BIGCELLS.
+NOTE: The data set WORK.NW901 has 126 observations and 29 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.01 seconds
+      cpu time            0.00 seconds
+      
+
+66         proc print;
+67         var rmsa native male eclass xclass2 count imm logwage2 v res vres pred vpred;
+68         
+
+NOTE: There were 126 observations read from the data set WORK.NW901.
+NOTE: The PROCEDURE PRINT printed pages 52-54.
+NOTE: PROCEDURE PRINT used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+69         data nw902;
+70         set c90.bigcells;
+71         if native=1 and male=1 and eclass=2 and xclass2=.;
+72         v=lw2sq-logwage2**2;
+73         vres=ressq-res*res;
+74         vpred=predsq-pred*pred;
+75         if rmsa=. then delete;
+76         
+
+NOTE: There were 28501 observations read from the data set C90.BIGCELLS.
+NOTE: The data set WORK.NW902 has 126 observations and 29 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.01 seconds
+      cpu time            0.01 seconds
+      
+
+77         proc print;
+78         var rmsa native male eclass xclass2 count imm logwage2 v res vres pred vpred;
+79         
+
+NOTE: There were 126 observations read from the data set WORK.NW902.
+NOTE: The PROCEDURE PRINT printed pages 55-57.
+NOTE: PROCEDURE PRINT used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.01 seconds
+      
+
+80         data nw903;
+81         set c90.bigcells;
+82         if native=1 and male=1 and eclass=3 and xclass2=.;
+83         v=lw2sq-logwage2**2;
+84         vres=ressq-res*res;
+85         vpred=predsq-pred*pred;
+86         if rmsa=. then delete;
+87         
+
+NOTE: There were 28501 observations read from the data set C90.BIGCELLS.
+5 The SAS System                                                                         21:26 Wednesday, March 27, 2019
+
+NOTE: The data set WORK.NW903 has 126 observations and 29 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.01 seconds
+      cpu time            0.00 seconds
+      
+
+88         proc print;
+89         var rmsa native male eclass xclass2 count imm logwage2 v res vres pred vpred;
+90         
+
+NOTE: There were 126 observations read from the data set WORK.NW903.
+NOTE: The PROCEDURE PRINT printed pages 58-60.
+NOTE: PROCEDURE PRINT used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+91         data nw904;
+92         set c90.bigcells;
+93         if native=1 and male=1 and eclass=4 and xclass2=.;
+94         v=lw2sq-logwage2**2;
+95         vres=ressq-res*res;
+96         vpred=predsq-pred*pred;
+97         if rmsa=. then delete;
+98         
+
+NOTE: There were 28501 observations read from the data set C90.BIGCELLS.
+NOTE: The data set WORK.NW904 has 126 observations and 29 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.01 seconds
+      cpu time            0.01 seconds
+      
+
+99         proc print;
+100        var rmsa native male eclass xclass2 count imm logwage2 v res vres pred vpred;
+101        
+102        * Immigrant wages by eclass;
+
+NOTE: There were 126 observations read from the data set WORK.NW904.
+NOTE: The PROCEDURE PRINT printed pages 61-63.
+NOTE: PROCEDURE PRINT used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+103        data iw901;
+104        set c90.bigcells;
+105        if native=0  and male=1 and eclass=1 and xclass2=.;
+106        v=lw2sq-logwage2**2;
+107        vres=ressq-res*res;
+108        vpred=predsq-pred*pred;
+109        if rmsa=. then delete;
+110        
+
+NOTE: There were 28501 observations read from the data set C90.BIGCELLS.
+NOTE: The data set WORK.IW901 has 126 observations and 29 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.01 seconds
+6 The SAS System                                                                         21:26 Wednesday, March 27, 2019
+
+      cpu time            0.00 seconds
+      
+
+111        proc print;
+112        var rmsa native male eclass xclass2 count imm logwage2 v res vres pred vpred;
+113        
+
+NOTE: There were 126 observations read from the data set WORK.IW901.
+NOTE: The PROCEDURE PRINT printed pages 64-66.
+NOTE: PROCEDURE PRINT used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.01 seconds
+      
+
+114        data iw902;
+115        set c90.bigcells;
+116        if native=0  and male=1 and eclass=2 and xclass2=.;
+117        v=lw2sq-logwage2**2;
+118        vres=ressq-res*res;
+119        vpred=predsq-pred*pred;
+120        if rmsa=. then delete;
+121        
+
+NOTE: There were 28501 observations read from the data set C90.BIGCELLS.
+NOTE: The data set WORK.IW902 has 126 observations and 29 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.01 seconds
+      cpu time            0.01 seconds
+      
+
+122        proc print;
+123        var rmsa native male eclass xclass2 count imm logwage2 v res vres pred vpred;
+124        
+
+NOTE: There were 126 observations read from the data set WORK.IW902.
+NOTE: The PROCEDURE PRINT printed pages 67-69.
+NOTE: PROCEDURE PRINT used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+125        data iw903;
+126        set c90.bigcells;
+127        if native=0  and male=1 and eclass=3 and xclass2=.;
+128        v=lw2sq-logwage2**2;
+129        vres=ressq-res*res;
+130        vpred=predsq-pred*pred;
+131        if rmsa=. then delete;
+132        
+
+NOTE: There were 28501 observations read from the data set C90.BIGCELLS.
+NOTE: The data set WORK.IW903 has 125 observations and 29 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.01 seconds
+      cpu time            0.00 seconds
+      
+
+133        proc print;
+7 The SAS System                                                                         21:26 Wednesday, March 27, 2019
+
+134        var rmsa native male eclass xclass2 count imm logwage2 v res vres pred vpred;
+135        
+
+NOTE: There were 125 observations read from the data set WORK.IW903.
+NOTE: The PROCEDURE PRINT printed pages 70-72.
+NOTE: PROCEDURE PRINT used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.01 seconds
+      
+
+136        data iw904;
+137        set c90.bigcells;
+138        if native=0  and male=1 and eclass=4 and xclass2=.;
+139        v=lw2sq-logwage2**2;
+140        vres=ressq-res*res;
+141        vpred=predsq-pred*pred;
+142        if rmsa=. then delete;
+143        
+
+NOTE: There were 28501 observations read from the data set C90.BIGCELLS.
+NOTE: The data set WORK.IW904 has 126 observations and 29 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.01 seconds
+      cpu time            0.00 seconds
+      
+
+144        proc print;
+145        var rmsa native male eclass xclass2 count imm logwage2 v res vres pred vpred;
+146        
+147        * Export to Stata;
+
+NOTE: There were 126 observations read from the data set WORK.IW904.
+NOTE: The PROCEDURE PRINT printed pages 73-75.
+NOTE: PROCEDURE PRINT used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+148        PROC EXPORT DATA=bigcells_new1
+149                    FILE="/home/groups/sorkin/quadros/data/out/1990_bigcells_new1.dta"
+150                    DBMS=STATA REPLACE;
+151        
+
+NOTE: The export data set has 2015 observations and 29 variables.
+NOTE: "/home/groups/sorkin/quadros/data/out/1990_bigcells_new1.dta" file was successfully created.
+NOTE: PROCEDURE EXPORT used (Total process time):
+      real time           0.02 seconds
+      cpu time            0.01 seconds
+      
+
+152        PROC EXPORT DATA=bigcells_new2
+153                    FILE="/home/groups/sorkin/quadros/data/out/1990_bigcells_new2.dta"
+154                    DBMS=STATA REPLACE;
+155        
+
+NOTE: The export data set has 504 observations and 29 variables.
+NOTE: "/home/groups/sorkin/quadros/data/out/1990_bigcells_new2.dta" file was successfully created.
+NOTE: PROCEDURE EXPORT used (Total process time):
+8 The SAS System                                                                         21:26 Wednesday, March 27, 2019
+
+      real time           0.01 seconds
+      cpu time            0.00 seconds
+      
+
+156        PROC EXPORT DATA=nw90
+157                    FILE="/home/groups/sorkin/quadros/data/out/nw90.dta"
+158                    DBMS=STATA REPLACE;
+159        
+
+NOTE: The export data set has 126 observations and 29 variables.
+NOTE: "/home/groups/sorkin/quadros/data/out/nw90.dta" file was successfully created.
+NOTE: PROCEDURE EXPORT used (Total process time):
+      real time           0.01 seconds
+      cpu time            0.00 seconds
+      
+
+160        PROC EXPORT DATA=iw90
+161                    FILE="/home/groups/sorkin/quadros/data/out/iw90.dta"
+162                    DBMS=STATA REPLACE;
+163        
+
+NOTE: The export data set has 126 observations and 29 variables.
+NOTE: "/home/groups/sorkin/quadros/data/out/iw90.dta" file was successfully created.
+NOTE: PROCEDURE EXPORT used (Total process time):
+      real time           0.01 seconds
+      cpu time            0.00 seconds
+      
+
+164        PROC EXPORT DATA=nw901
+165                    FILE="/home/groups/sorkin/quadros/data/out/nw901.dta"
+166                    DBMS=STATA REPLACE;
+167        RUN;
+
+NOTE: The export data set has 126 observations and 29 variables.
+NOTE: "/home/groups/sorkin/quadros/data/out/nw901.dta" file was successfully created.
+NOTE: PROCEDURE EXPORT used (Total process time):
+      real time           0.01 seconds
+      cpu time            0.00 seconds
+      
+
+168        PROC EXPORT DATA=nw902
+169                    FILE="/home/groups/sorkin/quadros/data/out/nw902.dta"
+170                    DBMS=STATA REPLACE;
+171        RUN;
+
+NOTE: The export data set has 126 observations and 29 variables.
+NOTE: "/home/groups/sorkin/quadros/data/out/nw902.dta" file was successfully created.
+NOTE: PROCEDURE EXPORT used (Total process time):
+      real time           0.01 seconds
+      cpu time            0.00 seconds
+      
+
+172        
+173        PROC EXPORT DATA=nw903
+174                    FILE="/home/groups/sorkin/quadros/data/out/nw903.dta"
+175                    DBMS=STATA REPLACE;
+176        RUN;
+
+9 The SAS System                                                                         21:26 Wednesday, March 27, 2019
+
+NOTE: The export data set has 126 observations and 29 variables.
+NOTE: "/home/groups/sorkin/quadros/data/out/nw903.dta" file was successfully created.
+NOTE: PROCEDURE EXPORT used (Total process time):
+      real time           0.01 seconds
+      cpu time            0.00 seconds
+      
+
+177        
+178        PROC EXPORT DATA=nw904
+179                    FILE="/home/groups/sorkin/quadros/data/out/nw904.dta"
+180                    DBMS=STATA REPLACE;
+181        RUN;
+
+NOTE: The export data set has 126 observations and 29 variables.
+NOTE: "/home/groups/sorkin/quadros/data/out/nw904.dta" file was successfully created.
+NOTE: PROCEDURE EXPORT used (Total process time):
+      real time           0.01 seconds
+      cpu time            0.00 seconds
+      
+
+182        
+183        PROC EXPORT DATA=iw901
+184                    FILE="/home/groups/sorkin/quadros/data/out/iw901.dta"
+185                    DBMS=STATA REPLACE;
+186        RUN;
+
+NOTE: The export data set has 126 observations and 29 variables.
+NOTE: "/home/groups/sorkin/quadros/data/out/iw901.dta" file was successfully created.
+NOTE: PROCEDURE EXPORT used (Total process time):
+      real time           0.01 seconds
+      cpu time            0.00 seconds
+      
+
+187        PROC EXPORT DATA=iw902
+188                    FILE="/home/groups/sorkin/quadros/data/out/iw902.dta"
+189                    DBMS=STATA REPLACE;
+190        RUN;
+
+NOTE: The export data set has 126 observations and 29 variables.
+NOTE: "/home/groups/sorkin/quadros/data/out/iw902.dta" file was successfully created.
+NOTE: PROCEDURE EXPORT used (Total process time):
+      real time           0.01 seconds
+      cpu time            0.00 seconds
+      
+
+191        
+192        PROC EXPORT DATA=iw903
+193                    FILE="/home/groups/sorkin/quadros/data/out/iw903.dta"
+194                    DBMS=STATA REPLACE;
+195        RUN;
+
+NOTE: The export data set has 125 observations and 29 variables.
+NOTE: "/home/groups/sorkin/quadros/data/out/iw903.dta" file was successfully created.
+NOTE: PROCEDURE EXPORT used (Total process time):
+      real time           0.01 seconds
+      cpu time            0.00 seconds
+      
+
+10 The SAS System                                                                        21:26 Wednesday, March 27, 2019
+
+196        
+197        PROC EXPORT DATA=iw904
+198                    FILE="/home/groups/sorkin/quadros/data/out/iw904.dta"
+199                    DBMS=STATA REPLACE;
+200        RUN;
+
+NOTE: The export data set has 126 observations and 29 variables.
+NOTE: "/home/groups/sorkin/quadros/data/out/iw904.dta" file was successfully created.
+NOTE: PROCEDURE EXPORT used (Total process time):
+      real time           0.01 seconds
+      cpu time            0.00 seconds
+      
+
+NOTE: SAS Institute Inc., SAS Campus Drive, Cary, NC USA 27513-2414
+NOTE: The SAS System used:
+      real time           0.77 seconds
+      cpu time            0.22 seconds
+      

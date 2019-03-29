@@ -1,0 +1,192 @@
+1                                                          The SAS System                               22:04 Friday, March 22, 2019
+
+NOTE: Copyright (c) 2016 by SAS Institute Inc., Cary, NC, USA. 
+NOTE: SAS (r) Proprietary Software 9.4 (TS1M5) 
+      Licensed to STANFORD UNIVERSITY - SFA -  T&R, Site 70081389.
+NOTE: This session is executing on the Linux 3.10.0-957.5.1.el7.x86_64 (LIN X64) platform.
+
+
+
+NOTE: Updated analytical products:
+      
+      SAS/STAT 14.3
+      SAS/ETS 14.3
+      SAS/OR 14.3
+      SAS/IML 14.3
+      SAS/QC 14.3
+
+NOTE: Additional host information:
+
+ Linux LIN X64 3.10.0-957.5.1.el7.x86_64 #1 SMP Fri Feb 1 14:54:57 UTC 2019 x86_64 CentOS Linux release 7.6.1810 (Core)  
+
+You are running SAS 9. Some SAS 8 files will be automatically converted 
+by the V9 engine; others are incompatible.  Please see 
+http://support.sas.com/rnd/migration/planning/platform/64bit.html
+
+PROC MIGRATE will preserve current SAS file attributes and is 
+recommended for converting all your SAS libraries from any 
+SAS 8 release to SAS 9.  For details and examples, please see
+http://support.sas.com/rnd/migration/index.html
+
+
+This message is contained in the SAS news file, and is presented upon
+initialization.  Edit the file "news" in the "misc/base" directory to
+display site-specific news and information in the program log.
+The command line option "-nonews" will prevent this display.
+
+
+
+
+NOTE: SAS initialization used:
+      real time           0.89 seconds
+      cpu time            0.05 seconds
+      
+1          *supply1 follows np2.sas ;
+2          
+3          options ls=120 nocenter;
+4          libname c80 '/home/groups/sorkin/quadros/data/1980/';
+NOTE: Libref C80 was successfully assigned as follows: 
+      Engine:        V9 
+      Physical Name: /home/groups/sorkin/quadros/data/1980
+5          
+6          data c80.one;
+7          set c80.np80;
+8          
+9          rmsa0=(rmsa=0);
+10         rmsa1=(rmsa=1);
+11         
+12         male=1-female;
+13         native=1-imm;
+14         
+2 The SAS System                                                                            22:04 Friday, March 22, 2019
+
+15         if exp<=10 then xclass2=1;
+16         else if exp<=20 then xclass2=2;
+17         else if exp<=30 then xclass2=3;
+18         else xclass2=4;
+19         c=1;
+20         
+21         
+22         
+23         
+24         hs=1-dropout-somecoll-collplus;
+25         if collplus=1 and advanced=0 then college=1;
+26         else college=0;
+27         
+28         hwt=annhrs*wt;
+29         
+30         
+31         
+
+NOTE: There were 2330287 observations read from the data set C80.NP80.
+NOTE: The data set C80.ONE has 2330287 observations and 82 variables.
+NOTE: DATA statement used (Total process time):
+      real time           16.91 seconds
+      cpu time            1.80 seconds
+      
+
+32         proc summary;
+33         class rmsa native male eclass xclass2;
+34         var dropout hs somecoll college advanced collplus c imm female;
+35         output out=c80.cellsupply
+36         sum(c)=supply
+37         sum(dropout)=supply1
+38         sum(hs)=supply2
+39         sum(somecoll)=supply3
+40         sum(collplus)=supply4
+41         sum(college)=supply5
+42         sum(advanced)=supply6
+43         sum(imm)=supplyimm
+44         sum(female)=supplyfem;
+45         weight hwt;
+46         
+47         
+48         
+
+NOTE: There were 2330287 observations read from the data set C80.ONE.
+NOTE: The data set C80.CELLSUPPLY has 28502 observations and 16 variables.
+NOTE: PROCEDURE SUMMARY used (Total process time):
+      real time           8.95 seconds
+      cpu time            2.00 seconds
+      
+
+49         data c80.t1;
+50         set c80.cellsupply;
+51         if native=. and male=. and eclass=. and xclass2=.;
+52         
+53         rsupply1=supply1/supply;
+54         rsupply2=supply2/supply;
+55         rsupply3=supply3/supply;
+56         rsupply4=supply4/supply;
+3 The SAS System                                                                            22:04 Friday, March 22, 2019
+
+57         rsupply5=supply5/supply;
+58         rsupply6=supply6/supply;
+59         
+60         shs=.7*rsupply1+rsupply2+.5*rsupply3;
+61         scoll1=.5*rsupply3+rsupply4;
+62         scoll2=.5*rsupply3+rsupply5+1.2*rsupply6;
+63         logrels1=log(scoll1/shs);
+64         logrels2=log(scoll2/shs);
+65         
+66         
+
+NOTE: There were 28502 observations read from the data set C80.CELLSUPPLY.
+NOTE: The data set C80.T1 has 127 observations and 27 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.06 seconds
+      cpu time            0.02 seconds
+      
+
+67         proc means;
+68         where (rmsa ne .);
+69         var rsupply1-rsupply6 shs scoll1 scoll2 logrels1 logrels2;
+70         
+
+NOTE: There were 126 observations read from the data set C80.T1.
+      WHERE rmsa not = .;
+NOTE: The PROCEDURE MEANS printed page 1.
+NOTE: PROCEDURE MEANS used (Total process time):
+      real time           0.36 seconds
+      cpu time            0.02 seconds
+      
+
+71         proc corr;
+72         where (rmsa>3);
+73         var rsupply1-rsupply6 shs scoll1 scoll2 logrels1 logrels2;
+74         
+75         
+76         
+
+NOTE: The PROCEDURE CORR printed pages 2-3.
+NOTE: PROCEDURE CORR used (Total process time):
+      real time           0.03 seconds
+      cpu time            0.01 seconds
+      
+
+77         proc sort; by descending supply;
+78         
+
+NOTE: There were 127 observations read from the data set C80.T1.
+NOTE: The data set C80.T1 has 127 observations and 27 variables.
+NOTE: PROCEDURE SORT used (Total process time):
+      real time           0.05 seconds
+      cpu time            0.00 seconds
+      
+
+79         proc print;
+80         var rmsa supply rsupply1-rsupply6;
+NOTE: There were 127 observations read from the data set C80.T1.
+NOTE: The PROCEDURE PRINT printed pages 4-6.
+4 The SAS System                                                                            22:04 Friday, March 22, 2019
+
+NOTE: PROCEDURE PRINT used (Total process time):
+      real time           0.01 seconds
+      cpu time            0.00 seconds
+      
+
+NOTE: SAS Institute Inc., SAS Campus Drive, Cary, NC USA 27513-2414
+NOTE: The SAS System used:
+      real time           27.65 seconds
+      cpu time            3.91 seconds
+      

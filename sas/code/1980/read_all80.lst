@@ -1,0 +1,172 @@
+The SAS System                                                      17:15 Friday, March 22, 2019   1
+
+The CONTENTS Procedure
+
+Data Set Name        C80.ALL80                                         Observations          6023556
+Member Type          DATA                                              Variables             39     
+Engine               V9                                                Indexes               0      
+Created              03/22/2019 17:15:39                               Observation Length    312    
+Last Modified        03/22/2019 17:15:39                               Deleted Observations  0      
+Protection                                                             Compressed            NO     
+Data Set Type                                                          Sorted                NO     
+Label                                                                                               
+Data Representation  SOLARIS_X86_64, LINUX_X86_64,                                                  
+                     ALPHA_TRU64, LINUX_IA64                                                        
+Encoding             latin1  Western (ISO)                                                          
+
+
+                       Engine/Host Dependent Information
+
+Data Set Page Size          65536                                               
+Number of Data Set Pages    28821                                               
+First Data Page             1                                                   
+Max Obs per Page            209                                                 
+Obs in First Data Page      188                                                 
+Number of Data Set Repairs  0                                                   
+Filename                    /home/groups/sorkin/quadros/data/1980/all80.sas7bdat
+Release Created             9.0401M5                                            
+Host Created                Linux                                               
+Inode Number                8514605162                                          
+Access Permission           rw-r--r--                                           
+Owner Name                  quadros                                             
+File Size                   2GB                                                 
+File Size (bytes)           1888878592                                          
+
+
+           Alphabetic List of Variables and Attributes
+ 
+ #    Variable    Type    Len    Format      Informat    Label
+
+39    _merge      Num       8                            _merge  
+13    age         Num       8                            age     
+35    al_pob      Num       8    AL_POB.                 al_pob  
+36    al_sal      Num       8    AL_SAL.                 al_sal  
+ 3    cgroup      Num       8                            cgroup  
+17    citizen     Num       8    CITIZEN.                citizen 
+37    educ        Num       8                            educ    
+20    english     Num       8                            english 
+21    enroll      Num       8                            enroll  
+25    esr         Num       8                            esr     
+11    famrel      Num       8                            famrel  
+33    farminc     Num       8                            farminc 
+23    fingrad     Num       8                            fingrad 
+ 8    gotkids     Num       8                            gotkids 
+ 6    gq          Num       8                            gq      
+ 9    hhid        Num       8                            hhid    
+ 7    hhtype      Num       8                            hhtype  
+22    higrad      Num       8                            higrad  
+15    hispanic    Num       8    HISPANI.                hispanic
+26    hourslw     Num       8                            hourslw 
+30    hrswkly     Num       8                            hrswkly 
+The SAS System                                                      17:15 Friday, March 22, 2019   2
+
+The CONTENTS Procedure
+
+           Alphabetic List of Variables and Attributes
+ 
+ #    Variable    Type    Len    Format      Informat    Label
+
+38    imm         Num       8                            imm     
+18    immyr       Num       8                            immyr   
+34    income      Num       8                            income  
+27    ind         Num       8                            ind     
+19    lang1       Num       8                            lang1   
+10    obs         Num       8                            obs     
+28    occ         Num       8                            occ     
+ 5    p           Num       8                            p       
+16    pob         Num       8                            pob     
+14    race        Num       8    RACE.                   race    
+32    selfinc     Num       8                            selfinc 
+12    sex         Num       8                            sex     
+ 4    smsa        Num       8                            smsa    
+ 2    state       Num       8                            state   
+24    state75     Num       8                            state75 
+ 1    type        Char      1    $1.         $1.         type    
+31    wagesal     Num       8                            wagesal 
+29    weeks       Num       8                            weeks   
+The SAS System                                                      17:15 Friday, March 22, 2019   3
+
+The CONTENTS Procedure
+
+Data Set Name        C80.ALL80                                         Observations          6023556
+Member Type          DATA                                              Variables             39     
+Engine               V9                                                Indexes               0      
+Created              03/22/2019 17:15:39                               Observation Length    312    
+Last Modified        03/22/2019 17:15:47                               Deleted Observations  0      
+Protection                                                             Compressed            NO     
+Data Set Type                                                          Sorted                NO     
+Label                                                                                               
+Data Representation  SOLARIS_X86_64, LINUX_X86_64,                                                  
+                     ALPHA_TRU64, LINUX_IA64                                                        
+Encoding             latin1  Western (ISO)                                                          
+
+
+                       Engine/Host Dependent Information
+
+Data Set Page Size          65536                                               
+Number of Data Set Pages    28821                                               
+First Data Page             1                                                   
+Max Obs per Page            209                                                 
+Obs in First Data Page      188                                                 
+Number of Data Set Repairs  0                                                   
+Filename                    /home/groups/sorkin/quadros/data/1980/all80.sas7bdat
+Release Created             9.0401M5                                            
+Host Created                Linux                                               
+Inode Number                8514605162                                          
+Access Permission           rw-r--r--                                           
+Owner Name                  quadros                                             
+File Size                   2GB                                                 
+File Size (bytes)           1888878592                                          
+
+
+Alphabetic List of Variables and Attributes
+ 
+ #    Variable    Type    Len    Informat
+
+39    _merge      Num       8            
+13    age         Num       8            
+35    al_pob      Num       8            
+36    al_sal      Num       8            
+ 3    cgroup      Num       8            
+17    citizen     Num       8            
+37    educ        Num       8            
+20    english     Num       8            
+21    enroll      Num       8            
+25    esr         Num       8            
+11    famrel      Num       8            
+33    farminc     Num       8            
+23    fingrad     Num       8            
+ 8    gotkids     Num       8            
+ 6    gq          Num       8            
+ 9    hhid        Num       8            
+ 7    hhtype      Num       8            
+22    higrad      Num       8            
+15    hispanic    Num       8            
+26    hourslw     Num       8            
+30    hrswkly     Num       8            
+The SAS System                                                      17:15 Friday, March 22, 2019   4
+
+The CONTENTS Procedure
+
+Alphabetic List of Variables and Attributes
+ 
+ #    Variable    Type    Len    Informat
+
+38    imm         Num       8            
+18    immyr       Num       8            
+34    income      Num       8            
+27    ind         Num       8            
+19    lang1       Num       8            
+10    obs         Num       8            
+28    occ         Num       8            
+ 5    p           Num       8            
+16    pob         Num       8            
+14    race        Num       8            
+32    selfinc     Num       8            
+12    sex         Num       8            
+ 4    smsa        Num       8            
+ 2    state       Num       8            
+24    state75     Num       8            
+ 1    type        Char      1    $1.     
+31    wagesal     Num       8            
+29    weeks       Num       8            

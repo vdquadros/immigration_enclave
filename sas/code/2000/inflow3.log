@@ -1,0 +1,1591 @@
+1                                                          The SAS System                             12:51 Thursday, March 28, 2019
+
+NOTE: Copyright (c) 2016 by SAS Institute Inc., Cary, NC, USA. 
+NOTE: SAS (r) Proprietary Software 9.4 (TS1M5) 
+      Licensed to STANFORD UNIVERSITY - SFA -  T&R, Site 70081389.
+NOTE: This session is executing on the Linux 3.10.0-957.10.1.el7.x86_64 (LIN X64) platform.
+
+
+
+NOTE: Updated analytical products:
+      
+      SAS/STAT 14.3
+      SAS/ETS 14.3
+      SAS/OR 14.3
+      SAS/IML 14.3
+      SAS/QC 14.3
+
+NOTE: Additional host information:
+
+ Linux LIN X64 3.10.0-957.10.1.el7.x86_64 #1 SMP Mon Mar 18 15:06:45 UTC 2019 x86_64 CentOS Linux release 7.6.1810 (Core)  
+
+You are running SAS 9. Some SAS 8 files will be automatically converted 
+by the V9 engine; others are incompatible.  Please see 
+http://support.sas.com/rnd/migration/planning/platform/64bit.html
+
+PROC MIGRATE will preserve current SAS file attributes and is 
+recommended for converting all your SAS libraries from any 
+SAS 8 release to SAS 9.  For details and examples, please see
+http://support.sas.com/rnd/migration/index.html
+
+
+This message is contained in the SAS news file, and is presented upon
+initialization.  Edit the file "news" in the "misc/base" directory to
+display site-specific news and information in the program log.
+The command line option "-nonews" will prevent this display.
+
+
+
+
+NOTE: SAS initialization used:
+      real time           0.19 seconds
+      cpu time            0.06 seconds
+      
+1          *inflow3 - computes imm-based inflows by "ex" = ed/exp cell to rmsa;
+2          *output = newflows: data set with flows by skill group to each city due to imms who arrived 80-2000;
+3          
+4          options ls=120 nocenter;
+5          
+6          libname c80 '/home/groups/sorkin/quadros/data/1980' ;
+NOTE: Libref C80 was successfully assigned as follows: 
+      Engine:        V9 
+      Physical Name: /home/groups/sorkin/quadros/data/1980
+7          libname c90 '/home/groups/sorkin/quadros/data/1990' ;
+NOTE: Libref C90 was successfully assigned as follows: 
+      Engine:        V9 
+      Physical Name: /home/groups/sorkin/quadros/data/1990
+8          libname c00 '/home/groups/sorkin/quadros/data/2000' ;
+NOTE: Libref C00 was successfully assigned as follows: 
+      Engine:        V9 
+      Physical Name: /home/groups/sorkin/quadros/data/2000
+2 The SAS System                                                                          12:51 Thursday, March 28, 2019
+
+9          *libname c05 '~/ely/data/c05/cells/' ;
+10         
+11         libname here '.';
+NOTE: Libref HERE was successfully assigned as follows: 
+      Engine:        V9 
+      Physical Name: /home/groups/sorkin/quadros/code/2000
+12         
+13         
+14         
+15         
+16           /*
+17         proc summary data=one;
+18         where (new=1);
+19         class ic male;
+20         var dropout hs somecoll college advanced collplus educ exp age x1-x4
+21             ex11 ex12 ex13 ex14 ex21 ex22 ex23 ex24 ex31 ex32 ex33 ex34 ex41 ex42 ex43 ex44
+22             rmsa0 rmsa1 female wage2 logwage2 annhrs c;
+23         output out=here.byicnew
+24         mean=
+25         sum(c)=count;
+26         weight wt;
+27          */
+28         
+29         data m00;
+30         set c00.byicnew;
+31         if male=1;
+32         count00m=count;
+33         
+34         array mex (*) mex11 mex12 mex13 mex14 mex21 mex22 mex23 mex24
+35                       mex31 mex32 mex33 mex34 mex41 mex42 mex43 mex44;
+36         array  ex (*)  ex11  ex12  ex13  ex14  ex21  ex22  ex23  ex24
+37                        ex31  ex32  ex33  ex34  ex41  ex42  ex43  ex44;
+38         
+39         do j=1 to 16;
+40         mex(j)=ex(j);
+41         end;
+42         
+43         mhrs=annhrs;
+44         keep ic count00m mhrs mex11 mex12 mex13 mex14 mex21 mex22 mex23 mex24
+45                          mex31 mex32 mex33 mex34 mex41 mex42 mex43 mex44;
+46         
+
+NOTE: There were 117 observations read from the data set C00.BYICNEW.
+NOTE: The data set WORK.M00 has 39 observations and 19 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.02 seconds
+      cpu time            0.00 seconds
+      
+
+47         data f00;
+48         set c00.byicnew;
+49         if male=0;
+50         count00f=count;
+51         array fex (*) fex11 fex12 fex13 fex14 fex21 fex22 fex23 fex24
+52                       fex31 fex32 fex33 fex34 fex41 fex42 fex43 fex44;
+53         array  ex (*)  ex11  ex12  ex13  ex14  ex21  ex22  ex23  ex24
+54                        ex31  ex32  ex33  ex34  ex41  ex42  ex43  ex44;
+55         
+3 The SAS System                                                                          12:51 Thursday, March 28, 2019
+
+56         do j=1 to 16;
+57         fex(j)=ex(j);
+58         end;
+59         fhrs=annhrs;
+60         
+61         keep ic count00f fhrs fex11 fex12 fex13 fex14 fex21 fex22 fex23 fex24
+62                          fex31 fex32 fex33 fex34 fex41 fex42 fex43 fex44;
+63         
+64         
+
+NOTE: There were 117 observations read from the data set C00.BYICNEW.
+NOTE: The data set WORK.F00 has 39 observations and 19 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.01 seconds
+      cpu time            0.00 seconds
+      
+
+65         proc sort data=m00; by ic;
+
+NOTE: There were 39 observations read from the data set WORK.M00.
+NOTE: The data set WORK.M00 has 39 observations and 19 variables.
+NOTE: PROCEDURE SORT used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+66         proc sort data=f00; by ic;
+67         
+
+NOTE: There were 39 observations read from the data set WORK.F00.
+NOTE: The data set WORK.F00 has 39 observations and 19 variables.
+NOTE: PROCEDURE SORT used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+68         data one;
+69         merge m00 f00 ;
+70         by ic;
+71         
+72         
+73         array mex (*) mex11 mex12 mex13 mex14 mex21 mex22 mex23 mex24
+74                       mex31 mex32 mex33 mex34 mex41 mex42 mex43 mex44;
+75         
+76         array fex (*) fex11 fex12 fex13 fex14 fex21 fex22 fex23 fex24
+77                       fex31 fex32 fex33 fex34 fex41 fex42 fex43 fex44;
+78         
+79         array inex (*) inex11 inex12 inex13 inex14 inex21 inex22 inex23 inex24
+80                       inex31 inex32 inex33 inex34 inex41 inex42 inex43 inex44;
+81         
+82         array hinex (*) hinex11 hinex12 hinex13 hinex14 hinex21 hinex22 hinex23 hinex24
+83                       hinex31 hinex32 hinex33 hinex34 hinex41 hinex42 hinex43 hinex44;
+84         
+85         do j=1 to 16;
+86         inex(j)=count00m*mex(j) + count00f*fex(j);
+87         hinex(j)=count00m*(mhrs/2000)*mex(j) + count00f*(fhrs/2000)*fex(j);
+88         end;
+89         
+4 The SAS System                                                                          12:51 Thursday, March 28, 2019
+
+90         indrop=inex11+inex12+inex13+inex14;
+91         inhs  =inex21+inex22+inex23+inex24;
+92         insome=inex31+inex32+inex33+inex34;
+93         incoll=inex41+inex42+inex43+inex44;
+94         
+95         hindrop=hinex11+hinex12+hinex13+hinex14;
+96         hinhs  =hinex21+hinex22+hinex23+hinex24;
+97         hinsome=hinex31+hinex32+hinex33+hinex34;
+98         hincoll=hinex41+hinex42+hinex43+hinex44;
+99         
+100        
+101        inall=count00m+count00f;
+102        indroprate=indrop/inall;
+103        inhsrate=inhs/inall;
+104        insomerate=insome/inall;
+105        incollrate=incoll/inall;
+106        
+107        hinall=hindrop+hinhs+hinsome+hincoll;
+108        hindroprate=hindrop/hinall;
+109        hinhsrate=hinhs/hinall;
+110        hinsomerate=hinsome/hinall;
+111        hincollrate=hincoll/hinall;
+112        
+113        
+114        *proc print;
+115        *var ic inall hinall indroprate hindroprate incollrate hincollrate;
+116        
+117        
+
+NOTE: There were 39 observations read from the data set WORK.M00.
+NOTE: There were 39 observations read from the data set WORK.F00.
+NOTE: The data set WORK.ONE has 39 observations and 88 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.01 seconds
+      
+
+118        data two;
+119        set one;
+120        if ic ne . ;
+121        
+122        keep  inex11 inex12 inex13 inex14 inex21 inex22 inex23 inex24
+123              inex31 inex32 inex33 inex34 inex41 inex42 inex43 inex44;
+124        
+125        
+126        
+
+NOTE: There were 39 observations read from the data set WORK.ONE.
+NOTE: The data set WORK.TWO has 38 observations and 16 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+127        proc transpose data=two out=tt;
+
+NOTE: There were 38 observations read from the data set WORK.TWO.
+NOTE: The data set WORK.TT has 16 observations and 39 variables.
+5 The SAS System                                                                          12:51 Thursday, March 28, 2019
+
+NOTE: PROCEDURE TRANSPOSE used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+128        proc print data=tt;
+129        
+130        *data set tt has 16 rows (inex11...inex44) x 38 cols (ic1...ic38);
+131        *next lines sum across cols to get total inflows ;
+132        
+
+NOTE: There were 16 observations read from the data set WORK.TT.
+NOTE: The PROCEDURE PRINT printed page 1.
+NOTE: PROCEDURE PRINT used (Total process time):
+      real time           0.05 seconds
+      cpu time            0.03 seconds
+      
+
+133        data checker;
+134        set tt;
+135        array col (*) col1-col38;
+136        tot=0;
+137        do j=1 to 38;
+138        tot=tot+col(j);
+139        end;
+
+NOTE: There were 16 observations read from the data set WORK.TT.
+NOTE: The data set WORK.CHECKER has 16 observations and 41 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+140        proc print;
+141        var tot;
+142        
+143        
+144        
+145        
+
+NOTE: There were 16 observations read from the data set WORK.CHECKER.
+NOTE: The PROCEDURE PRINT printed page 2.
+NOTE: PROCEDURE PRINT used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+146        data loc80;
+147        set c80.ic_city;
+148        *initial imm shares: each row is a city, each col(XX) is shricXX ;
+149        *check that rows sum to 1;
+
+NOTE: There were 126 observations read from the data set C80.IC_CITY.
+NOTE: The data set WORK.LOC80 has 126 observations and 42 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+6 The SAS System                                                                          12:51 Thursday, March 28, 2019
+
+
+150        proc means n mean sum;
+151        var shric1-shric38;
+152        
+153        
+154        
+155        
+156        %macro inflow(ex);
+157        %let rex=&ex;
+158        
+159        data temp;
+160        set loc80;
+161        d=1;
+162        proc sort; by d;
+163        
+164        data in;
+165        set tt;
+166        if _n_=&rex;  /*get this row only*/
+167        d=1;
+168        proc print;
+169        proc sort; by d;
+170        
+171        data inflow&rex;
+172        merge temp in;
+173        by d;
+174        array shric (*) shric1-shric38;
+175        array inflow (*) col1-col38;
+176        
+177        total=0;
+178        do j=1 to 38;
+179        total=total+shric(j)*inflow(j);
+180        end;
+181        
+182        inflow&rex=total;
+183        inflownm&rex=total-shric1*col1;  /*no mex*/
+184        keep rmsa inflow&rex inflownm&rex;
+185        
+186        proc means n mean sum;
+187        var inflow&rex inflownm&rex;
+188        
+189        proc sort; by rmsa;
+190        *proc print;
+191        *var rmsa inflow&rex;
+192        
+193        %mend;
+194        
+195        %inflow(1);
+
+NOTE: There were 126 observations read from the data set WORK.LOC80.
+NOTE: The PROCEDURE MEANS printed page 3.
+NOTE: PROCEDURE MEANS used (Total process time):
+      real time           0.02 seconds
+      cpu time            0.01 seconds
+      
+
+
+NOTE: There were 126 observations read from the data set WORK.LOC80.
+NOTE: The data set WORK.TEMP has 126 observations and 43 variables.
+7 The SAS System                                                                          12:51 Thursday, March 28, 2019
+
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+
+NOTE: There were 126 observations read from the data set WORK.TEMP.
+NOTE: The data set WORK.TEMP has 126 observations and 43 variables.
+NOTE: PROCEDURE SORT used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+
+NOTE: There were 16 observations read from the data set WORK.TT.
+NOTE: The data set WORK.IN has 1 observations and 40 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+
+NOTE: There were 1 observations read from the data set WORK.IN.
+NOTE: The PROCEDURE PRINT printed page 4.
+NOTE: PROCEDURE PRINT used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+
+NOTE: There were 1 observations read from the data set WORK.IN.
+NOTE: The data set WORK.IN has 1 observations and 40 variables.
+NOTE: PROCEDURE SORT used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+
+NOTE: There were 126 observations read from the data set WORK.TEMP.
+NOTE: There were 1 observations read from the data set WORK.IN.
+NOTE: The data set WORK.INFLOW1 has 126 observations and 3 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.01 seconds
+      
+
+NOTE: There were 126 observations read from the data set WORK.INFLOW1.
+NOTE: The PROCEDURE MEANS printed page 5.
+NOTE: PROCEDURE MEANS used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.01 seconds
+      
+
+196        %inflow(2);
+
+NOTE: There were 126 observations read from the data set WORK.INFLOW1.
+NOTE: The data set WORK.INFLOW1 has 126 observations and 3 variables.
+NOTE: PROCEDURE SORT used (Total process time):
+8 The SAS System                                                                          12:51 Thursday, March 28, 2019
+
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+
+NOTE: There were 126 observations read from the data set WORK.LOC80.
+NOTE: The data set WORK.TEMP has 126 observations and 43 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+
+NOTE: There were 126 observations read from the data set WORK.TEMP.
+NOTE: The data set WORK.TEMP has 126 observations and 43 variables.
+NOTE: PROCEDURE SORT used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+
+NOTE: There were 16 observations read from the data set WORK.TT.
+NOTE: The data set WORK.IN has 1 observations and 40 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+
+NOTE: There were 1 observations read from the data set WORK.IN.
+NOTE: The PROCEDURE PRINT printed page 6.
+NOTE: PROCEDURE PRINT used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+
+NOTE: There were 1 observations read from the data set WORK.IN.
+NOTE: The data set WORK.IN has 1 observations and 40 variables.
+NOTE: PROCEDURE SORT used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+
+NOTE: There were 126 observations read from the data set WORK.TEMP.
+NOTE: There were 1 observations read from the data set WORK.IN.
+NOTE: The data set WORK.INFLOW2 has 126 observations and 3 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+NOTE: There were 126 observations read from the data set WORK.INFLOW2.
+NOTE: The PROCEDURE MEANS printed page 7.
+NOTE: PROCEDURE MEANS used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.01 seconds
+9 The SAS System                                                                          12:51 Thursday, March 28, 2019
+
+      
+
+197        %inflow(3);
+
+NOTE: There were 126 observations read from the data set WORK.INFLOW2.
+NOTE: The data set WORK.INFLOW2 has 126 observations and 3 variables.
+NOTE: PROCEDURE SORT used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+
+NOTE: There were 126 observations read from the data set WORK.LOC80.
+NOTE: The data set WORK.TEMP has 126 observations and 43 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+
+NOTE: There were 126 observations read from the data set WORK.TEMP.
+NOTE: The data set WORK.TEMP has 126 observations and 43 variables.
+NOTE: PROCEDURE SORT used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+
+NOTE: There were 16 observations read from the data set WORK.TT.
+NOTE: The data set WORK.IN has 1 observations and 40 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.01 seconds
+      
+
+
+NOTE: There were 1 observations read from the data set WORK.IN.
+NOTE: The PROCEDURE PRINT printed page 8.
+NOTE: PROCEDURE PRINT used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+
+NOTE: There were 1 observations read from the data set WORK.IN.
+NOTE: The data set WORK.IN has 1 observations and 40 variables.
+NOTE: PROCEDURE SORT used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+
+NOTE: There were 126 observations read from the data set WORK.TEMP.
+NOTE: There were 1 observations read from the data set WORK.IN.
+NOTE: The data set WORK.INFLOW3 has 126 observations and 3 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+10 The SAS System                                                                         12:51 Thursday, March 28, 2019
+
+      
+
+NOTE: There were 126 observations read from the data set WORK.INFLOW3.
+NOTE: The PROCEDURE MEANS printed page 9.
+NOTE: PROCEDURE MEANS used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+198        %inflow(4);
+
+NOTE: There were 126 observations read from the data set WORK.INFLOW3.
+NOTE: The data set WORK.INFLOW3 has 126 observations and 3 variables.
+NOTE: PROCEDURE SORT used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+
+NOTE: There were 126 observations read from the data set WORK.LOC80.
+NOTE: The data set WORK.TEMP has 126 observations and 43 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.01 seconds
+      
+
+
+NOTE: There were 126 observations read from the data set WORK.TEMP.
+NOTE: The data set WORK.TEMP has 126 observations and 43 variables.
+NOTE: PROCEDURE SORT used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+
+NOTE: There were 16 observations read from the data set WORK.TT.
+NOTE: The data set WORK.IN has 1 observations and 40 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.01 seconds
+      
+
+
+NOTE: There were 1 observations read from the data set WORK.IN.
+NOTE: The PROCEDURE PRINT printed page 10.
+NOTE: PROCEDURE PRINT used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+
+NOTE: There were 1 observations read from the data set WORK.IN.
+NOTE: The data set WORK.IN has 1 observations and 40 variables.
+NOTE: PROCEDURE SORT used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+11 The SAS System                                                                         12:51 Thursday, March 28, 2019
+
+
+NOTE: There were 126 observations read from the data set WORK.TEMP.
+NOTE: There were 1 observations read from the data set WORK.IN.
+NOTE: The data set WORK.INFLOW4 has 126 observations and 3 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+NOTE: There were 126 observations read from the data set WORK.INFLOW4.
+NOTE: The PROCEDURE MEANS printed page 11.
+NOTE: PROCEDURE MEANS used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+199        %inflow(5);
+
+NOTE: There were 126 observations read from the data set WORK.INFLOW4.
+NOTE: The data set WORK.INFLOW4 has 126 observations and 3 variables.
+NOTE: PROCEDURE SORT used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+
+NOTE: There were 126 observations read from the data set WORK.LOC80.
+NOTE: The data set WORK.TEMP has 126 observations and 43 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+
+NOTE: There were 126 observations read from the data set WORK.TEMP.
+NOTE: The data set WORK.TEMP has 126 observations and 43 variables.
+NOTE: PROCEDURE SORT used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.01 seconds
+      
+
+
+NOTE: There were 16 observations read from the data set WORK.TT.
+NOTE: The data set WORK.IN has 1 observations and 40 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+
+NOTE: There were 1 observations read from the data set WORK.IN.
+NOTE: The PROCEDURE PRINT printed page 12.
+NOTE: PROCEDURE PRINT used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+
+12 The SAS System                                                                         12:51 Thursday, March 28, 2019
+
+NOTE: There were 1 observations read from the data set WORK.IN.
+NOTE: The data set WORK.IN has 1 observations and 40 variables.
+NOTE: PROCEDURE SORT used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+
+NOTE: There were 126 observations read from the data set WORK.TEMP.
+NOTE: There were 1 observations read from the data set WORK.IN.
+NOTE: The data set WORK.INFLOW5 has 126 observations and 3 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+NOTE: There were 126 observations read from the data set WORK.INFLOW5.
+NOTE: The PROCEDURE MEANS printed page 13.
+NOTE: PROCEDURE MEANS used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.01 seconds
+      
+
+200        %inflow(6);
+
+NOTE: There were 126 observations read from the data set WORK.INFLOW5.
+NOTE: The data set WORK.INFLOW5 has 126 observations and 3 variables.
+NOTE: PROCEDURE SORT used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+
+NOTE: There were 126 observations read from the data set WORK.LOC80.
+NOTE: The data set WORK.TEMP has 126 observations and 43 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+
+NOTE: There were 126 observations read from the data set WORK.TEMP.
+NOTE: The data set WORK.TEMP has 126 observations and 43 variables.
+NOTE: PROCEDURE SORT used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+
+NOTE: There were 16 observations read from the data set WORK.TT.
+NOTE: The data set WORK.IN has 1 observations and 40 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+
+NOTE: There were 1 observations read from the data set WORK.IN.
+13 The SAS System                                                                         12:51 Thursday, March 28, 2019
+
+NOTE: The PROCEDURE PRINT printed page 14.
+NOTE: PROCEDURE PRINT used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+
+NOTE: There were 1 observations read from the data set WORK.IN.
+NOTE: The data set WORK.IN has 1 observations and 40 variables.
+NOTE: PROCEDURE SORT used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+
+NOTE: There were 126 observations read from the data set WORK.TEMP.
+NOTE: There were 1 observations read from the data set WORK.IN.
+NOTE: The data set WORK.INFLOW6 has 126 observations and 3 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.01 seconds
+      
+
+NOTE: There were 126 observations read from the data set WORK.INFLOW6.
+NOTE: The PROCEDURE MEANS printed page 15.
+NOTE: PROCEDURE MEANS used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+201        %inflow(7);
+
+NOTE: There were 126 observations read from the data set WORK.INFLOW6.
+NOTE: The data set WORK.INFLOW6 has 126 observations and 3 variables.
+NOTE: PROCEDURE SORT used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+
+NOTE: There were 126 observations read from the data set WORK.LOC80.
+NOTE: The data set WORK.TEMP has 126 observations and 43 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.01 seconds
+      
+
+
+NOTE: There were 126 observations read from the data set WORK.TEMP.
+NOTE: The data set WORK.TEMP has 126 observations and 43 variables.
+NOTE: PROCEDURE SORT used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+
+NOTE: There were 16 observations read from the data set WORK.TT.
+NOTE: The data set WORK.IN has 1 observations and 40 variables.
+14 The SAS System                                                                         12:51 Thursday, March 28, 2019
+
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+
+NOTE: There were 1 observations read from the data set WORK.IN.
+NOTE: The PROCEDURE PRINT printed page 16.
+NOTE: PROCEDURE PRINT used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.01 seconds
+      
+
+
+NOTE: There were 1 observations read from the data set WORK.IN.
+NOTE: The data set WORK.IN has 1 observations and 40 variables.
+NOTE: PROCEDURE SORT used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+
+NOTE: There were 126 observations read from the data set WORK.TEMP.
+NOTE: There were 1 observations read from the data set WORK.IN.
+NOTE: The data set WORK.INFLOW7 has 126 observations and 3 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+NOTE: There were 126 observations read from the data set WORK.INFLOW7.
+NOTE: The PROCEDURE MEANS printed page 17.
+NOTE: PROCEDURE MEANS used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+202        %inflow(8);
+
+NOTE: There were 126 observations read from the data set WORK.INFLOW7.
+NOTE: The data set WORK.INFLOW7 has 126 observations and 3 variables.
+NOTE: PROCEDURE SORT used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+
+NOTE: There were 126 observations read from the data set WORK.LOC80.
+NOTE: The data set WORK.TEMP has 126 observations and 43 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+
+NOTE: There were 126 observations read from the data set WORK.TEMP.
+NOTE: The data set WORK.TEMP has 126 observations and 43 variables.
+NOTE: PROCEDURE SORT used (Total process time):
+15 The SAS System                                                                         12:51 Thursday, March 28, 2019
+
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+
+NOTE: There were 16 observations read from the data set WORK.TT.
+NOTE: The data set WORK.IN has 1 observations and 40 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+
+NOTE: There were 1 observations read from the data set WORK.IN.
+NOTE: The PROCEDURE PRINT printed page 18.
+NOTE: PROCEDURE PRINT used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.01 seconds
+      
+
+
+NOTE: There were 1 observations read from the data set WORK.IN.
+NOTE: The data set WORK.IN has 1 observations and 40 variables.
+NOTE: PROCEDURE SORT used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+
+NOTE: There were 126 observations read from the data set WORK.TEMP.
+NOTE: There were 1 observations read from the data set WORK.IN.
+NOTE: The data set WORK.INFLOW8 has 126 observations and 3 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+NOTE: There were 126 observations read from the data set WORK.INFLOW8.
+NOTE: The PROCEDURE MEANS printed page 19.
+NOTE: PROCEDURE MEANS used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.01 seconds
+      
+
+203        %inflow(9);
+
+NOTE: There were 126 observations read from the data set WORK.INFLOW8.
+NOTE: The data set WORK.INFLOW8 has 126 observations and 3 variables.
+NOTE: PROCEDURE SORT used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+
+NOTE: There were 126 observations read from the data set WORK.LOC80.
+NOTE: The data set WORK.TEMP has 126 observations and 43 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+16 The SAS System                                                                         12:51 Thursday, March 28, 2019
+
+      cpu time            0.00 seconds
+      
+
+
+NOTE: There were 126 observations read from the data set WORK.TEMP.
+NOTE: The data set WORK.TEMP has 126 observations and 43 variables.
+NOTE: PROCEDURE SORT used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+
+NOTE: There were 16 observations read from the data set WORK.TT.
+NOTE: The data set WORK.IN has 1 observations and 40 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.01 seconds
+      
+
+
+NOTE: There were 1 observations read from the data set WORK.IN.
+NOTE: The PROCEDURE PRINT printed page 20.
+NOTE: PROCEDURE PRINT used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+
+NOTE: There were 1 observations read from the data set WORK.IN.
+NOTE: The data set WORK.IN has 1 observations and 40 variables.
+NOTE: PROCEDURE SORT used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+
+NOTE: There were 126 observations read from the data set WORK.TEMP.
+NOTE: There were 1 observations read from the data set WORK.IN.
+NOTE: The data set WORK.INFLOW9 has 126 observations and 3 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+NOTE: There were 126 observations read from the data set WORK.INFLOW9.
+NOTE: The PROCEDURE MEANS printed page 21.
+NOTE: PROCEDURE MEANS used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+204        %inflow(10);
+
+NOTE: There were 126 observations read from the data set WORK.INFLOW9.
+NOTE: The data set WORK.INFLOW9 has 126 observations and 3 variables.
+NOTE: PROCEDURE SORT used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.01 seconds
+17 The SAS System                                                                         12:51 Thursday, March 28, 2019
+
+      
+
+
+NOTE: There were 126 observations read from the data set WORK.LOC80.
+NOTE: The data set WORK.TEMP has 126 observations and 43 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+
+NOTE: There were 126 observations read from the data set WORK.TEMP.
+NOTE: The data set WORK.TEMP has 126 observations and 43 variables.
+NOTE: PROCEDURE SORT used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+
+NOTE: There were 16 observations read from the data set WORK.TT.
+NOTE: The data set WORK.IN has 1 observations and 40 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+
+NOTE: There were 1 observations read from the data set WORK.IN.
+NOTE: The PROCEDURE PRINT printed page 22.
+NOTE: PROCEDURE PRINT used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+
+NOTE: There were 1 observations read from the data set WORK.IN.
+NOTE: The data set WORK.IN has 1 observations and 40 variables.
+NOTE: PROCEDURE SORT used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.01 seconds
+      
+
+
+NOTE: There were 126 observations read from the data set WORK.TEMP.
+NOTE: There were 1 observations read from the data set WORK.IN.
+NOTE: The data set WORK.INFLOW10 has 126 observations and 3 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+NOTE: There were 126 observations read from the data set WORK.INFLOW10.
+NOTE: The PROCEDURE MEANS printed page 23.
+NOTE: PROCEDURE MEANS used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+18 The SAS System                                                                         12:51 Thursday, March 28, 2019
+
+205        %inflow(11);
+
+NOTE: There were 126 observations read from the data set WORK.INFLOW10.
+NOTE: The data set WORK.INFLOW10 has 126 observations and 3 variables.
+NOTE: PROCEDURE SORT used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+
+NOTE: There were 126 observations read from the data set WORK.LOC80.
+NOTE: The data set WORK.TEMP has 126 observations and 43 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+
+NOTE: There were 126 observations read from the data set WORK.TEMP.
+NOTE: The data set WORK.TEMP has 126 observations and 43 variables.
+NOTE: PROCEDURE SORT used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+
+NOTE: There were 16 observations read from the data set WORK.TT.
+NOTE: The data set WORK.IN has 1 observations and 40 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+
+NOTE: There were 1 observations read from the data set WORK.IN.
+NOTE: The PROCEDURE PRINT printed page 24.
+NOTE: PROCEDURE PRINT used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.01 seconds
+      
+
+
+NOTE: There were 1 observations read from the data set WORK.IN.
+NOTE: The data set WORK.IN has 1 observations and 40 variables.
+NOTE: PROCEDURE SORT used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+
+NOTE: There were 126 observations read from the data set WORK.TEMP.
+NOTE: There were 1 observations read from the data set WORK.IN.
+NOTE: The data set WORK.INFLOW11 has 126 observations and 3 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+19 The SAS System                                                                         12:51 Thursday, March 28, 2019
+
+NOTE: There were 126 observations read from the data set WORK.INFLOW11.
+NOTE: The PROCEDURE MEANS printed page 25.
+NOTE: PROCEDURE MEANS used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+206        %inflow(12);
+
+NOTE: There were 126 observations read from the data set WORK.INFLOW11.
+NOTE: The data set WORK.INFLOW11 has 126 observations and 3 variables.
+NOTE: PROCEDURE SORT used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.01 seconds
+      
+
+
+NOTE: There were 126 observations read from the data set WORK.LOC80.
+NOTE: The data set WORK.TEMP has 126 observations and 43 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.01 seconds
+      
+
+
+NOTE: There were 126 observations read from the data set WORK.TEMP.
+NOTE: The data set WORK.TEMP has 126 observations and 43 variables.
+NOTE: PROCEDURE SORT used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+
+NOTE: There were 16 observations read from the data set WORK.TT.
+NOTE: The data set WORK.IN has 1 observations and 40 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+
+NOTE: There were 1 observations read from the data set WORK.IN.
+NOTE: The PROCEDURE PRINT printed page 26.
+NOTE: PROCEDURE PRINT used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+
+NOTE: There were 1 observations read from the data set WORK.IN.
+NOTE: The data set WORK.IN has 1 observations and 40 variables.
+NOTE: PROCEDURE SORT used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+
+NOTE: There were 126 observations read from the data set WORK.TEMP.
+20 The SAS System                                                                         12:51 Thursday, March 28, 2019
+
+NOTE: There were 1 observations read from the data set WORK.IN.
+NOTE: The data set WORK.INFLOW12 has 126 observations and 3 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+NOTE: There were 126 observations read from the data set WORK.INFLOW12.
+NOTE: The PROCEDURE MEANS printed page 27.
+NOTE: PROCEDURE MEANS used (Total process time):
+      real time           0.01 seconds
+      cpu time            0.01 seconds
+      
+
+207        %inflow(13);
+
+NOTE: There were 126 observations read from the data set WORK.INFLOW12.
+NOTE: The data set WORK.INFLOW12 has 126 observations and 3 variables.
+NOTE: PROCEDURE SORT used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+
+NOTE: There were 126 observations read from the data set WORK.LOC80.
+NOTE: The data set WORK.TEMP has 126 observations and 43 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+
+NOTE: There were 126 observations read from the data set WORK.TEMP.
+NOTE: The data set WORK.TEMP has 126 observations and 43 variables.
+NOTE: PROCEDURE SORT used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+
+NOTE: There were 16 observations read from the data set WORK.TT.
+NOTE: The data set WORK.IN has 1 observations and 40 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+
+NOTE: There were 1 observations read from the data set WORK.IN.
+NOTE: The PROCEDURE PRINT printed page 28.
+NOTE: PROCEDURE PRINT used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+
+NOTE: There were 1 observations read from the data set WORK.IN.
+NOTE: The data set WORK.IN has 1 observations and 40 variables.
+21 The SAS System                                                                         12:51 Thursday, March 28, 2019
+
+NOTE: PROCEDURE SORT used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+
+NOTE: There were 126 observations read from the data set WORK.TEMP.
+NOTE: There were 1 observations read from the data set WORK.IN.
+NOTE: The data set WORK.INFLOW13 has 126 observations and 3 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+NOTE: There were 126 observations read from the data set WORK.INFLOW13.
+NOTE: The PROCEDURE MEANS printed page 29.
+NOTE: PROCEDURE MEANS used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.01 seconds
+      
+
+208        %inflow(14);
+
+NOTE: There were 126 observations read from the data set WORK.INFLOW13.
+NOTE: The data set WORK.INFLOW13 has 126 observations and 3 variables.
+NOTE: PROCEDURE SORT used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.01 seconds
+      
+
+
+NOTE: There were 126 observations read from the data set WORK.LOC80.
+NOTE: The data set WORK.TEMP has 126 observations and 43 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+
+NOTE: There were 126 observations read from the data set WORK.TEMP.
+NOTE: The data set WORK.TEMP has 126 observations and 43 variables.
+NOTE: PROCEDURE SORT used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+
+NOTE: There were 16 observations read from the data set WORK.TT.
+NOTE: The data set WORK.IN has 1 observations and 40 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+
+NOTE: There were 1 observations read from the data set WORK.IN.
+NOTE: The PROCEDURE PRINT printed page 30.
+NOTE: PROCEDURE PRINT used (Total process time):
+22 The SAS System                                                                         12:51 Thursday, March 28, 2019
+
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+
+NOTE: There were 1 observations read from the data set WORK.IN.
+NOTE: The data set WORK.IN has 1 observations and 40 variables.
+NOTE: PROCEDURE SORT used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+
+NOTE: There were 126 observations read from the data set WORK.TEMP.
+NOTE: There were 1 observations read from the data set WORK.IN.
+NOTE: The data set WORK.INFLOW14 has 126 observations and 3 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+NOTE: There were 126 observations read from the data set WORK.INFLOW14.
+NOTE: The PROCEDURE MEANS printed page 31.
+NOTE: PROCEDURE MEANS used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.01 seconds
+      
+
+209        %inflow(15);
+
+NOTE: There were 126 observations read from the data set WORK.INFLOW14.
+NOTE: The data set WORK.INFLOW14 has 126 observations and 3 variables.
+NOTE: PROCEDURE SORT used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+
+NOTE: There were 126 observations read from the data set WORK.LOC80.
+NOTE: The data set WORK.TEMP has 126 observations and 43 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+
+NOTE: There were 126 observations read from the data set WORK.TEMP.
+NOTE: The data set WORK.TEMP has 126 observations and 43 variables.
+NOTE: PROCEDURE SORT used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+
+NOTE: There were 16 observations read from the data set WORK.TT.
+NOTE: The data set WORK.IN has 1 observations and 40 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+23 The SAS System                                                                         12:51 Thursday, March 28, 2019
+
+      cpu time            0.01 seconds
+      
+
+
+NOTE: There were 1 observations read from the data set WORK.IN.
+NOTE: The PROCEDURE PRINT printed page 32.
+NOTE: PROCEDURE PRINT used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+
+NOTE: There were 1 observations read from the data set WORK.IN.
+NOTE: The data set WORK.IN has 1 observations and 40 variables.
+NOTE: PROCEDURE SORT used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+
+NOTE: There were 126 observations read from the data set WORK.TEMP.
+NOTE: There were 1 observations read from the data set WORK.IN.
+NOTE: The data set WORK.INFLOW15 has 126 observations and 3 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+NOTE: There were 126 observations read from the data set WORK.INFLOW15.
+NOTE: The PROCEDURE MEANS printed page 33.
+NOTE: PROCEDURE MEANS used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.01 seconds
+      
+
+210        %inflow(16);
+
+NOTE: There were 126 observations read from the data set WORK.INFLOW15.
+NOTE: The data set WORK.INFLOW15 has 126 observations and 3 variables.
+NOTE: PROCEDURE SORT used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+
+NOTE: There were 126 observations read from the data set WORK.LOC80.
+NOTE: The data set WORK.TEMP has 126 observations and 43 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+
+NOTE: There were 126 observations read from the data set WORK.TEMP.
+NOTE: The data set WORK.TEMP has 126 observations and 43 variables.
+NOTE: PROCEDURE SORT used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+24 The SAS System                                                                         12:51 Thursday, March 28, 2019
+
+      
+
+
+NOTE: There were 16 observations read from the data set WORK.TT.
+NOTE: The data set WORK.IN has 1 observations and 40 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.01 seconds
+      
+
+
+NOTE: There were 1 observations read from the data set WORK.IN.
+NOTE: The PROCEDURE PRINT printed page 34.
+NOTE: PROCEDURE PRINT used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+
+NOTE: There were 1 observations read from the data set WORK.IN.
+NOTE: The data set WORK.IN has 1 observations and 40 variables.
+NOTE: PROCEDURE SORT used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+
+NOTE: There were 126 observations read from the data set WORK.TEMP.
+NOTE: There were 1 observations read from the data set WORK.IN.
+NOTE: The data set WORK.INFLOW16 has 126 observations and 3 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+NOTE: There were 126 observations read from the data set WORK.INFLOW16.
+NOTE: The PROCEDURE MEANS printed page 35.
+NOTE: PROCEDURE MEANS used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.01 seconds
+      
+
+211        
+
+NOTE: There were 126 observations read from the data set WORK.INFLOW16.
+NOTE: The data set WORK.INFLOW16 has 126 observations and 3 variables.
+NOTE: PROCEDURE SORT used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+212        data here.newflows;
+213        merge inflow1 inflow2 inflow3 inflow4 inflow5 inflow6 inflow7 inflow8
+214              inflow9 inflow10 inflow11 inflow12 inflow13 inflow14 inflow15 inflow16;
+215        inex11=inflow1;
+216        inex12=inflow2;
+217        inex13=inflow3;
+218        inex14=inflow4;
+25 The SAS System                                                                         12:51 Thursday, March 28, 2019
+
+219        inex21=inflow5;
+220        inex22=inflow6;
+221        inex23=inflow7;
+222        inex24=inflow8;
+223        inex31=inflow9;
+224        inex32=inflow10;
+225        inex33=inflow11;
+226        inex34=inflow12;
+227        inex41=inflow13;
+228        inex42=inflow14;
+229        inex43=inflow15;
+230        inex44=inflow16;
+231        
+232        innmex11=inflownm1;
+233        innmex12=inflownm2;
+234        innmex13=inflownm3;
+235        innmex14=inflownm4;
+236        innmex21=inflownm5;
+237        innmex22=inflownm6;
+238        innmex23=inflownm7;
+239        innmex24=inflownm8;
+240        innmex31=inflownm9;
+241        innmex32=inflownm10;
+242        innmex33=inflownm11;
+243        innmex34=inflownm12;
+244        innmex41=inflownm13;
+245        innmex42=inflownm14;
+246        innmex43=inflownm15;
+247        innmex44=inflownm16;
+248        
+249        array inflow (*) inflow1-inflow16;
+250        array inflownm (*) inflownm1-inflownm16;
+251        
+252        inall=0;
+253        innm=0;
+254        do j=1 to 16;
+255        inall=inall+inflow(j);
+256        innm=innm+inflownm(j);
+257        end;
+258        
+259        
+260        indrop=inex11+inex12+inex13+inex14;
+261        inhs  =inex21+inex22+inex23+inex24;
+262        insome=inex31+inex32+inex33+inex34;
+263        incoll=inex41+inex42+inex43+inex44;
+264        
+265        innmdrop=innmex11+innmex12+innmex13+innmex14;
+266        innmhs  =innmex21+innmex22+innmex23+innmex24;
+267        innmsome=innmex31+innmex32+innmex33+innmex34;
+268        innmcoll=innmex41+innmex42+innmex43+innmex44;
+269        
+270        sindrop=indrop/inall;
+271        sinhs=inhs/inall;
+272        sinsome=insome/inall;
+273        sincoll=incoll/inall;
+274        smex=(inall-innm)/inall;
+275        
+276        
+26 The SAS System                                                                         12:51 Thursday, March 28, 2019
+
+277        keep rmsa inall indrop inhs insome incoll sindrop sinhs sinsome sincoll innm smex
+278                      innmdrop innmhs innmsome innmcoll
+279                      inex11 inex12 inex13 inex14 inex21 inex22 inex23 inex24
+280                      inex31 inex32 inex33 inex34 inex41 inex42 inex43 inex44
+281                      innmex11 innmex12 innmex13 innmex14 innmex21 innmex22 innmex23 innmex24
+282                      innmex31 innmex32 innmex33 innmex34 innmex41 innmex42 innmex43 innmex44;
+283        
+284        
+
+NOTE: There were 126 observations read from the data set WORK.INFLOW1.
+NOTE: There were 126 observations read from the data set WORK.INFLOW2.
+NOTE: There were 126 observations read from the data set WORK.INFLOW3.
+NOTE: There were 126 observations read from the data set WORK.INFLOW4.
+NOTE: There were 126 observations read from the data set WORK.INFLOW5.
+NOTE: There were 126 observations read from the data set WORK.INFLOW6.
+NOTE: There were 126 observations read from the data set WORK.INFLOW7.
+NOTE: There were 126 observations read from the data set WORK.INFLOW8.
+NOTE: There were 126 observations read from the data set WORK.INFLOW9.
+NOTE: There were 126 observations read from the data set WORK.INFLOW10.
+NOTE: There were 126 observations read from the data set WORK.INFLOW11.
+NOTE: There were 126 observations read from the data set WORK.INFLOW12.
+NOTE: There were 126 observations read from the data set WORK.INFLOW13.
+NOTE: There were 126 observations read from the data set WORK.INFLOW14.
+NOTE: There were 126 observations read from the data set WORK.INFLOW15.
+NOTE: There were 126 observations read from the data set WORK.INFLOW16.
+NOTE: The data set HERE.NEWFLOWS has 126 observations and 48 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.03 seconds
+      cpu time            0.01 seconds
+      
+
+285        proc corr;
+286        var inall sindrop sinhs sinsome sincoll smex;
+287        
+
+NOTE: The PROCEDURE CORR printed page 36.
+NOTE: PROCEDURE CORR used (Total process time):
+      real time           0.01 seconds
+      cpu time            0.01 seconds
+      
+
+288        proc corr;
+289        var indrop innmdrop inhs innmhs insome innmsome incoll innmcoll;
+290        
+291        
+
+NOTE: The PROCEDURE CORR printed page 37.
+NOTE: PROCEDURE CORR used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+292        proc means n mean sum;
+293        
+
+NOTE: There were 126 observations read from the data set HERE.NEWFLOWS.
+NOTE: The PROCEDURE MEANS printed page 38.
+NOTE: PROCEDURE MEANS used (Total process time):
+27 The SAS System                                                                         12:51 Thursday, March 28, 2019
+
+      real time           0.01 seconds
+      cpu time            0.00 seconds
+      
+
+294        proc sort;
+295        by descending inall;
+
+NOTE: There were 126 observations read from the data set HERE.NEWFLOWS.
+NOTE: The data set HERE.NEWFLOWS has 126 observations and 48 variables.
+NOTE: PROCEDURE SORT used (Total process time):
+      real time           0.02 seconds
+      cpu time            0.02 seconds
+      
+
+296        proc print;
+297        var rmsa inall innm smex sindrop sinhs sinsome sincoll;
+298        
+NOTE: There were 126 observations read from the data set HERE.NEWFLOWS.
+NOTE: The PROCEDURE PRINT printed pages 39-41.
+NOTE: PROCEDURE PRINT used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+NOTE: SAS Institute Inc., SAS Campus Drive, Cary, NC USA 27513-2414
+NOTE: The SAS System used:
+      real time           0.85 seconds
+      cpu time            0.50 seconds
+      

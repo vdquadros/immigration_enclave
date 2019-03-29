@@ -1,0 +1,1493 @@
+1                                                          The SAS System                             12:59 Thursday, March 28, 2019
+
+NOTE: Copyright (c) 2016 by SAS Institute Inc., Cary, NC, USA. 
+NOTE: SAS (r) Proprietary Software 9.4 (TS1M5) 
+      Licensed to STANFORD UNIVERSITY - SFA -  T&R, Site 70081389.
+NOTE: This session is executing on the Linux 3.10.0-957.10.1.el7.x86_64 (LIN X64) platform.
+
+
+
+NOTE: Updated analytical products:
+      
+      SAS/STAT 14.3
+      SAS/ETS 14.3
+      SAS/OR 14.3
+      SAS/IML 14.3
+      SAS/QC 14.3
+
+NOTE: Additional host information:
+
+ Linux LIN X64 3.10.0-957.10.1.el7.x86_64 #1 SMP Mon Mar 18 15:06:45 UTC 2019 x86_64 CentOS Linux release 7.6.1810 (Core)  
+
+You are running SAS 9. Some SAS 8 files will be automatically converted 
+by the V9 engine; others are incompatible.  Please see 
+http://support.sas.com/rnd/migration/planning/platform/64bit.html
+
+PROC MIGRATE will preserve current SAS file attributes and is 
+recommended for converting all your SAS libraries from any 
+SAS 8 release to SAS 9.  For details and examples, please see
+http://support.sas.com/rnd/migration/index.html
+
+
+This message is contained in the SAS news file, and is presented upon
+initialization.  Edit the file "news" in the "misc/base" directory to
+display site-specific news and information in the program log.
+The command line option "-nonews" will prevent this display.
+
+
+
+
+NOTE: SAS initialization used:
+      real time           0.18 seconds
+      cpu time            0.03 seconds
+      
+1          *table 6;
+2          *immnat1 based on istructure3, based on structure3, follows t1, cell1, supply1 , inflow3;
+3          
+4          *looks at wage gap between natives and imms within eclass;
+5          
+6          
+7          options ls=120 nocenter;
+8          libname c2000 '/home/groups/sorkin/quadros/data/2000';
+NOTE: Libref C2000 was successfully assigned as follows: 
+      Engine:        V9 
+      Physical Name: /home/groups/sorkin/quadros/data/2000
+9          
+10         libname c80 '/home/groups/sorkin/quadros/data/1980';
+NOTE: Libref C80 was successfully assigned as follows: 
+      Engine:        V9 
+      Physical Name: /home/groups/sorkin/quadros/data/1980
+11         libname c90 '/home/groups/sorkin/quadros/data/1990';
+2 The SAS System                                                                          12:59 Thursday, March 28, 2019
+
+NOTE: Libref C90 was successfully assigned as follows: 
+      Engine:        V9 
+      Physical Name: /home/groups/sorkin/quadros/data/1990
+12         
+13         
+14         *this macro gets imm share and count by eclass;
+15         %macro all(ed);
+16         %let edg=&ed;
+17         data all&edg;
+18         set c2000.allcells;
+19         if native=. and male=. and eclass=&edg and xclass2=. ;
+20         imm&edg=imm;
+21         count&edg=count/1000;
+22         keep rmsa imm&edg count&edg;
+23         proc sort; by rmsa;
+24         %mend;
+25         
+26         
+27         *this macro gets native wages by eclass;
+28         %macro nwage(ed);
+29         %let edg=&ed;
+30         data nw&edg;
+31         set c2000.bigcells;
+32         if native=1 and male=1 and eclass=&edg and xclass2=. ;
+33         nwage&edg=logwage2;
+34         nres&edg=res;
+35         npred&edg=pred;
+36         ncountw&edg=count / 1000;
+37         keep rmsa nwage&edg npred&edg nres&edg ncountw&edg;
+38         proc sort; by rmsa;
+39         %mend;
+40         
+41         
+42         
+43         *this macro gets imm wages by eclass;
+44         %macro iwage(ed);
+45         %let edg=&ed;
+46         data iw&edg;
+47         set c2000.bigcells;
+48         if native=0 and male=1 and eclass=&edg and xclass2=. ;
+49         iwage&edg=logwage2;
+50         ires&edg=res;
+51         ipred&edg=pred;
+52         icountw&edg=count / 1000;
+53         keep rmsa iwage&edg ipred&edg ires&edg icountw&edg;
+54         proc sort; by rmsa;
+55         %mend;
+56         
+57         *this macro gets native wages in 1990 by eclass;
+58         %macro nwage90(ed);
+59         %let edg=&ed;
+60         data nw90&edg;
+61         set c90.bigcells;
+62         if native=1 and male=1 and eclass=&edg and xclass2=. ;
+63         nwage90&edg=logwage2;
+64         nres90&edg=res;
+65         npred90&edg=pred;
+66         ncountw90&edg=count/1000;
+3 The SAS System                                                                          12:59 Thursday, March 28, 2019
+
+67         keep rmsa nwage90&edg npred90&edg nres90&edg ncountw90&edg;
+68         proc sort; by rmsa;
+69         %mend;
+70         
+71         
+72         
+73         *this macro gets imm wages in 1990 by eclass;
+74         %macro iwage90(ed);
+75         %let edg=&ed;
+76         data iw90&edg;
+77         set c90.bigcells;
+78         if native=0 and male=1 and eclass=&edg and xclass2=. ;
+79         iwage90&edg=logwage2;
+80         ires90&edg=res;
+81         ipred90&edg=pred;
+82         icountw90&edg=count / 1000;
+83         keep rmsa iwage90&edg ipred90&edg ires90&edg icountw90&edg;
+84         proc sort; by rmsa;
+85         %mend;
+86         
+87         *this macro gets native wages in 1980 by eclass;
+88         %macro nwage80(ed);
+89         %let edg=&ed;
+90         data nw80&edg;
+91         set c80.bigcells;
+92         if native=1 and male=1 and eclass=&edg and xclass2=. ;
+93         nwage80&edg=logwage2;
+94         nres80&edg=res;
+95         npred80&edg=pred;
+96         ncountw80&edg=20*count / 1000;
+97         keep rmsa nwage80&edg npred80&edg nres80&edg ncountw80&edg;
+98         proc sort; by rmsa;
+99         %mend;
+100        
+101        
+102        
+103        *this macro gets imm wages in 1980 by eclass;
+104        %macro iwage80(ed);
+105        %let edg=&ed;
+106        data iw80&edg;
+107        set c80.bigcells;
+108        if native=0 and male=1 and eclass=&edg and xclass2=. ;
+109        iwage80&edg=logwage2;
+110        ires80&edg=res;
+111        ipred80&edg=pred;
+112        icountw80&edg=20*count / 1000;
+113        keep rmsa iwage80&edg ipred80&edg ires80&edg icountw80&edg;
+114        proc sort; by rmsa;
+115        %mend;
+116        
+117        
+118        data m1;
+119        set c2000.allcells;
+120        if native=. and male=. and eclass=. and xclass2=. ;
+121        count=count/1000;
+122        imm=imm;
+123        mex=mex;
+124        emp=emp;
+4 The SAS System                                                                          12:59 Thursday, March 28, 2019
+
+125        black=black;
+126        hisp=hispanic;
+127        hrs=annhrs;
+128        label count='wtd count of adult pop in city'
+129              imm='imm share among adult pop in city';
+130        
+131        keep rmsa count imm mex emp black hisp dropout hs somecoll collplus;
+
+NOTE: There were 28572 observations read from the data set C2000.ALLCELLS.
+NOTE: The data set WORK.M1 has 127 observations and 11 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.03 seconds
+      cpu time            0.01 seconds
+      
+
+132        proc sort; by rmsa;
+133        
+134        
+
+NOTE: There were 127 observations read from the data set WORK.M1.
+NOTE: The data set WORK.M1 has 127 observations and 11 variables.
+NOTE: PROCEDURE SORT used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+135        data m80;  /*some data for 1980*/
+136        set c80.allcells;
+137        if native=. and male=. and eclass=. and xclass2=. ;
+138        count80=20*count/1000;
+139        imm80=imm;
+140        mex80=mex;
+141        black80=black;
+142        hisp80=hispanic80;
+143        educ80=educ;
+144        drop80=dropout;
+145        hs80=hs;
+146        some80=somecoll;
+147        coll80=collplus;
+148        label count80='1980 count of adult pop in city'
+149              imm80='1980imm share among adult pop in city';
+150        keep rmsa count80 imm80 mex80 black80 hisp80
+151                  educ80 drop80 hs80 some80 coll80;
+
+NOTE: Variable hispanic80 is uninitialized.
+NOTE: There were 28554 observations read from the data set C80.ALLCELLS.
+NOTE: The data set WORK.M80 has 127 observations and 11 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.02 seconds
+      cpu time            0.01 seconds
+      
+
+152        proc sort; by rmsa;
+153        
+
+NOTE: There were 127 observations read from the data set WORK.M80.
+NOTE: The data set WORK.M80 has 127 observations and 11 variables.
+NOTE: PROCEDURE SORT used (Total process time):
+5 The SAS System                                                                          12:59 Thursday, March 28, 2019
+
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+154        data m90;  /*some data for 1990*/
+155        set c90.allcells;
+156        if native=. and male=. and eclass=. and xclass2=. ;
+157        count90=count/1000;
+158        imm90=imm;
+159        mex90=mex;
+160        black90=black;
+161        hisp90=hispanic;
+162        educ90=educ;
+163        drop90=dropout;
+164        hs90=hs;
+165        some90=somecoll;
+166        coll90=collplus;
+167        label count90='1990 count of adult pop in city'
+168              imm90='1990imm share among adult pop in city';
+169        keep rmsa count90 imm90 mex90 black90 hisp90
+170                  educ90 drop90 hs90 some90 coll90;
+
+NOTE: There were 28534 observations read from the data set C90.ALLCELLS.
+NOTE: The data set WORK.M90 has 127 observations and 11 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.02 seconds
+      cpu time            0.01 seconds
+      
+
+171        proc sort; by rmsa;
+172        
+
+NOTE: There were 127 observations read from the data set WORK.M90.
+NOTE: The data set WORK.M90 has 127 observations and 11 variables.
+NOTE: PROCEDURE SORT used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+173        data nw;
+174        set c2000.bigcells;
+175        if native=1 and male=1 and eclass=. and xclass2=. ;
+176        nwage=logwage2;
+177        nres=res;
+178        npred=pred;
+179        ncountw=count / 1000;
+180        keep rmsa nwage npred nres ncountw;
+
+NOTE: There were 28568 observations read from the data set C2000.BIGCELLS.
+NOTE: The data set WORK.NW has 127 observations and 5 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.01 seconds
+      cpu time            0.02 seconds
+      
+
+181        proc sort; by rmsa;
+182        
+
+6 The SAS System                                                                          12:59 Thursday, March 28, 2019
+
+NOTE: There were 127 observations read from the data set WORK.NW.
+NOTE: The data set WORK.NW has 127 observations and 5 variables.
+NOTE: PROCEDURE SORT used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+183        data iw;
+184        set c2000.bigcells;
+185        if native=0 and male=1 and eclass=. and xclass2=. ;
+186        iwage=logwage2;
+187        ires=res;
+188        ipred=pred;
+189        icountw=count / 1000;
+190        keep rmsa iwage ipred ires icountw;
+
+NOTE: There were 28568 observations read from the data set C2000.BIGCELLS.
+NOTE: The data set WORK.IW has 127 observations and 5 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.01 seconds
+      cpu time            0.00 seconds
+      
+
+191        proc sort; by rmsa;
+192        
+193        
+194        
+
+NOTE: There were 127 observations read from the data set WORK.IW.
+NOTE: The data set WORK.IW has 127 observations and 5 variables.
+NOTE: PROCEDURE SORT used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+195        data nw80;
+196        set c80.bigcells;
+197        if native=1 and male=1 and eclass=. and xclass2=.;
+198        nres80=res;
+199        label nres80='residual wage native men 1980';
+200        keep rmsa nres80;
+
+NOTE: There were 28502 observations read from the data set C80.BIGCELLS.
+NOTE: The data set WORK.NW80 has 127 observations and 2 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.01 seconds
+      cpu time            0.02 seconds
+      
+
+201        proc sort; by rmsa;
+202        
+
+NOTE: There were 127 observations read from the data set WORK.NW80.
+NOTE: The data set WORK.NW80 has 127 observations and 2 variables.
+NOTE: PROCEDURE SORT used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+7 The SAS System                                                                          12:59 Thursday, March 28, 2019
+
+
+203        data nw90;
+204        set c90.bigcells;
+205        if native=1 and male=1 and eclass=. and xclass2=.;
+206        nres90=res;
+207        label nres90='residual wage native men 1990';
+208        keep rmsa nres90;
+
+NOTE: There were 28501 observations read from the data set C90.BIGCELLS.
+NOTE: The data set WORK.NW90 has 127 observations and 2 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.01 seconds
+      cpu time            0.00 seconds
+      
+
+209        proc sort; by rmsa;
+210        
+
+NOTE: There were 127 observations read from the data set WORK.NW90.
+NOTE: The data set WORK.NW90 has 127 observations and 2 variables.
+NOTE: PROCEDURE SORT used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+211        data iw80;
+212        set c80.bigcells;
+213        if native=0 and male=1 and eclass=. and xclass2=.;
+214        ires80=res;
+215        label ires80='residual wage imm men 1980';
+216        keep rmsa ires80;
+
+NOTE: There were 28502 observations read from the data set C80.BIGCELLS.
+NOTE: The data set WORK.IW80 has 127 observations and 2 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.01 seconds
+      cpu time            0.01 seconds
+      
+
+217        proc sort; by rmsa;
+218        
+
+NOTE: There were 127 observations read from the data set WORK.IW80.
+NOTE: The data set WORK.IW80 has 127 observations and 2 variables.
+NOTE: PROCEDURE SORT used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+219        data iw90;
+220        set c90.bigcells;
+221        if native=0 and male=1 and eclass=. and xclass2=.;
+222        ires90=res;
+223        label ires90='residual wage imm men 1990';
+224        keep rmsa ires90;
+
+NOTE: There were 28501 observations read from the data set C90.BIGCELLS.
+NOTE: The data set WORK.IW90 has 127 observations and 2 variables.
+8 The SAS System                                                                          12:59 Thursday, March 28, 2019
+
+NOTE: DATA statement used (Total process time):
+      real time           0.01 seconds
+      cpu time            0.01 seconds
+      
+
+225        proc sort; by rmsa;
+226        
+
+NOTE: There were 127 observations read from the data set WORK.IW90.
+NOTE: The data set WORK.IW90 has 127 observations and 2 variables.
+NOTE: PROCEDURE SORT used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+227        data mfg80;
+228        set c80.mfg;
+229        mfg80=mfg;
+230        keep rmsa mfg80;
+231        
+
+NOTE: There were 127 observations read from the data set C80.MFG.
+NOTE: The data set WORK.MFG80 has 127 observations and 2 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+232        proc sort; by rmsa;
+
+NOTE: There were 127 observations read from the data set WORK.MFG80.
+NOTE: The data set WORK.MFG80 has 127 observations and 2 variables.
+NOTE: PROCEDURE SORT used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.01 seconds
+      
+
+233        data mfg90;
+234        set c90.mfg;
+235        mfg90=mfg;
+236        keep rmsa mfg90;
+
+NOTE: There were 127 observations read from the data set C90.MFG.
+NOTE: The data set WORK.MFG90 has 127 observations and 2 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+237        proc sort; by rmsa;
+238        
+239        
+
+NOTE: There were 127 observations read from the data set WORK.MFG90.
+NOTE: The data set WORK.MFG90 has 127 observations and 2 variables.
+NOTE: PROCEDURE SORT used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+9 The SAS System                                                                          12:59 Thursday, March 28, 2019
+
+      
+
+240        data m2;
+241        set c2000.cellsupply;
+242        if native=. and male=. and eclass=. and xclass2=. ;
+243        
+244        h=supply/1000;
+245        h1=supply1/1000;
+246        h2=supply2/1000;
+247        h3=supply3/1000;
+248        h4=supply4/1000;
+249        h5=supply5/1000;
+250        h6=supply6/1000;
+251        sh1=h1/h;
+252        sh2=h2/h;
+253        sh3=h3/h;
+254        sh4=h4/h;
+255        sh5=h5/h;
+256        sh6=h6/h;
+257        label h1='hrs weighted supply of dropouts'
+258              h2='hrs weighted supply of hs'
+259              h3='hrs weighted supply of somecoll'
+260              h4='hrs weighted supply of collplus'
+261              h5='hrs weighted supply of exactly college'
+262              h6='hrs weighted supply of advanced'
+263              sh1='dropout shr of hrs'
+264              sh2='hs shr of hrs'
+265              sh3='some coll shr of hrs'
+266              sh4='collplus shr of hrs'
+267              sh5='exact college (16) shr of hrs'
+268              sh6='advanced (>16) shr of hrs' ;
+269        
+270        keep rmsa h h1-h6 sh1-sh6;
+271        
+272        
+273        
+
+NOTE: There were 28568 observations read from the data set C2000.CELLSUPPLY.
+NOTE: The data set WORK.M2 has 127 observations and 14 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.01 seconds
+      cpu time            0.00 seconds
+      
+
+274        data m280;
+275        set c80.cellsupply;
+276        if native=. and male=. and eclass=. and xclass2=. ;
+277        
+278        h80=supply/1000;
+279        h801=supply1/1000;
+280        h802=supply2/1000;
+281        h803=supply3/1000;
+282        h804=supply4/1000;
+283        h805=supply5/1000;
+284        h806=supply6/1000;
+285        sh801=h801/h80;
+286        sh802=h802/h80;
+287        sh803=h803/h80;
+10 The SAS System                                                                         12:59 Thursday, March 28, 2019
+
+288        sh804=h804/h80;
+289        sh805=h805/h80;
+290        sh806=h806/h80;
+291        label sh801='80 dropout shr of hrs'
+292              sh802='80 hs shr of hrs'
+293              sh803='80 some coll shr of hrs'
+294              sh804='80 collplus shr of hrs'
+295              sh805='80 exact college (16) shr of hrs'
+296              sh806='80 advanced (>16) shr of hrs' ;
+297        
+298        keep rmsa h80 sh801-sh806;
+299        
+
+NOTE: There were 28502 observations read from the data set C80.CELLSUPPLY.
+NOTE: The data set WORK.M280 has 127 observations and 8 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.01 seconds
+      cpu time            0.01 seconds
+      
+
+300        data m290;
+301        set c90.cellsupply;
+302        if native=. and male=. and eclass=. and xclass2=. ;
+303        
+304        h90=supply/1000;
+305        h901=supply1/1000;
+306        h902=supply2/1000;
+307        h903=supply3/1000;
+308        h904=supply4/1000;
+309        h905=supply5/1000;
+310        h906=supply6/1000;
+311        sh901=h901/h90;
+312        sh902=h902/h90;
+313        sh903=h903/h90;
+314        sh904=h904/h90;
+315        sh905=h905/h90;
+316        sh906=h906/h90;
+317        label sh901='90 dropout shr of hrs'
+318              sh902='90 hs shr of hrs'
+319              sh903='90 some coll shr of hrs'
+320              sh904='90 collplus shr of hrs'
+321              sh905='90 exact college (16) shr of hrs'
+322              sh906='90 advanced (>16) shr of hrs' ;
+323        
+324        keep rmsa h90 sh901-sh906;
+325        
+326        
+327        
+328        
+329        
+330        %all(1);
+
+NOTE: There were 28501 observations read from the data set C90.CELLSUPPLY.
+NOTE: The data set WORK.M290 has 127 observations and 8 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.01 seconds
+      cpu time            0.01 seconds
+      
+11 The SAS System                                                                         12:59 Thursday, March 28, 2019
+
+
+
+NOTE: There were 28572 observations read from the data set C2000.ALLCELLS.
+NOTE: The data set WORK.ALL1 has 127 observations and 3 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.02 seconds
+      cpu time            0.02 seconds
+      
+
+331        %all(2);
+
+NOTE: There were 127 observations read from the data set WORK.ALL1.
+NOTE: The data set WORK.ALL1 has 127 observations and 3 variables.
+NOTE: PROCEDURE SORT used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+
+NOTE: There were 28572 observations read from the data set C2000.ALLCELLS.
+NOTE: The data set WORK.ALL2 has 127 observations and 3 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.02 seconds
+      cpu time            0.01 seconds
+      
+
+332        %all(3);
+
+NOTE: There were 127 observations read from the data set WORK.ALL2.
+NOTE: The data set WORK.ALL2 has 127 observations and 3 variables.
+NOTE: PROCEDURE SORT used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.01 seconds
+      
+
+
+NOTE: There were 28572 observations read from the data set C2000.ALLCELLS.
+NOTE: The data set WORK.ALL3 has 127 observations and 3 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.02 seconds
+      cpu time            0.00 seconds
+      
+
+333        %all(4);
+
+NOTE: There were 127 observations read from the data set WORK.ALL3.
+NOTE: The data set WORK.ALL3 has 127 observations and 3 variables.
+NOTE: PROCEDURE SORT used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+
+NOTE: There were 28572 observations read from the data set C2000.ALLCELLS.
+NOTE: The data set WORK.ALL4 has 127 observations and 3 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.02 seconds
+      cpu time            0.02 seconds
+12 The SAS System                                                                         12:59 Thursday, March 28, 2019
+
+      
+
+334        
+335        %nwage(1);
+
+NOTE: There were 127 observations read from the data set WORK.ALL4.
+NOTE: The data set WORK.ALL4 has 127 observations and 3 variables.
+NOTE: PROCEDURE SORT used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+
+NOTE: There were 28568 observations read from the data set C2000.BIGCELLS.
+NOTE: The data set WORK.NW1 has 127 observations and 5 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.01 seconds
+      cpu time            0.00 seconds
+      
+
+336        %nwage(2);
+
+NOTE: There were 127 observations read from the data set WORK.NW1.
+NOTE: The data set WORK.NW1 has 127 observations and 5 variables.
+NOTE: PROCEDURE SORT used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+
+NOTE: There were 28568 observations read from the data set C2000.BIGCELLS.
+NOTE: The data set WORK.NW2 has 127 observations and 5 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.01 seconds
+      cpu time            0.02 seconds
+      
+
+337        %nwage(3);
+
+NOTE: There were 127 observations read from the data set WORK.NW2.
+NOTE: The data set WORK.NW2 has 127 observations and 5 variables.
+NOTE: PROCEDURE SORT used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+
+NOTE: There were 28568 observations read from the data set C2000.BIGCELLS.
+NOTE: The data set WORK.NW3 has 127 observations and 5 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.01 seconds
+      cpu time            0.00 seconds
+      
+
+338        %nwage(4);
+
+NOTE: There were 127 observations read from the data set WORK.NW3.
+NOTE: The data set WORK.NW3 has 127 observations and 5 variables.
+13 The SAS System                                                                         12:59 Thursday, March 28, 2019
+
+NOTE: PROCEDURE SORT used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+
+NOTE: There were 28568 observations read from the data set C2000.BIGCELLS.
+NOTE: The data set WORK.NW4 has 127 observations and 5 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.01 seconds
+      cpu time            0.00 seconds
+      
+
+339        %iwage(1);
+
+NOTE: There were 127 observations read from the data set WORK.NW4.
+NOTE: The data set WORK.NW4 has 127 observations and 5 variables.
+NOTE: PROCEDURE SORT used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+
+NOTE: There were 28568 observations read from the data set C2000.BIGCELLS.
+NOTE: The data set WORK.IW1 has 127 observations and 5 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.01 seconds
+      cpu time            0.02 seconds
+      
+
+340        %iwage(2);
+
+NOTE: There were 127 observations read from the data set WORK.IW1.
+NOTE: The data set WORK.IW1 has 127 observations and 5 variables.
+NOTE: PROCEDURE SORT used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+
+NOTE: There were 28568 observations read from the data set C2000.BIGCELLS.
+NOTE: The data set WORK.IW2 has 127 observations and 5 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.01 seconds
+      cpu time            0.00 seconds
+      
+
+341        %iwage(3);
+
+NOTE: There were 127 observations read from the data set WORK.IW2.
+NOTE: The data set WORK.IW2 has 127 observations and 5 variables.
+NOTE: PROCEDURE SORT used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+
+NOTE: There were 28568 observations read from the data set C2000.BIGCELLS.
+14 The SAS System                                                                         12:59 Thursday, March 28, 2019
+
+NOTE: The data set WORK.IW3 has 127 observations and 5 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.01 seconds
+      cpu time            0.00 seconds
+      
+
+342        %iwage(4);
+
+NOTE: There were 127 observations read from the data set WORK.IW3.
+NOTE: The data set WORK.IW3 has 127 observations and 5 variables.
+NOTE: PROCEDURE SORT used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.01 seconds
+      
+
+
+NOTE: There were 28568 observations read from the data set C2000.BIGCELLS.
+NOTE: The data set WORK.IW4 has 127 observations and 5 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.01 seconds
+      cpu time            0.01 seconds
+      
+
+343        
+344        %nwage90(1);
+
+NOTE: There were 127 observations read from the data set WORK.IW4.
+NOTE: The data set WORK.IW4 has 127 observations and 5 variables.
+NOTE: PROCEDURE SORT used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+
+NOTE: There were 28501 observations read from the data set C90.BIGCELLS.
+NOTE: The data set WORK.NW901 has 127 observations and 5 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.01 seconds
+      cpu time            0.00 seconds
+      
+
+345        %nwage90(2);
+
+NOTE: There were 127 observations read from the data set WORK.NW901.
+NOTE: The data set WORK.NW901 has 127 observations and 5 variables.
+NOTE: PROCEDURE SORT used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+
+NOTE: There were 28501 observations read from the data set C90.BIGCELLS.
+NOTE: The data set WORK.NW902 has 127 observations and 5 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.01 seconds
+      cpu time            0.01 seconds
+      
+
+15 The SAS System                                                                         12:59 Thursday, March 28, 2019
+
+346        %nwage90(3);
+
+NOTE: There were 127 observations read from the data set WORK.NW902.
+NOTE: The data set WORK.NW902 has 127 observations and 5 variables.
+NOTE: PROCEDURE SORT used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.01 seconds
+      
+
+
+NOTE: There were 28501 observations read from the data set C90.BIGCELLS.
+NOTE: The data set WORK.NW903 has 127 observations and 5 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.01 seconds
+      cpu time            0.00 seconds
+      
+
+347        %nwage90(4);
+
+NOTE: There were 127 observations read from the data set WORK.NW903.
+NOTE: The data set WORK.NW903 has 127 observations and 5 variables.
+NOTE: PROCEDURE SORT used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+
+NOTE: There were 28501 observations read from the data set C90.BIGCELLS.
+NOTE: The data set WORK.NW904 has 127 observations and 5 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.01 seconds
+      cpu time            0.00 seconds
+      
+
+348        %iwage90(1);
+
+NOTE: There were 127 observations read from the data set WORK.NW904.
+NOTE: The data set WORK.NW904 has 127 observations and 5 variables.
+NOTE: PROCEDURE SORT used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+
+NOTE: There were 28501 observations read from the data set C90.BIGCELLS.
+NOTE: The data set WORK.IW901 has 127 observations and 5 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.01 seconds
+      cpu time            0.01 seconds
+      
+
+349        %iwage90(2);
+
+NOTE: There were 127 observations read from the data set WORK.IW901.
+NOTE: The data set WORK.IW901 has 127 observations and 5 variables.
+NOTE: PROCEDURE SORT used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+16 The SAS System                                                                         12:59 Thursday, March 28, 2019
+
+      
+
+
+NOTE: There were 28501 observations read from the data set C90.BIGCELLS.
+NOTE: The data set WORK.IW902 has 127 observations and 5 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.01 seconds
+      cpu time            0.01 seconds
+      
+
+350        %iwage90(3);
+
+NOTE: There were 127 observations read from the data set WORK.IW902.
+NOTE: The data set WORK.IW902 has 127 observations and 5 variables.
+NOTE: PROCEDURE SORT used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+
+NOTE: There were 28501 observations read from the data set C90.BIGCELLS.
+NOTE: The data set WORK.IW903 has 126 observations and 5 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.01 seconds
+      cpu time            0.01 seconds
+      
+
+351        %iwage90(4);
+
+NOTE: There were 126 observations read from the data set WORK.IW903.
+NOTE: The data set WORK.IW903 has 126 observations and 5 variables.
+NOTE: PROCEDURE SORT used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+
+NOTE: There were 28501 observations read from the data set C90.BIGCELLS.
+NOTE: The data set WORK.IW904 has 127 observations and 5 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.01 seconds
+      cpu time            0.00 seconds
+      
+
+352        
+353        %nwage80(1);
+
+NOTE: There were 127 observations read from the data set WORK.IW904.
+NOTE: The data set WORK.IW904 has 127 observations and 5 variables.
+NOTE: PROCEDURE SORT used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+
+NOTE: There were 28502 observations read from the data set C80.BIGCELLS.
+NOTE: The data set WORK.NW801 has 127 observations and 5 variables.
+NOTE: DATA statement used (Total process time):
+17 The SAS System                                                                         12:59 Thursday, March 28, 2019
+
+      real time           0.01 seconds
+      cpu time            0.01 seconds
+      
+
+354        %nwage80(2);
+
+NOTE: There were 127 observations read from the data set WORK.NW801.
+NOTE: The data set WORK.NW801 has 127 observations and 5 variables.
+NOTE: PROCEDURE SORT used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.01 seconds
+      
+
+
+NOTE: There were 28502 observations read from the data set C80.BIGCELLS.
+NOTE: The data set WORK.NW802 has 127 observations and 5 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.01 seconds
+      cpu time            0.00 seconds
+      
+
+355        %nwage80(3);
+
+NOTE: There were 127 observations read from the data set WORK.NW802.
+NOTE: The data set WORK.NW802 has 127 observations and 5 variables.
+NOTE: PROCEDURE SORT used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+
+NOTE: There were 28502 observations read from the data set C80.BIGCELLS.
+NOTE: The data set WORK.NW803 has 127 observations and 5 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.01 seconds
+      cpu time            0.00 seconds
+      
+
+356        %nwage80(4);
+
+NOTE: There were 127 observations read from the data set WORK.NW803.
+NOTE: The data set WORK.NW803 has 127 observations and 5 variables.
+NOTE: PROCEDURE SORT used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+
+NOTE: There were 28502 observations read from the data set C80.BIGCELLS.
+NOTE: The data set WORK.NW804 has 127 observations and 5 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.01 seconds
+      cpu time            0.02 seconds
+      
+
+357        %iwage80(1);
+
+NOTE: There were 127 observations read from the data set WORK.NW804.
+18 The SAS System                                                                         12:59 Thursday, March 28, 2019
+
+NOTE: The data set WORK.NW804 has 127 observations and 5 variables.
+NOTE: PROCEDURE SORT used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+
+NOTE: There were 28502 observations read from the data set C80.BIGCELLS.
+NOTE: The data set WORK.IW801 has 127 observations and 5 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.01 seconds
+      cpu time            0.00 seconds
+      
+
+358        %iwage80(2);
+
+NOTE: There were 127 observations read from the data set WORK.IW801.
+NOTE: The data set WORK.IW801 has 127 observations and 5 variables.
+NOTE: PROCEDURE SORT used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+
+NOTE: There were 28502 observations read from the data set C80.BIGCELLS.
+NOTE: The data set WORK.IW802 has 127 observations and 5 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.01 seconds
+      cpu time            0.00 seconds
+      
+
+359        %iwage80(3);
+
+NOTE: There were 127 observations read from the data set WORK.IW802.
+NOTE: The data set WORK.IW802 has 127 observations and 5 variables.
+NOTE: PROCEDURE SORT used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+
+NOTE: There were 28502 observations read from the data set C80.BIGCELLS.
+NOTE: The data set WORK.IW803 has 126 observations and 5 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.01 seconds
+      cpu time            0.02 seconds
+      
+
+360        %iwage80(4);
+
+NOTE: There were 126 observations read from the data set WORK.IW803.
+NOTE: The data set WORK.IW803 has 126 observations and 5 variables.
+NOTE: PROCEDURE SORT used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+
+19 The SAS System                                                                         12:59 Thursday, March 28, 2019
+
+NOTE: There were 28502 observations read from the data set C80.BIGCELLS.
+NOTE: The data set WORK.IW804 has 127 observations and 5 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.03 seconds
+      cpu time            0.00 seconds
+      
+
+361        
+362        
+363        
+364        
+365        
+
+NOTE: There were 127 observations read from the data set WORK.IW804.
+NOTE: The data set WORK.IW804 has 127 observations and 5 variables.
+NOTE: PROCEDURE SORT used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+366        data inflow;  /*from inflow3: 90-2000 arrivals allocated by msa shrs in 80*/
+367        set c2000.newflows;
+368        keep rmsa indrop inhs insome incoll innmdrop innmhs innmsome innmcoll;
+
+NOTE: There were 126 observations read from the data set C2000.NEWFLOWS.
+NOTE: The data set WORK.INFLOW has 126 observations and 9 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+369        proc sort; by rmsa;
+370        
+371        
+
+NOTE: There were 126 observations read from the data set WORK.INFLOW.
+NOTE: The data set WORK.INFLOW has 126 observations and 9 variables.
+NOTE: PROCEDURE SORT used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+372        data big;
+373        merge m1 m80 m90 m2 m280 m290
+374             nw1 nw2 nw3 nw4 iw1 iw2 iw3 iw4
+375             nw901 nw902 nw903 nw904 iw901 iw902 iw903 iw904
+376             nw801 nw802 nw803 nw804 iw801 iw802 iw803 iw804
+377             inflow nw nw80 nw90 iw iw80 iw90 mfg80 mfg90;
+378        by rmsa;
+379        
+380        resgap=ires-nres;
+381        resgap1=ires1-nres1;
+382        resgap2=ires2-nres2;
+383        resgap3=ires3-nres3;
+384        resgap4=ires4-nres4;
+385        
+386        resgap901=ires901-nres901;
+387        resgap902=ires902-nres902;
+20 The SAS System                                                                         12:59 Thursday, March 28, 2019
+
+388        resgap903=ires903-nres903;
+389        resgap904=ires904-nres904;
+390        
+391        wagegap1=iwage1-nwage1;
+392        wagegap2=iwage2-nwage2;
+393        wagegap3=iwage3-nwage3;
+394        wagegap4=iwage4-nwage4;
+395        wagegap=iwage-nwage;
+396        
+397        rels1=log(icountw1/ncountw1);
+398        rels2=log(icountw2/ncountw2);
+399        rels3=log(icountw3/ncountw3);
+400        rels4=log(icountw4/ncountw4);
+401        
+402        rels=log(icountw/ncountw);
+403        
+404        
+405        c1=.7;
+406        c2=1.2;
+407        c3=.8;
+408        
+409        
+410        nshs=c1*ncountw1+ncountw2+.5*c2*ncountw3;
+411        ishs=c1*icountw1+icountw2+.5*c2*icountw3;
+412        relshs=log(ishs/nshs);
+413        
+414        nshs90=c1*ncountw901+ncountw902+.5*c2*ncountw903;
+415        ishs90=c1*icountw901+icountw902+.5*c2*icountw903;
+416        relshs90=log(ishs90/nshs90);
+417        
+418        
+419        nscoll=ncountw4+.5*c3*ncountw3;
+420        iscoll=icountw4+.5*c3*icountw3;
+421        relscoll=log(iscoll/nscoll);
+422        
+423        nscoll90=ncountw904+.5*c3*ncountw903;
+424        iscoll90=icountw904+.5*c3*icountw903;
+425        relscoll90=log(iscoll90/nscoll90);
+426        
+427        
+428        infl1=.001*indrop/count;
+429        infl2=.001*inhs/count;
+430        infl3=.001*insome/count;
+431        infl4=.001*incoll/count;
+432        inflall=infl1+infl2+infl3+infl4;
+433        *without mexicans;
+434        innmfl1=.001*innmdrop/count;
+435        innmfl2=.001*innmhs/count;
+436        innmfl3=.001*innmsome/count;
+437        innmfl4=.001*innmcoll/count;
+438        
+439        hsiv=c1*infl1+infl2+.5*c2*infl3;
+440        colliv=.5*c3*infl3+infl4;
+441        
+442        hsiv2=c1*innmfl1+innmfl2+.5*c2*innmfl3;
+443        colliv2=.5*c3*innmfl3+innmfl4;
+444        
+445        logsize80=log(count80);
+21 The SAS System                                                                         12:59 Thursday, March 28, 2019
+
+446        logsize90=log(count90);
+447        
+448        check1=ncountw-ncountw1-ncountw2-ncountw3-ncountw4;
+449        check2=icountw-icountw1-icountw2-icountw3-icountw4;
+450        check3=countw-ncountw-icountw;
+451        
+
+NOTE: Variable countw is uninitialized.
+NOTE: Missing values were generated as a result of performing an operation on missing values.
+      Each place is given by: (Number of times) at (Line):(Column).
+      1 at 388:18     1 at 415:38     1 at 416:10     1 at 416:20     1 at 424:26     1 at 425:12     1 at 425:24
+      1 at 428:11     1 at 429:11     1 at 430:11     1 at 431:11     1 at 432:14     1 at 434:13     1 at 435:13
+      1 at 436:13     1 at 437:13     1 at 439:8      1 at 440:13     1 at 442:9      1 at 443:14     127 at 450:14
+NOTE: There were 127 observations read from the data set WORK.M1.
+NOTE: There were 127 observations read from the data set WORK.M80.
+NOTE: There were 127 observations read from the data set WORK.M90.
+NOTE: There were 127 observations read from the data set WORK.M2.
+NOTE: There were 127 observations read from the data set WORK.M280.
+NOTE: There were 127 observations read from the data set WORK.M290.
+NOTE: There were 127 observations read from the data set WORK.NW1.
+NOTE: There were 127 observations read from the data set WORK.NW2.
+NOTE: There were 127 observations read from the data set WORK.NW3.
+NOTE: There were 127 observations read from the data set WORK.NW4.
+NOTE: There were 127 observations read from the data set WORK.IW1.
+NOTE: There were 127 observations read from the data set WORK.IW2.
+NOTE: There were 127 observations read from the data set WORK.IW3.
+NOTE: There were 127 observations read from the data set WORK.IW4.
+NOTE: There were 127 observations read from the data set WORK.NW901.
+NOTE: There were 127 observations read from the data set WORK.NW902.
+NOTE: There were 127 observations read from the data set WORK.NW903.
+NOTE: There were 127 observations read from the data set WORK.NW904.
+NOTE: There were 127 observations read from the data set WORK.IW901.
+NOTE: There were 127 observations read from the data set WORK.IW902.
+NOTE: There were 126 observations read from the data set WORK.IW903.
+NOTE: There were 127 observations read from the data set WORK.IW904.
+NOTE: There were 127 observations read from the data set WORK.NW801.
+NOTE: There were 127 observations read from the data set WORK.NW802.
+NOTE: There were 127 observations read from the data set WORK.NW803.
+NOTE: There were 127 observations read from the data set WORK.NW804.
+NOTE: There were 127 observations read from the data set WORK.IW801.
+NOTE: There were 127 observations read from the data set WORK.IW802.
+NOTE: There were 126 observations read from the data set WORK.IW803.
+NOTE: There were 127 observations read from the data set WORK.IW804.
+NOTE: There were 126 observations read from the data set WORK.INFLOW.
+NOTE: There were 127 observations read from the data set WORK.NW.
+NOTE: There were 127 observations read from the data set WORK.NW80.
+NOTE: There were 127 observations read from the data set WORK.NW90.
+NOTE: There were 127 observations read from the data set WORK.IW.
+NOTE: There were 127 observations read from the data set WORK.IW80.
+NOTE: There were 127 observations read from the data set WORK.IW90.
+NOTE: There were 127 observations read from the data set WORK.MFG80.
+NOTE: There were 127 observations read from the data set WORK.MFG90.
+NOTE: The data set WORK.BIG has 127 observations and 229 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.04 seconds
+      cpu time            0.04 seconds
+      
+
+22 The SAS System                                                                         12:59 Thursday, March 28, 2019
+
+452        proc means;
+453        var check1-check3;
+454        
+
+NOTE: There were 127 observations read from the data set WORK.BIG.
+NOTE: The PROCEDURE MEANS printed page 1.
+NOTE: PROCEDURE MEANS used (Total process time):
+      real time           0.07 seconds
+      cpu time            0.03 seconds
+      
+
+455        proc plot;
+456        where (rmsa>3);
+457        plot relshs*hsiv;
+458        plot relshs*hsiv2;
+459        plot relscoll*colliv;
+460        plot relscoll*colliv2;
+461        
+
+NOTE: There were 124 observations read from the data set WORK.BIG.
+      WHERE rmsa>3;
+NOTE: The PROCEDURE PLOT printed pages 2-5.
+NOTE: PROCEDURE PLOT used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+462        proc corr;
+463        where (rmsa > 3);
+464        var relshs hsiv hsiv2 relscoll colliv colliv2 imm80 mex80;
+465        weight count90;
+466        
+
+NOTE: The PROCEDURE CORR printed page 6.
+NOTE: PROCEDURE CORR used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.02 seconds
+      
+
+467        proc corr;
+468        where (rmsa > 3);
+469        var resgap2 relshs resgap4 relscoll imm ;
+470        weight count90;
+471        
+472        
+
+NOTE: The PROCEDURE CORR printed page 7.
+NOTE: PROCEDURE CORR used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+473        proc syslin;
+474        where (rmsa > 3);
+475        
+476        model resgap4=colliv;
+477        
+478        model resgap=rels;
+23 The SAS System                                                                         12:59 Thursday, March 28, 2019
+
+479        model rels=inflall;
+480        model resgap=inflall;
+481        
+482        model resgap2 =relshs;
+483        model resgap2 =relshs logsize80 logsize90 coll80 coll90 nres80 ires80 mfg80
+484        mfg90;
+485        
+486        model resgap2 =relshs resgap902;
+487        model resgap2 =relshs resgap902 logsize80 logsize90 coll80 coll90 nres80 ires80
+488        mfg80 mfg90;
+489        
+490        
+491        model resgap4 =relscoll;
+492        model resgap4 =relscoll logsize80 logsize90 coll80 coll90 nres80 ires80 mfg80
+493        mfg90;
+494        
+495        model resgap4 =relscoll resgap904;
+496        model resgap4 =relscoll resgap904 logsize80 logsize90 coll80 coll90 nres80 ires80
+497        mfg80 mfg90;
+498        
+499        
+500        model relshs  =hsiv;
+501        model resgap2 =hsiv;
+502        model relshs  =hsiv logsize80 logsize90 coll80 coll90 nres80 ires80 mfg80 mfg90;
+503        model resgap2 =hsiv logsize80 logsize90 coll80 coll90 nres80 ires80 mfg80 mfg90;
+504        
+505        model relshs  =hsiv resgap902 logsize80 logsize90 coll80 coll90 nres80 ires80
+506        mfg80 mfg90;
+507        model resgap2 =hsiv resgap902 logsize80 logsize90 coll80 coll90 nres80 ires80
+508        mfg80 mfg90;
+509        
+510        
+511        
+512        model relscoll=colliv;
+513        model resgap4 =colliv;
+514        model relscoll=colliv logsize80 logsize90 coll80 coll90 nres80 ires80 mfg80
+515        mfg90;
+516        model resgap4 =colliv logsize80 logsize90 coll80 coll90 nres80 ires80
+517        mfg80 mfg90;
+518        
+519        model relscoll=colliv resgap904 logsize80 logsize90 coll80 coll90 nres80 ires80
+520        mfg80 mfg90;
+521        model resgap4= colliv resgap904 logsize80 logsize90 coll80 coll90 nres80 ires80
+522        mfg80 mfg90;
+523        
+524        weight count90;
+525        
+526        
+
+NOTE: 124 observations were read. 
+      124 observations were used in the computations.
+NOTE: The PROCEDURE SYSLIN printed pages 8-31.
+NOTE: PROCEDURE SYSLIN used (Total process time):
+      real time           0.02 seconds
+      cpu time            0.01 seconds
+      
+
+527        proc syslin 2sls;
+24 The SAS System                                                                         12:59 Thursday, March 28, 2019
+
+528        where (rmsa > 3);
+529        endogenous relshs;
+530        instruments hsiv;
+531        model resgap2=relshs;
+532        weight count90;
+533        
+534        
+535        
+
+NOTE: 124 observations were read. 
+      124 observations were used in the computations.
+NOTE: The PROCEDURE SYSLIN printed page 32.
+NOTE: PROCEDURE SYSLIN used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.01 seconds
+      
+
+536        proc syslin 2sls;
+537        where (rmsa > 3);
+538        endogenous relshs;
+539        instruments hsiv logsize80 logsize90 coll80 coll90 nres80 ires80 mfg80 mfg90;
+540        model resgap2=relshs logsize80 logsize90 coll80 coll90 nres80 ires80 mfg80
+541        mfg90;
+542        weight count90;
+543        
+
+NOTE: 124 observations were read. 
+      124 observations were used in the computations.
+NOTE: The PROCEDURE SYSLIN printed page 33.
+NOTE: PROCEDURE SYSLIN used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+544        proc syslin 2sls;
+545        where (rmsa > 3);
+546        endogenous relshs;
+547        instruments hsiv resgap902 logsize80 logsize90 coll80 coll90 nres80 ires80 mfg80
+548        mfg90;
+549        model resgap2=relshs resgap902 logsize80 logsize90 coll80 coll90 nres80 ires80
+550        mfg80 mfg90;
+551        weight count90;
+552        
+553        
+
+NOTE: 124 observations were read. 
+      124 observations were used in the computations.
+NOTE: The PROCEDURE SYSLIN printed page 34.
+NOTE: PROCEDURE SYSLIN used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.01 seconds
+      
+
+554        proc syslin 2sls;
+555        where (rmsa > 3);
+556        endogenous relscoll;
+557        instruments colliv;
+558        model resgap4=relscoll;
+25 The SAS System                                                                         12:59 Thursday, March 28, 2019
+
+559        weight count90;
+560        
+
+NOTE: 124 observations were read. 
+      124 observations were used in the computations.
+NOTE: The PROCEDURE SYSLIN printed page 35.
+NOTE: PROCEDURE SYSLIN used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+561        proc syslin 2sls;
+562        where (rmsa > 3);
+563        endogenous relscoll;
+564        instruments colliv logsize80 logsize90 coll80 coll90 nres80 ires80 mfg80 mfg90;
+565        model resgap4=relscoll logsize80 logsize90 coll80 coll90 nres80 ires80 mfg80
+566        mfg90;
+567        weight count90;
+568        
+
+NOTE: 124 observations were read. 
+      124 observations were used in the computations.
+NOTE: The PROCEDURE SYSLIN printed page 36.
+NOTE: PROCEDURE SYSLIN used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+569        proc syslin 2sls;
+570        where (rmsa > 3);
+571        endogenous relscoll;
+572        instruments colliv resgap904 logsize80 logsize90 coll80 coll90 nres80 ires80
+573        mfg80 mfg90;
+574        model resgap4=relscoll resgap904 logsize80 logsize90 coll80 coll90 nres80 ires80
+575        mfg80 mfg90;
+576        weight count90;
+577        
+578        
+NOTE: 124 observations were read. 
+      124 observations were used in the computations.
+NOTE: The PROCEDURE SYSLIN printed page 37.
+NOTE: PROCEDURE SYSLIN used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+NOTE: SAS Institute Inc., SAS Campus Drive, Cary, NC USA 27513-2414
+NOTE: The SAS System used:
+      real time           1.20 seconds
+      cpu time            0.54 seconds
+      

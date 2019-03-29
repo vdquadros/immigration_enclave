@@ -1,0 +1,251 @@
+1                                                          The SAS System                             11:01 Thursday, March 28, 2019
+
+NOTE: Copyright (c) 2016 by SAS Institute Inc., Cary, NC, USA. 
+NOTE: SAS (r) Proprietary Software 9.4 (TS1M5) 
+      Licensed to STANFORD UNIVERSITY - SFA -  T&R, Site 70081389.
+NOTE: This session is executing on the Linux 3.10.0-957.10.1.el7.x86_64 (LIN X64) platform.
+
+
+
+NOTE: Updated analytical products:
+      
+      SAS/STAT 14.3
+      SAS/ETS 14.3
+      SAS/OR 14.3
+      SAS/IML 14.3
+      SAS/QC 14.3
+
+NOTE: Additional host information:
+
+ Linux LIN X64 3.10.0-957.10.1.el7.x86_64 #1 SMP Mon Mar 18 15:06:45 UTC 2019 x86_64 CentOS Linux release 7.6.1810 (Core)  
+
+You are running SAS 9. Some SAS 8 files will be automatically converted 
+by the V9 engine; others are incompatible.  Please see 
+http://support.sas.com/rnd/migration/planning/platform/64bit.html
+
+PROC MIGRATE will preserve current SAS file attributes and is 
+recommended for converting all your SAS libraries from any 
+SAS 8 release to SAS 9.  For details and examples, please see
+http://support.sas.com/rnd/migration/index.html
+
+
+This message is contained in the SAS news file, and is presented upon
+initialization.  Edit the file "news" in the "misc/base" directory to
+display site-specific news and information in the program log.
+The command line option "-nonews" will prevent this display.
+
+
+
+
+NOTE: SAS initialization used:
+      real time           0.14 seconds
+      cpu time            0.04 seconds
+      
+1          
+2          *ws allnp2.sas ;
+3          
+4          options ls=120 nocenter;
+5          libname c2000 '/home/groups/sorkin/quadros/data/2000';
+NOTE: Libref C2000 was successfully assigned as follows: 
+      Engine:        V9 
+      Physical Name: /home/groups/sorkin/quadros/data/2000
+6          libname here '.';
+NOTE: Libref HERE was successfully assigned as follows: 
+      Engine:        V9 
+      Physical Name: /home/groups/sorkin/quadros/code/2000
+7          
+8          
+9            /*
+10         
+11         keep rmsa imm female logwage2 wt p1-p10 dev devsq c age
+2 The SAS System                                                                          11:01 Thursday, March 28, 2019
+
+12                       educ exp exp2 exp3 inschool dropout somecoll collplus advanced
+13                       asian black hispanic black_ed black_coll asian_ed asian_coll
+14                       hisp_ed hisp_coll imm_ed imm_coll yrsinus yrsinus2
+15                       euro_ed hi_asian_ed mid_asian_ed mex_ed
+16                       euro_coll hi_asian_coll mid_asian_coll mex_coll
+17                       euro_yrs hi_asian_yrs mid_asian_yrs mex_yrs
+18                       euro_yrs2 hi_asian_yrs2 mid_asian_yrs2 mex_yrs2
+19                       pre_exp pre_exp1 english pob state msa nonmover
+20                       ic euro hi_asian mid_asian mex owage annhrs xclass
+21                       eclass wagesal weeks selfinc wage wage2 emp;
+22         
+23           */
+24         
+25         
+26         data one;
+27         set c2000.supp2000;
+28         
+29         
+30         rmsa0=(rmsa=0);
+31         rmsa1=(rmsa=1);
+32         male=1-female;
+33         native=1-imm;
+34         
+35         lw2sq=logwage2**2;
+36         
+37         if exp<=10 then xclass2=1;
+38         else if exp<=20 then xclass2=2;
+39         else if exp<=30 then xclass2=3;
+40         else xclass2=4;
+41         c=1;
+42         
+43         havewage2=(logwage2 ne .);
+44         if wagesal<=0 then cwagesal=.;
+45         else cwagesal=wagesal;
+46         
+47         if annhrs>0 then cannhrs=annhrs;
+48         else cannhrs=.;
+49         
+50         hs=1-dropout-somecoll-collplus;
+51         if collplus=1 and advanced=0 then college=1;
+52         else college=0;
+53         x1=(xclass2=1);
+54         x2=(xclass2=2);
+55         x3=(xclass2=3);
+56         x4=(xclass2=4);
+57         
+58         if annhrs>0 then hrswkly=annhrs/weeks;
+59         else hrswkly=.;
+60         ft=(hrswkly>=35);
+61         
+62         q1=p1+p2;
+63         q2=p3+p4;
+64         q3=p5+p6;
+65         q4=p7+p8;
+66         q5=p9+p10;
+67         
+68         if logwage2 ne . then do;
+69          q1c=q1;
+3 The SAS System                                                                          11:01 Thursday, March 28, 2019
+
+70          q2c=q2;
+71          q3c=q3;
+72          q4c=q4;
+73          q5c=q5;
+74         end;
+75         else do;
+76          q1c=.;
+77          q2c=.;
+78          q3c=.;
+79          q4c=.;
+80          q5c=.;
+81         end;
+82         
+
+NOTE: Missing values were generated as a result of performing an operation on missing values.
+      Each place is given by: (Number of times) at (Line):(Column).
+      1283065 at 35:15   
+NOTE: There were 4611927 observations read from the data set C2000.SUPP2000.
+NOTE: The data set WORK.ONE has 4611927 observations and 106 variables.
+NOTE: DATA statement used (Total process time):
+      real time           4.75 seconds
+      cpu time            4.68 seconds
+      
+
+83         proc summary;
+84         class rmsa native male eclass xclass2;
+85         var emp havewage2 wagesal cwagesal annhrs cannhrs weeks hrswkly ft
+86             dropout hs somecoll college advanced collplus educ exp age x1-x4
+87             black hispanic asian euro hi_asian mid_asian mex
+88             rmsa0 rmsa1 q1-q5 q1c q2c q3c q4c q5c
+89             educ exp imm female c wage2 logwage2 ;
+90         output out=here.allcells
+91         mean=
+92         sum(c)=count;
+93         weight wt;
+94         
+
+NOTE: There were 4611927 observations read from the data set WORK.ONE.
+NOTE: The data set HERE.ALLCELLS has 28572 observations and 54 variables.
+NOTE: PROCEDURE SUMMARY used (Total process time):
+      real time           2.05 seconds
+      cpu time            10.49 seconds
+      
+
+95         data t1;
+96         set here.allcells;
+97         if rmsa=. and native=. and male=. and xclass2=.;
+98         keep imm female educ age x1 x2 x3 x4 black hispanic
+99              rmsa0 rmsa1 emp annhrs cannhrs ft  q1-q5
+100             q1c q2c q3c q4c q5c wage2 logwage2;
+101        
+
+NOTE: There were 28572 observations read from the data set HERE.ALLCELLS.
+NOTE: The data set WORK.T1 has 5 observations and 28 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.03 seconds
+      cpu time            0.01 seconds
+      
+4 The SAS System                                                                          11:01 Thursday, March 28, 2019
+
+
+102        proc transpose data=t1 out=here.t1t;
+103        
+
+NOTE: There were 5 observations read from the data set WORK.T1.
+NOTE: The data set HERE.T1T has 28 observations and 6 variables.
+NOTE: PROCEDURE TRANSPOSE used (Total process time):
+      real time           0.03 seconds
+      cpu time            0.00 seconds
+      
+
+104        proc print data=here.t1t;
+105        format annhrs cannhrs 5.0 educ wage2 3.2
+WARNING: Variable ANNHRS not found in data set HERE.T1T.
+WARNING: Variable CANNHRS not found in data set HERE.T1T.
+106            imm female educ age x1 x2 x3 x4 black hispanic
+WARNING: Variable EDUC not found in data set HERE.T1T.
+WARNING: Variable WAGE2 not found in data set HERE.T1T.
+107             rmsa0 rmsa1 emp ft  q1-q5
+108             q1c q2c q3c q4c q5c 4.3 logwage2 4.2;
+WARNING: Variable IMM not found in data set HERE.T1T.
+WARNING: Variable FEMALE not found in data set HERE.T1T.
+WARNING: Variable EDUC not found in data set HERE.T1T.
+WARNING: Variable AGE not found in data set HERE.T1T.
+WARNING: Variable X1 not found in data set HERE.T1T.
+WARNING: Variable X2 not found in data set HERE.T1T.
+WARNING: Variable X3 not found in data set HERE.T1T.
+WARNING: Variable X4 not found in data set HERE.T1T.
+WARNING: Variable BLACK not found in data set HERE.T1T.
+WARNING: Variable HISPANIC not found in data set HERE.T1T.
+WARNING: Variable RMSA0 not found in data set HERE.T1T.
+WARNING: Variable RMSA1 not found in data set HERE.T1T.
+WARNING: Variable EMP not found in data set HERE.T1T.
+WARNING: Variable FT not found in data set HERE.T1T.
+WARNING: Variable Q1 not found in data set HERE.T1T.
+WARNING: Variable Q1C not found in data set HERE.T1T.
+WARNING: Variable Q2C not found in data set HERE.T1T.
+WARNING: Variable Q3C not found in data set HERE.T1T.
+WARNING: Variable Q4C not found in data set HERE.T1T.
+WARNING: Variable Q5C not found in data set HERE.T1T.
+WARNING: Variable LOGWAGE2 not found in data set HERE.T1T.
+109        
+
+NOTE: There were 28 observations read from the data set HERE.T1T.
+NOTE: The PROCEDURE PRINT printed page 1.
+NOTE: PROCEDURE PRINT used (Total process time):
+      real time           0.06 seconds
+      cpu time            0.04 seconds
+      
+
+110        proc print data=here.allcells;
+111        where (native=. and male=. and eclass=. and xclass2=.);
+112        var rmsa count imm mex dropout hs somecoll college logwage2;
+113        
+NOTE: There were 127 observations read from the data set HERE.ALLCELLS.
+      WHERE (native=.) and (male=.) and (eclass=.) and (xclass2=.);
+NOTE: The PROCEDURE PRINT printed pages 2-4.
+NOTE: PROCEDURE PRINT used (Total process time):
+5 The SAS System                                                                          11:01 Thursday, March 28, 2019
+
+      real time           0.02 seconds
+      cpu time            0.00 seconds
+      
+
+NOTE: SAS Institute Inc., SAS Campus Drive, Cary, NC USA 27513-2414
+NOTE: The SAS System used:
+      real time           7.13 seconds
+      cpu time            15.27 seconds
+      

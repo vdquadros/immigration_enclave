@@ -1,0 +1,178 @@
+1                                                          The SAS System                               18:01 Friday, March 22, 2019
+
+NOTE: Copyright (c) 2016 by SAS Institute Inc., Cary, NC, USA. 
+NOTE: SAS (r) Proprietary Software 9.4 (TS1M5) 
+      Licensed to STANFORD UNIVERSITY - SFA -  T&R, Site 70081389.
+NOTE: This session is executing on the Linux 3.10.0-957.5.1.el7.x86_64 (LIN X64) platform.
+
+
+
+NOTE: Updated analytical products:
+      
+      SAS/STAT 14.3
+      SAS/ETS 14.3
+      SAS/OR 14.3
+      SAS/IML 14.3
+      SAS/QC 14.3
+
+NOTE: Additional host information:
+
+ Linux LIN X64 3.10.0-957.5.1.el7.x86_64 #1 SMP Fri Feb 1 14:54:57 UTC 2019 x86_64 CentOS Linux release 7.6.1810 (Core)  
+
+You are running SAS 9. Some SAS 8 files will be automatically converted 
+by the V9 engine; others are incompatible.  Please see 
+http://support.sas.com/rnd/migration/planning/platform/64bit.html
+
+PROC MIGRATE will preserve current SAS file attributes and is 
+recommended for converting all your SAS libraries from any 
+SAS 8 release to SAS 9.  For details and examples, please see
+http://support.sas.com/rnd/migration/index.html
+
+
+This message is contained in the SAS news file, and is presented upon
+initialization.  Edit the file "news" in the "misc/base" directory to
+display site-specific news and information in the program log.
+The command line option "-nonews" will prevent this display.
+
+
+
+
+NOTE: SAS initialization used:
+      real time           0.19 seconds
+      cpu time            0.02 seconds
+      
+1          options ls=120 nocenter;
+2          libname c80 '/home/groups/sorkin/quadros/data/1980';
+NOTE: Libref C80 was successfully assigned as follows: 
+      Engine:        V9 
+      Physical Name: /home/groups/sorkin/quadros/data/1980
+3          
+4          data c80.one;
+5          set c80.supp80;
+6          
+7          rmsa0=(rmsa=0);
+8          rmsa1=(rmsa=1);
+9          male=1-female;
+10         native=1-imm;
+11         
+12         lw2sq=logwage2**2;
+13         
+14         if exp<=10 then xclass2=1;
+2 The SAS System                                                                            18:01 Friday, March 22, 2019
+
+15         else if exp<=20 then xclass2=2;
+16         else if exp<=30 then xclass2=3;
+17         else xclass2=4;
+18         c=1;
+19         
+20         havewage2=(logwage2 ne .);
+21         if wagesal<=0 then cwagesal=.;
+22         else cwagesal=wagesal;
+23         
+24         if annhrs>0 then cannhrs=annhrs;
+25         else cannhrs=.;
+26         
+27         hs=1-dropout-somecoll-collplus;
+28         if collplus=1 and advanced=0 then college=1;
+29         else college=0;
+30         x1=(xclass2=1);
+31         x2=(xclass2=2);
+32         x3=(xclass2=3);
+33         x4=(xclass2=4);
+34         
+35         if annhrs>0 then hrswkly=annhrs/weeks;
+36         else hrswkly=.;
+37         ft=(hrswkly>=35);
+38         
+39         q1=p1+p2;
+40         q2=p3+p4;
+41         q3=p5+p6;
+42         q4=p7+p8;
+43         q5=p9+p10;
+44         
+45         if logwage2 ne . then do;
+46          q1c=q1;
+47          q2c=q2;
+48          q3c=q3;
+49          q4c=q4;
+50          q5c=q5;
+51         end;
+52         else do;
+53          q1c=.;
+54          q2c=.;
+55          q3c=.;
+56          q4c=.;
+57          q5c=.;
+58         end;
+59         
+
+NOTE: Missing values were generated as a result of performing an operation on missing values.
+      Each place is given by: (Number of times) at (Line):(Column).
+      1031194 at 12:15   
+NOTE: There were 3361481 observations read from the data set C80.SUPP80.
+NOTE: The data set C80.ONE has 3361481 observations and 106 variables.
+NOTE: DATA statement used (Total process time):
+      real time           27.66 seconds
+      cpu time            3.78 seconds
+      
+
+60         proc summary;
+61         class rmsa native male eclass xclass2;
+3 The SAS System                                                                            18:01 Friday, March 22, 2019
+
+62         var emp havewage2 wagesal cwagesal annhrs cannhrs weeks hrswkly ft
+63             dropout hs somecoll college advanced collplus educ exp age x1-x4
+64             black hispanic asian euro hi_asian mid_asian mex
+65             rmsa0 rmsa1 q1-q5 q1c q2c q3c q4c q5c
+66             educ exp imm female c wage2 logwage2 ;
+67         output out=c80.allcells
+68         mean=
+69         sum(c)=count;
+70         weight wt;
+71         
+
+NOTE: There were 3361481 observations read from the data set C80.ONE.
+NOTE: The data set C80.ALLCELLS has 28554 observations and 54 variables.
+NOTE: PROCEDURE SUMMARY used (Total process time):
+      real time           18.01 seconds
+      cpu time            8.37 seconds
+      
+
+72         data t1;
+73         set c80.allcells;
+74         if rmsa=. and native=. and male=. and xclass2=.;
+75         keep imm female educ age x1 x2 x3 x4 black hispanic
+76              rmsa0 rmsa1 emp annhrs cannhrs ft  q1-q5
+77              q1c q2c q3c q4c q5c wage2 logwage2;
+78         
+
+NOTE: There were 28554 observations read from the data set C80.ALLCELLS.
+NOTE: The data set WORK.T1 has 5 observations and 28 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.11 seconds
+      cpu time            0.01 seconds
+      
+
+79         proc transpose data=t1 out=c80.t1t;
+80         
+
+NOTE: There were 5 observations read from the data set WORK.T1.
+NOTE: The data set C80.T1T has 28 observations and 6 variables.
+NOTE: PROCEDURE TRANSPOSE used (Total process time):
+      real time           0.03 seconds
+      cpu time            0.01 seconds
+      
+
+81         proc print data=c80.t1t;
+NOTE: There were 28 observations read from the data set C80.T1T.
+NOTE: The PROCEDURE PRINT printed page 1.
+NOTE: PROCEDURE PRINT used (Total process time):
+      real time           0.08 seconds
+      cpu time            0.02 seconds
+      
+
+NOTE: SAS Institute Inc., SAS Campus Drive, Cary, NC USA 27513-2414
+NOTE: The SAS System used:
+      real time           46.12 seconds
+      cpu time            12.21 seconds
+      

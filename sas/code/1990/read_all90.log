@@ -1,0 +1,125 @@
+1                                                          The SAS System                            21:03 Wednesday, March 27, 2019
+
+NOTE: Copyright (c) 2016 by SAS Institute Inc., Cary, NC, USA. 
+NOTE: SAS (r) Proprietary Software 9.4 (TS1M5) 
+      Licensed to STANFORD UNIVERSITY - SFA -  T&R, Site 70081389.
+NOTE: This session is executing on the Linux 3.10.0-957.10.1.el7.x86_64 (LIN X64) platform.
+
+
+
+NOTE: Updated analytical products:
+      
+      SAS/STAT 14.3
+      SAS/ETS 14.3
+      SAS/OR 14.3
+      SAS/IML 14.3
+      SAS/QC 14.3
+
+NOTE: Additional host information:
+
+ Linux LIN X64 3.10.0-957.10.1.el7.x86_64 #1 SMP Mon Mar 18 15:06:45 UTC 2019 x86_64 CentOS Linux release 7.6.1810 (Core)  
+
+You are running SAS 9. Some SAS 8 files will be automatically converted 
+by the V9 engine; others are incompatible.  Please see 
+http://support.sas.com/rnd/migration/planning/platform/64bit.html
+
+PROC MIGRATE will preserve current SAS file attributes and is 
+recommended for converting all your SAS libraries from any 
+SAS 8 release to SAS 9.  For details and examples, please see
+http://support.sas.com/rnd/migration/index.html
+
+
+This message is contained in the SAS news file, and is presented upon
+initialization.  Edit the file "news" in the "misc/base" directory to
+display site-specific news and information in the program log.
+The command line option "-nonews" will prevent this display.
+
+
+
+
+NOTE: SAS initialization used:
+      real time           0.16 seconds
+      cpu time            0.03 seconds
+      
+1          options ls = 100 nocenter;
+2          libname c90 '/home/groups/sorkin/quadros/data/1990/';
+NOTE: Libref C90 was successfully assigned as follows: 
+      Engine:        V9 
+      Physical Name: /home/groups/sorkin/quadros/data/1990
+3          
+4          proc import out= c90.all90
+5          			datafile = "/home/groups/sorkin/quadros/data/raw/all90.dta"
+6          			replace;
+7          run;
+
+NOTE: One or more variables were converted because the data type is not supported by the V9 engine. 
+      For more details, run with options MSGLEVEL=I.
+NOTE: The import data set has 6712877 observations and 40 variables.
+NOTE: C90.ALL90 data set was successfully created.
+NOTE: PROCEDURE IMPORT used (Total process time):
+      real time           9.96 seconds
+2 The SAS System                                                     21:03 Wednesday, March 27, 2019
+
+      cpu time            6.32 seconds
+      
+
+8          proc contents data= c90.all90;
+9          run;
+
+NOTE: PROCEDURE CONTENTS used (Total process time):
+      real time           0.33 seconds
+      cpu time            0.27 seconds
+      
+NOTE: The PROCEDURE CONTENTS printed pages 1-2.
+
+10         
+11         proc datasets lib= c90  memtype=data;
+                       Directory
+
+Libref             C90                                  
+Engine             V9                                   
+Physical Name      /home/groups/sorkin/quadros/data/1990
+Filename           /home/groups/sorkin/quadros/data/1990
+Inode Number       8580722306                           
+Access Permission  rwxr-xr-x                            
+Owner Name         quadros                              
+File Size          0KB                                  
+File Size (bytes)  131                                  
+
+
+             Member
+#  Name      Type       File Size  Last Modified
+
+1  ALL90     DATA             2GB  03/27/2019 21:03:31        
+2  BIGCELLS  DATA             6MB  03/24/2019 22:26:06        
+3  NP90      DATA             1GB  03/23/2019 20:57:45        
+4  SUPP90    DATA             2GB  03/27/2019 13:37:44        
+12            modify all90;
+13              attrib _all_ label=' ';
+14              attrib _all_ format=;
+15         run;
+
+NOTE: MODIFY was successful for C90.ALL90.DATA.
+16         
+
+NOTE: PROCEDURE DATASETS used (Total process time):
+      real time           0.01 seconds
+      cpu time            0.00 seconds
+      
+
+17         proc contents data= c90.all90;
+18         run;
+
+NOTE: PROCEDURE CONTENTS used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+NOTE: The PROCEDURE CONTENTS printed pages 3-4.
+
+NOTE: SAS Institute Inc., SAS Campus Drive, Cary, NC USA 27513-2414
+NOTE: The SAS System used:
+3 The SAS System                                                     21:03 Wednesday, March 27, 2019
+
+      real time           10.51 seconds
+      cpu time            6.64 seconds
+      

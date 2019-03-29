@@ -1,0 +1,114 @@
+1                                                          The SAS System                             10:37 Thursday, March 28, 2019
+
+NOTE: Copyright (c) 2016 by SAS Institute Inc., Cary, NC, USA. 
+NOTE: SAS (r) Proprietary Software 9.4 (TS1M5) 
+      Licensed to STANFORD UNIVERSITY - SFA -  T&R, Site 70081389.
+NOTE: This session is executing on the Linux 3.10.0-957.5.1.el7.x86_64 (LIN X64) platform.
+
+
+
+NOTE: Updated analytical products:
+      
+      SAS/STAT 14.3
+      SAS/ETS 14.3
+      SAS/OR 14.3
+      SAS/IML 14.3
+      SAS/QC 14.3
+
+NOTE: Additional host information:
+
+ Linux LIN X64 3.10.0-957.5.1.el7.x86_64 #1 SMP Fri Feb 1 14:54:57 UTC 2019 x86_64 CentOS Linux release 7.6.1810 (Core)  
+
+You are running SAS 9. Some SAS 8 files will be automatically converted 
+by the V9 engine; others are incompatible.  Please see 
+http://support.sas.com/rnd/migration/planning/platform/64bit.html
+
+PROC MIGRATE will preserve current SAS file attributes and is 
+recommended for converting all your SAS libraries from any 
+SAS 8 release to SAS 9.  For details and examples, please see
+http://support.sas.com/rnd/migration/index.html
+
+
+This message is contained in the SAS news file, and is presented upon
+initialization.  Edit the file "news" in the "misc/base" directory to
+display site-specific news and information in the program log.
+The command line option "-nonews" will prevent this display.
+
+
+
+
+NOTE: SAS initialization used:
+      real time           0.20 seconds
+      cpu time            0.05 seconds
+      
+1          *indist follows np2.sas ;
+2          
+3          options ls=120 nocenter;
+4          libname c90 '/home/groups/sorkin/quadros/data/1990';
+NOTE: Libref C90 was successfully assigned as follows: 
+      Engine:        V9 
+      Physical Name: /home/groups/sorkin/quadros/data/1990
+5          libname here '.';
+NOTE: Libref HERE was successfully assigned as follows: 
+      Engine:        V9 
+      Physical Name: /home/groups/sorkin/quadros/code/1990
+6          
+7          
+8          data one;
+9          set c90.np90 (keep=rmsa ind wt imm female);
+10         
+11         mfg=(100<=ind<=392);
+2 The SAS System                                                                          10:37 Thursday, March 28, 2019
+
+12         
+
+NOTE: There were 2783380 observations read from the data set C90.NP90.
+NOTE: The data set WORK.ONE has 2783380 observations and 6 variables.
+NOTE: DATA statement used (Total process time):
+      real time           1.34 seconds
+      cpu time            1.01 seconds
+      
+
+13         proc freq;
+14         tables mfg*imm mfg*female female*mfg*imm;
+15         weight wt;
+16         
+17         
+
+NOTE: There were 2783380 observations read from the data set WORK.ONE.
+NOTE: The PROCEDURE FREQ printed pages 1-2.
+NOTE: PROCEDURE FREQ used (Total process time):
+      real time           0.40 seconds
+      cpu time            0.37 seconds
+      
+
+18         proc summary;
+19         class rmsa;
+20         var mfg;
+21         output out=here.mfg
+22         mean=;
+23         weight wt;
+24         
+25         
+
+NOTE: There were 2783380 observations read from the data set WORK.ONE.
+NOTE: The data set HERE.MFG has 127 observations and 4 variables.
+NOTE: PROCEDURE SUMMARY used (Total process time):
+      real time           0.24 seconds
+      cpu time            0.61 seconds
+      
+
+26         proc print data=here.mfg;
+27         var rmsa mfg;
+NOTE: There were 127 observations read from the data set HERE.MFG.
+NOTE: The PROCEDURE PRINT printed pages 3-5.
+NOTE: PROCEDURE PRINT used (Total process time):
+      real time           0.01 seconds
+      cpu time            0.00 seconds
+      
+
+NOTE: SAS Institute Inc., SAS Campus Drive, Cary, NC USA 27513-2414
+NOTE: The SAS System used:
+      real time           2.24 seconds
+      cpu time            2.07 seconds
+      
