@@ -11,7 +11,7 @@ local controls logsize80 logsize90 coll80 coll90 ires80 nres80 mfg80 mfg90
 local weight count90
 
 local y resgap4
-local x relshs
+local x relscoll
 *local z shric*
 
 local ind_stub shric*
@@ -42,7 +42,6 @@ svmat beta
 svmat alpha
 svmat G
 
-
 gen ind = ""
 local t = 1
 foreach var in `varlist' {
@@ -56,6 +55,22 @@ foreach var in `varlist' {
 gsort -alpha1
 corr alpha1 G1 beta1
 summ beta1, detail
+
+/*
+
+/* Merge with variance file */ 
+sort ind
+
+preserve
+use $data_path/var_k, clear
+sort ind 
+save $data_path/var_k, replace
+restore
+
+merge ind using $data_path/var_k
+drop _merge
+
+corr alpha1 G1 beta1 var_shric
 
 /*
 Dict:

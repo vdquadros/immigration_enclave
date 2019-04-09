@@ -45,7 +45,7 @@ forvalues i = 1(1)56{
 	
 	* Read person data.
 	preserve
-	infix str type 1 str famrel 9-10 str sex 11 str race 12-13 str age 15-16 str marstat 17 ///
+	infix str type 1 str famrel 9-10 str sex 11 str race 12-14 str age 15-16 str marstat 17 ///
 		str pwgt 18-21 str dfamrel 35 str dhisp 38-40 str bpl 44-46 str citizen 47 str immyr 48-49 ///
 		str enroll 50 grade 51-52 state85 60-61 str lang1 67 english 71 esr 91 hourslw 93-94 ///
         str ind 115-117 str occ 118-120 str weeks 123-124 str hrswkly 125-126 str totearn 127-132 ///

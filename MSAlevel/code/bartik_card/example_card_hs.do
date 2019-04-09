@@ -59,6 +59,21 @@ corr alpha1 G1 beta1
 summ beta1, detail
 
 /*
+/* Merge with variance file */ 
+sort ind
+
+preserve
+use $data_path/var_k, clear
+sort ind 
+save $data_path/var_k, replace
+restore
+
+merge ind using $data_path/var_k
+drop _merge
+
+corr alpha1 G1 beta1 var_shric
+
+/*
 Dict:
 
 1 "mexico"

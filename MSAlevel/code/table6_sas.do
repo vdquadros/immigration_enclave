@@ -9,7 +9,7 @@ cd "/Users/victoriadequadros/projects/immigration_enclave/MSAlevel"
 /***************************************/
 /* Gets 2000 imm share and count by eclass */
 /**************************************/
-use data/2000/allcells_new1.dta, clear
+use data/from_sas/2000_allcells_new1.dta, clear
 local education_groups 1 2 3 4 
 forv i=1/4{
     local edg : word `i' of `education_groups'
@@ -26,7 +26,7 @@ forv i=1/4{
 /***************************************/
 /* Gets 2000 native wages by eclass */
 /**************************************/
-use data/2000/bigcells_new1.dta, clear
+use data/from_sas/2000_bigcells_new1.dta, clear
 local education_groups 1 2 3 4 
 forv i=1/4{
     local edg : word `i' of `education_groups'
@@ -45,7 +45,7 @@ forv i=1/4{
 /***************************************/
 /* Gets 2000 immigrant wages by eclass */
 /**************************************/
-use data/2000/bigcells_new1.dta, clear
+use data/from_sas/2000_bigcells_new1.dta, clear
 local education_groups 1 2 3 4 
 forv i=1/4{
     local edg : word `i' of `education_groups'
@@ -64,7 +64,7 @@ forv i=1/4{
 /***************************************/
 /* Gets 1990 native wages by eclass */
 /**************************************/
-use data/1990/bigcells_new1.dta, clear
+use data/from_sas/1990_bigcells_new1.dta, clear
 local education_groups 1 2 3 4 
 forv i=1/4{
     local edg : word `i' of `education_groups'
@@ -84,7 +84,7 @@ forv i=1/4{
 /***************************************/
 /* Gets 1990 immigrant wages by eclass */
 /**************************************/
-use data/1990/bigcells_new1.dta, clear
+use data/from_sas/1990_bigcells_new1.dta, clear
 local education_groups 1 2 3 4 
 forv i=1/4{
     local edg : word `i' of `education_groups'
@@ -104,7 +104,7 @@ forv i=1/4{
 /***************************************/
 /* Gets 1980 native wages by eclass */
 /**************************************/
-use data/1980/bigcells_new1.dta, clear
+use data/from_sas/1980_bigcells_new1.dta, clear
 local education_groups 1 2 3 4 
 forv i=1/4{
     local edg : word `i' of `education_groups'
@@ -124,7 +124,7 @@ forv i=1/4{
 /***************************************/
 /* Gets 1980 immigrant wages by eclass */
 /**************************************/
-use data/1980/bigcells_new1.dta, clear
+use data/from_sas/1980_bigcells_new1.dta, clear
 local education_groups 1 2 3 4 
 forv i=1/4{
     local edg : word `i' of `education_groups'
@@ -144,7 +144,7 @@ forv i=1/4{
 /***************************************/
 /* Some data for 2000 */
 /**************************************/
-use data/2000/allcells_new2.dta, clear
+use data/from_sas/2000_allcells_new2.dta, clear
 replace count = count / 1000
 rename hispanic hisp 
 rename annhrs hrs
@@ -159,7 +159,7 @@ save data/2000/m1.dta, replace
 /***************************************/
 /* Some data for 1990 */
 /**************************************/
-use data/1990/allcells_new2.dta, clear
+use data/from_sas/1990_allcells_new2.dta, clear
 gen count90 = count / 1000
 rename (imm mex black hispanic educ dropout hs somecoll collplus) ///
         (imm90 mex90 black90 hisp90 educ90 drop90 hs90 some90 coll90)
@@ -174,7 +174,7 @@ save data/1990/m90.dta, replace
 /***************************************/
 /* Some data for 1980 */
 /**************************************/
-use data/1980/allcells_new2.dta, clear
+use data/from_sas/1980_allcells_new2.dta, clear
 gen count80 = 20 * count / 1000
 rename (imm mex black hispanic educ dropout hs somecoll collplus) ///
         (imm80 mex80 black80 hisp80 educ80 drop80 hs80 some80 coll80)
@@ -187,9 +187,9 @@ sort rmsa
 save data/1980/m80.dta, replace
 
 /**************************************/
-/* Nw data for 2000 */a
+/* Nw data for 2000 */
 /**************************************/
-use data/2000/bigcells_new2.dta, clear
+use data/from_sas/2000_bigcells_new2.dta, clear
 keep if native == 1 & male == 1
 gen nwage = logwage2 
 gen nres = res
@@ -202,7 +202,7 @@ save data/2000/nw.dta, replace
 /**************************************/
 /* Nw data for 1990 */
 /**************************************/
-use data/1990/bigcells_new2.dta, clear
+use data/from_sas/1990_bigcells_new2.dta, clear
 keep if native == 1 & male == 1
 gen nres90 = res
 label variable nres90 "residual wage native men 1990"
@@ -213,7 +213,7 @@ save data/1990/nw90.dta, replace
 /**************************************/
 /* Nw data for 1980 */
 /**************************************/
-use data/1980/bigcells_new2.dta, clear
+use data/from_sas/1980_bigcells_new2.dta, clear
 keep if native == 1 & male == 1
 gen nres80 = res
 label variable nres80 "residual wage native men 1980"
@@ -224,7 +224,7 @@ save data/1980/nw80.dta, replace
 /**************************************/
 /* Iw data for 2000 */
 /**************************************/
-use data/2000/bigcells_new2.dta, clear
+use data/from_sas/2000_bigcells_new2.dta, clear
 keep if native == 0 & male == 1
 gen iwage = logwage2 
 gen ires = res
@@ -237,7 +237,7 @@ save data/2000/iw.dta, replace
 /**************************************/
 /* Iw data for 1990 */
 /**************************************/
-use data/1990/bigcells_new2.dta, clear
+use data/from_sas/1990_bigcells_new2.dta, clear
 keep if native == 0 & male == 1
 gen ires90 = res
 label variable ires90 "residual wage imm men 1990"
@@ -248,7 +248,7 @@ save data/1990/iw90.dta, replace
 /**************************************/
 /* Iw data for 1980 */
 /**************************************/
-use data/1980/bigcells_new2.dta, clear
+use data/from_sas/1980_bigcells_new2.dta, clear
 keep if native == 0 & male == 1
 gen ires80 = res
 label variable ires80 "residual wage imm men 1980"
@@ -373,12 +373,13 @@ save data/1980/m280.dta, replace
 /**************************************/
 
 /**************************************/
-use data/2000/newflows.dta, clear
+use data/from_sas/2000_newflows.dta, clear
 keep rmsa indrop inhs insome incoll
 sort rmsa
 save data/2000/inflow.dta, replace
 
-local filenames	data/2000/m1.dta ///
+local filenames	data/1980/ic_city.dta /// /* contains (# of imm from country m living in city j in 1980) / (# of imm from country m in the US in 1980) for each city
+				data/2000/m1.dta ///
 				data/1980/m80.dta ///
 				data/1990/m90.dta ///
 				data/2000/nw1.dta ///
@@ -413,16 +414,25 @@ local filenames	data/2000/m1.dta ///
 				data/1990/iw90.dta ///
 				data/1980/iw80.dta ///
 				data/1990/mfg90.dta ///
-				data/1980/mfg80.dta ///
-				data/2000/m2.dta ///
-				data/1980/m280.dta ///
-				data/1990/m290.dta 
+				data/1980/mfg80.dta
+/*
+data/2000/m2.dta ///
+data/1980/m280.dta ///
+data/1990/m290.dta 
+*/
 
-forvalues i=1/39{
+forvalues i=1/37{
 	local filename : word `i' of `filenames'
 	merge 1:1 rmsa using `filename'
 	drop _merge
 }
+
+/* Merge datasets above with the dataset that contains stock of immigrants 
+arriving between 1980-2000 */
+gen merge_key = 1
+
+merge m:1 merge_key using data/temp/2000/by_educ_imm_stock.dta /* contains number of HS and Coll-equiv workers that arrived from each ic between 1980-2000*/
+drop _merge merge_key
 		  
 /* Difference between the mean wage residuals of immigrants and native in 2000*/
 gen resgap=ires-nres
@@ -469,6 +479,10 @@ gen nshs90 = c1*ncountw901+ncountw902+.5*c2*ncountw903
 gen ishs90 = c1*icountw901+icountw902+.5*c2*icountw903
 gen relshs90 = log(ishs90/nshs90)
 
+gen nshs80 = c1*ncountw801+ncountw802+.5*c2*ncountw803
+gen ishs80 = c1*icountw801+icountw802+.5*c2*icountw803
+gen relshs80 = log(ishs80/nshs80)
+
 gen nscoll = ncountw4+.5*c3*ncountw3  
 gen iscoll = icountw4+.5*c3*icountw3 
 gen relscoll = log(iscoll/nscoll)  /* log relative supply of college equivalent workers*/
@@ -476,6 +490,10 @@ gen relscoll = log(iscoll/nscoll)  /* log relative supply of college equivalent 
 gen nscoll90 = ncountw904+.5*c3*ncountw903
 gen iscoll90 = icountw904+.5*c3*icountw903
 gen relscoll90 = log(iscoll90/nscoll90)
+
+gen nscoll80 = ncountw804+.5*c3*ncountw803
+gen iscoll80 = icountw804+.5*c3*icountw803
+gen relscoll80 = log(iscoll80/nscoll80)
 
 /* Inflow of immigrants between 1990-2000 by education class. */
 gen infl1 = .001*indrop/count
@@ -514,63 +532,78 @@ label variable resgap904 "Lagged dep var"
 label variable mfg80 "Mfg share in 1980"
 label variable mfg90 "Mfg share in 1990"
 
+/*************/
+/* Create the input for the tables in the Bartik paper */
+/*************/
+preserve
+foreach var of varlist shric*{
+	replace `var' = .001 * `var' / count
+	}
+	
+drop c1 c2 c3 
+
+drop if rmsa == 1 | rmsa == 0
+
+drop ires802 ires804 nres802 nres804
+
+/* Keep variables we need */
+keep rmsa /// 
+	 resgap2 resgap4 /// /* dependent vars */
+	 resgap802 resgap804 resgap902 resgap904 /// /* lagged dependent vars*/
+	 logsize80 logsize90 coll80 coll90 ires80 nres80 mfg80 mfg90 /// /* controls */
+	 relshs relscoll /// /* endogenous vars */
+	 relshs80 relscoll80 relshs90 relscoll90 /// /* lagged endogenous vars */
+	 shric* /// /* share of immigrants by incoming country in each city. Instrument. Lagged z_kl */
+	 count90 /// /* regression weights */
+	 hs_imm_ic* coll_imm_ic* /// /* number of hs and coll immigrant workers that came to the US between 1980-2000 */
+	 hsiv colliv /* Bartik instruments */
+	 
+save data/input_card.dta, replace 
+restore
+
 /**************************************/
 /* Regressions */
 /**************************************/
 keep if rmsa > 3 & !missing(rmsa)
-
-qui reg resgap4 colliv [fweight = round(count90)]
-
-qui reg resgap rels [fweight = round(count90)]
-qui reg rels inflall [fweight = round(count90)]
-qui reg resgap inflall [fweight = round(count90)]
 
 /************/
 /* OLS */
 * Dependent variable is the difference in mean wage residual between native and immigrant.
 /************/
 /* High school equivalent regression. Without the lagged dependent variable resgap902 */
-reg resgap2 relshs [fweight = round(count90)]
-
-reg resgap2 relshs logsize80 logsize90 coll80 coll90 nres80 ires80 mfg80 mfg90 [fweight = round(count90)] 
+reg resgap2 relshs logsize80 logsize90 coll80 coll90 nres80 ires80 mfg80 mfg90 [pweight = round(count90)]
 estimates store m1, title(1)
 
-
 /* High school equivalent regression. With the lagged dependent variable resgap902 */
-reg resgap2 relshs resgap902 [fweight = round(count90)]
-
-reg resgap2 relshs resgap902 logsize80 logsize90 coll80 coll90 nres80 ires80 mfg80 mfg90  [fweight = round(count90)]
+qui reg resgap2 relshs resgap902 logsize80 logsize90 coll80 coll90 nres80 ires80 mfg80 mfg90  [pweight = round(count90)]
 estimates store m2, title(2)
 
 
 /* College equivalent regression. Without the lagged dependent variable resgap904 */
-reg resgap4 relscoll [fweight = round(count90)]
-
-reg resgap4 relscoll logsize80 logsize90 coll80 coll90 nres80 ires80 mfg80  mfg90 [fweight = round(count90)] 
+qui reg resgap4 relscoll logsize80 logsize90 coll80 coll90 nres80 ires80 mfg80  mfg90 [pweight = round(count90)] 
 estimates store m3, title(5)
 
 
 /* College equivalent regression. With the lagged dependent variable resgap904 */
-reg resgap4 relscoll resgap904 [fweight = round(count90)]
-
-reg resgap4 relscoll resgap904 logsize80 logsize90 coll80 coll90 nres80 ires80 mfg80 mfg90 [fweight = round(count90)] 
+qui reg resgap4 relscoll resgap904 logsize80 logsize90 coll80 coll90 nres80 ires80 mfg80 mfg90 [pweight = round(count90)] 
 estimates store m4, title(6)
 
 /************/
 /* 2SLS */
 /************/
 /* High school equivalent regression. Without the lagged dependent variable resgap902 */	
+* 1st stage
 reg relshs logsize80 logsize90 coll80 coll90 nres80 ires80 mfg80 mfg90 hsiv
 
 ivregress 2sls resgap2 logsize80 logsize90 coll80 coll90 nres80 ires80 mfg80 mfg90 ///
-                (relshs = hsiv) [fweight = round(count90)]
+                (relshs = hsiv) [pweight = round(count90)]
 estimates store m5, title(3)
 
 /* High school equivalent regression. With the lagged dependent variable resgap902 */
 reg relshs resgap902 logsize80 logsize90 coll80 coll90 nres80 ires80 mfg80 mfg90 hsiv
 
 ivregress 2sls resgap2 resgap902 logsize80 logsize90 coll80 coll90 nres80 ires80 ///
-                mfg80 mfg90 (relshs = hsiv) [fweight = round(count90)] 
+                mfg80 mfg90 (relshs = hsiv) [pweight = round(count90)] 
 estimates store m6, title(4)
 
 
@@ -578,7 +611,7 @@ estimates store m6, title(4)
 reg relscoll logsize80 logsize90 coll80 coll90 nres80 ires80 mfg80 mfg90 colliv
 
 ivregress 2sls resgap4 logsize80 logsize90 coll80 coll90 nres80 ires80 mfg80 mfg90 ///
-               (relscoll = colliv) [fweight = round(count90)]
+               (relscoll = colliv) [pweight = round(count90)]
 estimates store m7, title(7)
 
 
@@ -586,10 +619,9 @@ estimates store m7, title(7)
 reg relscoll resgap4 logsize80 logsize90 coll80 coll90 nres80 ires80 mfg80 mfg90 colliv
 
 ivregress 2sls resgap4 resgap904 logsize80 logsize90 coll80 coll90 nres80 ires80 ///
-               mfg80 mfg90 (relscoll = colliv) [fweight = round(count90)] 
+               mfg80 mfg90 (relscoll = colliv) [pweight = round(count90)] 
 estimates store m8, title(8)
 
-/*
 estout m1 m2 m5 m6, cells(b(star fmt(3)) se(par fmt(2)))  ///
    legend label varlabels(_cons constant)              ///
    stats(r2)
@@ -603,39 +635,6 @@ estout m3 m4 m7 m8, cells(b(star fmt(3)) se(par fmt(2)))  ///
 gen colliv_rescaled = 10 * colliv
 twoway scatter resgap4 colliv_rescaled if (-0.3 <= resgap4 & resgap4 <= 0.3), xlabel(0 (0.5) 3) /* yscale(range(-0.3 0.3) noextend) */
 
-/************/
-/* Reduced form - Instrument on Dep variable */
-* Dependent variable is the difference in mean wage residual between native and immigrant.
-/************/
-/*
-reg relshs  hsiv [fweight = round(count90)]
-reg resgap2 hsiv [fweight = round(count90)]
-
-reg relshs  hsiv logsize80 logsize90 coll80 coll90 nres80 ires80 mfg80 mfg90 [fweight = round(count90)]
-reg resgap2 hsiv logsize80 logsize90 coll80 coll90 nres80 ires80 mfg80 mfg90 [fweight = round(count90)]
-
-reg relshs  hsiv resgap902 logsize80 logsize90 coll80 coll90 nres80 ires80 mfg80 ///
-    mfg90 [fweight = round(count90)]
-reg resgap2 hsiv resgap902 logsize80 logsize90 coll80 coll90 nres80 ires80 mfg80 ///
-    mfg90 [fweight = round(count90)]
-
-
-reg relscoll colliv [fweight = round(count90)]
-reg resgap4 colliv [fweight = round(count90)]
-
-reg relscoll colliv logsize80 logsize90 coll80 coll90 nres80 ires80 mfg80  mfg90 [fweight = round(count90)]
-reg resgap4 colliv logsize80 logsize90 coll80 coll90 nres80 ires80 mfg80 mfg90 [fweight = round(count90)]
-
-reg relscoll colliv resgap904 logsize80 logsize90 coll80 coll90 nres80 ires80 mfg80 ///
-             mfg90 [fweight = round(count90)]
-reg resgap4 colliv resgap904 logsize80 logsize90 coll80 coll90 nres80 ires80 mfg80 ///
-            mfg90 [fweight = round(count90)]
-
-
-
-
-
-/* correlation of residual wages native and imm
 
 
 

@@ -1,0 +1,1399 @@
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+      name:  <unnamed>
+       log:  /Users/victoriadequadros/projects/immigration_enclave/MSAlevel/code/log_table6_sas.log
+  log type:  text
+ opened on:   9 Apr 2019, 11:05:07
+
+. 
+. 
+. /***************************************/
+. /* Gets 2000 imm share and count by eclass */
+. /**************************************/
+. use data/from_sas/2000_allcells_new1.dta, clear
+
+. local education_groups 1 2 3 4 
+
+. forv i=1/4{
+  2.     local edg : word `i' of `education_groups'
+  3.     preserve
+  4.     keep if eclass == `edg'
+  5.     gen imm`edg' = imm
+  6.     gen count`edg' = count/1000
+  7.     keep rmsa imm`edg' count`edg' 
+  8.     sort rmsa
+  9.     save data/2000/all`edg'.dta, replace
+ 10.     restore
+ 11. }
+(378 observations deleted)
+file data/2000/all1.dta saved
+(378 observations deleted)
+file data/2000/all2.dta saved
+(378 observations deleted)
+file data/2000/all3.dta saved
+(378 observations deleted)
+file data/2000/all4.dta saved
+
+. 
+. /***************************************/
+. /* Gets 2000 native wages by eclass */
+. /**************************************/
+. use data/from_sas/2000_bigcells_new1.dta, clear
+
+. local education_groups 1 2 3 4 
+
+. forv i=1/4{
+  2.     local edg : word `i' of `education_groups'
+  3.     preserve
+  4.     keep if native == 1 & male == 1 & eclass == `edg' 
+  5.     gen nwage`edg' = logwage2
+  6.     gen nres`edg' = res
+  7.     gen npred`edg' = pred
+  8.     gen ncountw`edg' = count/1000
+  9.     keep rmsa nwage`edg' npred`edg' nres`edg' ncountw`edg'
+ 10.     sort rmsa
+ 11.     save data/2000/nw`edg'.dta, replace
+ 12.     restore
+ 13. }
+(1,890 observations deleted)
+file data/2000/nw1.dta saved
+(1,890 observations deleted)
+file data/2000/nw2.dta saved
+(1,890 observations deleted)
+file data/2000/nw3.dta saved
+(1,890 observations deleted)
+file data/2000/nw4.dta saved
+
+. 
+. /***************************************/
+. /* Gets 2000 immigrant wages by eclass */
+. /**************************************/
+. use data/from_sas/2000_bigcells_new1.dta, clear
+
+. local education_groups 1 2 3 4 
+
+. forv i=1/4{
+  2.     local edg : word `i' of `education_groups'
+  3.     preserve
+  4.     keep if native == 0 & male == 1 & eclass == `edg'
+  5.     gen iwage`edg' = logwage2
+  6.     gen ires`edg' = res
+  7.     gen ipred`edg' = pred
+  8.     gen icountw`edg' = count/1000
+  9.     keep rmsa iwage`edg' ipred`edg' ires`edg' icountw`edg' 
+ 10.     sort rmsa
+ 11.     save data/2000/iw`edg'.dta, replace
+ 12.     restore
+ 13. }
+(1,890 observations deleted)
+file data/2000/iw1.dta saved
+(1,890 observations deleted)
+file data/2000/iw2.dta saved
+(1,890 observations deleted)
+file data/2000/iw3.dta saved
+(1,890 observations deleted)
+file data/2000/iw4.dta saved
+
+. 
+. /***************************************/
+. /* Gets 1990 native wages by eclass */
+. /**************************************/
+. use data/from_sas/1990_bigcells_new1.dta, clear
+
+. local education_groups 1 2 3 4 
+
+. forv i=1/4{
+  2.     local edg : word `i' of `education_groups'
+  3.     preserve
+  4.     keep if native == 1 & male == 1 & eclass == `edg' 
+  5.     gen nwage90`edg' = logwage2
+  6.     gen nres90`edg' = res
+  7.     gen npred90`edg' = pred
+  8.     gen ncountw90`edg' = count/1000
+  9.     keep rmsa nwage90`edg' npred90`edg' nres90`edg' ncountw90`edg' 
+ 10.     sort rmsa
+ 11.     save data/1990/nw90`edg'.dta, replace
+ 12.     restore
+ 13. }
+(1,889 observations deleted)
+file data/1990/nw901.dta saved
+(1,889 observations deleted)
+file data/1990/nw902.dta saved
+(1,889 observations deleted)
+file data/1990/nw903.dta saved
+(1,889 observations deleted)
+file data/1990/nw904.dta saved
+
+. 
+. 
+. /***************************************/
+. /* Gets 1990 immigrant wages by eclass */
+. /**************************************/
+. use data/from_sas/1990_bigcells_new1.dta, clear
+
+. local education_groups 1 2 3 4 
+
+. forv i=1/4{
+  2.     local edg : word `i' of `education_groups'
+  3.     preserve
+  4.     keep if native == 0 & male == 1 & eclass == `edg'
+  5.     gen iwage90`edg' = logwage2
+  6.     gen ires90`edg' = res
+  7.     gen ipred90`edg' = pred
+  8.     gen icountw90`edg' = count/1000
+  9.     keep rmsa iwage90`edg' ipred90`edg' ires90`edg' icountw90`edg' 
+ 10.     sort rmsa
+ 11.     save data/1990/iw90`edg'.dta, replace
+ 12.     restore
+ 13. }
+(1,889 observations deleted)
+file data/1990/iw901.dta saved
+(1,889 observations deleted)
+file data/1990/iw902.dta saved
+(1,890 observations deleted)
+file data/1990/iw903.dta saved
+(1,889 observations deleted)
+file data/1990/iw904.dta saved
+
+. 
+. 
+. /***************************************/
+. /* Gets 1980 native wages by eclass */
+. /**************************************/
+. use data/from_sas/1980_bigcells_new1.dta, clear
+
+. local education_groups 1 2 3 4 
+
+. forv i=1/4{
+  2.     local edg : word `i' of `education_groups'
+  3.     preserve
+  4.     keep if native == 1 & male == 1 & eclass == `edg' 
+  5.     gen nwage80`edg' = logwage2
+  6.     gen nres80`edg' = res
+  7.     gen npred80`edg' = pred
+  8.     gen ncountw80`edg' = 20 * count/1000
+  9.     keep rmsa nwage80`edg' npred80`edg' nres80`edg' ncountw80`edg' 
+ 10.     sort rmsa
+ 11.     save data/1980/nw80`edg'.dta, replace
+ 12.     restore
+ 13. }
+(1,889 observations deleted)
+file data/1980/nw801.dta saved
+(1,889 observations deleted)
+file data/1980/nw802.dta saved
+(1,889 observations deleted)
+file data/1980/nw803.dta saved
+(1,889 observations deleted)
+file data/1980/nw804.dta saved
+
+. 
+. 
+. /***************************************/
+. /* Gets 1980 immigrant wages by eclass */
+. /**************************************/
+. use data/from_sas/1980_bigcells_new1.dta, clear
+
+. local education_groups 1 2 3 4 
+
+. forv i=1/4{
+  2.     local edg : word `i' of `education_groups'
+  3.     preserve
+  4.     keep if native == 0 & male == 1 & eclass == `edg'
+  5.     gen iwage80`edg' = logwage2
+  6.     gen ires80`edg' = res
+  7.     gen ipred80`edg' = pred
+  8.     gen icountw80`edg' = 20 * count/1000
+  9.     keep rmsa iwage80`edg' ipred80`edg' ires80`edg' icountw80`edg' 
+ 10.     sort rmsa
+ 11.     save data/1980/iw80`edg'.dta, replace
+ 12.     restore
+ 13. }
+(1,889 observations deleted)
+file data/1980/iw801.dta saved
+(1,889 observations deleted)
+file data/1980/iw802.dta saved
+(1,890 observations deleted)
+file data/1980/iw803.dta saved
+(1,889 observations deleted)
+file data/1980/iw804.dta saved
+
+. 
+. 
+. /***************************************/
+. /* Some data for 2000 */
+. /**************************************/
+. use data/from_sas/2000_allcells_new2.dta, clear
+
+. replace count = count / 1000
+(126 real changes made)
+
+. rename hispanic hisp 
+
+. rename annhrs hrs
+
+. 
+. label variable count "wtd count of adult pop in city"
+
+. label variable imm "imm share among adult pop in city"
+
+. 
+. keep rmsa count imm mex emp black hisp dropout hs somecoll collplus
+
+. sort rmsa
+
+. save data/2000/m1.dta, replace
+file data/2000/m1.dta saved
+
+. 
+. /***************************************/
+. /* Some data for 1990 */
+. /**************************************/
+. use data/from_sas/1990_allcells_new2.dta, clear
+
+. gen count90 = count / 1000
+
+. rename (imm mex black hispanic educ dropout hs somecoll collplus) ///
+>         (imm90 mex90 black90 hisp90 educ90 drop90 hs90 some90 coll90)
+
+.         
+. label variable count90 "1990 count of adult pop in city"
+
+. label variable imm90 "1990 imm share among adult pop in city"
+
+. 
+. keep rmsa count90 imm90 mex90 black90 hisp90 educ90 drop90 hs90 some90 coll90
+
+. sort rmsa
+
+. save data/1990/m90.dta, replace
+file data/1990/m90.dta saved
+
+. 
+. /***************************************/
+. /* Some data for 1980 */
+. /**************************************/
+. use data/from_sas/1980_allcells_new2.dta, clear
+
+. gen count80 = 20 * count / 1000
+
+. rename (imm mex black hispanic educ dropout hs somecoll collplus) ///
+>         (imm80 mex80 black80 hisp80 educ80 drop80 hs80 some80 coll80)
+
+.         
+. label variable count80 "1980 count of adult pop in city"
+
+. label variable imm80 "1980imm share among adult pop in city"
+
+. 
+. keep rmsa count80 imm80 mex80 black80 hisp80 educ80 drop80 hs80 some80 coll80
+
+. sort rmsa
+
+. save data/1980/m80.dta, replace
+file data/1980/m80.dta saved
+
+. 
+. /**************************************/
+. /* Nw data for 2000 */
+. /**************************************/
+. use data/from_sas/2000_bigcells_new2.dta, clear
+
+. keep if native == 1 & male == 1
+(378 observations deleted)
+
+. gen nwage = logwage2 
+
+. gen nres = res
+
+. gen npred = pred
+
+. gen ncountw = count / 1000
+
+. keep rmsa nwage npred nres ncountw
+
+. sort rmsa 
+
+. save data/2000/nw.dta, replace
+file data/2000/nw.dta saved
+
+. 
+. /**************************************/
+. /* Nw data for 1990 */
+. /**************************************/
+. use data/from_sas/1990_bigcells_new2.dta, clear
+
+. keep if native == 1 & male == 1
+(378 observations deleted)
+
+. gen nres90 = res
+
+. label variable nres90 "residual wage native men 1990"
+
+. keep rmsa nres90 
+
+. sort rmsa 
+
+. save data/1990/nw90.dta, replace
+file data/1990/nw90.dta saved
+
+. 
+. /**************************************/
+. /* Nw data for 1980 */
+. /**************************************/
+. use data/from_sas/1980_bigcells_new2.dta, clear
+
+. keep if native == 1 & male == 1
+(378 observations deleted)
+
+. gen nres80 = res
+
+. label variable nres80 "residual wage native men 1980"
+
+. keep rmsa nres80 
+
+. sort rmsa 
+
+. save data/1980/nw80.dta, replace
+file data/1980/nw80.dta saved
+
+. 
+. /**************************************/
+. /* Iw data for 2000 */
+. /**************************************/
+. use data/from_sas/2000_bigcells_new2.dta, clear
+
+. keep if native == 0 & male == 1
+(378 observations deleted)
+
+. gen iwage = logwage2 
+
+. gen ires = res
+
+. gen ipred = pred
+
+. gen icountw = count / 1000
+
+. keep rmsa iwage ipred ires icountw
+
+. sort rmsa 
+
+. save data/2000/iw.dta, replace
+file data/2000/iw.dta saved
+
+. 
+. /**************************************/
+. /* Iw data for 1990 */
+. /**************************************/
+. use data/from_sas/1990_bigcells_new2.dta, clear
+
+. keep if native == 0 & male == 1
+(378 observations deleted)
+
+. gen ires90 = res
+
+. label variable ires90 "residual wage imm men 1990"
+
+. keep rmsa ires90
+
+. sort rmsa 
+
+. save data/1990/iw90.dta, replace
+file data/1990/iw90.dta saved
+
+. 
+. /**************************************/
+. /* Iw data for 1980 */
+. /**************************************/
+. use data/from_sas/1980_bigcells_new2.dta, clear
+
+. keep if native == 0 & male == 1
+(378 observations deleted)
+
+. gen ires80 = res
+
+. label variable ires80 "residual wage imm men 1980"
+
+. keep rmsa ires80
+
+. sort rmsa 
+
+. save data/1980/iw80.dta, replace
+file data/1980/iw80.dta saved
+
+. 
+. /**************************************/
+. /* 1990 Manufacturing */
+. /**************************************/
+. use data/1990/mfg.dta, clear
+
+. rename mfg mfg90 
+
+. keep rmsa mfg90
+
+. sort rmsa
+
+. save data/1990/mfg90.dta, replace
+file data/1990/mfg90.dta saved
+
+. 
+. /**************************************/
+. /* 1980 Manufacturing */
+. /**************************************/
+. use data/1980/mfg.dta, clear
+
+. rename mfg mfg80 
+
+. keep rmsa mfg80
+
+. sort rmsa
+
+. save data/1980/mfg80.dta, replace
+file data/1980/mfg80.dta saved
+
+. /**************************************/
+. 
+. /**************************************/
+. use data/from_sas/2000_newflows.dta, clear
+
+. keep rmsa indrop inhs insome incoll
+
+. sort rmsa
+
+. save data/2000/inflow.dta, replace
+file data/2000/inflow.dta saved
+
+. 
+. local filenames data/1980/ic_city.dta /// /* contains (# of imm from country m living in city j in 1980) / (# of imm from country m in the US in 1980) for each city
+>                                 data/2000/m1.dta ///
+>                                 data/1980/m80.dta ///
+>                                 data/1990/m90.dta ///
+>                                 data/2000/nw1.dta ///
+>                                 data/2000/nw2.dta ///
+>                                 data/2000/nw3.dta ///
+>                                 data/2000/nw4.dta ///
+>                                 data/2000/iw1.dta ///
+>                                 data/2000/iw2.dta ///
+>                                 data/2000/iw3.dta ///
+>                                 data/2000/iw4.dta ///
+>                                 data/1990/nw901.dta ///
+>                                 data/1990/nw902.dta ///
+>                                 data/1990/nw903.dta ///
+>                                 data/1990/nw904.dta ///
+>                                 data/1990/iw901.dta ///
+>                                 data/1990/iw902.dta ///
+>                                 data/1990/iw903.dta ///
+>                                 data/1990/iw904.dta ///
+>                                 data/1980/nw801.dta ///
+>                                 data/1980/nw802.dta ///
+>                                 data/1980/nw803.dta ///
+>                                 data/1980/nw804.dta ///
+>                                 data/1980/iw801.dta ///
+>                                 data/1980/iw802.dta ///
+>                                 data/1980/iw803.dta ///
+>                                 data/1980/iw804.dta ///
+>                                 data/2000/inflow.dta ///
+>                                 data/2000/nw.dta ///
+>                                 data/1990/nw90.dta ///
+>                                 data/1980/nw80.dta ///
+>                                 data/2000/iw.dta ///
+>                                 data/1990/iw90.dta ///
+>                                 data/1980/iw80.dta ///
+>                                 data/1990/mfg90.dta ///
+>                                 data/1980/mfg80.dta
+
+. 
+. forvalues i=1/37{
+  2.         local filename : word `i' of `filenames'
+  3.         merge 1:1 rmsa using `filename'
+  4.         drop _merge
+  5. }
+
+    Result                           # of obs.
+    -----------------------------------------
+    not matched                             0
+    matched                               126  (_merge==3)
+    -----------------------------------------
+
+    Result                           # of obs.
+    -----------------------------------------
+    not matched                             0
+    matched                               126  (_merge==3)
+    -----------------------------------------
+
+    Result                           # of obs.
+    -----------------------------------------
+    not matched                             0
+    matched                               126  (_merge==3)
+    -----------------------------------------
+
+    Result                           # of obs.
+    -----------------------------------------
+    not matched                             0
+    matched                               126  (_merge==3)
+    -----------------------------------------
+
+    Result                           # of obs.
+    -----------------------------------------
+    not matched                             0
+    matched                               126  (_merge==3)
+    -----------------------------------------
+
+    Result                           # of obs.
+    -----------------------------------------
+    not matched                             0
+    matched                               126  (_merge==3)
+    -----------------------------------------
+
+    Result                           # of obs.
+    -----------------------------------------
+    not matched                             0
+    matched                               126  (_merge==3)
+    -----------------------------------------
+
+    Result                           # of obs.
+    -----------------------------------------
+    not matched                             0
+    matched                               126  (_merge==3)
+    -----------------------------------------
+
+    Result                           # of obs.
+    -----------------------------------------
+    not matched                             0
+    matched                               126  (_merge==3)
+    -----------------------------------------
+
+    Result                           # of obs.
+    -----------------------------------------
+    not matched                             0
+    matched                               126  (_merge==3)
+    -----------------------------------------
+
+    Result                           # of obs.
+    -----------------------------------------
+    not matched                             0
+    matched                               126  (_merge==3)
+    -----------------------------------------
+
+    Result                           # of obs.
+    -----------------------------------------
+    not matched                             0
+    matched                               126  (_merge==3)
+    -----------------------------------------
+
+    Result                           # of obs.
+    -----------------------------------------
+    not matched                             0
+    matched                               126  (_merge==3)
+    -----------------------------------------
+
+    Result                           # of obs.
+    -----------------------------------------
+    not matched                             0
+    matched                               126  (_merge==3)
+    -----------------------------------------
+
+    Result                           # of obs.
+    -----------------------------------------
+    not matched                             0
+    matched                               126  (_merge==3)
+    -----------------------------------------
+
+    Result                           # of obs.
+    -----------------------------------------
+    not matched                             0
+    matched                               126  (_merge==3)
+    -----------------------------------------
+
+    Result                           # of obs.
+    -----------------------------------------
+    not matched                             0
+    matched                               126  (_merge==3)
+    -----------------------------------------
+
+    Result                           # of obs.
+    -----------------------------------------
+    not matched                             0
+    matched                               126  (_merge==3)
+    -----------------------------------------
+
+    Result                           # of obs.
+    -----------------------------------------
+    not matched                             1
+        from master                         1  (_merge==1)
+        from using                          0  (_merge==2)
+
+    matched                               125  (_merge==3)
+    -----------------------------------------
+
+    Result                           # of obs.
+    -----------------------------------------
+    not matched                             0
+    matched                               126  (_merge==3)
+    -----------------------------------------
+
+    Result                           # of obs.
+    -----------------------------------------
+    not matched                             0
+    matched                               126  (_merge==3)
+    -----------------------------------------
+
+    Result                           # of obs.
+    -----------------------------------------
+    not matched                             0
+    matched                               126  (_merge==3)
+    -----------------------------------------
+
+    Result                           # of obs.
+    -----------------------------------------
+    not matched                             0
+    matched                               126  (_merge==3)
+    -----------------------------------------
+
+    Result                           # of obs.
+    -----------------------------------------
+    not matched                             0
+    matched                               126  (_merge==3)
+    -----------------------------------------
+
+    Result                           # of obs.
+    -----------------------------------------
+    not matched                             0
+    matched                               126  (_merge==3)
+    -----------------------------------------
+
+    Result                           # of obs.
+    -----------------------------------------
+    not matched                             0
+    matched                               126  (_merge==3)
+    -----------------------------------------
+
+    Result                           # of obs.
+    -----------------------------------------
+    not matched                             1
+        from master                         1  (_merge==1)
+        from using                          0  (_merge==2)
+
+    matched                               125  (_merge==3)
+    -----------------------------------------
+
+    Result                           # of obs.
+    -----------------------------------------
+    not matched                             0
+    matched                               126  (_merge==3)
+    -----------------------------------------
+
+    Result                           # of obs.
+    -----------------------------------------
+    not matched                             0
+    matched                               126  (_merge==3)
+    -----------------------------------------
+
+    Result                           # of obs.
+    -----------------------------------------
+    not matched                             0
+    matched                               126  (_merge==3)
+    -----------------------------------------
+
+    Result                           # of obs.
+    -----------------------------------------
+    not matched                             0
+    matched                               126  (_merge==3)
+    -----------------------------------------
+
+    Result                           # of obs.
+    -----------------------------------------
+    not matched                             0
+    matched                               126  (_merge==3)
+    -----------------------------------------
+
+    Result                           # of obs.
+    -----------------------------------------
+    not matched                             0
+    matched                               126  (_merge==3)
+    -----------------------------------------
+
+    Result                           # of obs.
+    -----------------------------------------
+    not matched                             0
+    matched                               126  (_merge==3)
+    -----------------------------------------
+
+    Result                           # of obs.
+    -----------------------------------------
+    not matched                             0
+    matched                               126  (_merge==3)
+    -----------------------------------------
+
+    Result                           # of obs.
+    -----------------------------------------
+    not matched                             0
+    matched                               126  (_merge==3)
+    -----------------------------------------
+
+    Result                           # of obs.
+    -----------------------------------------
+    not matched                             0
+    matched                               126  (_merge==3)
+    -----------------------------------------
+
+. 
+. /* Merge datasets above with the dataset that contains stock of immigrants 
+> arriving between 1980-2000 */
+. gen merge_key = 1
+
+. 
+. merge m:1 merge_key using data/temp/2000/by_educ_imm_stock.dta /* contains number of HS and Coll-equiv workers that arrived from each ic between 1980-2000*/
+
+    Result                           # of obs.
+    -----------------------------------------
+    not matched                             0
+    matched                               126  (_merge==3)
+    -----------------------------------------
+
+. drop _merge merge_key
+
+.                   
+. /* Difference between the mean wage residuals of immigrants and native in 2000*/
+. gen resgap=ires-nres
+
+. gen resgap1=ires1-nres1 /* eclass == 1. dropout workers */
+
+. gen resgap2=ires2-nres2 /* eclass == 2. hs workers*/
+
+. gen resgap3=ires3-nres3 /* eclass == 3. somecoll workers*/
+
+. gen resgap4=ires4-nres4 /* eclass == 4. collplus workers*/
+
+. 
+. /* Difference between the mean wage residuals of immigrants and native in 1990*/
+. gen resgap901=ires901-nres901
+
+. gen resgap902=ires902-nres902
+
+. gen resgap903=ires903-nres903
+(1 missing value generated)
+
+. gen resgap904=ires904-nres904
+
+. 
+. gen resgap801=ires801-nres801
+
+. gen resgap802=ires802-nres802
+
+. gen resgap803=ires803-nres803
+(1 missing value generated)
+
+. gen resgap804=ires804-nres804
+
+. 
+. /* Difference between log wage of male immigrants and natives in 2000*/
+. gen wagegap1=iwage1-nwage1 /* dropout */
+
+. gen wagegap2=iwage2-nwage2 /* hs */
+
+. gen wagegap3=iwage3-nwage3 /* somecoll */
+
+. gen wagegap4=iwage4-nwage4 /* collplus */
+
+. gen wagegap=iwage-nwage /* all male */
+
+. 
+. /* Log relative suplly of immigrants and natives. */
+. gen rels1 = log(icountw1/ncountw1)
+
+. gen rels2 = log(icountw2/ncountw2)
+
+. gen rels3 = log(icountw3/ncountw3)
+
+. gen rels4 = log(icountw4/ncountw4)
+
+. gen rels = log(icountw/ncountw)
+
+. 
+. gen c1 = .7
+
+. gen c2 = 1.2
+
+. gen c3 = .8
+
+. 
+. /* Calculate supply of high school and college equivalent workers. Endogenous variable. */
+. gen nshs = c1*ncountw1+ncountw2+.5*c2*ncountw3 
+
+. gen ishs = c1*icountw1+icountw2+.5*c2*icountw3 
+
+. gen relshs = log(ishs/nshs) /* log relative supply of high school equivalent workers*/
+
+. 
+. gen nshs90 = c1*ncountw901+ncountw902+.5*c2*ncountw903
+
+. gen ishs90 = c1*icountw901+icountw902+.5*c2*icountw903
+(1 missing value generated)
+
+. gen relshs90 = log(ishs90/nshs90)
+(1 missing value generated)
+
+. 
+. gen nshs80 = c1*ncountw801+ncountw802+.5*c2*ncountw803
+
+. gen ishs80 = c1*icountw801+icountw802+.5*c2*icountw803
+(1 missing value generated)
+
+. gen relshs80 = log(ishs80/nshs80)
+(1 missing value generated)
+
+. 
+. gen nscoll = ncountw4+.5*c3*ncountw3  
+
+. gen iscoll = icountw4+.5*c3*icountw3 
+
+. gen relscoll = log(iscoll/nscoll)  /* log relative supply of college equivalent workers*/
+
+. 
+. gen nscoll90 = ncountw904+.5*c3*ncountw903
+
+. gen iscoll90 = icountw904+.5*c3*icountw903
+(1 missing value generated)
+
+. gen relscoll90 = log(iscoll90/nscoll90)
+(1 missing value generated)
+
+. 
+. gen nscoll80 = ncountw804+.5*c3*ncountw803
+
+. gen iscoll80 = icountw804+.5*c3*icountw803
+(1 missing value generated)
+
+. gen relscoll80 = log(iscoll80/nscoll80)
+(1 missing value generated)
+
+. 
+. /* Inflow of immigrants between 1990-2000 by education class. */
+. gen infl1 = .001*indrop/count
+
+. gen infl2 = .001*inhs/count
+
+. gen infl3 = .001*insome/count
+
+. gen infl4 = .001*incoll/count
+
+. gen inflall = infl1+infl2+infl3+infl4
+
+. 
+. /* Inflow of high school and college equivalent imm between 1990-2000. Instrumental variable (IV). */
+. gen hsiv = c1*infl1+infl2+.5*c2*infl3
+
+. gen colliv = .5*c3*infl3+infl4
+
+. 
+. /* Log city sizes in 1980 and 1990. */
+. gen logsize80 = log(count80)
+
+. gen logsize90 = log(count90)
+
+. 
+. gen check1 = ncountw - ncountw1 - ncountw2 - ncountw3 - ncountw4
+
+. gen check2 = icountw - icountw1 - icountw2 - icountw3 - icountw4
+
+. gen check3 = count - ncountw - icountw
+
+. 
+. /**************/
+. /* Label variables */
+. /************/
+. label variable resgap2 "HS dep var"/* Diff between avg wage res of HS imm and native */
+
+. label variable relshs "Log rel supply imm/native" /* HS equiv workers */
+
+. label variable relscoll "Log rel supply imm/native" /* Coll equiv workers */
+
+. label variable logsize80 "Log msa size 1980"
+
+. label variable logsize90 "Log msa size 1990"
+
+. label variable coll80 "College share 1980"
+
+. label variable coll90 "College share 1990"
+
+. label variable nres80 "Wage res native 1980"
+
+. label variable ires80 "Wage res imm 1980"
+
+. label variable resgap902 "Lagged dep var"
+
+. label variable resgap4 "Coll dep var" /* Diff between avg wage residual of college equivalent imm and native */
+
+. label variable resgap904 "Lagged dep var" 
+
+. label variable mfg80 "Mfg share in 1980"
+
+. label variable mfg90 "Mfg share in 1990"
+
+. 
+. /*************/
+. /* Create the input for the tables in the Bartik paper */
+. /*************/
+. preserve
+
+. foreach var of varlist shric*{
+  2.         replace `var' = .001 * `var' / count
+  3.         }
+(122 real changes made)
+(126 real changes made)
+(124 real changes made)
+(123 real changes made)
+(74 real changes made)
+(123 real changes made)
+(123 real changes made)
+(74 real changes made)
+(125 real changes made)
+(101 real changes made)
+(126 real changes made)
+(110 real changes made)
+(80 real changes made)
+(126 real changes made)
+(60 real changes made)
+(118 real changes made)
+(110 real changes made)
+(126 real changes made)
+(124 real changes made)
+(79 real changes made)
+(125 real changes made)
+(120 real changes made)
+(71 real changes made)
+(102 real changes made)
+(106 real changes made)
+(70 real changes made)
+(77 real changes made)
+(97 real changes made)
+(103 real changes made)
+(78 real changes made)
+(126 real changes made)
+(123 real changes made)
+(124 real changes made)
+(126 real changes made)
+(122 real changes made)
+(125 real changes made)
+(121 real changes made)
+(126 real changes made)
+
+.         
+. drop c1 c2 c3 
+
+. 
+. drop if rmsa == 1 | rmsa == 0
+(2 observations deleted)
+
+. 
+. drop ires802 ires804 nres802 nres804
+
+. 
+. /* Keep variables we need */
+. keep rmsa /// 
+>          resgap2 resgap4 /// /* dependent vars */
+>          resgap802 resgap804 resgap902 resgap904 /// /* lagged dependent vars*/
+>          logsize80 logsize90 coll80 coll90 ires80 nres80 mfg80 mfg90 /// /* controls */
+>          relshs relscoll /// /* endogenous vars */
+>          relshs80 relscoll80 relshs90 relscoll90 /// /* lagged endogenous vars */
+>          shric* /// /* share of immigrants by incoming country in each city. Instrument. Lagged z_kl */
+>          count90 /// /* regression weights */
+>          hs_imm_ic* coll_imm_ic* /// /* number of hs and coll immigrant workers that came to the US between 1980-2000 */
+>          hsiv colliv /* Bartik instruments */
+
+.          
+. save data/input_card.dta, replace 
+file data/input_card.dta saved
+
+. restore
+
+. 
+. /**************************************/
+. /* Regressions */
+. /**************************************/
+. keep if rmsa > 3 & !missing(rmsa)
+(2 observations deleted)
+
+. 
+. /************/
+. /* OLS */
+. * Dependent variable is the difference in mean wage residual between native and immigrant.
+. /************/
+. /* High school equivalent regression. Without the lagged dependent variable resgap902 */
+. reg resgap2 relshs logsize80 logsize90 coll80 coll90 nres80 ires80 mfg80 mfg90 [pweight = round(count90)]
+(sum of wgt is 93,947)
+
+Linear regression                               Number of obs     =        124
+                                                F(9, 114)         =       4.22
+                                                Prob > F          =     0.0001
+                                                R-squared         =     0.2101
+                                                Root MSE          =     .05624
+
+------------------------------------------------------------------------------
+             |               Robust
+     resgap2 |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+      relshs |  -.0297393   .0058262    -5.10   0.000    -.0412809   -.0181976
+   logsize80 |  -.0946511   .0316462    -2.99   0.003     -.157342   -.0319603
+   logsize90 |   .1010183   .0310431     3.25   0.001     .0395221    .1625144
+      coll80 |   .0991439   .4690335     0.21   0.833    -.8300078    1.028296
+      coll90 |  -.0065775   .3662167    -0.02   0.986      -.73205     .718895
+      nres80 |   .1352477   .1735391     0.78   0.437     -.208532    .4790273
+      ires80 |  -.1601662   .1487563    -1.08   0.284    -.4548512    .1345188
+       mfg80 |  -.2254698   .2987249    -0.75   0.452    -.8172416     .366302
+       mfg90 |    .193557   .3689123     0.52   0.601    -.5372554    .9243693
+       _cons |  -.1275979   .0595862    -2.14   0.034    -.2456377   -.0095581
+------------------------------------------------------------------------------
+
+. estimates store m1, title(1)
+
+. 
+. /* High school equivalent regression. With the lagged dependent variable resgap902 */
+. qui reg resgap2 relshs resgap902 logsize80 logsize90 coll80 coll90 nres80 ires80 mfg80 mfg90  [pweight = round(count90)]
+
+. estimates store m2, title(2)
+
+. 
+. 
+. /* College equivalent regression. Without the lagged dependent variable resgap904 */
+. qui reg resgap4 relscoll logsize80 logsize90 coll80 coll90 nres80 ires80 mfg80  mfg90 [pweight = round(count90)] 
+
+. estimates store m3, title(5)
+
+. 
+. 
+. /* College equivalent regression. With the lagged dependent variable resgap904 */
+. qui reg resgap4 relscoll resgap904 logsize80 logsize90 coll80 coll90 nres80 ires80 mfg80 mfg90 [pweight = round(count90)] 
+
+. estimates store m4, title(6)
+
+. 
+. /************/
+. /* 2SLS */
+. /************/
+. /* High school equivalent regression. Without the lagged dependent variable resgap902 */        
+. * 1st stage
+. reg relshs logsize80 logsize90 coll80 coll90 nres80 ires80 mfg80 mfg90 hsiv
+
+      Source |       SS           df       MS      Number of obs   =       124
+-------------+----------------------------------   F(9, 114)       =      9.33
+       Model |   56.564993         9  6.28499923   Prob > F        =    0.0000
+    Residual |  76.7766611       114  .673479483   R-squared       =    0.4242
+-------------+----------------------------------   Adj R-squared   =    0.3788
+       Total |  133.341654       123  1.08407849   Root MSE        =    .82066
+
+------------------------------------------------------------------------------
+      relshs |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+   logsize80 |  -1.633949   .4099583    -3.99   0.000    -2.446073   -.8218247
+   logsize90 |   1.647059   .3926935     4.19   0.000     .8691362    2.424982
+      coll80 |  -6.683294   6.394954    -1.05   0.298    -19.35165     5.98506
+      coll90 |   6.350538   5.030213     1.26   0.209    -3.614276    16.31535
+      nres80 |   .2921927   1.670925     0.17   0.861    -3.017898    3.602283
+      ires80 |    .237313   1.554308     0.15   0.879     -2.84176    3.316386
+       mfg80 |  -5.627103    3.47673    -1.62   0.108    -12.51448    1.260272
+       mfg90 |   4.683597   4.445489     1.05   0.294    -4.122883    13.49008
+        hsiv |   6.447527   1.164017     5.54   0.000     4.141618    8.753437
+       _cons |  -2.535664   .8224218    -3.08   0.003    -4.164875   -.9064528
+------------------------------------------------------------------------------
+
+. 
+. ivregress 2sls resgap2 logsize80 logsize90 coll80 coll90 nres80 ires80 mfg80 mfg90 ///
+>                 (relshs = hsiv) [pweight = round(count90)]
+(sum of wgt is   9.3947e+04)
+
+Instrumental variables (2SLS) regression          Number of obs   =        124
+                                                  Wald chi2(9)    =      40.62
+                                                  Prob > chi2     =     0.0000
+                                                  R-squared       =     0.2008
+                                                  Root MSE        =     .05424
+
+------------------------------------------------------------------------------
+             |               Robust
+     resgap2 |      Coef.   Std. Err.      z    P>|z|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+      relshs |  -.0368503   .0069998    -5.26   0.000    -.0505696    -.023131
+   logsize80 |  -.1054044    .030687    -3.43   0.001    -.1655498   -.0452589
+   logsize90 |   .1145288   .0311916     3.67   0.000     .0533945    .1756632
+      coll80 |   .1232365   .4621946     0.27   0.790    -.7826483    1.029121
+      coll90 |  -.0153502   .3567771    -0.04   0.966    -.7146206    .6839202
+      nres80 |   .1416849   .1665305     0.85   0.395    -.1847089    .4680787
+      ires80 |  -.1698744   .1433846    -1.18   0.236    -.4509029    .1111542
+       mfg80 |  -.2620331   .2869322    -0.91   0.361    -.8244099    .3003438
+       mfg90 |   .2312944   .3572897     0.65   0.517    -.4689804    .9315693
+       _cons |  -.1625693   .0669688    -2.43   0.015    -.2938258   -.0313129
+------------------------------------------------------------------------------
+Instrumented:  relshs
+Instruments:   logsize80 logsize90 coll80 coll90 nres80 ires80 mfg80 mfg90
+               hsiv
+
+. estimates store m5, title(3)
+
+. 
+. /* High school equivalent regression. With the lagged dependent variable resgap902 */
+. reg relshs resgap902 logsize80 logsize90 coll80 coll90 nres80 ires80 mfg80 mfg90 hsiv
+
+      Source |       SS           df       MS      Number of obs   =       124
+-------------+----------------------------------   F(10, 113)      =      8.57
+       Model |  57.5214814        10  5.75214814   Prob > F        =    0.0000
+    Residual |  75.8201727       113   .67097498   R-squared       =    0.4314
+-------------+----------------------------------   Adj R-squared   =    0.3811
+       Total |  133.341654       123  1.08407849   Root MSE        =    .81913
+
+------------------------------------------------------------------------------
+      relshs |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+   resgap902 |  -.6763033   .5664412    -1.19   0.235    -1.798525    .4459188
+   logsize80 |    -1.7101   .4141362    -4.13   0.000    -2.530578   -.8896213
+   logsize90 |   1.740403   .3996835     4.35   0.000     .9485577    2.532248
+      coll80 |  -7.227542   6.399308    -1.13   0.261    -19.90573    5.450641
+      coll90 |   6.563377   5.024015     1.31   0.194    -3.390103    16.51686
+      nres80 |   .0271039   1.682529     0.02   0.987     -3.30629    3.360498
+      ires80 |   .4850729   1.565232     0.31   0.757    -2.615934     3.58608
+       mfg80 |  -5.467148   3.472845    -1.57   0.118    -12.34748    1.413183
+       mfg90 |   4.384413   4.444286     0.99   0.326    -4.420518    13.18934
+        hsiv |   6.415402   1.162163     5.52   0.000     4.112948    8.717856
+       _cons |  -2.621717   .8240492    -3.18   0.002    -4.254307   -.9891273
+------------------------------------------------------------------------------
+
+. 
+. ivregress 2sls resgap2 resgap902 logsize80 logsize90 coll80 coll90 nres80 ires80 ///
+>                 mfg80 mfg90 (relshs = hsiv) [pweight = round(count90)] 
+(sum of wgt is   9.3947e+04)
+
+Instrumental variables (2SLS) regression          Number of obs   =        124
+                                                  Wald chi2(10)   =      40.79
+                                                  Prob > chi2     =     0.0000
+                                                  R-squared       =     0.2006
+                                                  Root MSE        =     .05424
+
+------------------------------------------------------------------------------
+             |               Robust
+     resgap2 |      Coef.   Std. Err.      z    P>|z|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+      relshs |  -.0370113   .0071067    -5.21   0.000    -.0509403   -.0230824
+   resgap902 |  -.0100578   .0615702    -0.16   0.870    -.1307332    .1106176
+   logsize80 |  -.1069217    .032553    -3.28   0.001    -.1707245   -.0431189
+   logsize90 |   .1161076   .0328512     3.53   0.000     .0517204    .1804948
+      coll80 |   .1270767   .4642991     0.27   0.784    -.7829328    1.037086
+      coll90 |  -.0177756   .3583764    -0.05   0.960    -.7201805    .6846293
+      nres80 |   .1362116   .1592009     0.86   0.392    -.1758166    .4482397
+      ires80 |  -.1641032    .138022    -1.19   0.234    -.4346215     .106415
+       mfg80 |  -.2594874    .287882    -0.90   0.367    -.8237257    .3047509
+       mfg90 |    .226488   .3587296     0.63   0.528    -.4766091    .9295851
+       _cons |  -.1637907   .0670083    -2.44   0.015    -.2951245    -.032457
+------------------------------------------------------------------------------
+Instrumented:  relshs
+Instruments:   resgap902 logsize80 logsize90 coll80 coll90 nres80 ires80
+               mfg80 mfg90 hsiv
+
+. estimates store m6, title(4)
+
+. 
+. 
+. /* College equivalent regression. Without the lagged dependent variable resgap904 */
+. reg relscoll logsize80 logsize90 coll80 coll90 nres80 ires80 mfg80 mfg90 colliv
+
+      Source |       SS           df       MS      Number of obs   =       124
+-------------+----------------------------------   F(9, 114)       =      7.39
+       Model |  24.2749069         9  2.69721188   Prob > F        =    0.0000
+    Residual |  41.6106679       114  .365005859   R-squared       =    0.3684
+-------------+----------------------------------   Adj R-squared   =    0.3186
+       Total |  65.8855748       123   .53565508   Root MSE        =    .60416
+
+------------------------------------------------------------------------------
+    relscoll |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+   logsize80 |  -1.244576   .3050729    -4.08   0.000    -1.848924   -.6402292
+   logsize90 |   1.234422   .2894869     4.26   0.000     .6609511    1.807894
+      coll80 |  -1.924746   4.703353    -0.41   0.683    -11.24205     7.39256
+      coll90 |  -.0726623    3.68082    -0.02   0.984    -7.364338    7.219014
+      nres80 |   1.075321   1.229906     0.87   0.384    -1.361113    3.511755
+      ires80 |  -.5819711   1.142846    -0.51   0.612     -2.84594    1.681998
+       mfg80 |  -.3524194    2.55608    -0.14   0.891    -5.415995    4.711156
+       mfg90 |  -.4135297   3.277552    -0.13   0.900    -6.906334    6.079275
+      colliv |   13.23525   2.321091     5.70   0.000     8.637182    17.83331
+       _cons |  -2.097104   .6105266    -3.43   0.001    -3.306553   -.8876555
+------------------------------------------------------------------------------
+
+. 
+. ivregress 2sls resgap4 logsize80 logsize90 coll80 coll90 nres80 ires80 mfg80 mfg90 ///
+>                (relscoll = colliv) [pweight = round(count90)]
+(sum of wgt is   9.3947e+04)
+
+Instrumental variables (2SLS) regression          Number of obs   =        124
+                                                  Wald chi2(9)    =      86.45
+                                                  Prob > chi2     =     0.0000
+                                                  R-squared       =     0.3538
+                                                  Root MSE        =     .05349
+
+------------------------------------------------------------------------------
+             |               Robust
+     resgap4 |      Coef.   Std. Err.      z    P>|z|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+    relscoll |  -.0782939   .0126592    -6.18   0.000    -.1031054   -.0534823
+   logsize80 |  -.0581506   .0329389    -1.77   0.077    -.1227096    .0064084
+   logsize90 |   .0536961   .0356267     1.51   0.132    -.0161309    .1235231
+      coll80 |  -.0015793   .4218895    -0.00   0.997    -.8284676     .825309
+      coll90 |  -.0460003    .303715    -0.15   0.880    -.6412708    .5492701
+      nres80 |   .3386069   .1401712     2.42   0.016     .0638764    .6133373
+      ires80 |   -.249071   .1223415    -2.04   0.042    -.4888558   -.0092861
+       mfg80 |  -.3766797   .2448103    -1.54   0.124     -.856499    .1031397
+       mfg90 |   .4830477   .2843999     1.70   0.089    -.0743658    1.040461
+       _cons |  -.1410196   .0751929    -1.88   0.061    -.2883951    .0063559
+------------------------------------------------------------------------------
+Instrumented:  relscoll
+Instruments:   logsize80 logsize90 coll80 coll90 nres80 ires80 mfg80 mfg90
+               colliv
+
+. estimates store m7, title(7)
+
+. 
+. 
+. /* College equivalent regression. With the lagged dependent variable resgap904 */
+. reg relscoll resgap4 logsize80 logsize90 coll80 coll90 nres80 ires80 mfg80 mfg90 colliv
+
+      Source |       SS           df       MS      Number of obs   =       124
+-------------+----------------------------------   F(10, 113)      =     10.11
+       Model |  31.1124455        10  3.11124455   Prob > F        =    0.0000
+    Residual |  34.7731293       113  .307726808   R-squared       =    0.4722
+-------------+----------------------------------   Adj R-squared   =    0.4255
+       Total |  65.8855748       123   .53565508   Root MSE        =    .55473
+
+------------------------------------------------------------------------------
+    relscoll |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+     resgap4 |  -3.017074   .6400572    -4.71   0.000    -4.285143   -1.749006
+   logsize80 |  -1.138909   .2810106    -4.05   0.000    -1.695642   -.5821769
+   logsize90 |   1.095779   .2674265     4.10   0.000     .5659586    1.625599
+      coll80 |  -.3251362   4.331886    -0.08   0.940    -8.907383    8.257111
+      coll90 |  -.9246419   3.384523    -0.27   0.785    -7.629993    5.780709
+      nres80 |    1.79896   1.139675     1.58   0.117    -.4589412    4.056861
+      ires80 |  -1.194068   1.057354    -1.13   0.261    -3.288878    .9007409
+       mfg80 |  -.7896386   2.348801    -0.34   0.737    -5.443036    3.863759
+       mfg90 |   .2165201   3.012383     0.07   0.943    -5.751554    6.184594
+      colliv |   10.46608   2.210688     4.73   0.000     6.086311    14.84585
+       _cons |   -1.91152   .5619605    -3.40   0.001    -3.024865    -.798175
+------------------------------------------------------------------------------
+
+. 
+. ivregress 2sls resgap4 resgap904 logsize80 logsize90 coll80 coll90 nres80 ires80 ///
+>                mfg80 mfg90 (relscoll = colliv) [pweight = round(count90)] 
+(sum of wgt is   9.3947e+04)
+
+Instrumental variables (2SLS) regression          Number of obs   =        124
+                                                  Wald chi2(10)   =      89.36
+                                                  Prob > chi2     =     0.0000
+                                                  R-squared       =     0.3768
+                                                  Root MSE        =     .05253
+
+------------------------------------------------------------------------------
+             |               Robust
+     resgap4 |      Coef.   Std. Err.      z    P>|z|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+    relscoll |  -.0725842   .0144997    -5.01   0.000    -.1010032   -.0441652
+   resgap904 |   .0935081   .0870602     1.07   0.283    -.0771267     .264143
+   logsize80 |  -.0546891   .0333182    -1.64   0.101    -.1199916    .0106134
+   logsize90 |   .0528408   .0350465     1.51   0.132     -.015849    .1215306
+      coll80 |  -.0497716   .4278904    -0.12   0.907    -.8884214    .7888781
+      coll90 |    .003163   .3075779     0.01   0.992    -.5996787    .6060046
+      nres80 |   .3709845   .1469846     2.52   0.012        .0829     .659069
+      ires80 |  -.2883517   .1319342    -2.19   0.029     -.546938   -.0297655
+       mfg80 |  -.4099011    .238637    -1.72   0.086     -.877621    .0578188
+       mfg90 |   .5174184   .2714142     1.91   0.057    -.0145436     1.04938
+       _cons |  -.1453582   .0718467    -2.02   0.043    -.2861752   -.0045412
+------------------------------------------------------------------------------
+Instrumented:  relscoll
+Instruments:   resgap904 logsize80 logsize90 coll80 coll90 nres80 ires80
+               mfg80 mfg90 colliv
+
+. estimates store m8, title(8)
+
+. 
+. estout m1 m2 m5 m6, cells(b(star fmt(3)) se(par fmt(2)))  ///
+>    legend label varlabels(_cons constant)              ///
+>    stats(r2)
+
+------------------------------------------------------------------------------------
+                                1               2               3               4   
+                             b/se            b/se            b/se            b/se   
+------------------------------------------------------------------------------------
+Log rel supply imm~e       -0.030***       -0.030***       -0.037***       -0.037***
+                           (0.01)          (0.01)          (0.01)          (0.01)   
+Log msa size 1980          -0.095**        -0.094**        -0.105***       -0.107** 
+                           (0.03)          (0.03)          (0.03)          (0.03)   
+Log msa size 1990           0.101**         0.100**         0.115***        0.116***
+                           (0.03)          (0.03)          (0.03)          (0.03)   
+College share 1980          0.099           0.098           0.123           0.127   
+                           (0.47)          (0.47)          (0.46)          (0.46)   
+College share 1990         -0.007          -0.006          -0.015          -0.018   
+                           (0.37)          (0.37)          (0.36)          (0.36)   
+Wage res native 1980        0.135           0.137           0.142           0.136   
+                           (0.17)          (0.17)          (0.17)          (0.16)   
+Wage res imm 1980          -0.160          -0.162          -0.170          -0.164   
+                           (0.15)          (0.14)          (0.14)          (0.14)   
+Mfg share in 1980          -0.225          -0.226          -0.262          -0.259   
+                           (0.30)          (0.30)          (0.29)          (0.29)   
+Mfg share in 1990           0.194           0.195           0.231           0.226   
+                           (0.37)          (0.37)          (0.36)          (0.36)   
+Lagged dep var                              0.004                          -0.010   
+                                           (0.06)                          (0.06)   
+constant                   -0.128*         -0.127*         -0.163*         -0.164*  
+                           (0.06)          (0.06)          (0.07)          (0.07)   
+------------------------------------------------------------------------------------
+r2                          0.210           0.210           0.201           0.201   
+------------------------------------------------------------------------------------
+* p<0.05, ** p<0.01, *** p<0.001
+
+.    
+.    
+. estout m3 m4 m7 m8, cells(b(star fmt(3)) se(par fmt(2)))  ///
+>    legend label varlabels(_cons constant)              ///
+>    stats(r2)
+
+------------------------------------------------------------------------------------
+                                5               6               7               8   
+                             b/se            b/se            b/se            b/se   
+------------------------------------------------------------------------------------
+Log rel supply imm~e       -0.058***       -0.054***       -0.078***       -0.073***
+                           (0.01)          (0.01)          (0.01)          (0.01)   
+Log msa size 1980          -0.040          -0.039          -0.058          -0.055   
+                           (0.03)          (0.03)          (0.03)          (0.03)   
+Log msa size 1990           0.031           0.034           0.054           0.053   
+                           (0.03)          (0.03)          (0.04)          (0.04)   
+College share 1980         -0.055          -0.114          -0.002          -0.050   
+                           (0.43)          (0.43)          (0.42)          (0.43)   
+College share 1990         -0.022           0.045          -0.046           0.003   
+                           (0.31)          (0.31)          (0.30)          (0.31)   
+Wage res native 1980        0.309*          0.363*          0.339*          0.371*  
+                           (0.14)          (0.15)          (0.14)          (0.15)   
+Wage res imm 1980          -0.224          -0.287*         -0.249*         -0.288*  
+                           (0.13)          (0.14)          (0.12)          (0.13)   
+Mfg share in 1980          -0.373          -0.422          -0.377          -0.410   
+                           (0.25)          (0.24)          (0.24)          (0.24)   
+Mfg share in 1990           0.499           0.546           0.483           0.517   
+                           (0.30)          (0.28)          (0.28)          (0.27)   
+Lagged dep var                              0.137                           0.094   
+                                           (0.08)                          (0.09)   
+constant                   -0.061          -0.085          -0.141          -0.145*  
+                           (0.05)          (0.05)          (0.08)          (0.07)   
+------------------------------------------------------------------------------------
+r2                          0.386           0.401           0.354           0.377   
+------------------------------------------------------------------------------------
+* p<0.05, ** p<0.01, *** p<0.001
+
+.    
+. 
+. gen colliv_rescaled = 10 * colliv
+
+. twoway scatter resgap4 colliv_rescaled if (-0.3 <= resgap4 & resgap4 <= 0.3), xlabel(0 (0.5) 3) /* yscale(range(-0.3 0.3) noextend) */
+
+. 
+. 
+. 
+. 
+. 
+. 
+. 
+. 
+end of do-file
+
