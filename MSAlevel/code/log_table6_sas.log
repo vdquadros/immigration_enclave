@@ -2,7 +2,7 @@
       name:  <unnamed>
        log:  /Users/victoriadequadros/projects/immigration_enclave/MSAlevel/code/log_table6_sas.log
   log type:  text
- opened on:   9 Apr 2019, 11:05:07
+ opened on:   9 Apr 2019, 11:32:58
 
 . 
 . 
@@ -1048,21 +1048,92 @@ Linear regression                               Number of obs     =        124
 
 . 
 . /* High school equivalent regression. With the lagged dependent variable resgap902 */
-. qui reg resgap2 relshs resgap902 logsize80 logsize90 coll80 coll90 nres80 ires80 mfg80 mfg90  [pweight = round(count90)]
+. reg resgap2 relshs resgap902 logsize80 logsize90 coll80 coll90 nres80 ires80 mfg80 mfg90  [pweight = round(count90)]
+(sum of wgt is 93,947)
+
+Linear regression                               Number of obs     =        124
+                                                F(10, 113)        =       3.76
+                                                Prob > F          =     0.0002
+                                                R-squared         =     0.2102
+                                                Root MSE          =     .05648
+
+------------------------------------------------------------------------------
+             |               Robust
+     resgap2 |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+      relshs |   -.029668   .0059502    -4.99   0.000    -.0414564   -.0178796
+   resgap902 |   .0035284   .0639557     0.06   0.956    -.1231794    .1302362
+   logsize80 |  -.0940965   .0336701    -2.79   0.006    -.1608031     -.02739
+   logsize90 |   .1004364   .0328345     3.06   0.003     .0353852    .1654876
+      coll80 |   .0977467   .4738397     0.21   0.837    -.8410151    1.036509
+      coll90 |  -.0057085   .3694701    -0.02   0.988    -.7376954    .7262784
+      nres80 |   .1371544   .1669786     0.82   0.413    -.1936604    .4679692
+      ires80 |  -.1621706   .1443138    -1.12   0.264    -.4480824    .1237411
+       mfg80 |  -.2262871   .3007653    -0.75   0.453    -.8221574    .3695833
+       mfg90 |   .1951649   .3722076     0.52   0.601    -.5422454    .9325752
+       _cons |  -.1270969   .0591703    -2.15   0.034    -.2443239     -.00987
+------------------------------------------------------------------------------
 
 . estimates store m2, title(2)
 
 . 
 . 
 . /* College equivalent regression. Without the lagged dependent variable resgap904 */
-. qui reg resgap4 relscoll logsize80 logsize90 coll80 coll90 nres80 ires80 mfg80  mfg90 [pweight = round(count90)] 
+. reg resgap4 relscoll logsize80 logsize90 coll80 coll90 nres80 ires80 mfg80  mfg90 [pweight = round(count90)] 
+(sum of wgt is 93,947)
+
+Linear regression                               Number of obs     =        124
+                                                F(9, 114)         =       8.05
+                                                Prob > F          =     0.0000
+                                                R-squared         =     0.3857
+                                                Root MSE          =     .05439
+
+------------------------------------------------------------------------------
+             |               Robust
+     resgap4 |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+    relscoll |   -.057598   .0081032    -7.11   0.000    -.0736504   -.0415456
+   logsize80 |  -.0403316   .0302978    -1.33   0.186    -.1003512    .0196881
+   logsize90 |   .0306533   .0308801     0.99   0.323      -.03052    .0918266
+      coll80 |  -.0548485   .4268284    -0.13   0.898    -.9003922    .7906952
+      coll90 |  -.0217467    .307719    -0.07   0.944    -.6313357    .5878423
+      nres80 |   .3092602   .1437582     2.15   0.034     .0244763    .5940441
+      ires80 |  -.2239751   .1266716    -1.77   0.080    -.4749105    .0269604
+       mfg80 |  -.3728826   .2521921    -1.48   0.142    -.8724732    .1267079
+       mfg90 |   .4993245   .3015547     1.66   0.101     -.098053    1.096702
+       _cons |  -.0607633   .0525587    -1.16   0.250    -.1648817    .0433552
+------------------------------------------------------------------------------
 
 . estimates store m3, title(5)
 
 . 
 . 
 . /* College equivalent regression. With the lagged dependent variable resgap904 */
-. qui reg resgap4 relscoll resgap904 logsize80 logsize90 coll80 coll90 nres80 ires80 mfg80 mfg90 [pweight = round(count90)] 
+. reg resgap4 relscoll resgap904 logsize80 logsize90 coll80 coll90 nres80 ires80 mfg80 mfg90 [pweight = round(count90)] 
+(sum of wgt is 93,947)
+
+Linear regression                               Number of obs     =        124
+                                                F(10, 113)        =       8.23
+                                                Prob > F          =     0.0000
+                                                R-squared         =     0.4015
+                                                Root MSE          =     .05393
+
+------------------------------------------------------------------------------
+             |               Robust
+     resgap4 |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+    relscoll |  -.0537796   .0085387    -6.30   0.000    -.0706962    -.036863
+   resgap904 |   .1371809   .0816991     1.68   0.096    -.0246797    .2990415
+   logsize80 |  -.0391777   .0304503    -1.29   0.201    -.0995053    .0211498
+   logsize90 |   .0344733   .0306707     1.12   0.263    -.0262908    .0952375
+      coll80 |  -.1138172   .4347365    -0.26   0.794    -.9751088    .7474743
+      coll90 |   .0450367   .3148131     0.14   0.886    -.5786648    .6687383
+      nres80 |   .3632229    .149734     2.43   0.017     .0665728     .659873
+      ires80 |  -.2871288   .1359867    -2.11   0.037     -.556543   -.0177146
+       mfg80 |  -.4224564   .2414023    -1.75   0.083    -.9007178     .055805
+       mfg90 |   .5461633   .2821784     1.94   0.055    -.0128829     1.10521
+       _cons |  -.0848034   .0498401    -1.70   0.092    -.1835456    .0139388
+------------------------------------------------------------------------------
 
 . estimates store m4, title(6)
 
