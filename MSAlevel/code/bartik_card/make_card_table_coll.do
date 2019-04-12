@@ -3,21 +3,21 @@ adopath+"../code"
 clear all
 discard
 set seed 12345
-use $data_path/input_card, clear
+use $data_path/input_Card, clear
 
 local controls logsize80 logsize90 coll80 coll90 ires80 nres80 mfg80 mfg90
 local weight count90
 
-local y resgap2
-local x relshs
-local z hsiv
+local y resgap4
+local x relscoll
+local z colliv
 
 local ind_stub shric*
-local growth_stub hs_imm_ic*
+local growth_stub coll_imm_ic*
 
 local time_var year
 local cluster_var rmsa
-
+	
 forvalues k = 1(1)38 {
 	egen agg_sh_ind_`k' = rowtotal(shric`k')
 	}
@@ -49,7 +49,7 @@ program define test_and_compare_chao, rclass
 	overid_chao, z(shric*) x($x) y($y) weight_var($weight)
 	local b_1 = r(delta)
 	return scalar b_1 = `b_1'
-	overid_chao, z(shric*) x($x) y($y) controls($controls)  weight_var($weight)
+	overid_chao, z(shric*) x($x) y($y) controls($controls) weight_var($weight)
 	local b_2 = r(delta)
 	return scalar b_2 = `b_2'
 	return scalar diff = `b_1' - `b_2'
@@ -74,7 +74,7 @@ suest ols1 ols2, cluster(rmsa)
 test [ols1_mean]`x'=[ols2_mean]`x'
 local p_ols = "[" + string(r(p), "%12.2f") + "]"
 
-bootstrap b1_bartik = r(b_1) b2_bartik = r(b_2) diff_bartik = r(diff), cluster(rmsa) reps(`n'): test_and_compare tsls hsiv
+bootstrap b1_bartik = r(b_1) b2_bartik = r(b_2) diff_bartik = r(diff), cluster(rmsa) reps(`n'): test_and_compare tsls colliv
 mat b = e(b)
 mat V = vecdiag(e(V))
 local b1_bartik = string(b[1,1], "%12.2f")
@@ -126,14 +126,18 @@ local alpha_K =  `K' / `N'
 local crit = normal(sqrt((1 - `alpha_L') / ( 1- `alpha_K' - `alpha_L'))*invnorm(0.95)) 
 disp chi2(`J_liml', `K'-1)
 
-/* HERE IS MISSING AN OVERID TEST */
+/*
 preserve
+
+local controls2 l_sh_popedu_c l_sh_popfborn l_sh_empl_f l_sh_routine33 l_task_outsource l_shind_manuf_cbp
 expand 2, gen(control_ind)
 
-ivregress liml `y'  (control_ind#c.`x' =  control_ind#c.(`ind_stub'*)) c.control_ind#c.(`controls') control_ind [aw=`weight'], cluster(rmsa)
-test  0.control_ind#c.relshs =  1.control_ind#c.relshs
+
+ivregress liml `y'  (control_ind#c.`x' =  control_ind#c.(t*_`ind_stub'*)) c.control_ind#c.(`controls2') control_ind#i.(reg_* t2) control_ind [aw=`weight'], cluster(rmsa)
+test  0.control_ind#c.d_tradeusch_pw =  1.control_ind#c.d_tradeusch_pw
 local p_liml = "[" + string(r(p), "%12.2f") + "]"
 restore
+*/
 
 bootstrap b1_hful = r(b_1) b2_hful = r(b_2) diff_hful = r(diff), cluster(rmsa) reps(`n'): test_and_compare_chao
 mat b = e(b)
@@ -145,12 +149,12 @@ local se2_hful = "(" + string(sqrt(V[1,2]), "%12.2f") + ")"
 mat pval = r(table)
 local p_hful = "[" + string(pval[4,3], "%12.2f") + "]"
 
-overid_chao, z(`ind_stub'*) x($x) y($y) controls($controls ) weight_var($weight)
+overid_chao, z(shric*) x($x) y($y) controls($controls)  weight_var($weight)
 local J_hful = string(r(T), "%12.2f")
 local Jp_hful = "[" + string(r(p), "%12.2f") + "]"
-capture file close fh
-capture erase "card_results_hs.tex"
-file open fh using "card_results_hs.tex", write replace
+*capture file close fh
+*capture erase "card_results_coll.tex"
+file open fh using "card_results_coll.tex", write replace
 
 file write fh "OLS & `b1_ols' & `b2_ols' & `p_ols' & \\" _n
 file write fh "    & `se1_ols'& `se2_ols'&         & \\" _n
@@ -167,5 +171,3 @@ file write fh "    & `se1_hful'& `se2_hful'&         &  `Jp_hful' \\" _n
 
 file close fh
 
-
-	
