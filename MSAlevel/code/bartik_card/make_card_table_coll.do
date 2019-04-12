@@ -126,18 +126,14 @@ local alpha_K =  `K' / `N'
 local crit = normal(sqrt((1 - `alpha_L') / ( 1- `alpha_K' - `alpha_L'))*invnorm(0.95)) 
 disp chi2(`J_liml', `K'-1)
 
-/*
+/* HERE IS MISSING AN OVERID TEST */
 preserve
-
-local controls2 l_sh_popedu_c l_sh_popfborn l_sh_empl_f l_sh_routine33 l_task_outsource l_shind_manuf_cbp
 expand 2, gen(control_ind)
 
-
-ivregress liml `y'  (control_ind#c.`x' =  control_ind#c.(t*_`ind_stub'*)) c.control_ind#c.(`controls2') control_ind#i.(reg_* t2) control_ind [aw=`weight'], cluster(rmsa)
-test  0.control_ind#c.d_tradeusch_pw =  1.control_ind#c.d_tradeusch_pw
+ivregress liml `y'  (control_ind#c.`x' =  control_ind#c.(`ind_stub'*)) c.control_ind#c.(`controls') control_ind [aw=`weight'], cluster(rmsa)
+test  0.control_ind#c.relshs =  1.control_ind#c.relshs
 local p_liml = "[" + string(r(p), "%12.2f") + "]"
 restore
-*/
 
 bootstrap b1_hful = r(b_1) b2_hful = r(b_2) diff_hful = r(diff), cluster(rmsa) reps(`n'): test_and_compare_chao
 mat b = e(b)
@@ -152,8 +148,8 @@ local p_hful = "[" + string(pval[4,3], "%12.2f") + "]"
 overid_chao, z(shric*) x($x) y($y) controls($controls)  weight_var($weight)
 local J_hful = string(r(T), "%12.2f")
 local Jp_hful = "[" + string(r(p), "%12.2f") + "]"
-*capture file close fh
-*capture erase "card_results_coll.tex"
+capture file close fh
+capture erase "card_results_coll.tex"
 file open fh using "card_results_coll.tex", write replace
 
 file write fh "OLS & `b1_ols' & `b2_ols' & `p_ols' & \\" _n
