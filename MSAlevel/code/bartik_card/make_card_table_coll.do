@@ -131,8 +131,9 @@ preserve
 expand 2, gen(control_ind)
 
 ivregress liml `y'  (control_ind#c.`x' =  control_ind#c.(`ind_stub'*)) c.control_ind#c.(`controls') control_ind [aw=`weight'], cluster(rmsa)
-test  0.control_ind#c.relshs =  1.control_ind#c.relshs
+test  0.control_ind#c.relscoll =  1.control_ind#c.relscoll
 local p_liml = "[" + string(r(p), "%12.2f") + "]"
+disp(`p_liml')
 restore
 
 bootstrap b1_hful = r(b_1) b2_hful = r(b_2) diff_hful = r(diff), cluster(rmsa) reps(`n'): test_and_compare_chao
