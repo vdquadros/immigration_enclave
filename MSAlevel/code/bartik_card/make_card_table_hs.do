@@ -114,19 +114,24 @@ qui ivregress liml `y'  (`x' = `ind_stub'*) [aw=`weight'], cluster(rmsa)
 local b1_liml = string(_b[`x'], "%12.2f")
 local se1_liml = "(" + string(_se[`x'], "%12.2f") + ")"
 qui ivregress liml `y'  (`x' =  `ind_stub'*) `controls' [aw=`weight'], cluster(rmsa)
+estat overid, forceweights forcenonrobust
 local b2_liml = string(_b[`x'], "%12.2f")
 local se2_liml = "(" + string(_se[`x'], "%12.2f") + ")"
 local N = e(N)
+disp(`N')
 local K = wordcount(e(insts)) - wordcount(e(exogr))
+disp(`K')
 local L = wordcount(e(exogr))
+disp(`L')
 local kappa = e(kappa) - 1
+disp(`kappa')
 local J_liml  = (`N' - `K' - `L') * (`kappa' - 1)
+disp(`J_liml')
 local alpha_L =  `L' / `N'
 local alpha_K =  `K' / `N'
 local crit = normal(sqrt((1 - `alpha_L') / ( 1- `alpha_K' - `alpha_L'))*invnorm(0.95)) 
 disp chi2(`J_liml', `K'-1)
 
-/* HERE IS MISSING AN OVERID TEST */
 preserve
 expand 2, gen(control_ind)
 
